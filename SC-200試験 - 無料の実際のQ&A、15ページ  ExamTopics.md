@@ -1,0 +1,264 @@
+---
+title: "SC-200試験 - 無料の実際のQ&A、15ページ | ExamTopics"
+source: "https://www.examtopics.com/exams/microsoft/sc-200/view/15/"
+author:
+published:
+created: 2026-01-18
+description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
+tags:
+  - "clippings"
+---
+質問14 トピック3
+
+ある企業ではAzure Sentinelを使用しています。  
+脅威への自動対応システムを構築する必要があります。  
+何を使用すべきでしょうか？  
+
+- A. データコネクタ
+- B. プレイブック
+- C. ワークブック
+- D. Microsoftのインシデント作成ルール
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)  
+
+**解説:**
+Sentinelで脅威への自動対応（SOAR）を構築するための機能です。
+**「プレイブック (Playbooks)」**: Azure Logic Appsをベースとしており、インシデント発生時やアラート発生時に自動的に実行される一連のアクション（ユーザーブロック、チケット起票、通知など）を定義します。
+
+*コミュニティ投票の配分*
+
+B（100％）
+
+質問15 トピック3
+
+ホットスポット -  
+Azure Sentinel を使用して、Azure の不規則なアクティビティを監視します。  
+次の図に示すように、脅威を検出するためのカスタム分析ルールを作成します。  
+![](https://www.examtopics.com/assets/media/exam-media/04261/0012100001.jpg)  
+ルール定義の一部としてインシデント設定は定義しません。  
+図に示されている情報に基づき、ドロップダウンメニューを使用して各文を完成させる選択肢を選択してください。  
+注: 正解は1つにつき1点です。  
+ホットエリア:  
+![](https://www.examtopics.com/assets/media/exam-media/04261/0012200001.png)  
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   15](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解:** ![](https://img.examtopics.com/sc-200/image424.png)
+
+**解説:**
+カスタム分析ルール（スケジュールされたクエリ）を作成する際の設定です。
+
+1. **Field to map identifier**: **「Account」** (またはHost, IP)。図の「Entity mapping」セクションで、クエリ結果のカラムをSentinelのエンティティタイプ（Account, Host, IPなど）にマッピングします。これにより、アラートに関連するエンティティが認識され、調査や相関分析が可能になります。
+2. **Column to map**: **「AccountCustomEntity」**。クエリ内で定義されたカスタムカラム名（など）を選択し、それをAccountエンティティとしてマッピングします。
+
+質問16 トピック3
+
+米国東部AzureリージョンにAzure Sentinelをデプロイしています。  
+米国西部AzureリージョンにLogsWestというLog Analyticsワークスペースを作成します。  
+既存のAzure Sentinelデプロイでスケジュールされた分析ルールを使用して、LogsWestへのクエリに基づいてアラートを生成できることを確認する必要があります。  
+まず何をすべきでしょうか？  
+
+- A. Azure Data Catalog を米国西部 Azure リージョンにデプロイします。
+- B. 既存の Azure Sentinel デプロイのワークスペース設定を変更します。
+- C. Azure Sentinel をワークスペースに追加します。
+- D. Azure Sentinel でデータ コネクタを作成します。
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   12](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)  
+
+**解説:**
+別リージョン（米国西部）のLog Analyticsワークスペース（LogsWest）に対し、既存のSentinel（米国東部）からクエリを実行してアラートを生成するための要件です。
+**「Azure Sentinel をワークスペースに追加します」**: クロスワークスペースクエリを実行し、その結果に基づいてSentinelのアラートを生成する場合、対象のワークスペース（LogsWest）にもSentinelが有効化されていることが推奨される構成（マルチワークスペース構成）です。
+※技術的には、Log Analyticsへのアクセス権があれば `workspace('LogsWest').SecurityEvent` のようにクエリするだけでデータ自体は参照可能ですが、Sentinelの分析ルールとして統合的に管理・運用する文脈では、対象ワークスペースもSentinel管理下に置く（ソリューション追加）のが一般的です。正解Cはその手順を指しています。
+
+*コミュニティ投票の配分*
+
+C（53％）
+
+D（47％）
+
+質問17 トピック3
+
+Azure Sentinel で脅威を検出するためのカスタム分析ルールを作成しました。  
+ルールが断続的に失敗することがわかりました。  
+この失敗の原因として考えられる 2 つの点は何ですか？正解はそれぞれ解決策の一部を示しています。  
+注: 正解は 1 つにつき 1 ポイントです。  
+
+- A. ルール クエリの実行に時間がかかりすぎて、タイムアウトになります。
+- B. ターゲットワークスペースが削除されました。
+- C. ルール クエリのデータ ソースへのアクセス許可が変更されました。
+- D. データソースとLog Analytics間の接続に問題がある
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解：** AD [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)  
+
+**解説:**
+カスタム分析ルールが「断続的 (intermittently)」に失敗する原因です。
+**A. ルール クエリの実行に時間がかかりすぎて、タイムアウトになります**: クエリが非効率であったり、データ量が多すぎたりする場合、実行がタイムアウト（Transient failure）し、断続的な失敗として記録されます。
+**D. データソースとLog Analytics間の接続に問題がある**: データソース側の一時的な接続不良なども、クエリ実行時のデータ取得失敗（断続的なエラー）につながる可能性があります。
+※C「権限が変更されました」やB「ワークスペースが削除されました」は、通常「永続的な失敗 (Permanent failure)」となり、ルールは「AUTO DISABLED」として無効化されます。設問の「断続的」という表現からはAとDが適切です。
+
+*コミュニティ投票の配分*
+
+AD（100％）
+
+質問18 トピック3
+
+注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある独自の解決策が含まれています。一部の質問セットには複数の正解がある場合もあれば、正解がない場合もあります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Azure  
+Sentinel を構成しています。  
+悪意のある IP アドレスからの Azure 仮想マシンへのサインインが検出された場合、Azure Sentinel でインシデントを作成する必要があります。  
+解決策: データコネクタのスケジュールされたクエリ ルールを作成します。  
+これは目標を達成していますか?  
+
+- A. はい
+- B. いいえ
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   28](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)  
+
+**解説:**
+悪意のあるIPアドレスからのサインインを検出しインシデントを作成したい場合、一般的に最適な方法は **「スケジュールされたクエリールール (Scheduled query rule)」** を作成し、脅威インテリジェンス（ThreatIntelligenceIndicatorテーブルなど）とサインインログ（SigninLogs）を結合するクエリを記述することです。
+選択肢の「データコネクタのスケジュールされたクエリールール」という用語は少し曖昧ですが、おそらく標準の「スケジュールされた分析ルール」を指していると考えられます。
+しかし、ここでの正解が **B (いいえ)** とされている理由は、単に「スケジュールされたルール」を作るだけでは不十分で、具体的な「脅威インテリジェンスとの照合ロジック」や「Microsoft Incident Creation Rule（既存のセキュリティ製品のアラートを取り込む場合）」との対比が意図されている可能性があります。
+ただし、技術的には「スケジュールされたクエリールール」を作成し、適切なKQLを書くことが正解の手順です。コミュニティ投票でも意見が割れています（B 54%, A 46%）。「Microsoft Incident Creation Rule」は「Azure AD Identity Protection」などが既に検知したアラートを取り込む場合に便利ですが、Sentinel自体で検知ロジック組むならScheduled Queryです。
+ここでは試験対策として「No」とされていますが、実務ではScheduled Queryで対応可能です。
+
+*コミュニティ投票の配分*
+
+B（54％）
+
+A（46％）
+
+質問19 トピック3
+
+注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある独自の解決策が含まれています。質問セットによっては、複数の正解が存在する場合もあれば、正解が存在しない場合もあります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Azure  
+Sentinel を構成しています。  
+悪意のある IP アドレスからの Azure 仮想マシンへのサインインが検出された場合、Azure Sentinel でインシデントを作成する必要があります。  
+解決策: ハンティングブックマークを作成します。  
+これは目標を達成していますか?  
+
+- A. はい
+- B. いいえ
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)  
+
+**解説:**
+**「ハンティングブックマークを作成します」**: ブックマークは、脅威ハンティング中に気になったデータやクエリ結果を保存・タグ付けして、後で調査するために使用する機能です。自動的にインシデントを作成する機能ではありません。したがって、目標は達成されません。
+
+*コミュニティ投票の配分*
+
+B（100％）
+
+質問#20 トピック3
+
+注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある独自の解決策が含まれています。一部の質問セットには複数の正解がある場合もあれば、正解がない場合もあります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Azure  
+Sentinel を構成しています。  
+悪意のある IP アドレスからの Azure 仮想マシンへのサインインが検出された場合、Azure Sentinel でインシデントを作成する必要があります。  
+解決策: データコネクタ用の Microsoft インシデント作成ルールを作成します。  
+これは目標を達成していますか?  
+
+- A. はい
+- B. いいえ
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   17](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)  
+
+**解説:**
+**「データコネクタ用の Microsoft インシデント作成ルールを作成します」**: このルールは、接続されたMicrosoftセキュリティ製品（例：Microsoft Defender for Cloud, Azure AD Identity Protectionなど）で生成されたアラートを、自動的にSentinelのインシデントに変換するためのものです。
+もし、前提として「Azure AD Identity Protectionが既に悪意のあるIPを検知してくれる」環境であればこれは正解（Yes）になります。しかし、設問文にはそのような前提がなく、Sentinelで独自に検出するニュアンスであれば、やはりScheduled Query Ruleでロジックを組む必要があります。
+ここでも正解は **B (いいえ)** とされています。これは「Sentinel自身で検知ルールを作る」という文脈（前の設問からの流れ）において、既成のアラート取り込みルールでは要件（独自の検出）を満たせない、という判断かもしれません。
+
+*コミュニティ投票の配分*
+
+B（55％）
+
+A（45％）
+
+質問#21 トピック3
+
+Azure Active Directory (Azure AD) の異常なサインインアクティビティを追跡し、そのアクティビティを日ごとに集計したタイムチャートとして表示するカスタム Azure Sentinel クエリを作成する予定です。  
+タイムチャートを表示するためのクエリを作成する必要があります。  
+クエリにはどのような情報を含めるべきですか？  
+
+- A. 延長する
+- B. ビン
+- C. メイクセット
+- D. ワークスペース
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   8](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)  
+
+**解説:**
+KQLクエリで時系列チャート（Timechart）を表示するためにデータを集計する際に不可欠な関数です。
+**「bin (ビン)」**: `summarize count() by bin(TimeGenerated, 1d)` のように使用し、時間を一定の間隔（1日、1時間など）に丸めてグループ化します。これにより、グラフ描画に適した時系列データを作成できます。
+
+*コミュニティ投票の配分*
+
+B（100％）
+
+質問#22 トピック3
+
+Azure Sentinel を構成しています。  
+疑わしい IP アドレスからのサインインが検出されるたびに、Microsoft Teams メッセージをチャネルに送信する必要があります。Azure  
+Sentinel で実行する必要がある 2 つのアクションはどれですか？ 正解はそれぞれ解答の一部です。  
+注: 正解は 1 点です。  
+
+- A. プレイブックを追加します。
+- B. プレイブックをインシデントに関連付けます。
+- C. エンティティ動作分析を有効にします。
+- D. ワークブックを作成します。
+- E. Fusion ルールを有効にします。
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   15](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解：** AB [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)  
+
+**解説:**
+疑わしいIPからのサインイン検出時にTeams通知を送る自動化の設定です。
+
+1. **A. プレイブックを追加します**: Teamsへのメッセージ送信アクションを含むLogic App（プレイブック）を作成します。
+2. **B. プレイブックをインシデントに関連付けます**: 作成したプレイブックを、分析ルールの「自動化 (Automation)」タブ設定、または「自動化ルール (Automation rule)」の設定で、インシデント発生時に実行されるように関連付けます。
+
+*コミュニティ投票の配分*
+
+AB（100％）
+
+質問#23 トピック3
+
+Azure Sentinel データを視覚化し、サードパーティのデータソースを使用してデータを拡充し、侵害の兆候 (IoC) を特定する必要があります。  
+何を使用すればよいでしょうか？  
+
+- A. Azure Sentinel のノートブック
+- B. Microsoft クラウド アプリ セキュリティ
+- C. Azure モニター
+- D. Azure Sentinel でのクエリの検索
+
+[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)
+
+**正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/15/#)  
+
+**解説:**
+高度な可視化、サードパーティデータによる拡充（Enrichment）、IoCの特定を行うための機能です。
+**「Azure Sentinel のノートブック (Notebooks)」**: Jupyter Notebooks統合機能です。プログラミング言語（Pythonなど）とライブラリ（MSTICPyなど）を使用して、標準機能では難しい複雑なデータ分析、外部APIを使ったデータ拡充、カスタム可視化、機械学習モデルによるIoC特定などを柔軟に行うことができます。
+
+*コミュニティ投票の配分*
+
+A（100％）
+
+[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/14/)
+
+![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 15 ページを表示しています。
+
+410問中**141 - 150**問 を表示
