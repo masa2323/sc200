@@ -25,13 +25,13 @@ tags:
 **正解:** ![](https://img.examtopics.com/sc-200/image429.png)
 
 **解説:**
-### 1. The `UserName` field is set as the account entity. (**はい**)
+1. The `UserName` field is set as the account entity. (**はい**)
 クエリの最終行に `AccountCustomEntity = UserName` という記述があります。これは、Microsoft Sentinel の分析ルールにおいて、`UserName` フィールドの値を「アカウント」エンティティとしてマッピングしていることを示しています。
 
-### 2. The watchlist cannot be updated after it is created. (**いいえ**)
+2. The watchlist cannot be updated after it is created. (**いいえ**)
 Microsoft Sentinel のウォッチリスト（このクエリでは `_GetWatchlist('Bad_IPs')` で呼び出されているもの）は、作成後も内容を更新、削除、または新しいデータの追加が可能です。クエリ内で呼び出されているからといって、そのデータが固定（イミュータブル）されるわけではありません。
 
-### 3. The `IPList` variable is set as the IP address entity. (**いいえ**)
+3. The `IPList` variable is set as the IP address entity. (**いいえ**)
 `IPList` は、クエリの冒頭で `let IPList = _GetWatchlist('Bad_IPs');` と定義されており、ウォッチリスト内の**IPアドレスのリスト全体**を保持する変数です。 一方で、IPアドレスエンティティとしてマッピングされているのは、クエリ末尾の `IPCustomEntity = case(...)` の部分であり、そこでは個別の `SourceIP` または `DestinationIP` が代入されています。`IPList` 変数そのものがエンティティとして設定されているわけではありません。
 
 質問#55 トピック3

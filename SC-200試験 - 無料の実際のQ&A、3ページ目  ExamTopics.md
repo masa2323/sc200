@@ -176,18 +176,17 @@ Reference:
 User1 が実行する必要のある以下のタスクは、すべて **Security Administrator** ロールで許可されています。
 
 - **イニシアチブの割り当て（Assign initiatives）**: セキュリティポリシーの管理権限が必要です。
-    
+
 - **セキュリティポリシーの編集（Edit security policies）**: Security Administrator はポリシーの表示および編集が可能です。
-    
+
 - **自動プロビジョニングの有効化（Enable automatic provisioning）**: エージェントの自動インストール設定などの管理には、Security Administrator または Owner ロールが必要です。
-    
 
 ### User2 への割り当て理由
 
 User2 のタスクにおいて決定的なのは「アラートの却下」です。
 
 - **推奨事項の適用（Apply security recommendations）**: リソースの修正には書き込み権限が必要ですが、セキュリティ管理の文脈では Security Administrator がこれを担います。
-    
+
 - **アラートの却下（Dismiss alerts）**: **Security Administrator** ロールの重要な権限の一つです。Security Reader（セキュリティ閲覧者）は表示のみが可能で、却下はできません。また、通常の Contributor（共同作成者）ロールにはセキュリティアラートを管理する特定の権限が含まれていないため、最小権限の原則に照らすと Security Administrator が最適です。
 
 質問#27 トピック1
