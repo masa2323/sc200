@@ -58,10 +58,9 @@ A（100％）
 
 質問#46 トピック3
 
-Microsoft Sentinel を使用する Azure サブスクリプションがあり、100 台の Linux 仮想マシンが含まれています。Microsoft  
-Sentinel を使用してこれらの仮想マシンを監視する必要があります。ソリューションは、以下の要件を満たす必要があります。✑  
-管理作業を最小限に抑える。✑  
-FOG データの読み取りに必要な解析を最小限に抑える。  
+Microsoft Sentinel を使用する Azure サブスクリプションがあり、100 台の Linux 仮想マシンが含まれています。Microsoft  Sentinel を使用してこれらの仮想マシンを監視する必要があります。ソリューションは、以下の要件を満たす必要があります。
+✑  管理作業を最小限に抑える。
+✑  FOG データの読み取りに必要な解析を最小限に抑える。  
 どのような構成が必要ですか？  
 
 - A. Log Analytics データコレクター API
@@ -102,7 +101,7 @@ for Cloud のログを Syslog サーバーにストリーミングする必要�
 Defender for CloudのログをSyslogサーバーにストリーミングする構成です。
 
 1. **Azure Event Hubs**: 「連続エクスポート (Continuous Export)」機能を使用して、Defender for Cloudのアラートや推奨事項をAzure Event Hubにストリーミングします。これがSyslogなど外部への出口となります。
-2. **Azure Logic App**: （※選択肢の画像構成によってはAzure Functionの場合もありますが、Event Hubからデータを取り出しSyslogサーバーへ転送するためにLogic AppやFunctionなどのコンピュートリソースを使用するのが一般的です。ただし、標準的な構成では「Event Hub + Logic App/Function」または「SentinelのSyslogコネクタ経由」などが考えられますが、Defender for Cloudからの直接エクスポートとしてはEvent Hubが必須です。）
+2. **Azure Policy**: Microsoft Defender for Cloud データのイベント ハブへのエクスポートをデプロイする
 ※正解画像の選択肢が不明瞭ですが、**「Continuous export」**を設定し、ターゲットとして**「Event Hub」**を選択する構成が最小労力の鍵です。
 
 質問#48 トピック3
@@ -160,10 +159,7 @@ Microsoft Sentinel ワークスペースがあります。
   
 ![](https://img.examtopics.com/sc-200/image135.png)  
   
-というカスタム パーサーを作成する予定です。Parser1  
-  
-で Query1 を使用する必要があります。  
-  
+というカスタム パーサーを作成する予定です。Parser1  で Query1 を使用する必要があります。  
 まず何をすべきでしょうか。
 
 - A. 5行目を削除します。
@@ -249,11 +245,8 @@ D（32％）
 9%
 
 質問#53 トピック3
-
-HOTSPOT -  
   
 Microsoft 365 E5 サブスクリプションがあり、User1 と User2 という 2 人のユーザーがいます。  
-  
 次の図に示すようなハンティングクエリがあります。  
   
 ![](https://img.examtopics.com/sc-200/image136.png)  
@@ -279,9 +272,9 @@ Microsoft 365 E5 サブスクリプションがあり、User1 と User2 とい�
 AuditLogsに対するHuntingクエリの結果判定です。
 クエリは `AuditLogs | where OperationName == "Add member to role" ...` と `... "Add user"` のような操作を対象にしています。
 
-1. **User1 assigned the Global Administrator role to User2?**: **No**。User1がUser2にロールを割り当てた場合、InitiatedBy（Actor）がUser1、TargetResources（Target）がUser2になりますが、クエリの `TargetResources` のプロパティ展開ロジックが正しくユーザーIDやロールIDを抽出できているか確認が必要です。
-2. **User3 created?**: **Yes/No**。ユーザー作成イベントが含まれているかによります。
-3. **User4 assigned Security Reader?**: **Yes/No**。
+1. いいえ - クエリは、ロールの割り当てを含むユーザー作成イベントを検索することを目的としていますが、これは一致しません。
+2. いいえ - クエリの最初の部分には一致しますが、2 番目の部分には一致しません。
+3. はい - 新しいユーザーが作成され、クエリの両方の部分に一致するセキュリティ オペレーター ロールが割り当てられます。
 ※このHuntingクエリは `TargetResources` 内の `modifiedProperties` を解析しようとしていますが、通常 `Add member to role` イベントでは、対象ユーザーやロール情報は `TargetResources` 直下や特定のプロパティにあります。クエリが正しくターゲットを特定できているかどうかがポイントです。
 
 [以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/17/)

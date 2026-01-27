@@ -76,13 +76,25 @@ Policyの割り当ては、Policiesの図に示されているように構成さ
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0007200002.png) 参照:  
 
 **解説:**
-セキュリティスコアとポリシー設定に基づく判断です。
+ご提示いただいた画像の情報に基づき、各ステートメントの正誤を以下に回答します。
 
-1. **vm1**: ポリシー「Secure management ports (管理ポートをセキュリティで保護する)」が「Unhealthy (異常)」状態です。これは通常、JITアクセスが有効になっていないか、NSGで管理ポート（RDP/SSH）が制限なしに開放されていることを意味します。したがって、管理ポートへの無制限のアクセスを制限する必要があります => **「はい」**。
-2. **vm2**: 同ポリシーが「Healthy (正常)」状態です。これは要件を満たしていることを意味します => **「いいえ」**。
-3. **ネットワークセキュリティグループ (NSG)**: JIT VMアクセスや管理ポートの保護を実装するには、NSG（またはAzure Firewall）が必須です。セキュリティポリシーの推奨事項に従い、ポートを閉じてJIT経由でのみ開くように構成するため、NSGを作成・構成する必要があります => **「はい」**。
-
-<https://techcommunity.microsoft.com/t5/azure-security-center/security-control-restrict-unauthorized-network-access/ba-p/1593833> <https://techcommunity.microsoft.com/t5/azure-security-center/security-control-secure-management-ports/ba-p/1505770>
+1. **Both virtual machines have inbound rules that allow access from either Any or Internet ranges.（両方の仮想マシンに、AnyまたはInternetの範囲からのアクセスを許可するインバウンドルールがある。）**
+    
+    - **はい**
+        
+    - **理由:** 画像2の「Restrict unauthorized network access（権限のないネットワークアクセスの制限）」の項目を確認すると、「2 of 2 resources（2つのリソースのうち2つ）」が「Unhealthy（異常）」となっています。これは、対象となる両方の仮想マシンでネットワーク制限が不十分であることを示しています。
+        
+2. **Both virtual machines have management ports exposed directly to the internet.（両方の仮想マシンの管理ポートがインターネットに直接公開されている。）**
+    
+    - **いいえ**
+        
+    - **理由:** 画像2の「Secure management ports（管理ポートの保護）」の項目を確認すると、「1 of 2 resources（2つのリソースのうち1つ）」のみが「Unhealthy（異常）」となっています。つまり、管理ポートが公開されているのは1台のみであり、「両方」という記述は正しくありません。
+        
+3. **If you enable just-in-time network access controls on all virtual machines, you will increase the secure score by four point.（すべての仮想マシンで Just-In-Time ネットワークアクセス制御を有効にすると、セキュアスコアが4ポイント増加する。）**
+    
+    - **はい**
+        
+    - **理由:** Just-In-Time（JIT）アクセスは、通常「Restrict unauthorized network access」の対策に含まれます。画像2でこのコントロールを完全に実施した場合の「Potential score increase（スコア向上の可能性）」は「4 points（4ポイント）」と記載されています。
 
 質問18 トピック2
 
@@ -98,13 +110,14 @@ Policyの割り当ては、Policiesの図に示されているように構成さ
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0007400001.png) 参考:  
 
 **解説:**
-Defender Vulnerability Management (MDVM) を使用して脆弱性の修復を依頼するプロセスです。
+- **手順 1 (Weaknesses):** Microsoft Defender において、特定の CVE ID（共通脆弱性識別子）に基づいて環境内の影響を確認する出発点は「弱点（Weaknesses）」ページです。ここで該当の CVE を検索することで、その脆弱性がどの程度のデバイスに影響しているか、エクスプロイトが利用可能かなどの詳細を確認できます。
+    
+- **手順 2 (Security recommendations):** CVE を特定した後、その脆弱性を修正するための具体的なアクションを確認するために「セキュリティの推奨事項」へ移動します。1つの脆弱性に対して、特定の更新プログラムの適用などの推奨される解決策が提示されます。
+    
+- **手順 3 (Remediation request):** 推奨事項の画面から、Intune などの管理ツールと連携して、影響を受けるシステムの担当チームに正式な「修復要求」を発行します。これにより、IT 運用チームに対して修正タスクを割り当てることが可能になります。
+    
 
-1. **セキュリティに関する推奨事項を選択する**: まず、対処すべき特定の脆弱性に関する推奨事項（セキュリティ・レコメンデーション）を選択します。
-2. **修復をリクエストする (Request remediation)**: 推奨事項の詳細画面から「修復オプション」を選択し、ITチームへのチケット作成（Microsoft Intune接続など）を行います。
-3. **修復リクエストの設定を構成する**: チケットの優先度、期日、メモなどを入力・選択し、リクエストを確定します。このアクションにより、IT管理者のコンソール（Endpoint Manager等）にタスクが作成されます。
-
-<https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/microsoft-defender-atp-remediate-apps-using-mem/ba-p/1599271>
+他の選択肢（デバイスインベントリからの検索や高度な狩猟など）でも影響を受けるデバイスを特定することは可能ですが、**「担当チームに修復を依頼する」という標準的なワークフロー**として最も適切なのは上記の手順です。
 
 質問19 トピック2
 
@@ -249,13 +262,11 @@ Center で、どの 3 つの操作を順番に実行すればよいでしょう�
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0008100001.jpg) 参照:  
 
 **解説:**
-通常のアクティビティによる大量のアラートを自動的に非表示にするには、抑制ルールを作成します。
-
-1. **「セキュリティアラート」からアラートを選択する**: まず、抑制したい対象のアラート（ノイズとなっているアラート）を選択します。
-2. **「アクションの実行」を選択する**: アラートの詳細画面からアクションメニューを開きます。
-3. **「抑制ルールを作成する」を選択する**: 「類似のアラートを抑制する」オプションからルール作成画面へ進み、条件を定義してルールを保存します。
-
-<https://techcommunity.microsoft.com/t5/azure-security-center/suppression-rules-for-azure-security-center-alerts-are-now/ba-p/1404920>
+- **手順 1 (Security alerts):** アラートの管理や抑制の設定は、まず「セキュリティ アラート」ダッシュボードから開始します。
+    
+- **手順 2 (Suppression rules):** 特定のアラートを自動的に非表示にするための専用機能が「抑制ルール」です。ここで新しいルールを作成することで、将来発生する同様のアラートを「破棄」または「非表示」としてマークできます。
+    
+- **手順 3 (Azure Resource / Resource ID):** 今回の対象は特定の「Azure Functions アプリ」であるため、ルールを適用する範囲（エンティティ）として「Azure Resource」を選択し、そのアプリ固有の Resource ID を指定するのが最も正確な設定方法です。
 
 [以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/8/)
 

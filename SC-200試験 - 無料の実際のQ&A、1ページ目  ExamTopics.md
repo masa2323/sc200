@@ -25,8 +25,23 @@ Microsoft 365 Defender を使用してインシデントを調査しています
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0001200001.png)
 
 **解説:**
-失敗したサインイン（ActionTypeが "LogonFailed" など）を特定し、かつ特定のデバイス（CFOLaptop, CEOLaptop, COOLaptop）に絞り込む必要があります。
-クエリの基本形は `DeviceLogonEvents` テーブルを使用し、`where DeviceName in ("CFOLaptop", "CEOLaptop", "COOLaptop")` でデバイスをフィルタリング、`where ActionType == "LogonFailed"` で失敗を抽出します。最後に `summarize count() by DeviceName` などで集計します。
+1. テーブルの選択: `DeviceLogonEvents`
+
+サインイン（ログオン）に関するイベントを調査する場合、最も適切なテーブルは **`DeviceLogonEvents`** です。`DeviceEvents` はプロセス作成やファイル変更など、より広範なデバイス操作を記録するテーブルであるため、ログオンに特化した調査では効率的ではありません。
+
+2. フィルタリング: `where` ... `and`
+
+特定のデバイス（CFOLaptop, CEOLaptop, COOLaptop）に絞り込むために `in` 演算子を使用したフィルタリングを行います。 また、UI 上で 2 番目のボックスと 3 番目のボックスの間に **「and」** が配置されているため、1 つの `where` 句内で複数の条件を繋ぐ形式になります。
+
+- `| where DeviceName in (...)` **and** `ActionType == "LogonFailed"` これにより、「指定した 3 台のいずれか」かつ「ログオン失敗」という条件が完成します。
+    
+3. 集計処理: `summarize`
+
+今回の目的は「カウントする（count）」ことです。
+
+- **`summarize`**: データの集計（カウント、合計、平均など）を行う際に使用します。
+    
+- **`project`**: 特定の列を選択して表示するだけで、集計（計算）は行いません。 したがって、`count()` 関数を使用してデバイス名やログオンタイプごとに集計を行う `| summarize LogonFailures=count() by DeviceName, LogonType` が正解となります。
 
 質問2 トピック1
 
@@ -94,13 +109,30 @@ D.
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   49](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
 
-**正解:** BC  
-参考:  
-<https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/attack-surface-reduction>
-
 **解説:**
-Officeマクロが子プロセスを作成するのを防ぐには、**攻撃面の減少 (Attack Surface Reduction: ASR)** ルールを使用します。
-PowerShellコマンドレット `Add-MpPreference` を使用し、`-AttackSurfaceReductionRules_Ids` で特定のルールID（"Block all Office applications from creating child processes" のGUID）を指定し、`-AttackSurfaceReductionRules_Actions` を `Enabled` に設定することで有効化します。したがって、ID指定とアクション設定の2つのコマンド（またはパラメータ）が正解となります。
+この問題の核心は、「防止 (Prevent/Block)」するために必要な設定値と、PowerShell のコマンドレットの使い分けにあります。
+
+1. 「防止」するためのアクション設定
+
+ユーザーが Office VBA マクロから子プロセスを実行することを **防止** するには、ASR ルールのアクションを **`Enabled`**（有効/ブロック）に設定する必要があります。
+
+- **`Enabled`**: ルールに合致する動作をブロックします。
+    
+- **`AuditMode`**: 動作をログに記録しますが、実行自体はブロックしません。
+    
+
+このため、アクションに `AuditMode` を指定している **B** と **C** は、今回の要件を満たしません。
+
+2. コマンドレットの使い分け (`Add` vs `Set`)
+
+Microsoft Defender の設定を変更する際、以下の 2 つのコマンドレットはどちらも有効な設定方法となります。
+
+- **`Add-MpPreference`**: 既存の設定（他の ASR ルールなど）を保持したまま、新しいルールを追加します。
+    
+- **`Set-MpPreference`**: 指定したプロパティの設定を上書き（または構成）します。
+    
+
+問題文に「2 つのコマンド」とあり、「それぞれが完全なソリューションを示す」とされているため、`Enabled` を指定している **A** と **D** が正解となります。
 
 質問5 トピック1
 
@@ -175,11 +207,19 @@ Microsoft 365 E5 サブスクリプションをご利用です。Microsoft
 <https://docs.microsoft.com/en-us/microsoft-365/security/mtp/advanced-hunting-query-emails-devices?view=o365-worldwide>
 
 **解説:**
-悪意のある添付ファイルがデバイスに影響を与えたかどうかを調査するクロスドメインクエリです。
+このクエリは、「メールのデータ」と「デバイス上のファイル操作データ」という 2 つの異なるドメインを結合して調査する、クロスドメインクエリの典型的な構成です。
 
-- 電子メールの添付ファイル情報を取得するために `EmailAttachmentInfo` テーブルを使用します。
-- デバイス上でのファイルイベントを確認するために `DeviceFileEvents` テーブルを使用します。
-これらを `SHA256` などのハッシュ値や `FileName` で結合（Join）することで、メールで受信したファイルが実際にデバイス上で作成・操作されたかを特定できます。
+1. `join`（1 番目のドロップダウン）
+
+`EmailAttachmentInfo` テーブル（メールの添付ファイル情報）と `DeviceFileEvents` テーブル（デバイス上のファイル操作情報）を関連付けるには、共通のキー（今回は `SHA256` ハッシュ値）を使用してテーブルを結合する必要があります。そのため、**`join`** 演算子を使用します。
+
+2. `project`（2 番目のドロップダウン）
+
+`join` の括弧内にある `DeviceFileEvents` から、結合に必要な `SHA256` と、後で表示したい `FileName` だけを抽出しています。このように、特定の列のみを選択（投影）する演算子は **`project`** です。結合前に列を絞り込むことは、クエリのパフォーマンス向上にも繋がります。
+
+3. `project`（3 番目のドロップダウン）
+
+クエリの最後で、最終的に表示したい列（タイムスタンプ、デバイス名、受信者アドレスなど）をリストアップしています。ここでも、出力結果に含める列を指定するために **`project`** 演算子を使用します。
 
 質問8 トピック1
 

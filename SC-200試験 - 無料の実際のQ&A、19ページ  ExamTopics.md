@@ -9,8 +9,6 @@ tags:
   - "clippings"
 ---
 質問#54 トピック3
-
-HOTSPOT -  
   
 次のKQLクエリがあります。  
   
@@ -27,22 +25,18 @@ HOTSPOT -
 **正解:** ![](https://img.examtopics.com/sc-200/image429.png)
 
 **解説:**
-KQLクエリ `search in (AuditLogs, SigninLogs) "User1" | summarize count() by $table` の動作に関する問題です。
+### 1. The `UserName` field is set as the account entity. (**はい**)
+クエリの最終行に `AccountCustomEntity = UserName` という記述があります。これは、Microsoft Sentinel の分析ルールにおいて、`UserName` フィールドの値を「アカウント」エンティティとしてマッピングしていることを示しています。
 
-1. **The query returns a count of the events in AuditLogs and SigninLogs that contain "User1": Yes**。`search` 演算子は指定されたテーブル（AuditLogs, SigninLogs）の全カラムから文字列 "User1" を検索します。
-2. **The results are grouped by table name: Yes**。`summarize count() by $table` は、検索結果をテーブル名ごとにグループ化して件数をカウントします。
-3. **The query supports the same Log Analytics limits as the union operator: No**。`search` はテキスト検索に特化しており、`union` とは異なる処理制限や特性を持ちます（例えば、全カラム検索のためコストが高い場合があります）。
+### 2. The watchlist cannot be updated after it is created. (**いいえ**)
+Microsoft Sentinel のウォッチリスト（このクエリでは `_GetWatchlist('Bad_IPs')` で呼び出されているもの）は、作成後も内容を更新、削除、または新しいデータの追加が可能です。クエリ内で呼び出されているからといって、そのデータが固定（イミュータブル）されるわけではありません。
+
+### 3. The `IPList` variable is set as the IP address entity. (**いいえ**)
+`IPList` は、クエリの冒頭で `let IPList = _GetWatchlist('Bad_IPs');` と定義されており、ウォッチリスト内の**IPアドレスのリスト全体**を保持する変数です。 一方で、IPアドレスエンティティとしてマッピングされているのは、クエリ末尾の `IPCustomEntity = case(...)` の部分であり、そこでは個別の `SourceIP` または `DestinationIP` が代入されています。`IPList` 変数そのものがエンティティとして設定されているわけではありません。
 
 質問#55 トピック3
-
-HOTSPOT  
-\-  
   
-Microsoft Sentinelワークスペースがあります。Parser1  
-  
-というカスタムAdvanced Security Information Model (ASIM)パーサーを開発し、Schema1というスキーマを生成します。Schema1を  
-  
-検証する必要があります。  
+Microsoft Sentinelワークスペースがあります。Parser1  というカスタムAdvanced Security Information Model (ASIM)パーサーを開発し、Schema1というスキーマを生成します。Schema1 を検証する必要があります。  
   
 コマンドをどのように完了すればよいですか？回答するには、回答エリアから適切なオプションを選択してください。  
   
@@ -55,24 +49,19 @@ Microsoft Sentinelワークスペースがあります。Parser1
 **正解:** ![](https://img.examtopics.com/sc-200/image143.png)
 
 **解説:**
-ASIMパーサーが生成するスキーマ（Schema1）を検証するためのコマンド（クエリ）です。
-**「ASIMスキーマテスター（ASIM schema tester）」**: ASIMには、パーサーが標準スキーマに準拠しているか確認するための検証用クエリ（ツール）が用意されています。これは通常、Sentinelのログクエリ画面から実行します。
-※画像選択肢の詳細は不明ですが、`Get-AzSentinel...` のようなPowerShellコマンドレットではなく、KQLベースの検証クエリを選択する流れとなります（あるいはValidation用の特定の関数呼び出し）。
+- **getschema**: この演算子は、`Parser1` が出力するデータの「列名」と「データ型」の一覧をテーブル形式で出力します。
+- **invoke**: `getschema` で作成された「スキーマ情報テーブル」を、次の `ASimSchemaTester` 関数に引数として渡すために使用します。
+- **ASimSchemaTester('Schema1')**: この関数は、データそのものではなく、**「データの構造（getschemaの出力）」**を受け取って、それが `Schema1` の定義と一致しているかをチェックします。
 
 質問#56 トピック3
-
-HOTSPOT  
-\-  
   
-ユーザーおよびエンティティ行動分析 (UEBA) が有効になっている Microsoft Sentinel ワークスペースがあります。Server1  
-  
-というサーバー上で実行された、セキュリティ上重要なユーザー操作に関連するすべてのログエントリを特定する必要があります。ソリューションは以下の要件を満たす必要があります。  
+ユーザーおよびエンティティ行動分析 (UEBA) が有効になっている Microsoft Sentinel ワークスペースがあります。Server1  というサーバー上で実行された、セキュリティ上重要なユーザー操作に関連するすべてのログエントリを特定する必要があります。ソリューションは以下の要件を満たす必要があります。  
   
 • IT 部門のメンバーではないユーザーによる、セキュリティ上重要な操作のみを含める。  
 • 誤検知の数を最小限に抑える。  
   
 クエリをどのように完了すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
-  
+
 注: 正しい選択ごとに 1 ポイントが加算されます。  
   
 ![](https://img.examtopics.com/sc-200/image144.png)
@@ -82,21 +71,27 @@ HOTSPOT
 **正解:** ![](https://img.examtopics.com/sc-200/image145.png)
 
 **解説:**
-UEBAが有効な環境で、IT部門以外のユーザーによる重要な操作を特定するクエリです。
+1. `join kind=inner (` を選択する理由
 
-1. **IdentityInfo**: ユーザーの部署（Department）やグループ情報などを含むUEBAエンティティテーブルです。これとSecurityEventやAuditLogsを結合します。
-2. **Department != "IT"**: `IdentityInfo` テーブルの `Department` 列を使用して、IT部門のユーザーを除外します。
-3. **summarize ... by AccountName**: アカウントごとに集計します。
+「IT部門ではないユーザー」という条件でフィルタリングを行うためには、左側のテーブル（SecurityEvent）と右側のテーブル（ユーザー情報）の両方に存在するレコードのみを抽出する必要があります。`inner` ジョインを使用することで、右側のテーブルに情報がない（マッチしない）レコードを除外でき、**誤検知の数を最小限に抑える**という要件を満たすことができます。
+
+2. `IdentityInfo` を選択する理由
+
+「部署（Department）」などのユーザー属性情報は、UEBAが有効なワークスペースでは **`IdentityInfo`** テーブルに格納されます。
+
+- **BehaviorAnalytics**: ユーザーの異常行動やスコアを格納するテーブルです。
+    
+- **SecurityEvent**: すでにメインのクエリ（左側）で使用されており、自己結合は今回の目的（属性によるフィルタ）には適しません。
+    
+ 3. `summarize arg_max` の役割
+
+`IdentityInfo` テーブルには時間の経過とともに同じユーザーのデータが複数記録されます。`summarize arg_max(TimeGenerated, *) by AccountObjectId` を使用することで、各ユーザーの**最新のプロファイル情報**（最新の部署情報など）のみを取得し、正確なフィルタリングを可能にします。
 
 質問#57 トピック3
-
-HOTSPOT  
-\-  
   
 Microsoft Sentinelワークスペースをお持ちです。  
   
 過去3時間に複数の国から成功したサインインを識別するKQLクエリを作成する必要があります。  
-  
 クエリはどのように完成させるべきですか？回答するには、回答エリアで適切なオプションを選択してください。  
   
 注：正解は1つにつき1ポイントです。  
@@ -108,13 +103,30 @@ Microsoft Sentinelワークスペースをお持ちです。
 **正解:** ![](https://img.examtopics.com/sc-200/image147.png)
 
 **解説:**
-過去3時間以内に複数の国から成功したサインインを検出するKQLクエリです。
+1. `imAuthentication` を選択する理由
 
-1. **SigninLogs**: サインインログテーブルを使用します。
-2. **where TimeGenerated > ago(3h)**: 過去3時間にフィルタリングします。
-3. **where ResultType == 0**: 成功したサインイン（ResultType 0）に絞り込みます。
-4. **summarize Count = dcount(Location) by UserPrincipalName**: ユーザーごとに、ロケーション（国/地域）のユニーク数（distinct count）をカウントします。
-5. **where Count > 1**: ロケーション数が1より大きい（複数国）ユーザーを抽出します。
+「サインイン（ログオン）」に関する情報を取得するためには、ASIMの**認証スキーマ**を使用する必要があります。
+
+- **imAuthentication**: ログオン、ログアウト、パスワード変更などの認証イベントを正規化するスキーマです。
+    
+- クエリの4行目に `EventType == 'Logon'` とあることからも、認証イベントを扱うこのテーブルが適切です。
+    
+- 他の `imNetworkSession`（ネットワーク通信）や `imWebSession`（HTTPリクエスト）などは、サインインの成功/失敗を判定するスキーマではありません。
+    
+
+ 2. `SrcGeoCountry` を選択する理由
+
+「複数の国から」という条件を判定するためには、接続元（ソース）の国情報をカウントする必要があります。
+
+- **SrcGeoCountry**: サインインを試みた場所（ソース）の国名を表すASIM標準フィールドです。
+    
+- 直前の行で `isnotempty(SrcGeoCountry)` とフィルタリングされていることからも、このフィールドをカウント対象にするのが論理的です。
+    
+- **DstGeoCountry** は「宛先」の国を指すため、ユーザーがどこからアクセスしたかを判定するこのケースには適しません。
+    
+
+ 完成したクエリのロジック
+このクエリは、過去3時間に成功したログオンイベントを集計し、異なる送信元の国（`SrcGeoCountry`）の数（`dcount`）が5（`threshold`）以上のユーザーを抽出する、典型的な「あり得ない移動（Impossible Travel）」や「広範囲からのアクセス」を検知するためのものです。
 
 質問#58 トピック3
 
@@ -141,15 +153,29 @@ Sentinelワークスペースを実装する予定です。1日あたり20GBの�
 **正解:** ![](https://img.examtopics.com/sc-200/image149.png)
 
 **解説:**
-コストを最小化しつつデータを長期間保持するストレージ構成です。
+1. 取り込みコストの最小化について
 
-1. **Minimize the cost of ingested data**: **「Basic Logs (基本ログ)」**。デバッグやトラブルシューティング目的の大量ログ（NetFlowなど）については、Basic Logsプランを使用することで取り込みコストを大幅に削減できます。
-2. **Maximize data retention without incurring additional costs**: **「Create an archive (アーカイブを作成)」**（またはArchive tierへの移動）。Log Analyticsのデータ保持期間を超える場合、Archive層に移動することで、安価に長期間（最大7年）保持できます。
+Microsoft Sentinelの「コミットメントティア（予約容量）」は、最低でも **1日あたり100GB** の取り込みを約束することで割引が適用される仕組みです。
+
+- 今回のケースでは、取り込み予定量が **1日あたり20GB** です。
+    
+- 100GBティアを選択すると、実際には20GBしか使っていなくても100GB分の固定料金（1日約296ドル〜）を支払うことになります。
+    
+- **Pay-As-You-Go (従量課金)** モデルであれば、実際に取り込んだ20GB分のみ（1GBあたり約4.3ドル × 20GB = 1日約86ドル）の支払いで済むため、こちらのほうが低コストになります。
+    
+
+ 2. データ保持期間の最大化について
+
+Microsoft Sentinelが有効なワークスペースでは、**最初の90日間** のデータ保持が追加コストなし（無料）で提供されます。
+
+- **31日間**: デフォルトのLog Analytics設定に近いですが、Sentinelの特典である90日間をフルに活用できていません。
+    
+- **90日間**: Sentinelの「無料保持期間」を最大限に活用できる設定です。
+    
+- **365日間**: 90日を超えた分（残りの275日分）に対して追加の保持コストが発生するため、要件の「追加コストをかけずに」に反します。
 
 質問#59 トピック3
 
-HOTSPOT -  
-  
 sws1 という Microsoft Sentinel ワークスペースがあります。sws1  
   
 でインシデントが発生した際に、オンプレミスの IT サービス管理システムでインシデントを通知する Azure ロジック アプリを作成する予定です。  
@@ -172,8 +198,24 @@ sws1 という Microsoft Sentinel ワークスペースがあります。sws1
 **解説:**
 Logic AppのSentinelコネクタ用資格情報を、最小権限かつ管理負荷最小で構成する方法です。
 
-1. **Authentication type**: **「Managed Identity (マネージドID)」**。Logic Appのシステム割り当てマネージドIDを使用することで、パスワード管理が不要になり、安全かつ管理が容易になります。
-2. **Role**: **「Microsoft Sentinel Responder」**。インシデントの更新（クローズやコメント追加）を行うには、Responderロールが必要です。Contributorは過剰権限、Readerでは更新ができません。
+1. マネージド ID を選択する理由 (管理作業の最小化)
+
+マネージド ID は Azure によって自動的に管理される ID であり、パスワードやシークレットの管理（作成、保存、ローテーションなど）が不要です。
+
+- **A service principal (サービス プリンシパル)** は、シークレットの管理や有効期限の監視が必要になるため、管理作業が増加します。
+    
+- **An Azure AD user account (Azure AD ユーザー アカウント)** は、個人のパスワード管理や多要素認証 (MFA) の影響を受けるため、自動化には適しません。
+    
+
+	 1. Microsoft Sentinel Reader を選択する理由 (最小権限の原則)
+
+今回の要件は、インシデントが発生した際に「通知」を行うことです。
+
+- **Microsoft Sentinel Reader**: インシデントのデータを受け取り、その内容を読み取って通知を送るために必要な最小限の権限（表示権限）を持っています。
+    
+- **Microsoft Sentinel Responder**: インシデントの割り当てや状態変更、ウォッチリストの更新などが可能ですが、通知を送るだけであれば過剰な権限となります。
+    
+- **Microsoft Sentinel Automation Contributor**: 自動化ルールを管理するための権限であり、ロジックアプリがインシデント情報を読み取るための権限ではありません。
 
 質問#60 トピック3
 
@@ -258,12 +300,24 @@ SW1というMicrosoft Sentinelワークスペースがあります。
 **正解:** ![](https://img.examtopics.com/sc-200/image153.png)
 
 **解説:**
-プロバイダーごとに1日あたりのセキュリティアラート数を特定する、タイムチャート用クエリです。
-`SecurityAlert | summarize count() by ProviderName, bin(TimeGenerated, 1d) | render timechart`
+1. `bin` を選択する理由
 
-1. **summarize count()**: アラート数をカウントします。
-2. **by ProviderName, bin(TimeGenerated, 1d)**: プロバイダー名と、1日（1d）ごとの時間枠（bin）でグループ化します。
-3. **render timechart**: 結果をタイムチャートとして描画します。
+「1日あたり」の統計を取得するためには、連続的な時間データ（`TimeGenerated`）を特定の時間枠（この場合は `1d`）にグループ化する必要があります。
+
+- **bin**: 数値を指定されたサイズの倍数に切り捨てる関数で、時間のバケット化（グルーピング）に標準的に使用されます。
+    
+- **summarize count() by ProviderName, bin(TimeGenerated, 1d)** とすることで、プロバイダーごと・日ごとのカウントが可能になります。
+    
+- その他の `series_add` などの関数は、集計後の動的配列（シリーズ）を操作するためのものであり、ここでのグルーピングには適しません。
+    
+
+ 2. `render` を選択する理由
+
+クエリの結果を「タイムチャート」として視覚化するためには、結果セットをどのように表示するかを指定する演算子が必要です。
+
+- **render**: グラフやチャートを描画するための演算子です。末尾に `timechart` が指定されているため、これと組み合わせて使用します。
+    
+- **materialize** は中間結果のキャッシュ、**project** は列の選択、**take** は行数の制限を行うためのもので、描画には関与しません。
 
 質問#63 トピック3
 

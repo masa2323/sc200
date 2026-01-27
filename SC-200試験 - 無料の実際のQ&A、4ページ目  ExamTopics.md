@@ -198,15 +198,24 @@ A（100％）
 **正解:** ![](https://img.examtopics.com/sc-200/image412.png)
 
 **解説:**
-最小権限の原則に基づいてユーザーを割り当てます。
+1. タスク 1：Microsoft Defender for Servers を有効にする
 
-1. **仮想マシンでMicrosoft Defender for Serversを有効にする**: この操作には高レベルの特権が必要です。AzureポリシーやDefenderプランの設定変更を伴うため、**Admin1（所有者: Owner）** が適切です。(User Access Administratorはアクセス権の管理が主であり、サービスの有効化にはOwnerが推奨されるケースが多いですが、Security Adminではプラン有効化（課金発生）ができない場合があります。ここでは最も権限のあるAdmin1が確実です。)
-2. **セキュリティに関する推奨事項を確認し、サーバーの脆弱性スキャンを有効にする**: 推奨事項の確認やセキュリティ設定の管理は **Admin3（セキュリティ管理者: Security Admin）** の役割です。Security Adminはセキュリティポリシーの更新や推奨事項の管理が可能ですが、Readerでは設定変更ができず、Operatorは運用監視が主です。
+Microsoft Defender for Cloud の各プラン（Defender for Servers など）の有効化や価格設定の管理は、**Security administrator（セキュリティ管理者）** ロールで実行可能です。
 
-質問#38 トピック1
+- **最小権限の原則**: **Contributor（共同作成者）** もこの操作が可能ですが、Contributor は仮想マシンの削除やネットワーク構成の変更など、セキュリティ管理以外の強力な権限も持っています。セキュリティ設定の有効化だけであれば、権限が限定された Security administrator を選ぶのが正解です。
+    
 
-HOTSPOT  
-\-  
+2. タスク 2：推奨事項の確認と脆弱性スキャンの有効化
+
+このタスクは「確認（閲覧）」と「有効化（修正/適用）」の 2 つの操作を含んでいます。
+
+- **Security reader（セキュリティ閲覧者）**: 推奨事項の「確認」はできますが、脆弱性スキャンを「有効（適用）」にする権限がありません。
+    
+- **Security administrator**: 推奨事項の表示に加え、それを「適用（Fix）」してスキャンなどの機能を有効化する権限を持っています。
+    
+- したがって、両方の操作を行える **User1** が最適です。
+
+	質問#38 トピック1
   
 Microsoft 365 E5 サブスクリプションをお持ちです。Document.pdf  
   

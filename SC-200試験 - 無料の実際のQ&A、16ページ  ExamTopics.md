@@ -159,11 +159,30 @@ Azure Sentinel 分析ルールを使用して、Amazon Web Services (AWS) ログ
 <https://docs.microsoft.com/en-us/azure/sentinel/detect-threats-custom>
 
 **解説:**
-AWSログからインシデントを生成する手順です。
+各ステップがなぜこの順番になるのか、理由を説明します。
 
-1. **Connect AWS CloudTrail**: まず、AWSコネクタを使用してCloudTrailログをSentinelに取り込みます。
-2. **Analytics rulesの作成**: 「Analytics」ブレードに移動し、「Create」>「Scheduled query rule」を選択します。
-3. **Configure rule logic**: クエリ（KQL）やスケジュール、しきい値などを設定し、インシデント生成を有効にします。
+- **ステップ 1: Add the Amazon Web Services connector**
+    
+    - 分析を行う前に、まずソースとなる AWS のログ（CloudTrail など）を Microsoft Sentinel に取り込む必要があります。そのため、最初に専用の**データコネクタを追加**します。
+        
+- **ステップ 2: From Analytics in Azure Sentinel, create a custom analytics rule that uses a scheduled query**
+    
+    - 「特定の条件を検索する」という要件を満たすためには、KQL（Kusto Query Language）を使用して自由に条件を記述できる**スケジュール済みクエリ ルール**を選択する必要があります。
+        
+- **ステップ 3: Set the alert logic**
+    
+    - カスタム分析ルールの作成ウィザードの中で、実際にどのようなクエリを実行し、どの程度の頻度でチェックするかという**アラートのロジックを設定**します。
+        
+
+---
+
+### ❌ 選択しなかったアクションについて
+
+- **Microsoft incident creation rule:** これは Microsoft Defender for Cloud などの他の Microsoft セキュリティ製品のアラートをインシデントに変換するためのもので、AWS ログのカスタム検索には使用しません。
+    
+- **Syslog connector:** AWS 独自のログ収集には通常使用しません。
+    
+- **Changes to Amazon VPC settings rule template:** 特定のテンプレートを使用するよう指示がない限り、汎用的な「特定の条件を検索する」という要件には「カスタム（Custom）」ルールの作成が適しています。
 
 質問#30 トピック3
 

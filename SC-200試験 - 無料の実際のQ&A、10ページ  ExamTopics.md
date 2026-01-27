@@ -26,10 +26,26 @@ Azure Defender を有効化および無効化する。✑
 **正解:** ![](https://img.examtopics.com/sc-200/image416.png)
 
 **解説:**
-Azure Security Center (Defender for Cloud) の権限委任に関する設定です。
+この問題のポイントは、**「最小権限の原則（Principle of Least Privilege）」**と、Microsoft Defender for Cloud（旧 Azure Defender）における各ロールの権限範囲を正しく理解することにあります。
 
-1. **Azure Defenderを有効化および無効化する**: **「Security Admin」** (またはOwner)。Security Adminはセキュリティポリシーの表示・更新、推奨事項やアラートの管理が可能です。Defenderプランの有効化はポリシー設定の一部とみなされます。
-2. **リソースにセキュリティ推奨事項を適用する**: **「Contributor」** (またはOwner)。推奨事項の適用（「Fix」ボタンによる修復など）は、対象リソース（VMやストレージ等）自体の設定変更を伴うため、そのリソースに対する書き込み権限（Contributor以上）が必要です。Security Adminにはリソース変更権限はありません。
+1. Azure Defender の有効化・無効化
+
+Azure Defender（現在の Microsoft Defender for Cloud の各プラン）の有効化や無効化といったセキュリティ設定の変更には、サブスクリプション レベルでの書き込み権限が必要です。
+
+- **Security Admin（セキュリティ管理者）**：セキュリティ ポリシーの編集、推奨事項の表示、アラートの破棄、そしてセキュリティ設定（Defender のプランの切り替え）の変更が可能です。
+    
+- Subscription Contributor や Subscription Owner でも可能ですが、これらはセキュリティ以外のリソース管理権限も持ってしまうため、セキュリティ設定に特化した **Security Admin** が最小権限となります。
+    
+
+2. リソースにセキュリティ推奨事項を適用する
+
+「推奨事項を適用する（Remediate）」という操作は、実際に対象リソースの設定を変更（例：ディスクの暗号化を有効にする、ネットワーク セキュリティ グループの設定を変更するなど）することを意味します。
+
+- **Security Admin**：推奨事項を表示・管理することはできますが、**リソースそのものの構成を変更する権限（書き込み権限）は持っていません。**
+    
+- **Resource Group Owner**：対象のリソースが含まれるリソース グループに対してフル アクセス権限を持っているため、リソースの構成変更を伴う「推奨事項の適用」を実行できます。
+    
+- Subscription Owner / Contributor でも可能ですが、範囲がサブスクリプション全体に及ぶため、特定のリソース グループに限定した **Resource Group Owner** の方が最小権限の原則に合致しています。
 
 質問#26 トピック2
 
@@ -47,17 +63,34 @@ Security Center のワークフロー自動化を使用して、Azure Defender �
 **Correct Answer:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0008400001.jpg) Reference:  
 
 **解説:**
-Azure Policyを使用して脅威の修復を自動化する設定です。
+このソリューションは、「特定の条件下で自動的に修復（オートメーションの構成）をデプロイする」という Azure Policy の仕組みと、「アラートを検知してアクションを実行する」ワークフロー自動化の仕組みを組み合わせています。
 
-1. **Effect (効果)**: **「DeployIfNotExist」**。修復（Remediation）を自動的に行うポリシーを作成する場合、対象リソースが準拠していない（必要な設定や拡張機能がない）場合に、自動的にデプロイを実行する `DeployIfNotExist` 効果を使用します。
-2. **Category (カテゴリ)**: **「Security Center」**。Defender for Cloud (Security Center) 関連のポリシー定義は、通常このカテゴリに分類されます。
+1. Set available effects to: DeployIfNotExists
 
-<https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects> <https://docs.microsoft.com/en-us/azure/security-center/workflow-automation>
+Azure Policy において、リソースが準拠していない場合に「リソースをデプロイして修復する」ために使用されるエフェクトは **DeployIfNotExists (DINE)** です。
+
+- **Append**: リソース作成時に特定のフィールドを追加しますが、既存の構成の欠落を補ってデプロイ（修復）することはできません。
+    
+- **EnforceRegoPolicy**: 主に Azure Kubernetes Service (AKS) のアドミッション コントロールで使用されるもので、今回のケースには適しません。
+    
+
+2. To perform remediation use: Azure Logic Apps (Alert trigger)
+
+Microsoft Defender for Cloud のワークフロー自動化（Workflow Automation）は、基本的に **Azure Logic Apps** をエンジンとして使用します。
+
+- **トリガーの種類**: 脅威アラートに対応する場合、Logic App のトリガーは **「When an Azure Security Center Alert is created or triggered（アラートが作成またはトリガーされたとき）」** である必要があります。
+    
+- **Automation Runbook**: Webhook を介して Runbook を呼び出すことも技術的には可能ですが、Defender for Cloud の「ワークフロー自動化」機能がネイティブに統合し、推奨しているのは Logic Apps です。
+    
+
+### まとめ
+
+1. **Azure Policy (DeployIfNotExists)** を使用して、サブスクリプション内に「ワークフロー自動化（アラート時に Logic App を動かす設定）」が確実に存在するように強制します。
+    
+2. そのポリシーによってデプロイされる **Logic App** が、アラート発生時に実際の修復処理（脅威の遮断など）を実行します。
 
 質問#27 トピック2
 
-ホットスポット -  
-  
 オンプレミスのデータセンターに、App1 というカスタム Web アプリが含まれています。App1 は Active Directory ドメイン サービス (AD DS) 認証を使用しており、Microsoft Entra アプリケーション プロキシを使用してアクセスできます。Microsoft  
   
 Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあります。  
@@ -176,11 +209,23 @@ for Cloudが仮想マシン上でデジタル通貨マイニング行為を検�
 **Correct Answer:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0008700002.jpg) Step 1: From Logic App Designer, create a logic app.  
 
 **解説:**
-デジタル通貨マイニングの検出時にメール通知を行う自動化フローの設定とテスト手順です。
+このソリューションでは、Azure のサーバーレス機能である Logic Apps を「メール送信エンジン」として利用し、それを Defender for Cloud のアラートと紐付けます。
 
-1. **Logic App Designerから、ロジックアプリを作成する (From Logic App Designer, create a logic app)**: まず、アラート受信時にメールを送信するLogic Appを作成します。
-2. **Logic App Designerから、トリガーを実行する (From Logic App Designer, run a trigger)**: 作成したLogic Appが正しく動作するか（テストメールが送信されるか）、手動でトリガーを実行してテストします。設問に「ソリューションはテストメールを生成する必要がある」とあるため、このテストステップが重要です。
-3. **Defender for Cloudのワークフロー自動化から、ワークフロー自動化を追加する**: テスト済みのLogic Appを、特定のアラート（デジタル通貨マイニング）が発生した際に自動実行されるように、Defender for Cloudの設定で紐付けます。
+1. Logic App の作成
+
+まず、メールを送るための「箱」と「ロジック」を作成する必要があります。Logic App デザイナーを使用して、Defender for Cloud のアラートをトリガーとし、指定したアドレスにメールを送信するワークフローを定義します。
+
+2. ワークフロー自動化の追加
+
+作成した Logic App を、実際に Defender for Cloud が検知したアラートと連携させる設定です。Defender for Cloud 側の「ワークフロー自動化（Workflow Automation）」メニューから、どのアラート（今回はマイニング関連など）が発生したときに、どの Logic App を実行するかを定義します。
+
+3. サンプルアラートの作成
+
+最後に、設定が正しく動作するか（実際にメールが届くか）をテストします。Defender for Cloud には、本物の脅威を待つことなく「サンプルアラート」を生成する機能があります。これを利用することで、エンドツーエンドの通知フローが機能していることを即座に確認できます。
+
+> **注意:** 以前は Defender for Cloud 内の「メール通知」設定でシンプルに通知できましたが、複雑な条件分岐やカスタマイズされた通知を行う場合は、この **Workflow Automation + Logic Apps** の組み合わせが標準的な構成となります。
+
+
 Create a logic app and define when it should automatically run  
 1\. From Defender for Cloud's sidebar, select Workflow automation.  
 2\. To define a new workflow, click Add workflow automation. The options pane for your new automation opens.  
@@ -223,11 +268,27 @@ Microsoft Defender for Cloud が有効になっている Microsoft サブスク�
 **Correct Answer:** ![](https://img.examtopics.com/sc-200/image417.png)
 
 **解説:**
-「不審なプロセス」アラートに対する修復アクションの自動化設定順序です。
+「この問題の鍵は、既存のアラート詳細画面から直接ワークフロー自動化を作成することで、設定の手間（アラート名の指定など）を省く点にあります。
 
-1. **Create a logic app that has an HTTP trigger (HTTPトリガーを持つロジックアプリを作成する)**: 自動化の本体となるLogic Appを作成します。Defender for Cloudからの呼び出しを受け取るため、通常はDefenderコネクタのトリガーを使用しますが、選択肢にある中ではHTTPトリガー（Webhook的な呼び出し）が最も汎用的、あるいは特定のテンプレート構成を指しています。
-2. **Create a workflow automation (ワークフロー自動化を作成する)**: Defender for Cloud上で、特定のアラート条件とLogic Appを紐付ける設定を行います。
-3. **Select the Suspicious process executed alert (「不審なプロセスが実行されました」アラートを選択する)**: ワークフロー自動化のトリガー条件として、対象のアラートタイプを指定します。
+1. ロジックアプリの選択
+
+まず、表に示された 2 つのロジックアプリのうち、今回のアラート（Alert）に対応できるのは **LogicApp2** です。
+
+- **LogicApp1**: トリガーが「推奨事項（Recommendation）」のため、アラートには反応しません。
+    
+- **LogicApp2**: トリガーが「アラート（Alert）」のため、今回の要件に適しています。
+    
+
+2. 手順の詳細
+
+- **Filter by alert title**: Microsoft Defender for Cloud の「セキュリティ アラート」画面で、対象となる「不審なプロセスが実行されました（Suspicious process executed）」を検索して特定します。
+    
+- **Select Take action**: アラートの詳細を開き、「アクションの実行（Take action）」タブを選択します。ここには、その特定のアラートに対する推奨される対応策や自動化オプションが集約されています。
+    
+- **Configure the Trigger automated response settings**: 「アクションの実行」タブ内にある「自動応答のトリガー（Trigger automated response）」セクションで、**LogicApp2** を選択してワークフロー自動化を作成します。これにより、今後同じタイトルのアラートが発生した際に、自動的にロジックアプリが実行されるようになります。
+    
+
+この手順で構成を行うと、アラート名などのフィルター条件が自動的に入力されるため、ゼロからワークフロー自動化を作成するよりも管理作業を最小限に抑えることができます。
 
 質問#33 トピック2
 

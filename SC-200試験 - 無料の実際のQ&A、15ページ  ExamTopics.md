@@ -48,10 +48,28 @@ Azure Sentinel を使用して、Azure の不規則なアクティビティを�
 **正解:** ![](https://img.examtopics.com/sc-200/image424.png)
 
 **解説:**
-カスタム分析ルール（スケジュールされたクエリ）を作成する際の設定です。
+提供された Azure Sentinel（Microsoft Sentinel）の分析ルール設定に基づくと、正解は以下の通りです。
 
-1. **Field to map identifier**: **「Account」** (またはHost, IP)。図の「Entity mapping」セクションで、クエリ結果のカラムをSentinelのエンティティタイプ（Account, Host, IPなど）にマッピングします。これにより、アラートに関連するエンティティが認識され、調査や相関分析が可能になります。
-2. **Column to map**: **「AccountCustomEntity」**。クエリ内で定義されたカスタムカラム名（など）を選択し、それをAccountエンティティとしてマッピングします。
+### 1つ目の文の回答
+
+**文:** 「If a user deploys three Azure virtual machines simultaneously, how many times will you receive **[0 alerts]** in the next five hours.」 （1人のユーザーが3台の仮想マシンを同時にデプロイした場合、今後5時間以内にアラートを**0回**受信します。）
+
+- **理由:** クエリ内に `| make-series ... by Caller` という句があります。これは、アクティビティを**実行者（Caller）ごと**にグループ化して1行にまとめることを意味します。1人のユーザーが何台デプロイしても、クエリ結果として返されるのは**1行（1つの結果）**のみです。
+    
+- アラートのしきい値（Alert threshold）が「Generate alert when number of query results **Is greater than 2**（クエリ結果の数が2より大きい場合）」に設定されているため、結果が1行だけでは条件を満たさず、アラートは発生しません。
+    
+
+---
+
+### 2つ目の文の回答
+
+**文:** 「If three separate users deploy one Azure virtual machine each within five minutes of each other, you will receive **[1 alert]** .」 （3人の別々のユーザーがそれぞれ1台の仮想マシンを5分以内にデプロイした場合、アラートを**1回**受信します。）
+
+- **理由:** 3人の異なるユーザー（Callers）が操作を行うため、クエリ結果にはユーザーごとの行が計**3行**生成されます。
+    
+- 3行の結果はしきい値の「2より大きい」という条件を満たすため、アラートがトリガーされます。
+    
+- ただし、設定の下部にある抑制（Suppression）が **On** になっており、「Stop running query for **5 Hours**（5時間停止）」と設定されています。そのため、一度アラートが出るとその後5時間はクエリが実行されず、追加のアラートは送信されません。
 
 質問16 トピック3
 

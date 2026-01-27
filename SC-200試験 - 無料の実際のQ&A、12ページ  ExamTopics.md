@@ -250,15 +250,27 @@ Microsoft Defender for Cloud Apps の要件を満たす必要があります。
 **Correct Answer:** ![](https://img.examtopics.com/sc-200/image174.png)
 
 **解説:**
-Fabrikamの要件である「あり得ない移動（Impossible Travel）アラートの誤検知削減」と「ユーザーの過去のアクティビティに基づく」設定です。
+1. 感度レベルの設定 (Medium)
 
-1. **At minimum, create**: **「One alert policy」**。あり得ない移動の検知は、通常1つのポリシー（Atypical travel）で構成・調整します。ユーザーごとに個別のポリシーを作成する必要はありません。
-2. **Set the Sensitivity level slider to**: **「Low」**。ポリシーの感度（Sensitivity）スライダーを「低（Low）」に設定すると、システムはユーザーの過去のアクティビティパターン（学習期間のデータ）をより強く考慮し、偏差が小さい場合はアラートを抑制します。これにより誤検知を減らすことができます。
+Microsoft Defender for Cloud Apps の「あり得ない移動（Impossible travel）」ポリシーでは、感度レベルによって検知の基準が変わります。
+
+- **Low:** 非常に高い信頼度のアラートのみを生成します。
+    
+- **Medium:** **各ユーザーの過去のアクティビティ（行動パターン）**に基づいたベースラインと比較してアラートを生成します。設問の「各ユーザーの以前のアクティビティに基づいていることを確認する」という要件には、この Medium が適しています。
+    
+- **High:** 物理的に不可能な移動であれば、過去のパターンに関わらずより広範に検知します。
+    
+
+2. 誤検知の削減 (Add IP address ranges)
+
+「あり得ない移動」の誤検知は、社内 VPN や特定の拠点のグローバル IP アドレスからアクセスした場合に、地理的に離れた場所からのアクセスとして認識されることで発生しやすくなります。
+
+- **IP アドレス範囲の追加:** 信頼できる組織の IP アドレス範囲（企業のプロキシや VPN など）をシステムに登録することで、それらの既知の場所からのアクセスを考慮に入れ、誤検知を大幅に減らすことができます。
+    
+- 漏洩した資格情報の検出（Leaked credential detection）の設定は、別のポリシー（侵害されたアカウントの検知）に関するものであり、移動アラートの誤検知削減には直接関係しません。
 
 質問#50 トピック2
 
-HOTSPOT -  
-  
 ケーススタディ -  
   
 これはケーススタディです。ケーススタディは個別に時間制限がありません。各ケースを完了するのに必要なだけの試験時間を使用できます。ただし、この試験には追加のケーススタディとセクションが含まれる場合があります。与えられた時間内にこの試験に含まれるすべての質問を完了できるように、時間を管理する必要があります。  
@@ -596,11 +608,27 @@ Microsoft Defender for Cloud を使用する Sub1 という Azure サブスク�
 **Correct Answer:** ![](https://img.examtopics.com/sc-200/image196.png)
 
 **解説:**
-Azure DevOpsパイプラインで公開されているシークレットを検出し、管理負荷を最小限に抑えるソリューションです。
+1. Defender for Cloud での設定: Add an environment
 
-1. **Select an extension**: **「Microsoft Security DevOps」** (MSDO)。Azure DevOpsのマーケットプレイスからこの拡張機能をインストールし、パイプラインタスクとして使用することで、シークレットスキャン（CredScan等を含む）や静的解析を実行し、結果をDefender for Cloudに統合できます。
-※ 最新では「GitHub Advanced Security for Azure DevOps」が推奨される場合もありますが、SC-200のコンテキストや選択肢（MSDO）に基づくとこれが正解です。
-2. **Configure the extension**: **「Connect Azure DevOps to Microsoft Defender for Cloud」**。MSDO拡張機能を使用する前提として（または使用後に結果を表示するために）、Defender for Cloud側でDevOps環境（コネクタ）を設定し、Azure DevOps組織を接続する必要があります。
+Azure DevOps などの外部リポジトリを Defender for Cloud と連携させるには、**「環境設定（Environment settings）」**から新しい環境（コネクタ）を追加する必要があります。
+
+- **Add an environment:** このウィザードを通じて、特定の Azure DevOps 組織（AzDO1）への接続を確立します。これにより、Defender for Cloud がリポジトリのメタデータをスキャンし、セキュリティの推奨事項を表示できるようになります。
+    
+- 「Enable a plan」はサブスクリプション全体で DevOps セキュリティを有効にする操作ですが、特定の組織 `AzDO1` との**統合**を直接行う操作は「Add an environment」です。
+    
+
+2. AzDO1 での設定: Install an extension
+
+パイプライン内で公開されているシークレット（パスワードや API キーなど）を検出するには、パイプラインのビルドプロセス中にスキャンを実行する必要があります。
+
+- **Install an extension:** **Microsoft Security DevOps** 拡張機能を Azure DevOps にインストールします。この拡張機能には、シークレットスキャン（CredScan など）を含む複数のセキュリティ静的解析ツールが含まれており、パイプラインのタスクとして簡単に追加できます。
+    
+- **最小限の管理作業:** 自前でスクリプトを組んだり外部ツールを構成したりするよりも、公式の拡張機能を利用して Defender for Cloud のダッシュボードに結果を集約させるのが最も効率的です。
+    
+
+---
+
+この統合により、パイプラインでシークレットが混入した際に Defender for Cloud の **DevOps Security** 画面でアラートを確認できるようになります。
 
 [以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/11/)
 

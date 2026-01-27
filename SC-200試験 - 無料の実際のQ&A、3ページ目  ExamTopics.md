@@ -169,10 +169,26 @@ Reference:
 <https://docs.microsoft.com/en-us/azure/defender-for-cloud/permissions>
 
 **解説:**
-最小権限の原則に基づいて、以下のロールを割り当てます。
+この問題のポイントは、Microsoft Defender for Cloud における **Security Administrator（セキュリティ管理者）** ロールの具体的な権限範囲を理解しているかどうかにあります。
 
-1. **イニシアチブの割り当て (Assign initiatives)**: セキュリティポリシーやイニシアチブを割り当てるには、**所有者 (Owner)** ロール（またはセキュリティ管理者）が必要です。貢献者 (Contributor) にはこの権限がありません。
-2. **セキュリティに関する推奨事項の適用 (Apply security recommendations)**: 推奨事項の「修正 (Fix)」を実行したり適用したりするには、**貢献者 (Contributor)** ロールがあれば十分です。所有者である必要はありませんが、セキュリティ閲覧者では権限不足です。
+### User1 への割り当て理由
+
+User1 が実行する必要のある以下のタスクは、すべて **Security Administrator** ロールで許可されています。
+
+- **イニシアチブの割り当て（Assign initiatives）**: セキュリティポリシーの管理権限が必要です。
+    
+- **セキュリティポリシーの編集（Edit security policies）**: Security Administrator はポリシーの表示および編集が可能です。
+    
+- **自動プロビジョニングの有効化（Enable automatic provisioning）**: エージェントの自動インストール設定などの管理には、Security Administrator または Owner ロールが必要です。
+    
+
+### User2 への割り当て理由
+
+User2 のタスクにおいて決定的なのは「アラートの却下」です。
+
+- **推奨事項の適用（Apply security recommendations）**: リソースの修正には書き込み権限が必要ですが、セキュリティ管理の文脈では Security Administrator がこれを担います。
+    
+- **アラートの却下（Dismiss alerts）**: **Security Administrator** ロールの重要な権限の一つです。Security Reader（セキュリティ閲覧者）は表示のみが可能で、却下はできません。また、通常の Contributor（共同作成者）ロールにはセキュリティアラートを管理する特定の権限が含まれていないため、最小権限の原則に照らすと Security Administrator が最適です。
 
 質問#27 トピック1
 

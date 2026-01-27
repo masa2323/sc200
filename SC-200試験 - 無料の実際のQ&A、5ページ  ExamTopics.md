@@ -185,16 +185,24 @@ Microsoft Defender 365 を使用する Microsoft 365 E5 サブスクリプショ
 **正解:** ![](https://img.examtopics.com/sc-200/image184.png)
 
 **解説:**
-デバイスへのサインインイベントを取得する基本的なKQLクエリです。
+このクエリの目的は、**「デバイス」**と**「ドメインコントローラー」**の両方で記録された直近 100 件のサインイン試行を特定することです。
 
-1. **`DeviceLogonEvents`**: デバイス上のログオンイベントを含むテーブル。
-2. **`where LogonType == 'Interactive'`**: ユーザーがキーボードや画面を使って直接サインインした「対話型」ログオンに絞り込みます。
-3. **`limit 100`**: 結果を最新の100件（または任意の100件）に制限します。
+1. テーブルの選択: `IdentityLogonEvents`
+
+- **DeviceLogonEvents:** Microsoft Defender for Endpoint がインストールされた**デバイス（エンドポイント）**上でのローカルログオンやネットワークログオンを記録します（すでにクエリの最初に記載されています）。
+    
+- **IdentityLogonEvents:** Microsoft Defender for Identity が監視している **Active Directory ドメインコントローラー (AD DS)** 上でのログオンアクティビティを記録します。問題文の「AD DS ドメイン コントローラーに記録された」という要件を満たすには、このテーブルが必要です。
+    
+    - _IdentityInfo_ はユーザーの属性情報（部署やタイトルなど）、_IdentityQueryEvents_ は LDAP クエリなどの情報を扱うため、サインイン試行の特定には適しません。
+        
+
+2. 演算子の選択: `union`
+
+- **union:** 2つ以上のテーブルの結果（行）を**統合して1つのリスト**にするために使用します。今回は「デバイスのログ 100 件」と「ドメインコントローラーのログ 100 件」を合わせて表示したいため、`union` が適切です。
+    
+- **join:** 2つのテーブルを共通の列（AccountSid など）で結合し、1つの行に情報を横に並べるために使用します。今回の「ログを列挙する」という目的には適しません。
 
 質問#44 トピック1
-
-HOTSPOT  
-\-  
   
 Microsoft Defender 365 を使用する Microsoft 365 E5 サブスクリプションをご利用です。  
   
@@ -213,11 +221,22 @@ DS ユーザーによる LDAP 要求を識別し、AD DS オブジェクトを�
 **正解:** ![](https://img.examtopics.com/sc-200/image186.png)
 
 **解説:**
-AD DSに対するLDAPクエリを調査するためのKQLクエリです。
+1. テーブルの選択: `IdentityQueryEvents`
 
-1. **`IdentityQueryEvents`**: Active DirectoryなどのIDシステムに対して行われたクエリイベント（LDAPクエリなど）を記録するテーブルです。（※古い資料では `IdentityDirectoryEvents` が使われることもありましたが、正解画像の選択肢にある場合は `IdentityQueryEvents` がより具体的です。ただし、選択肢の画像が `IdentityDirectoryEvents` を指している場合、`ActionType == "LDAP query"` でフィルタリングします。）
-2. **`where ActionType == 'LDAP query'`**: LDAPクエリイベントに絞り込みます。
-3. **`project AccountName, Query, ...`**: 必要な列を表示します。
+- **IdentityQueryEvents:** Active Directory に対して行われた **LDAP 要求**、DNS クエリ、Samr クエリなどの「クエリ（照会）」アクティビティを記録するテーブルです。問題文にある「LDAP 要求を識別し、AD DS オブジェクトを列挙する」という目的に直接合致するのはこのテーブルです。
+    
+- _IdentityDirectoryEvents:_ グループ メンバーシップの変更やパスワード変更など、ディレクトリ オブジェクトの「変更」に関連するイベントを記録します。
+    
+- _IdentityInfo:_ ユーザーの部署、役職、グループ所属などの「属性情報（メタデータ）」を保持するテーブルであり、アクティビティのログではありません。
+    
+
+2. 関数の選択: `isnotempty`
+
+- **isnotempty:** 指定された列（この場合は `AccountSid`）に値が入っている（空ではない）行のみを抽出します。
+    
+- 構文として `| where isnotempty(AccountSid)` とすることで、「実行したユーザーの SID が記録されている（＝匿名ではない特定のユーザーによる）クエリ」に絞り込むことができます。
+    
+    - _contains_ や _has_ は「特定の文字列が含まれているか」を検索する**演算子**です。これらを使用する場合は `| where AccountSid contains "S-1-5-..."` のように比較対象の文字列が必要ですが、今回の構文 `| where [ ] (AccountSid)` は関数を呼び出す形式になっているため、`isnotempty` が適切です。
 
 質問#45 トピック1
 
@@ -265,25 +284,38 @@ C（90％）
 **正解:** ![](https://img.examtopics.com/sc-200/image413.png)
 
 **解説:**
-カスタム検出ルール（Custom detection rules）の動作に関する問題です。
+Microsoft Defender 365 のカスタム検出ルールで自動応答アクション（ファイルの削除やデバイスの隔離など）を有効にするには、クエリの結果に**特定のアクションごとに定義された必須の列**が含まれている必要があります。
 
-1. **ルールがアラートをトリガーするか？ -> はい**: カスタム検出ルールの主な目的は、作成したクエリ条件に一致するイベントが見つかった場合にアラートを作成することです。
-2. **ルールが応答アクションをトリガーするか？ -> はい**: ルール設定で、デバイスの分離（Isolate device）やファイルの検疫などの応答アクションを自動的に実行するように構成できます。
-3. **アラートのリスクレベルを変更できるか？ -> はい**: アラートの重大度（Severity）をルール作成時に指定（高、中、低、情報）できます。
+1. 電子メールの削除について（いいえ）
 
-**解説:**
-カスタム検出ルール（Custom detection rules）の動作に関する問題です。
+電子メールに対するアクション（削除や移動など）を自動化するには、クエリの結果に以下の **2 つの列が両方とも**含まれている必要があります。
 
-1. **ルールがアラートをトリガーするか？ -> はい**: カスタム検出ルールの主な目的は、作成したクエリ条件に一致するイベントが見つかった場合にアラートを作成することです。
-2. **ルールが応答アクションをトリガーするか？ -> はい**: ルール設定で、デバイスの分離（Isolate device）やファイルの検疫などの応答アクションを自動的に実行するように構成できます。
-3. **アラートのリスクレベルを変更できるか？ -> はい**: アラートの重大度（Severity）をルール作成時に指定（高、中、低、情報）できます。
+- `NetworkMessageId`
+    
+- `RecipientEmailAddress`
+    
 
-**解説:**
-カスタム検出ルール（Custom detection rules）の動作に関する問題です。
+提示されたクエリの最後の `summarize` 文を見ると、`RecipientEmailAddtess`（スペルミスがありますが、受信者アドレス用の列と見なせます）は含まれていますが、**`NetworkMessageId` が含まれていない**ため、メールの削除アクションを自動化することはできません。
 
-1. **ルールがアラートをトリガーするか？ -> はい**: カスタム検出ルールの主な目的は、作成したクエリ条件に一致するイベントが見つかった場合にアラートを作成することです。
-2. **ルールが応答アクションをトリガーするか？ -> はい**: ルール設定で、デバイスの分離（Isolate device）やファイルの検疫などの応答アクションを自動的に実行するように構成できます。
-3. **アラートのリスクレベルを変更できるか？ -> はい**: アラートの重大度（Severity）をルール作成時に指定（高、中、低、情報）できます。
+2. アプリ実行の制限について（はい）
+
+デバイス（エンドポイント）に対するアクションである「アプリ実行の制限」や「デバイスの隔離」を行うには、以下の列が必要です。
+
+- `DeviceId`
+    
+
+クエリの投影（`summarize`）には **`DeviceId` 列が含まれている**ため、このルールを使用して特定のデバイス上でのアプリ実行を自動的に制限することが可能です。
+
+3. ファイルの削除について（はい）
+
+ファイルに対するアクション（ファイルの削除やクリーンアップ）を行うには、以下の **2 つの列が両方とも**含まれている必要があります。
+
+- `SHA256`
+    
+- `DeviceId`（どのデバイスから削除するかを特定するため）
+    
+
+クエリの結果には **`SHA256` と `DeviceId` の両方が含まれている**ため、このルールに基づいて一致したファイルを自動的に削除するように設定できます。
 
 質問#47 トピック1
 
@@ -346,9 +378,6 @@ EF（67％）
 体脂肪（33％）
 
 質問#49 トピック1
-
-HOTSPOT  
-\-  
   
 ネットワークには、Azure AD と同期するオンプレミスの Active Directory Domain Services (AD DS) ドメインが含まれています。Microsoft  
   
@@ -365,22 +394,6 @@ Defender 365 を使用する Microsoft 365 E5 サブスクリプションを所�
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/5/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/5/#)   [議論   15](https://www.examtopics.com/exams/microsoft/sc-200/view/5/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image191.png)
-
-**解説:**
-財務部門（Finance）のユーザーによる対話型認証（Interactive authentication）を特定するクエリです。
-
-1. **`IdentityLogonEvents`**: IDログオンイベントテーブルを使用します。
-2. **`where Application == 'Active Directory'`**: オンプレミスADのイベントを対象とする場合、このフィルタが入ることがあります（または`IdentityDirectoryEvents`を使うケースもありますが、ログオンタイプと部門で絞るならこちら）。
-3. **`where LogonType == 'Interactive'`**: 対話型ログオンに絞り込みます。
-4. **`where Department == 'Finance'`**: ユーザーの部門属性が'Finance'であるログに絞り込みます。（※`Department`情報はエンリッチメントデータとして利用可能な場合があります。）
-
-**解説:**
-財務部門（Finance）のユーザーによる対話型認証（Interactive authentication）を特定するクエリです。
-
-1. **`IdentityLogonEvents`**: IDログオンイベントテーブルを使用します。
-2. **`where Application == 'Active Directory'`**: オンプレミスADのイベントを対象とする場合、このフィルタが入ることがあります（または`IdentityDirectoryEvents`を使うケースもありますが、ログオンタイプと部門で絞るならこちら）。
-3. **`where LogonType == 'Interactive'`**: 対話型ログオンに絞り込みます。
-4. **`where Department == 'Finance'`**: ユーザーの部門属性が'Finance'であるログに絞り込みます。（※`Department`情報はエンリッチメントデータとして利用可能な場合があります。）
 
 **解説:**
 財務部門（Finance）のユーザーによる対話型認証（Interactive authentication）を特定するクエリです。

@@ -95,13 +95,35 @@ A（100％）
 
 **解説:**
 
-1. **`EmailEvents`**: まず、過去10日間のメールイベントを検索します。
-2. **`join`**: メール受信者とデバイス上のサインインイベントを紐付けるため、テーブルを結合する必要があります。
-3. **`DeviceLogonEvents`**: デバイスへのサインイン情報を保持しているテーブルです。
-4. **`AccountUpn`**: メールイベントの受信者アドレス（`RecipientEmailAddress`）と、デバイスログオンイベントのユーザープリンシパル名（`AccountUpn`）を照合キーとして使用します（`$left.RecipientEmailAddress == $right.AccountUpn`）。
-5. **`Timestamp`**: メールの受信時刻（`$left.Timestamp`）とサインイン時刻（`$right.Timestamp`）を比較し、メール受信後（`$right.Timestamp > $left.Timestamp`）かつ1時間以内（`$right.Timestamp < $left.Timestamp + 1h`）のイベントに絞り込みます。
+このクエリは、悪意のあるメールを受信したユーザーが、その直後に不審なサインインを行っていないかを特定するためのものです。
 
-<https://docs.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-query-emails-devices?view=o365-worldwide>
+1. メールの特定: `EmailEvents`
+
+`MaliciousEmails` という変数にメールの情報を格納しています。
+
+- **理由**: フィルタ条件として `MalwareFilterVerdict == "Malware"`（マルウェア検知結果）が指定されています。この列は、メールの配信やフィルタリング結果を記録する **`EmailEvents`** テーブルに含まれます。
+    
+- 補足: `EmailAttachmentInfo` は添付ファイルの詳細、`IdentityLogonEvents` はサインイン情報なので、メール自体のフィルタリング結果を追うには適しません。
+    
+
+2. サインイン情報の結合: `IdentityLogonEvents`
+
+`join` 句の中で、メール受信者のその後の行動を確認するためのテーブルを指定します。
+
+- **理由**: 後続の `project` 行で `LogonTime` や `DeviceName` を取得しようとしていることから、デバイスへのサインイン（ログオン）履歴を保持する **`IdentityLogonEvents`** が正解となります。
+    
+
+3. 直近レコードの抽出: `top 20`
+
+クエリの最後で、条件に合致したレコードの中から 20 件を取り出します。
+
+- **理由**: 要件は「直近（most recent）20 件」です。
+    
+    - **`top 20`**: 指定した列（`LogonTime desc`）で並べ替えた上で上位 20 件を取得するため、「直近の 20 件」を正確に返します。
+        
+    - `take 20`: 並べ替えに関係なく任意の 20 件を返すため、今回の要件には適しません。
+        
+    - `select 20`: KQL にはこの用途の演算子は存在しません。
 
 質問15 トピック1
 
@@ -173,14 +195,17 @@ Microsoft Defender を使用する Microsoft 365 E5 サブスクリプション�
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0002800001.jpg) 参照:  
 
 **解説:**
-メールに含まれる悪意のあるファイルがデバイス上に存在するかどうかを確認するためのクエリです。
+1. フィルタ条件：`where isnotempty (SHA256)`
 
-1. **`EmailAttachmentInfo`**: メールの添付ファイル情報を取得するテーブル。ここからファイルのハッシュ値（SHA256など）を取得します。
-2. **`join`**: 添付ファイル情報とデバイス上のファイルイベントを結合します。
-3. **`DeviceFileEvents`**: デバイス上のファイル作成や変更イベントを記録するテーブル。
-4. **`SHA256`**: 両方のテーブルに共通するファイルのハッシュ値（SHA256）をキーとして結合し、一致するファイル（メールで届き、かつデバイス上で検出されたファイル）を特定します。
+`EmailAttachmentInfo` テーブルには、ハッシュ値が記録されていない添付ファイルが含まれる場合があります。ハッシュ値がないレコードを結合処理に進めると、クエリのパフォーマンスが低下したり、意図しない一致が発生したりするため、あらかじめ値が存在するものだけに絞り込みます。今回の調査は「SHA256 ハッシュの一致」に基づいているため、この列を対象にします。
 
-<https://docs.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-query-emails-devices?view=o365-worldwide>
+2. 結合キー：`on SHA256`
+
+メールのデータ（左側）とデバイスのファイルイベント（右側）を紐付けるための「共通の鍵」を指定します。
+
+- **`EmailAttachmentInfo`**: メールの添付ファイルが持つハッシュ値を保持。
+    
+- **`DeviceFileEvents`**: デバイス上で作成・修正されたファイルのハッシュ値を保持。 問題文の要件通り、これらを一致させるために **`SHA256`** を指定します。
 
 質問18 トピック1
 
