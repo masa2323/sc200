@@ -1,12 +1,12 @@
 ---
-title: "SC-200試験  ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/"
+title: SC-200試験  ExamTopics
+source: https://www.examtopics.com/exams/microsoft/sc-200/view/
 author:
 published:
 created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
+description: Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    .
 tags:
-  - "clippings"
+  - clippings
 ---
 ## トピック1 - 質問セット1
 
