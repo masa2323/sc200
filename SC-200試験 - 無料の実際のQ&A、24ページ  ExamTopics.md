@@ -9,9 +9,6 @@ tags:
   - "clippings"
 ---
 質問#104 トピック3
-
-HOTSPOT  
-\-  
   
 ケース スタディ  
 \-  
@@ -111,17 +108,18 @@ Adatum では、次のビジネス要件が示されています。
 **正解:** ![](https://img.examtopics.com/sc-200/image243.png)
 
 **解説:**
-Adatumの要件「Webapp1からデータを動的に取得する」および「Azure PortalでHuntingページにアクセスされたときに自動実行」を満たすクエリ設定です。
+「Webapp1 からデータを動的に取得する Workbook1」を実装するための設定です。
 
-1. **Azure Monitor Logs**: **「externaldata」**。Q99と同様、外部データを動的に取り込むための演算子です。
-2. **Microsoft Sentinel Hunting**: **「Query1」**。Huntingページを開いたときに自動実行されるクエリ設定についての言及ですが、問題文の文脈（図の選択肢）が不明瞭ではあるものの、Hunting Queryの設定（あるいはLive Streamなど）を指していると考えられます。
-※この質問はQ99と非常に類似しており、重複またはバリエーションの可能性があります。
+- **Data source to query: Custom Endpoint
+   -  Webapp1は「オンプレミスにある、パブリックに公開されたHTTP/HTTPSウェブサービス」です。Azureのリソース外にある外部ソースからデータを取得する場合、Azure Monitor Workbooksでは **Custom Endpoint データソースを使用します。
+        
+- **On Webapp1:** **Enable Cross-Origin Resource Sharing (CORS).**
+    
+    - Azure Monitor ブック（Workbook1）などのクライアントサイドのブラウザから外部の Web サービス（Webapp1）に直接リクエストを送信してデータを取得する場合、ブラウザのセキュリティ制限を回避するために Webapp1 側で **CORS** を許可する必要があります。
 
 質問#105 トピック3
 
-Workspace1 という Microsoft Sentinel ワークスペースを含む Azure サブスクリプションがあります。Content  
-  
-Hub から Microsoft Sentinel 用の Microsoft Entra ソリューションをデプロイし、コネクタを構成します。  
+Workspace1 という Microsoft Sentinel ワークスペースを含む Azure サブスクリプションがあります。Content Hub から Microsoft Sentinel 用の Microsoft Entra ソリューションをデプロイし、コネクタを構成します。  
   
 サブスクリプションの管理者権限を持つユーザーが実行したアクションを分析する必要があります。  
   
@@ -139,14 +137,6 @@ Hub から Microsoft Sentinel 用の Microsoft Entra ソリューションをデ
 **解説:**
 サブスクリプション管理者の操作（Azureリソースに対する変更など）を分析するためのログです。
 **「Azure Activity (Azure アクティビティログ)」**: サブスクリプションレベルのイベント（リソースの作成、更新、削除、権限変更など）の記録です。「誰が、いつ、何をしたか」という管理プレーンの操作履歴を確認するのに最適です。Sentinelの「Azure Activity」ワークブックを使用することで、管理者のアクティビティを簡単に可視化・分析できます。
-
-*コミュニティ投票の配分*
-
-A（56％）
-
-B（31％）
-
-13%
 
 質問#106 トピック3
 
@@ -166,14 +156,25 @@ Workspace1 という Microsoft Sentinel ワークスペースと User1 という
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)  
 
 **解説:**
-インシデントを「調査（Investigate）」するために必要な最小権限です。
-**「Microsoft Sentinel Responder」**: Responderロールは、インシデントの管理（割り当て、ステータス変更）に加えて、インシデントの**調査（Investigation graphの表示、検索など）**を行う権限を持っています。Readerロールでは表示のみで変更ができず、Contributorロールは過剰権限（設定変更可能）です。
+このシナリオでは、「インシデントの調査」を行いつつ、「最小権限の原則」に従う必要があります。
 
-*コミュニティ投票の配分*
-
-A（59％）
-
-D（41％）
+- **A. Microsoft Sentinel Responder (正解):**
+    
+    - このロールは、インシデントの管理（割り当て、却下、ステータスの変更など）や調査を行うセキュリティアナリスト向けに設計されています。
+        
+    - データの閲覧だけでなく、インシデントに対するアクション（調査グラフの使用やステータス更新）が可能ですが、ワークスペース自体の設定（分析ルールの作成など）を変更する権限は持っていません。したがって、調査を行うための**最小権限**として最適です。
+        
+- **B. Microsoft Sentinel 貢献者 (Contributor):**
+    
+    - Responder の全権限に加え、分析ルール、ワークブック、その他のコンテンツを作成・編集する権限を持ちます。インシデント調査だけを行うユーザーには権限が過剰であるため、最小権限の原則に反します。
+        
+- **C. Microsoft Sentinel Automation 貢献者:**
+    
+    - これはプレイブック（Logic Apps）の管理や実行に特化したロールであり、インシデントの調査や管理に必要な権限とは異なります。
+        
+- **D. Microsoft Sentinel リーダー (Reader):**
+    
+    - データ、インシデント、ワークブックなどを「閲覧」することはできますが、インシデントの更新（ステータス変更や割り当て）や、調査に必要な一部のアクションを実行する権限が不足している場合があります。調査業務（トリアージや対応）を行うユーザーとしては機能が不足しています。
 
 質問#107 トピック3
 
@@ -193,13 +194,24 @@ Workspace1 という Log Analytics ワークスペースを含む Azure サブ�
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   14](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image436.png)
+**正解:** 間違っている！![](https://img.examtopics.com/sc-200/image436.png)
 
 **解説:**
-認証不足（Authorization failed）により失敗したリクエストを特定するクエリです。
+このクエリは、Microsoft Graph API に対するリクエストの中で、認証や認可の問題で失敗したものを特定するためのものです。
 
-1. **Table**: **「AzureActivity」**。Azureリソースに対する操作ログはAzureActivityテーブルに格納されます。
-2. **Filter**: **`where Authorization_Status != "Permit"`**（または `AuthorizationStatus != "Permit"`）。認可ステータスが許可（Permit）でないものをフィルタリングします。これにより、DenyやFailなどの失敗した試行を抽出できます。
+**1. テーブルの選択: `MicrosoftGraphActivityLogs`** クエリの最後の行にある `project` コマンドで指定されている列名（`AppId`, `UserId`, `ServicePrincipalId`, `ResponseStatusCode`, `RequestUri`, `RequestMethod`）に注目してください。 これらは **Microsoft Graph アクティビティログ (`MicrosoftGraphActivityLogs`)** テーブルに特有のスキーマです。
+
+- **AuditLogs:** 監査ログです。これらの列（特に `ResponseStatusCode` や `RequestUri`）は持ちません。
+    
+- **AzureActivity:** Azure アクティビティログです。これも `ResponseStatusCode` をトップレベルの列として持たず、構造が異なります。
+
+**2. ステータスコードの選択: `401`** 問題文には「**認証不足 (insufficient authentication)** により失敗した」リクエストを特定したいとあります。 HTTP ステータスコードにおいて：
+
+- **401 (Unauthorized):** 認証が必要だが、認証情報が不足している、または無効であることを示します（**認証不足**）。
+    
+- **403 (Forbidden):** 認証はされているが、リソースへのアクセス権がないことを示します（認可不足）。
+
+クエリにはすでに `ResponseStatusCode == 403` が含まれています。認証不足 (Authentication) のエラーを捕捉するためには、**401** を追加する必要があります。
 
 質問#108 トピック3
 
@@ -223,10 +235,6 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
 **解説:**
 インシデント内で実行された「タスク（手動アクション、自動修復など）」を確認するためのクエリ対象です。
 **「SecurityIncident」**: Sentinelの `SecurityIncident` テーブルには、インシデント自体のメタデータだけでなく、インシデントの更新履歴やステータス変更などが記録されます。ただし、厳密な「実行されたタスク（修復アクションなど）」の詳細履歴は `DeviceEvents` (ActionType) や `SecurityAction` などのテーブルにある場合もありますが、選択肢の中ではインシデント中心のビューを作るための起点として `SecurityIncident` が最も適切です。あるいは、インシデントに関連付けられたコメントやタスクリストの情報を指している可能性もあります。
-
-*コミュニティ投票の配分*
-
-A（100％）
 
 ## トピック4 - 質問セット4
 
@@ -280,13 +288,7 @@ Discovery データを拡充する必要があります。このソリューシ�
 Cloud Discovery（シャドーIT検出）のログ内のユーザー名をAzure AD (Entra ID) ユーザーと紐付ける（エンリッチメント）ための設定です。
 **「Create a Microsoft 365 app connector」**: Defender for Cloud AppsでMicrosoft 365コネクタを作成・接続することで、Entra IDからユーザー情報を取得し、ファイアウォールログなどのCloud Discoveryデータに含まれるユーザー名と照合して、UPNやユーザー属性でデータを充実（Enrich）させることができます。
 
-*コミュニティ投票の配分*
-
-B（100％）
-
 質問3 トピック4
-
-HOTSPOT -  
   
 デフォルトのデータ保持期間が30日間であるMicrosoft Sentinelワークスペースがあります。このワークスペースには、次の表に示すように2つのカスタムテーブルが含まれています。  
   
@@ -306,20 +308,44 @@ HOTSPOT -
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   14](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image437.png)
+**正解:** 間違っている！![](https://img.examtopics.com/sc-200/image437.png)
 
 **解説:**
-Log Analyticsワークスペースのデータ保持期間（30日）を超えたデータ（過去365日分）に対するクエリ可能性についての正誤判定です。
+この問題のポイントは、Microsoft Sentinel（Log Analytics）における**テーブルプラン（Basic vs Analytics）**と**保持期間（インタラクティブ保持 vs 合計保持）**の仕様の違いにあります。
 
-- **Table1 (Log plan: Analytics)**: データ保持はデフォルトの30日です。30日を超えたデータは削除されるか、アーカイブされていなければ検索できません。過去365日分のデータは保持されていないため、クエリは30日分しか返しません（失敗するか、部分的）。設問の「successfully run」が「365日分すべてのデータを返す」という意味なら **No** です。
-- **Table2 (Log plan: Basic)**: Basicログプラン（保持期間固定8日間）のテーブルです。365日分のデータは保持されず、またBasicログに対するクエリには制限があります（フルKQLが使えない）。しかし、設問図のクエリは `search in (Table2) ...` となっており、Basicログ検索用の構文です。ただし、保持期間的に365日分のデータは存在しないため、**No** です。
-※画像の正解に従うと、Table1=**No**, Table2=**No** のパターン（あるいは条件次第でYes/No）が考えられますが、通常は保持期間切れのためNoです。
+#### **前提条件の整理**
+
+- **データ量:** 1日あたり2件のレコード（過去365日間）。
+    
+- **ワークスペースのデフォルト保持期間:** 30日間。
+    
+---
+1. Query1 について: はい**
+
+- **現状:** `Table1` は **Basic** プランです。
+    
+- **制限:** 1. **保持期間:** Basic ログのインタラクティブ保持（クエリ可能な期間）は **8日間** に固定されており、変更できません。15日分のデータ（30件）をクエリすることは不可能です。 2. **KQLの制限:** Basic ログは `summarize` オペレーターを**サポートしていません**。そのため、このクエリ自体がエラーになります。
+    
+- **結論:** 30件の結果（15日分）を得るには、プランを **Analytics** に変更して `summarize` を実行可能にし、かつ保持期間を15日以上に確保する必要があります。
+    
+2. Query2 について: いいえ**
+
+- **現状:** `Table2` は **Analytics** プランで、合計保持期間は **365日** です。インタラクティブ保持は「Default」（30日）に設定されています。
+    
+- **課題:** `ago(120)` で120日分のデータ（240件）を取得しようとしていますが、通常のKQLクエリは**インタラクティブ保持期間内**のデータしか参照できません。
+    
+- **結論:** 240件を取得するために必要なのは「合計保持期間の変更」ではなく、**「インタラクティブ保持期間」を120日に増やすこと**です。現在の合計保持期間は既に365日あるため、120日に「変更（短縮）」する必要はありません。
+    
+3. Query3 について: いいえ**
+
+- **現状:** `Table1` は **Basic** プランです。
+    
+- **制限:** 前述の通り、Basic ログのクエリ可能な期間は **8日間** 固定です。
+    
+- **結論:** 「合計保持期間」を45日に設定したとしても、それはアーカイブ（長期保存）としての設定であり、通常のクエリ（KQL）で 45日分（90行）の結果を直接出すことはできません。これを実現するにはプランを **Analytics** に変更する必要があります。
 
 質問4 トピック4
 
-HOTSPOT  
-\-  
-  
 Microsoft Defender for Endpoint を使用する Microsoft 365 E5 サブスクリプションをご利用です。  
   
 オンプレミスデバイスは、次の表のとおりです。  
@@ -344,19 +370,52 @@ Microsoft Defender for Endpoint を使用する Microsoft 365 E5 サブスクリ
 **正解:** ![](https://img.examtopics.com/sc-200/image264.png)
 
 **解説:**
-マルウェア感染デバイスへの対応策として、「通信ブロック」かつ「管理能力維持」を満たすアクションを選択します。
+ご提示いただいたシナリオに基づき、Microsoft Defender for Endpoint における最適な対応策は以下の通りです。
+#### **回答**
 
-1. **Windows 10 devices**: **「Isolate device (デバイスの分離)」**。Defender for Endpointの「Isolate device」機能は、デバイスをネットワークから切断しますが、**Defender for Endpointサービスへの接続は維持**します。これにより、管理者は引き続き調査や修復コマンドを実行できます。
-2. **Windows 11 devices**: **「Isolate device (デバイスの分離)」**。Windows 10と同様にサポートされています。
-※「Restrict app execution（アプリ実行制限）」は、署名済みアプリのみの実行を許可する機能で、通信ブロックとは目的が異なります。
+- **Device1:** **Isolate device and Initiate Automated Investigation only**
+    
+- **Device2:** **Contain device only**
+    
+---
+### **解説**
+
+この問題の鍵は、デバイスが「**管理対象（オンボード済み）**」か「**未管理（検出のみ）**」か、およびそれぞれのオペレーティングシステムで利用可能な機能の違いにあります。
+
+1. Device1 (Windows Server 2022 / 管理対象)**
+
+- **管理状態:** Microsoft Defender for Endpoint にオンボードされており、管理下にあります。
+    
+- **対応策の選択:**
+    
+    - **Isolate device (デバイスの分離):** 管理対象デバイスをネットワークから切り離し、マルウェアの拡散を防ぎます。分離中も Defender for Endpoint サービスとの通信は維持されるため、「制御能力に影響を与えない」という要件を満たします。
+        
+    - **Initiate Automated Investigation (自動調査の開始):** Windows Server 2022 は自動調査（AIR）をサポートしています。感染が確認された場合、脅威を特定し自動的に修復するために併用するのが一般的です。
+        
+    - **注意:** 「Contain (封じ込め)」は**未管理デバイス**向けの機能であるため、管理対象の Device1 には適用しません。
+        
+2. Device2 (Linux / 未管理・検出済み)**
+
+- **管理状態:** 「Discovered (検出済み)」ですが「Unmanaged (未管理)」の状態です。つまり、Defender センサーがインストールされていません。
+    
+- **対応策の選択:**
+    
+    - **Contain device (デバイスの封じ込め):** これは未管理デバイス専用の機能です。ネットワーク内の他の「管理対象デバイス」に対して、この未管理デバイスからの通信をブロックするよう指示を出します。これにより、未管理デバイスを直接操作することなく、管理対象デバイスへの感染拡大を防ぐことができます。
+        
+    - **制限:** 未管理であるため、デバイス側での「分離（Isolate）」や「自動調査（AIR）」を実行することはできません。
+        
+
+---
+### **まとめ表
+
+| **デバイス**    | **OS**  | **状態**  | **推奨されるアクション**     | **理由**                         |
+| ----------- | ------- | ------- | ------------------ | ------------------------------ |
+| **Device1** | Windows | 管理対象    | **分離 + 自動調査**      | 管理下にあるため、直接的なネットワーク隔離と自動修復が可能。 |
+| **Device2** | Linux   | **未管理** | **封じ込め (Contain)** | 管理外のため、周囲のデバイスを使って通信をブロックする。   |
 
 質問5 トピック4
 
-Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあり、User1 というユーザーが登録されています。User1  
-  
-が Microsoft Defender XDR のカスタム検出ルールとエンドポイント セキュリティ ポリシーを管理できるようにする必要があります。このソリューションは、最小権限の原則に従う必要があります。User1  
-  
-にはどのロールを割り当てるべきでしょうか？
+Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあり、User1 というユーザーが登録されています。User1 が Microsoft Defender XDR のカスタム検出ルールとエンドポイント セキュリティ ポリシーを管理できるようにする必要があります。このソリューションは、最小権限の原則に従う必要があります。User1 にはどのロールを割り当てるべきでしょうか？
 
 - A. セキュリティ管理者
 - B. セキュリティオペレーター
@@ -370,12 +429,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 **解説:**
 Defender XDRのカスタム検出ルールとエンドポイントセキュリティポリシーの両方を管理できる最小権限です。
 **「Security Administrator (セキュリティ管理者)」**: このロールは、Microsoft 365 Defenderポータル全体（エンドポイント、メール、IDなど）のセキュリティ設定、ポリシー、検出ルールの作成・編集を行う権限を持っています。「Security Operator」は運用（アラート対応）中心でポリシー変更権限が限定的、「Cloud Device Administrator」はEntra ID/Intuneのデバイス管理中心です。
-
-*コミュニティ投票の配分*
-
-A（91％）
-
-9%
 
 [以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/23/)
 

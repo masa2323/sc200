@@ -10,9 +10,6 @@ tags:
 ---
 質問#94 トピック3
 
-HOTSPOT  
-\-  
-  
 Azureサブスクリプションを4つ持っています。サブスクリプションの1つにはMicrosoft Sentinelワークスペースが含まれています。Azure  
   
 Policyを使用してサブスクリプションからデータを収集するには、Microsoft Sentinelデータコネクタをデプロイする必要があります。このソリューションでは、サブスクリプション内の新規および既存のリソースにポリシーが適用されるようにする  
@@ -28,18 +25,27 @@ Policyを使用してサブスクリプションからデータを収集する�
 **正解:** ![](https://img.examtopics.com/sc-200/image232.png)
 
 **解説:**
-Azure Policyを使用して、複数のサブスクリプション内のすべてのリソース（新規作成含む）からデータを収集するための設定です。
+このソリューションは、Azure Policy を利用して、環境内のリソース（既存および将来作成されるもの）に対して、自動的に Microsoft Sentinel（Log Analytics ワークスペース）へのログ送信設定を適用することを目的としています。
 
-1. **Connector type**: **「Azure Activity」**。Azure Activityコネクタは、サブスクリプションレベルの操作ログを収集する最も基本的なコネクタです。
-2. **Use**: **「Azure Policy」**。Azure Activityコネクタの設定ページには「Launch Azure Policy Assignment Wizard」機能があり、所定のポリシー定義（"Configure Azure Activity logs to stream to specified Log Analytics workspace"）を管理グループやサブスクリプションスコープに割り当てることで、全リソースからのログ送信を強制・自動化できます。
+1. なぜ `Diagnostic settings` なのか？
+
+- **Azure の標準的な収集手法:** Azure サブスクリプション内の各サービス（Activity Log や各リソースのメトリック/ログ）を Sentinel に取り込む場合、**診断設定（Diagnostic settings）** 経由のコネクタが一般的に使用されます。
+    
+- **ポリシーとの親和性:** 多くの Azure サービス用コネクタは、Azure Policy を使用してこの診断設定を一括デプロイする仕組みを内蔵しています。
+
+2. なぜ `A remediation task` なのか？
+
+- **既存リソースへの対応:** Azure Policy を割り当てただけでは、ポリシー適用「後」に作成された新規リソースには設定が反映されますが、**既に存在しているリソース**には反映されません。
+    
+- **強制的な適用:** 既存のリソースに対してポリシーを遡及的に適用し、非準拠のリソースを自動的に修正（診断設定を追加）するには、**修復タスク（Remediation task）** を作成・実行する必要があります。
+---
+#### 設定のイメージ
+
+Sentinel のコネクタページ（例：Azure Activity）から「Azure Policy 割り当てウィザード」を起動した際、[Remediation（修復）] タブで 「Create a remediation task」のチェックを入れることで、既存のサブスクリプション内のリソースも監視対象に含めることができます。
 
 質問#95 トピック3
 
-Microsoft Sentinel ワークスペースが 50 個あります。Azure  
-  
-ポータルの 1 つのページで、すべてのワークスペースのすべてのインシデントを確認する必要があります。このソリューションでは、管理の手間を最小限に抑える必要があります。Azure  
-  
-ポータルのどのページを使用すればよいでしょうか。
+Microsoft Sentinel ワークスペースが 50 個あります。Azure ポータルの 1 つのページで、すべてのワークスペースのすべてのインシデントを確認する必要があります。このソリューションでは、管理の手間を最小限に抑える必要があります。Azure ポータルのどのページを使用すればよいでしょうか。
 
 - A. Microsoft Sentinel - インシデント
 - B. Microsoft Sentinel - ワークブック
@@ -53,14 +59,6 @@ Microsoft Sentinel ワークスペースが 50 個あります。Azure
 **解説:**
 50個のワークスペースのインシデントを一元的に管理する方法です。
 **「Microsoft Sentinel - Incidents (インシデント)」**: Sentinelのポータルには「複数ワークスペースの表示」機能があります。インシデントブレードのフィルタで複数のワークスペースを選択するだけで、それらのワークスペースのすべてのインシデントを1つのリストに統合表示できます。特別な設定不要で、管理の手間が最小限です。
-
-*コミュニティ投票の配分*
-
-A（60％）
-
-C（31％）
-
-9%
 
 質問#96 トピック3
 
@@ -359,11 +357,26 @@ Adatum では、次のビジネス要件が示されています。•
 **正解:** ![](https://img.examtopics.com/sc-200/image434.png)
 
 **解説:**
-Adatumの要件「パスワードリセットの量が通常よりも多いことを検出する」および「可能な限り組み込みのASIMパーサーを使用する」を満たすクエリです。
+1. In the identity environment, implement:
 
-1. **`_Im_Audit`**: 監査ログ用のASIM統合パーサー関数です。ユーザー管理や認証関連のイベントを正規化して検索できます。
-2. **`where Operation =~ "Password reset"`**: パスワードリセット操作をフィルタリングします（ASIMの正規化フィールド名を使用）。
-3. **`summarize count() by ActorUser`**: 実行者（ActorUser）ごとにリセット回数を集計し、しきい値判定を行います。
+**正解：Microsoft Defender for Identity**
+
+- **理由:** 要件に「`corp.adatum.com` ユーザーアカウントのパスワードリセットが通常よりも多く検出されるようにする」とあります。
+    
+- **技術的背景:** `corp.adatum.com` はオンプレミスの Active Directory ドメインです。
+    
+- **機能:** Microsoft Defender for Identity は、オンプレミスのドメインコントローラーからの信号を解析し、パスワードリセットの急増といった不審なアクティビティや攻撃（ブルートフォース、偵察など）を検出するのに最も適したソリューションです。
+    
+
+2. In Microsoft Sentinel, configure:
+
+**正解：User and Entity Behavior Analytics (UEBA)**
+
+- **理由:** 同じく「パスワードリセットが通常よりも多く検出される（異常検知）」という要件に対応するためです。
+    
+- **技術的背景:** ユーザーの「通常」の行動を学習し、そこから逸脱したパターン（異常な頻度のパスワード操作など）を特定するのは UEBA の主要な機能です。
+    
+- **最小限の労力:** NRTルールやスケジュール済みルールを手動で細かく調整するよりも、UEBA エンジンによる行動分析を活用する方が、管理の労力を抑えつつ精度の高い検出が可能です。
 
 質問#99 トピック3
 
@@ -456,8 +469,18 @@ Adatum では、次のビジネス要件が示されています。
 **正解:** ![](https://img.examtopics.com/sc-200/image435.png)
 
 **解説:**
-Adatumの要件「Webapp1からデータを動的に取得する（Workbookクエリ）」を満たすKQL演算子です。
-**`externaldata`**: KQLクエリ内から外部のデータソース（Azure Blob StorageやWeb API経由のCSV/JSONファイルなど）のアドホックデータを直接読み込むための演算子です。Workbook等で外部システムデータを動的に参照する場合に使用します。
+この設問には、「**Infoblox1 からの NXDOMAIN 応答を返す ASIM クエリの実装**」および「**ASIM パーサーを使用するクエリのオーバーヘッドを最小限に抑える**」という要件が関係しています。
+
+#### ASIM parser:
+
+**正解: _Im_Dns**
+
+- **理由**: Adatum は「可能な限り、組み込みの ASIM パーサーを使用する」方針です。`_Im_Dns` は DNS スキーマ用の**組み込みフィルタリングパーサー**です。特定のソース（Infoblox1）に限定した `_Im_Dns_InfobloxNIOS` よりも、汎用的なフィルタリングパーサーを使用し、パラメータで制御する方が ASIM の設計原則に沿っています。
+#### Filter:
+
+**正解: A filtering parameter**
+
+- **理由**: 「オーバーヘッドを最小限に抑える」ためには、データをすべて読み込んだ後に `where` 句で絞り込むのではなく、パーサーの実行段階でフィルタリングを行う **Filtering parameter**（フィルタリングパラメータ）を使用するのが最も効率的です。これにより、クエリの実行速度が向上し、リソース消費を抑えられます。
 
 質問#100 トピック3
 
@@ -555,10 +578,6 @@ Server1 のイベント監視を構成する必要があります。
 **解説:**
 Adatumの要件「Server1（オンプレミス）のセキュリティイベントログを監視する（AMAコネクタ経由）」に必要な構成要素です。
 **「Data collection rule (DCR)」**: Azure Monitor Agent (AMA) を使用してWindowsイベントログを収集するには、DCR（データ収集ルール）を作成し、収集するイベントの種類（System, Security, Applicationなど）とレベル、および対象のリソース（Server1）を定義して関連付ける必要があります。
-
-*コミュニティ投票の配分*
-
-D（100％）
 
 質問#101 トピック3
 
@@ -669,10 +688,27 @@ Adatum では、次のビジネス要件が示されています。
 **正解:** ![](https://img.examtopics.com/sc-200/image241.png)
 
 **解説:**
-Adatumの要件「SecOpsチームがAzure Cloud Shellを起動した場合はインシデントを自動的に閉じる」ためのクエリロジックです。
+この設問は、Microsoft Sentinel の要件である「**指定された緊急アカウントへのサインインを検出する Microsoft Sentinel ニアリアルタイム (NRT) 分析ルールを実装する**」に基づいています。
 
-1. **`let SecOpsTeam = _GetWatchlist('SecOpsTeam')`**: Sentinelのウォッチリスト機能を使用して、SecOpsチームメンバーのリストを定義・取得します。ウォッチリストを使うことで、クエリ内に固有名詞をハードコードせずに管理できます。
-2. **`where Caller in (SecOpsTeam)`**: 操作したユーザー（Caller）がウォッチリストに含まれているかどうかを判定します。これを除外条件や自動クローズ条件として使用します。
+---
+
+#### **Answer Area の選択肢と解説**
+
+#### **1つ目のドロップダウン (演算子):**
+
+**正解: join**
+
+- **理由:** `kind=inner` という指定が直後にあるため、文法的に `join` 演算子が必須です。
+    
+- **解説:** `lookup` 演算子も同様の照合が可能ですが、`kind=inner` オプションは `join` 演算子で使用される標準的な構文です。緊急用アカウント（ブレイクグラスアカウント）のリストと、実際のサインインログを結合して一致するもののみを抽出します。
+
+#### **2つ目のドロップダウン (データソース):**
+
+**正解: _GetWatchlist**
+
+- **理由:** 「指定された緊急アカウント」を管理し、クエリ内で動的に参照するために最も効率的な方法は **Microsoft Sentinel ウォッチリスト (Watchlist)** を使用することです。
+    
+- **解説:** `_GetWatchlist('breakglass_account')` 関数を使用することで、ウォッチリストに登録されたアカウント一覧を右テーブル（$right）として読み込み、`UserPrincipalName` と `SearchKey` で紐付けを行います。これにより、ソースコードに直接アカウント名を書き込む必要がなくなり、管理の労力を最小限に抑えることができます。
 
 質問#102 トピック3
 
@@ -768,10 +804,9 @@ Group1 のメンバーが Microsoft Sentinel の要件を満たせるように�
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/23/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/23/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/23/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/23/#)  
-
-*コミュニティ投票の配分*
-
-B（100％）
+  
+**解説**
+プレイブックを作成するには、プレイブックを作成するリソース グループの所有者であるか、ロジック アプリの共同作成者ロールを持っている必要があります。
 
 質問#103 トピック3
 
@@ -868,11 +903,8 @@ HuntingQuery1 の構成が Microsoft Sentinel の要件を満たしているこ�
 
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/23/#)  
 
-*コミュニティ投票の配分*
-
-D（100％）
-
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/22/)
+**解説**
+お気に入りに保存されたクエリは、ハンティング ページにアクセスするたびに自動的に実行されます。
 
 ![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 23 ページを表示しています。
 
