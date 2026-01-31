@@ -10,9 +10,7 @@ tags:
 ---
 質問16 トピック4
 
-Microsoft 365 E5 サブスクリプションをご利用で、Microsoft Copilot for Security を使用しています。Copilot for Security はデフォルト設定になっています。User  
-  
-というユーザーが Copilot for Security を使用して以下のタスクを実行できるようにする必要があります。  
+Microsoft 365 E5 サブスクリプションをご利用で、Microsoft Copilot for Security を使用しています。Copilot for Security はデフォルト設定になっています。User というユーザーが Copilot for Security を使用して以下のタスクを実行できるようにする必要があります。  
   
 • ファイルのアップロード。  
 • 使用状況ダッシュボードの表示。  
@@ -32,24 +30,17 @@ Microsoft 365 E5 サブスクリプションをご利用で、Microsoft Copilot 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)  
 
 **解説:**
-Microsoft Copilot for Securityにおける管理者権限の割り当てです。
-**「Copilot Owner (副操縦士オーナー)」**: プロンプトブックの共有（Everyoneへの共有）や、使用状況ダッシュボードの表示、設定変更（ファイルのアップロード機能の制御など）を行える最も強力なロールです。「Copilot Contributor」はプロンプトの実行や作成はできますが、全社的な共有や設定管理には制限があります。
-※ファイルのアップロード自体はContributorでも可能ですが、プロンプトブックを「全ユーザーと共有」する権限やダッシュボード閲覧などの管理機能を持つのはOwnerです。
+Microsoft Copilot for Security には主に「オーナー」と「貢献者」の 2 つのアプリ内ロールがあります。今回の要件を照らし合わせると、なぜ**オーナー**が必要なのかが明確になります。
 
-*コミュニティ投票の配分*
-
-A（83％）
-
-D（17％）
+| **要件**                | **副操縦士 貢献者 (Contributor)** | **副操縦士 オーナー (Owner)** |
+| --------------------- | -------------------------- | --------------------- |
+| **ファイルのアップロード**       | ○                          | ○                     |
+| **使用状況ダッシュボードの表示**    | ×                          | **○**                 |
+| **プロンプトブックを全ユーザーと共有** | × (個人用のみ)                  | **○ (組織全体)**          |
 
 質問17 トピック4
 
-HOTSPOT  
-\-  
-  
-Sub1 という Azure サブスクリプションがあります。Sub1 には、SW1 という Microsoft Sentinel ワークスペースと、Windows Server を実行する VM1 という仮想マシンが含まれています。SW1 は、AMA コネクタ経由で Wi​​ndows セキュリティ イベントを使用して、VM1 からセキュリティ ログを収集します。VM1  
-  
-から収集されるイベントの範囲を制限する必要があります。ソリューションでは、監査失敗イベントのみが収集されるようにする必要があります。  
+Sub1 という Azure サブスクリプションがあります。Sub1 には、SW1 という Microsoft Sentinel ワークスペースと、Windows Server を実行する VM1 という仮想マシンが含まれています。SW1 は、AMA コネクタ経由で Wi​​ndows セキュリティ イベントを使用して、VM1 からセキュリティ ログを収集します。VM1 から収集されるイベントの範囲を制限する必要があります。ソリューションでは、監査失敗イベントのみが収集されるようにする必要があります。  
   
 コネクタのフィルター式はどのように完成させるべきでしょうか？回答するには、回答領域で適切なオプションを選択してください。  
   
@@ -59,23 +50,18 @@ Sub1 という Azure サブスクリプションがあります。Sub1 には、
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   1](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image342.png)
+**正解:** 間違っている！？![](https://img.examtopics.com/sc-200/image342.png)
 
 **解説:**
-AMAコネクタを使用して「監査失敗（Audit Failure）」イベントのみを収集するためのXPathクエリです。
-**`Security!*[System[(Keywords band 4503599627370496)]]`**: これは「Audit Failure」に対応するイベントログのキーワード（Keyword）です。
-Securityログにおいて、
+Windows イベントログにおいて、**Audit Failure**（監査失敗）はキーワード **`0x8010000000000000`** で識別されます（監査成功は `0x8020000000000000`）。このキーワード情報は、イベント XML の **`System`** セクション内に保持されています。
 
-- Audit Success = `Keywords band 9007199254740992`
-- Audit Failure = `Keywords band 4503599627370496`
-というビットマスクを使用するのが定石です。
-また、`EventID=4625` のように特定のイベントIDセットでフィルタする方法もありますが、質問の選択肢（図）がXPathのキーワードフィルタ形式を示している場合、この数値を覚えている必要があります。
+- **XPath の構造:** 正しい XPath フィルターは `Security!*[System[Keywords='0x8010000000000000']]` となります。
+    
+- **UI の選択:** この試験形式の UI では、階層を指定するために `System[` を選択し、属性パスを完成させるために `System` を組み合わせて、最終的な XML パスを `System` ノードにマッピングさせるのが一般的です。
 
 質問18 トピック4
 
-Microsoft 365 E5 サブスクリプションと Microsoft Sentinel ワークスペースをご利用の場合、  
-  
-以下のソースからデータを結合する KQL クエリを作成する必要があります。  
+Microsoft 365 E5 サブスクリプションと Microsoft Sentinel ワークスペースをご利用の場合、以下のソースからデータを結合する KQL クエリを作成する必要があります。  
   
 • Microsoft Graph  
 • Microsoft Entra ID Protection を使用して検出されたリスクの高いユーザー  
@@ -96,14 +82,6 @@ Microsoft 365 E5 サブスクリプションと Microsoft Sentinel ワークス�
 **解説:**
 Microsoft Graphからのデータと、Entra ID Protectionのリスクユーザー情報を結合し、かつデータ量を最小限にするクエリです。
 **`IdentityInfo | where RiskState == "AtRisk"`**: `IdentityInfo` テーブル（UEBAやEntra IDデータが同期されるテーブル）からリスク状態が "AtRisk" のユーザーをまずフィルタリングします。その後、Graphデータなどと結合（join）するのが効率的です。選択肢Bがこのパターン（まずフィルタしてから結合）を示していると考えられます（図の詳細が見えないため推測ですが、KQLの最適化原則「フィルタ・ファースト」に従うのが正解です）。選択肢Aのように全データを結合してからフィルタするのは非効率です。
-
-*コミュニティ投票の配分*
-
-B（60％）
-
-A（30％）
-
-10%
 
 質問19 トピック4
 
@@ -130,15 +108,9 @@ Microsoft 365 E5 サブスクリプションをご利用です。
 Microsoft Graph APIなど（この場合はOffice 365管理APIや監査ログ検索）で、サーバー側ページングにより分割された結果の続きを取得するためのプロパティです。
 **`@odata.nextLink`**: ODataプロトコルに準拠したAPIレスポンスにおいて、次のページのデータを取得するためのURLが含まれるプロパティです。PowerShellスクリプトで全データを取得するには、このプロパティが存在する限りループしてリクエストを繰り返す処理が必要です。
 
-*コミュニティ投票の配分*
-
-C（100％）
-
 質問#20 トピック4
 
-Microsoft 365 E5 サブスクリプションがあり、Group1 と Group2 という 2 つのグループが含まれており、Microsoft Copilot for Security を使用しています。Copilot  
-  
-for Security のロール割り当てを以下の要件を満たすように構成する必要があります。  
+Microsoft 365 E5 サブスクリプションがあり、Group1 と Group2 という 2 つのグループが含まれており、Microsoft Copilot for Security を使用しています。Copilot for Security のロール割り当てを以下の要件を満たすように構成する必要があります。  
   
 • Group1 のメンバーがプロンプトを実行し、Microsoft Defender XDR セキュリティ インシデントに応答できるようにします。  
 • Group2 のメンバーがプロンプトを実行できるようにします。  
@@ -171,12 +143,6 @@ Copilot for Securityのロール割り当て（最小権限）です。
 - Group1: XDR操作も必要 -> Security Operator (A) でXDR権限を持ち、かつCopilotも使える（Copilotロールが別途必要だが、選択肢にない場合はSecurity Operatorに含まれる権限や、併用を示唆）。もしCopilot固有ロールで選ぶならContributorだが、XDR対応要件があるのでSecurity Operatorが優先か、あるいは両方必要。設問が「2つのアクション」を求めているので、Group1用に1つ、Group2用に1つを選ぶなら AとE。
 ※公式ドキュメントでは、Security Operatorロールを持つユーザーはCopilotを使用可能です（もちろんCopilotのアクセス権設定次第ですが）。
 
-*コミュニティ投票の配分*
-
-AE（82％）
-
-CE（18％）
-
 質問#21 トピック4
 
 Microsoft 365 E5 サブスクリプションをご利用で、DB1 というデータベースサーバーが含まれています。DB1 は Microsoft Defender XDR にオンボードされています。  
@@ -198,22 +164,11 @@ Microsoft 365 E5 サブスクリプションをご利用で、DB1 というデ�
 DB1を「攻撃対象領域マップ（Attack Surface Map）」に表示させるための設定です。
 **「Critical asset rule (重要な資産ルール)」**: Defender for CloudやDefender External Attack Surface Management (EASM) において、特定のリソースを重要資産として定義・分類することで、マップ上で優先的に表示・管理できるようになります。単なるタグ付けではなく、資産の重要度定義（Criticality）を行う必要があります。
 
-*コミュニティ投票の配分*
-
-B（70％）
-
-C（30％）
-
 質問#22 トピック4
-
-HOTSPOT  
-\-  
   
-App1というバックグラウンドプロセスを実行し、Azure Connected MachineエージェントがインストールされたオンプレミスのLinuxサーバーがあります。WS1  
-  
-というMicrosoft Sentinelワークスペースがあります。AMA  
-  
-コネクタ経由のSyslogを使用してApp1に関連するメッセージを収集する、DCR1というデータ収集ルール（DCR）を構成する必要があります。ソリューションは次の要件を満たす必要があります。  
+App1というバックグラウンドプロセスを実行し、Azure Connected MachineエージェントがインストールされたオンプレミスのLinuxサーバーがあります。
+WS1 というMicrosoft Sentinelワークスペースがあります。
+AMA コネクタ経由のSyslogを使用してApp1に関連するメッセージを収集する、DCR1というデータ収集ルール（DCR）を構成する必要があります。ソリューションは次の要件を満たす必要があります。  
   
 • 優先度が「重大」のメッセージのみを収集する。  
 • 収集するデータの量を最小限に抑える。DCR1  
@@ -229,16 +184,35 @@ App1というバックグラウンドプロセスを実行し、Azure Connected 
 **正解:** ![](https://img.examtopics.com/sc-200/image358.png)
 
 **解説:**
-Linuxサーバーから「Critical」レベルのSyslogメッセージのみを収集するDCR設定です。
+この問題のポイントは、Linux の標準的な Syslog ファシリティの理解と、収集されるログレベルの階層構造（重大度）にあります。
+1. Facility: なぜ LOG_DAEMON なのか
 
-1. **Facility**: **「LOG_USER」**（またはApp1が使用するファシリティ）。App1などの一般的なユーザープロセスは `LOG_USER` ファシリティを使用することが多いです。
-2. **Minimum log level**: **「CRITICAL」**。収集する最小ログレベルをCRITICALに設定することで、それ以上（Emergencyなど）のメッセージのみが収集され、InfoやDebugなどの不要なデータは除外されます。これによりデータ量を最小限に抑えられます。
+- **バックグラウンドプロセス:** 問題文にある「App1」はバックグラウンドプロセスとして実行されています。Linux において、特定のカテゴリ（認証、cron、カーネルなど）に属さないシステムサービスやバックグラウンドプロセス（デーモン）のメッセージは、通常 **`LOG_DAEMON`** ファシリティを使用して出力されます。
+    
+- 他の選択肢（`LOG_AUTH` = 認証、`LOG_CRON` = 定時実行、`LOG_KERN` = カーネル）は用途が限定されているため、汎用的なバックグラウンドプロセスには適しません。
+
+2. Log level: なぜ LOG_ERR なのか
+
+Syslog の重大度は、数値が小さいほど緊急度が高くなります。Microsoft Sentinel の DCR 構成でログレベルを選択する場合、通常は「選択したレベル以上の重大度（数値がそれ以下のもの）」が収集されます。
+
+|**重大度 (Severity)**|**レベル名**|**内容**|
+|---|---|---|
+|0|Emergency|システムが使用不能|
+|1|Alert|直ちに行動が必要|
+|**2**|**Critical**|**重大な状態（今回のターゲット）**|
+|3|Error|エラー状態|
+|4|Warning|警告状態|
+
+- **要件の充足:** 今回の要件は「優先度が『Critical（レベル 2）』のメッセージを収集する」ことです。
+    
+- **選択肢の比較:**
+    
+    - **`LOG_EMERG` (0):** これを選択するとレベル 0 のみ収集され、レベル 2 の **Critical メッセージが漏れてしまいます**。
+        
+    - **`LOG_ERR` (3):** これを最小レベルとして選択すると、3 (Error), **2 (Critical)**, 1 (Alert), 0 (Emergency) が収集されます。選択肢の中で、Critical を含みつつ、データの量を最小限（`LOG_WARN` や `LOG_DEBUG` よりも絞る）に抑えることができるのはこのレベルです。
 
 質問#23 トピック4
 
-HOTSPOT  
-\-  
-  
 オンプレミスネットワークにはHyper-Vクラスターが含まれています。クラスターには、次の表に示す仮想マシンが含まれています。SW1  
   
 ![](https://img.examtopics.com/sc-200/image359.png)  
@@ -261,20 +235,30 @@ HOTSPOT
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image361.png)
+**正解:** 間違っている！![](https://img.examtopics.com/sc-200/image361.png)
 
 **解説:**
-DCR1の設定（Platform: All, Data source: Windows/Syslog）に基づいて、ログ収集対象となるVMを判定します。AMA（Azure Monitor Agent）が必要です。
+この問題の鍵は、**「オンプレミスサーバーを Azure リソースとして DCR に登録するための要件」**にあります。
 
-1. **VM1 (Azure/Win10, AMA installed)**: **「Yes」**。AMAがインストールされており、DCRの対象（Windowsイベントログ）と合致します。
-2. **VM2 (Azure/Win11, MMA installed)**: **「No」**。**DCRはAMAのみ**をサポートします。Legacy Log Analytics Agent (MMA) はDCRを使用しません（ワークスペース設定を使用）。
-3. **VM3 (On-premises/Linux, Azure Arc, AMA installed)**: **「Yes」**。Azure Arc経由で管理され、AMAがインストールされているため、DCRによるSyslog収集の対象になります。
+1. Server1 および Server3 が「いいえ」の理由
+
+- **Azure Arc の必要性:** オンプレミスのサーバーを DCR の「リソース」として追加し、Azure Monitor Agent (AMA) で管理するには、そのサーバーが **Azure Arc 対応サーバー**（Azure Connected Machine エージェントがインストールされている状態）である必要があります。
+    
+- **エージェントの欠如:** Server1 と Server3 は AMA はインストールされていますが、Azure Connected Machine エージェントが「Not installed」です。この状態では Azure ポータル上で「リソース」として認識・選択できないため、DCR に追加することはできません。
+    
+
+2. Server2 が「はい」の理由
+
+- **リソースとしての認識:** Server2 は Azure Connected Machine エージェントがインストールされているため、Azure Arc 対応サーバーとして Azure 上で「リソース」として扱えます。
+    
+- **AMA の自動デプロイ:** 現在 AMA はインストールされていませんが、Arc 対応サーバーを DCR に関連付けると、拡張機能として **AMA が自動的にインストール**されます。
+    
+- **ログの収集:** DCR1 のデータソースには「Windows event logs」が含まれているため、追加後に特定のイベントを収集することが可能です。
 
 質問#24 トピック4
 
-Microsoft 365 E5 サブスクリプションをお持ちです。Microsoft  
-  
-Defender for Cloud Apps によって生成されたシグナルを使用するように、Microsoft Defender XDR の自動攻撃阻止を構成する必要があります。Microsoft  
+Microsoft 365 E5 サブスクリプションをお持ちです。
+Microsoft Defender for Cloud Apps によって生成されたシグナルを使用するように、Microsoft Defender XDR の自動攻撃阻止を構成する必要があります。Microsoft  
   
 Defender ポータルで Defender for Cloud Apps に対して実行する必要がある 2 つのアクションはどれですか？ 正解はそれぞれ解答の一部です。  
   
@@ -296,18 +280,7 @@ Defender XDRの「自動攻撃阻止（Automatic Attack Disruption）」が、De
 1. **Enable Microsoft 365 connector (A)**: Defender for Cloud AppsをMicrosoft 365（XDR）と接続することで、アラートやシグナルの共有が可能になります。これが前提条件です。
 2. **Switch on App governance (C)**: アプリガバナンス（App Governance）を有効にすることで、OAuthアプリの異常な動作や過剰な権限行使などのシグナルがXDRに供給され、攻撃阻止（例えば、悪意あるアプリの無効化やユーザーアカウントの停止）のトリガーとして使用されます。
 
-*コミュニティ投票の配分*
-
-AC（78％）
-
-11%
-
-11%
-
 質問#25 トピック4
-
-HOTSPOT  
-\-  
   
 Sub1 という Azure サブスクリプションがあり、このサブスクリプションには Vault1 という Azure Key Vault と Automation1 という Azure Automation アカウントが含まれています。Automation1  
   

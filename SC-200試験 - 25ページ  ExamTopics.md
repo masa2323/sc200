@@ -10,9 +10,6 @@ tags:
 ---
 質問6 トピック4
 
-HOTSPOT  
-\-  
-  
 次の表に示すリソースがあります。Microsoft  
   
 ![](https://img.examtopics.com/sc-200/image265.png)  
@@ -36,22 +33,34 @@ Defender for Cloud を使用する Azure サブスクリプションがありま
 **正解:** ![](https://img.examtopics.com/sc-200/image267.png)
 
 **解説:**
-サーバー保護（脆弱性評価、SQL登録）のためのDefender for Cloudプランの選択です。
+この問題のポイントは、**SQL Server 2022** の新機能と、管理の手間を最小限に抑えつつ「SQL 仮想マシン」として登録するという要件にあります。
 
-1. **VM1 (Advanced Threat Protection and vulnerability assessment)**: **「Defender for Servers Plan 2」**。Plan 1では基本的なポスチャー管理とエンドポイント保護（MDE）のみですが、脆弱性評価（Microsoft Defender Vulnerability Managementなど）を含む高度な保護にはPlan 2が推奨される（またはPlan 1でも一部脆弱性スキャン可能だが、問題の文脈ではフル機能のPlan 2が正解となるケースが多い。ただし、Plan 1でもMDEが含まれるため脆弱性評価は可能です。しかし、選択肢の構成上、高度な脅威保護を強調する場合はPlan 2が選ばれがちです）。また、VM1に対してはAzure VM拡張機能の自動プロビジョニングが必要です。
-2. **Server1 (Register SQL Server 2022 instance)**: **「Defender for SQL on machines」**（またはDefender for Servers Plan 2の一部）。要件「各SQL ServerインスタンスをSQL仮想マシンとして登録する」を満たすため、SQL IaaS Agent Extensionが必要になりますが、Defender for SQLプランを有効にすることで自動的に検出・保護が行われます。Azure外のサーバー（Server1）にはAzure Arcエージェントが必要です。
-※画像の正解答は、VM1/Server1ともに「Defender for Servers Plan 2」を指していると考えられます。
+1. SQL 仮想マシンとしての登録と保護
+
+- **VM1 (Azure VM):** Azure 上の SQL Server を「SQL 仮想マシン」として登録し、脆弱性評価や Advanced Threat Protection を有効にするには、**SQL IaaS Agent 拡張機能**（SQL IaaS Agent extension）をインストールします。これは「Azure 仮想マシン拡張機能」の一種です。
+    
+- **Server1 (Azure Arc 対応サーバー):** Azure Arc にオンボード済みのオンプレミスサーバー上の SQL Server 2022 を管理・保護するには、**SQL Server 用 Azure 拡張機能**（Azure extension for SQL Server）を使用します。これも Azure Arc を通じてデプロイされる「Azure 仮想マシン拡張機能」です。
+    
+
+2. 「最小限の手間」とエージェントの選択
+
+- 以前のバージョンでは Log Analytics エージェントが必要でしたが、SQL Server 2022 以降、および最新の Microsoft Defender for SQL では、**拡張機能のみ**で登録、脆弱性評価、および Advanced Threat Protection の主要機能をサポートできるようになっています。
+    
+- **Azure Monitor Agent (AMA)** や **Log Analytics エージェント** を追加で導入・管理することは、今回の要件である「実装と管理の手間を最小限に抑える」に反するため、拡張機能のみを選択するのが正解となります。
+3. 補足
+
+- **Advanced Threat Protection:** 拡張機能を通じて、SQL インジェクションや異常なアクセスなどの脅威を検知します。
+    
+- **脆弱性評価:** データベースのセキュリティ設定をスキャンし、推奨される修正策を提示します。これらも拡張機能によって構成可能です。は、VM1/Server1ともに「Defender for Servers Plan 2」を指していると考えられます。
 
 質問7 トピック4
 
-Microsoft Sentinel ワークスペースに、Workbook1 というカスタム ワークブックが含まれています。SecurityEvent  
-  
-テーブルに基づいてビジュアルを作成する必要があります。ソリューションは以下の要件を満たす必要があります。  
+Microsoft Sentinel ワークスペースに、Workbook1 というカスタム ワークブックが含まれています。SecurityEvent テーブルに基づいてビジュアルを作成する必要があります。ソリューションは以下の要件を満たす必要があります。  
   
 • 過去 1 週間に取り込まれたセキュリティ イベントの数を特定する。  
-• 日別のイベント数をタイムチャートで表示する。Workbook1  
-  
-には何を追加すればよいでしょうか。
+• 日別のイベント数をタイムチャートで表示する。
+
+Workbook1  には何を追加すればよいでしょうか。
 
 - A. ク​​エリ
 - B. 指標
@@ -66,20 +75,10 @@ Microsoft Sentinel ワークスペースに、Workbook1 というカスタム �
 ワークブックで過去1週間のイベント数の推移を表示するために追加すべき要素です。
 **「Query (クエリ)」**: ワークブックの核となる要素です。KQLクエリ（`SecurityEvent | summarize count() by bin(TimeGenerated, 1d)` など）を記述し、その結果を「Time chart」として可視化するように設定します。チャート表示の設定自体もクエリパーツの一部（Visualization設定）で行います。
 
-*コミュニティ投票の配分*
-
-A（100％）
 
 質問8 トピック4
-
-HOTSPOT  
-\-  
   
-50台の仮想マシンを含むAzureサブスクリプションを所有しています。Microsoft  
-  
-Defender for Cloudを展開する予定です。40  
-  
-台の仮想マシンに対してエージェントレススキャンを有効にする必要があります。ソリューションでは、仮想マシンのディスクスナップショットを作成し、スナップショットの帯域外分析を実行する必要があります。  
+50台の仮想マシンを含むAzureサブスクリプションを所有しています。Microsoft Defender for Cloudを展開する予定です。40 台の仮想マシンに対してエージェントレススキャンを有効にする必要があります。ソリューションでは、仮想マシンのディスクスナップショットを作成し、スナップショットの帯域外分析を実行する必要があります。  
   
 どうすればよいでしょうか？回答するには、回答エリアから適切なオプションを選択してください。  
   
@@ -99,9 +98,7 @@ Defender for Cloudを展開する予定です。40
 
 質問9 トピック4
 
-Azureサブスクリプションをお持ちです。Microsoft  
-  
-Graphのアクティビティログをサードパーティのセキュリティ情報イベント管理（SIEM）ツールにストリーミングする必要があります。このソリューションでは、管理作業を最小限に抑える必要があります。  
+Azureサブスクリプションをお持ちです。Microsoft Graphのアクティビティログをサードパーティのセキュリティ情報イベント管理（SIEM）ツールにストリーミングする必要があります。このソリューションでは、管理作業を最小限に抑える必要があります。  
   
 ログはどこにストリーミングすればよいでしょうか？
 
@@ -118,14 +115,7 @@ Graphのアクティビティログをサードパーティのセキュリティ
 Microsoft GraphアクティビティログをサードパーティSIEMにストリーミングする方法です。
 **「Azure Event Hubs namespace」**: Azure Monitorの診断設定（Diagnostic settings）を使用してログをエクスポートする際、サードパーティSIEM（Splunk, QRadarなど）への転送には通常 **Event Hubs** が仲介役として使用されます。Log AnalyticsはAzure内での分析用、Storage Accountはアーカイブ用です。
 
-*コミュニティ投票の配分*
-
-A（100％）
-
 質問10 トピック4
-
-HOTSPOT  
-\-  
   
 Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあり、User1 と User2 という 2 人のユーザーが登録されています。  
   
@@ -146,10 +136,26 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 **正解:** ![](https://img.examtopics.com/sc-200/image291.png)
 
 **解説:**
-Microsoft Purview（旧コンプライアンスセンター）での権限割り当てです。
+#### User1: Microsoft Purview Audit の検索と構成の確認
 
-1. **User1 (Audit log search and configuration)**: **「Audit Manager」**。監査ログの検索、および監査ポリシーの構成が可能です。Audit Readerでは構成の確認はできても変更ができない場合や、構成に関する詳細アクセスが不足する場合がありますが、要件の「構成を確認(review configuration)する」だけであればReaderでも可能な場合があります。しかし、SearchとConfiguration確認の両方を確実に行う役割としてManagerが適切です。
-2. **User2 (Search Exchange Online mailboxes)**: **「eDiscovery Manager」**。eDiscovery（電子情報開示）ケースを作成し、Exchangeメールボックスを含むコンテンツ検索を実行する権限を持っています。単なるメール管理者ではコンテンツ検索（プレビュー）はできません。
+- **Audit Reader (監査閲覧者):** この役割グループのメンバーは、Microsoft Purview ポータルで監査ログの検索と表示を行うことができます。また、監査ログの保持ポリシーなどの構成を確認（表示）することも可能です。
+    
+- **最小権限の原則:** `Security Reader` や `Global Reader` も情報の参照は可能ですが、監査サービスに特化した `Audit Reader` を使用するのが最も権限を限定できるため適切です。
+    
+
+#### User2: Microsoft Exchange Online メールボックスの検索
+
+- **Data Investigator (データ調査員):** この役割グループは、組織内のコンテンツ（メールボックス、SharePoint、OneDrive など）を検索し、コンテンツのプレビューやエクスポートを行う権限を持っています。eDiscovery（電子証拠開示）やコンテンツ検索を実行するために必要な役割が含まれています。
+    
+- **他のオプションとの比較:**
+    
+    - `Communication Compliance Investigators`: ポリシーによってフラグが立てられた通信のレビューに限定されます。
+        
+    - `Insider Risk Management Investigators`: 内部リスクのケースに関連するアクティビティの調査に限定されます。
+        
+    - `Privacy Management Investigators`: プライバシーリスク（Priva）の管理に特化しています。
+        
+    - メールボックス全体の自由な検索を行うには、`Data Investigator`（または eDiscovery Manager）が必要です。
 
 質問11 トピック4
 
@@ -181,23 +187,11 @@ Microsoft 365 サブスクリプションをご利用で、Microsoft Defender fo
 **「File1.sys only」**: **PEファイル（Portable Executable: .exe, .dll, .sys など）** のみがハッシュによるブロック対象として公式にサポートされています（以前のドキュメントに基づく）。PDFやOfficeドキュメント（docx, xlsx）は、振る舞い検知やSafe Documentsの対象ですが、MDEの「インジケーター」機能でのハッシュブロックの主要対象は実行可能ファイルコードです。
 ※ただし、最新のMDEでは証明書インジケーターなどでカバー範囲が広がっていますが、試験的には「実行可能ファイル(PE)のみ」という制約が問われることが多いです。
 
-*コミュニティ投票の配分*
-
-A（48％）
-
-E（47％）
-
-3%
-
 質問12 トピック4
 
 Microsoft Defender for Endpoint を使用する Microsoft 365 サブスクリプションがあり、User1 というユーザーと Group1 という Microsoft 365 グループが含まれています。すべてのユーザーに Defender for Endpoint Plan 1 ライセンスが割り当てられています。  
   
-エンドポイントと脆弱性管理に対して、Microsoft Defender XDR 統合ロールベース アクセス制御 (RBAC) を有効にします。User1  
-  
-が Group1 にメール通知を送信するアラートを構成できるようにする必要があります。このソリューションは、最小権限の原則に従う必要があります。User1  
-  
-にはどのような権限を割り当てる必要がありますか？
+エンドポイントと脆弱性管理に対して、Microsoft Defender XDR 統合ロールベース アクセス制御 (RBAC) を有効にします。User1 が Group1 にメール通知を送信するアラートを構成できるようにする必要があります。このソリューションは、最小権限の原則に従う必要があります。User1 にはどのような権限を割り当てる必要がありますか？
 
 - A. Defenderの脆弱性管理 - 修復処理
 - B. アラート調査
@@ -212,20 +206,9 @@ Microsoft Defender for Endpoint を使用する Microsoft 365 サブスクリプ
 Group1（メール受信者）へのメール通知設定を行うために必要な最小権限です。
 **「Manage security settings (セキュリティ設定を管理する)」**: Defender for Endpointの設定（通知設定含む）を変更するには、セキュリティ設定の管理権限が必要です。「Alert investigation」や「Remediation actions」はオペレーション権限であり、システム設定（通知ルール）の変更権限ではありません。
 
-*コミュニティ投票の配分*
-
-D（73％）
-
-B（27％）
-
 質問13 トピック4
 
-HOTSPOT  
-\-  
-  
-Microsoft Defender for Cloud を使用する Azure サブスクリプションをお持ちです。Azure  
-  
-Resource Manager (ARM) テンプレートを使用して、Microsoft Defender for Cloud が特定のアラートを受信したときにロジック アプリをトリガーするワークフロー自動化を作成する必要があります。  
+Microsoft Defender for Cloud を使用する Azure サブスクリプションをお持ちです。Azure Resource Manager (ARM) テンプレートを使用して、Microsoft Defender for Cloud が特定のアラートを受信したときにロジック アプリをトリガーするワークフロー自動化を作成する必要があります。  
   
 テンプレートはどのように完成させるべきですか？回答するには、回答エリアで適切なオプションを選択してください。  
   
@@ -241,7 +224,7 @@ Resource Manager (ARM) テンプレートを使用して、Microsoft Defender fo
 ARMテンプレートを使用してDefender for Cloudのワークフロー自動化（Workflow Automation）を作成する際の設定値です。
 
 1. **"type":**: **"Microsoft.Security/automations"**。ワークフロー自動化のリソースタイプです。
-2. **"actionType":**: **"LogicApp"**。トリガーされたときに実行するアクションの種類を指定します。ロジックアプリを呼び出す場合は "LogicApp" です。
+2. **"actions":**: **"Microsoft.Logic/workflows"**。トリガーされたときに実行するアクションの種類を指定します。ロジックアプリを呼び出す場合は "LogicApp" です。
 
 質問14 トピック4
 
@@ -272,25 +255,15 @@ Excel を使用してデータの取得と変換操作を実行し、File1.csv �
 Excelでの監査ログ（AuditData列のJSON）解析に関する問題です。
 ExcelのPower Query（データの取得と変換）機能でJSONを解析しようとして列生成に失敗する場合、単純に列にフィルターをかけても、元のJSON構造の複雑さが解決しない限り問題は解決しません。特に「JSONプロパティの数を減らすフィルター」という操作は、インポート前のCSVに対して行うのは困難です。正解の **B (いいえ)** は、この手順だけでは解決しない、またはより適切なJSON変換機能（Power QueryのJSON解析機能の正しい使用）が必要であることを示唆しています。
 
-*コミュニティ投票の配分*
-
-B（57％）
-
-A（43％）
-
 質問15 トピック4
 
-Microsoft 365 E5 サブスクリプションがあり、User1 と User2 という 2 人のユーザーが Microsoft Copilot for Security を使用しています。Copilot  
+Microsoft 365 E5 サブスクリプションがあり、User1 と User2 という 2 人のユーザーが Microsoft Copilot for Security を使用しています。Copilot for Security ポータルから、User1 がセッションを開始し、以下のプロンプトを作成します。  
   
-for Security ポータルから、User1 がセッションを開始し、以下のプロンプトを作成します。  
-  
-• プロンプト 1: Entra プラグインへのアクセスを提供します  
-。• プロンプト 2: Intune プラグインへのアクセスを提供します。  
+• プロンプト 1: Entra プラグインへのアクセスを提供します  。
+• プロンプト 2: Intune プラグインへのアクセスを提供します。  
 • プロンプト 3: Entra プラグインへのアクセスを提供します  
   
-。User1 は User2 とセッションを共有します。User2  
-  
-は Microsoft Intune にアクセスできません。  
+。User1 は User2 とセッションを共有します。User2 は Microsoft Intune にアクセスできません。  
   
 共有セッション中、User2 はどのプロンプトの結果を表示できますか？
 
@@ -308,12 +281,6 @@ for Security ポータルから、User1 がセッションを開始し、以下�
 Copilot for Securityの共有セッションにおける可視性の問題です。
 User1（権限あり）がセッションを作成し、User2（権限なし：Intuneアクセス権限なし）に共有しました。
 共有セッションでは、**プロンプトの結果（回答）は、そのセッション内ですでに生成されたテキストとしてUser2にも表示されます**。User2が自分で新たにIntuneデータを取得するアクションを実行しようとすると権限エラーになりますが、User1が既に実行して生成した回答（結果）を見ることは可能です。したがって、User1が実行したすべてのプロンプトの結果（1, 2, 3）が表示されます。
-
-*コミュニティ投票の配分*
-
-E（74％）
-
-D（26％）
 
 [以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/24/)
 
