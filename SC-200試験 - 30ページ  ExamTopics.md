@@ -8,40 +8,6 @@ description: "Free, Actual and Latest Practice Test for those who are preparing 
 tags:
   - "clippings"
 ---
-質問17 トピック5
-
-Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションをお持ちです。  
-  
-以下のステートメントを含むクエリがあります。  
-  
-![](https://img.examtopics.com/sc-200/image315.png)  
-  
-このクエリを使用するカスタム検出ルールを構成する必要があります。このソリューションでは、クエリに一致するイベントに関する通知を受け取るまでの時間を最小限に抑える必要があります。  
-  
-このルールの通知頻度はどのくらいに設定すればよいでしょうか？
-
-- A. 1時間ごと
-- B. 継続的（NRT）
-- C. 12時間ごと
-- D. 3時間ごと
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
-
-**正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)  
-
-**解説:**
-Microsoft Defender XDR（旧M365 Defender）のカスタム検出ルール（Advanced Huntingクエリに基づく検出）の頻度設定です。
-**「Every hour (1時間ごと)」**: カスタム検出ルールの実行頻度（Frequency）の選択肢として、以前は「1時間ごと」「3時間ごと」「12時間ごと」「24時間ごと」がありました。「Continuous (NRT)」はSentinelのAnalytics Ruleにはありますが、Defender XDRのカスタム検出にはNRT（Near Real-Time）という選択肢は通常存在しません（最短で1時間）。
-※質問文に「minimize the time until you receive a notification」とあるため、選択可能な最短頻度である**1時間ごと（Every hour）**が正解です。
-（注: SentinelのNRTルールとは混同しやすいですが、XDR portalでの設定の話です）
-
-*コミュニティ投票の配分*
-
-A（67％）
-
-B（25％）
-
-8%
 
 質問18 トピック5
 

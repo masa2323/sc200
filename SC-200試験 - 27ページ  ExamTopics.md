@@ -36,14 +36,7 @@ Microsoft Entra Internet Access（Global Secure Accessの一部）を管理す�
 ユーザー3は「Application Administrator」であり、アプリ登録などはできますが、ネットワークセキュリティサービスであるInternet Accessの全体管理権限ではありません。
 したがって、ユーザー1とユーザー2が管理可能です。
 
-*コミュニティ投票の配分*
-
-D（100％）
-
 質問#27 トピック4
-
-HOTSPOT  
-\-  
   
 Sub1 という Azure サブスクリプションがあり、RG1 というリソース グループが含まれています。RG1 には、Azure ロールベース アクセス制御 (Azure RBAC) を使用する KV1 と KV2 という 2 つの Azure キー コンテナーが含まれています。  
   
@@ -64,24 +57,9 @@ Sub1 という Azure サブスクリプションがあり、RG1 というリソ�
 **正解:** ![](https://img.examtopics.com/sc-200/image367.png)
 
 **解説:**
-Azure Key Vaultのデータプレーンアクセス権（RBAC）に関する問題です。
-
-1. **Secret1 in KV1**: RBACが有効化されています。シークレット値を読むには、**「Key Vault Secrets User」** または **「Key Vault Secrets Officer」**、あるいは **「Key Vault Administrator」** のロールが必要です。
-   - **User1** (Security Admin): キーコンテナーのデータプレーンにはアクセス権がありません（管理プレーンのみ）。
-   - **User2** (Key Vault Reader): リーダーはデータプレーン（シークレット値）を読む権限はありません。
-   - **User3** (Key Vault Secrets User): シークレット読み取り権限があります。
-   - したがって、**User3のみ** です。
-2. **Secret2 in KV2**:
-   - **User1**: 権限なし。
-   - **User2**: 権限なし。
-   - **User3**: 権限なし（User3のスコープはKV1のみと記述されているか、User3への割り当て表を確認するとKV1のみの可能性が高いですが、表の画像が見えないため推測を含みます。一般的に、スコープが明示されていない場合、KV2への権限はないと判断します。もしSubscriptionスコープなら全員読める等の可能性がありますが、通常はUser3のみKV1に権限がある等のシナリオです）。
-   - 画像の解答では「User3 only」と「None」になっているパターンが多いです。KV2に対して誰も適切なデータロールを持っていない場合、「None」になります。
-※画像の正解（上段：User3 only、下段：None）に従うと、KV2には誰もシークレット閲覧権限を割り当てられていない設定です。
+正解 ユーザー1：サブ1のKey Vault管理者 スコープ：サブ1（サブスクリプション）にはRG1が含まれており、RG1にはKV1とKV2が含まれています。権限：Key Vault管理者として、ユーザー1はKV1とKV2の両方にフルアクセスでき、シークレットの読み取り権限も含まれます。アクセス：KV1：シークレット1を読み取ることができます。KV2：シークレット2を読み取ることができます。ユーザー2：RG1のKey Vault閲覧者 スコープ：RG1（リソースグループ）にはKV1とKV2の両方が含まれています。権限：Key Vault閲覧者として、ユーザー2はKV1とKV2のプロパティを表示できますが、シークレット値にアクセスするためのデータプレーン権限がありません。アクセス：KV1：シークレット1を読み取ることができません。KV2：シークレット2を読み取ることができません。ユーザー3：KV1のKey Vaultシークレットユーザー スコープ：KV1（特定のキーコンテナー）。権限: Key Vault シークレット ユーザーである User3 は、KV1 内のシークレットを読み取ることができますが、スコープが KV1 に制限されているため、KV2 に対する権限はありません。アクセス: KV1: Secret1 を読み取ることができます。KV2: Secret2 を読み取ることはできません (KV2 のスコープでは権限がありません)。
 
 質問#28 トピック4
-
-HOTSPOT  
-\-  
   
 Microsoft Sentinel ワークスペースがあります。  
   
@@ -101,24 +79,48 @@ Microsoft Sentinel ワークスペースがあります。
 **正解:** ![](https://img.examtopics.com/sc-200/image369.png)
 
 **解説:**
-SentinelのAutomation Ruleから呼び出し、エンティティ情報を使用するプレイブックの設定です。
+### **回答エリアの選択**
 
-1. **Playbook trigger**: **「Microsoft Sentinel Entity」**。要件「Automationルールを使用してエンティティに対してアクションをトリガーする」および「Entity - Get Hostsアクション」という文脈から、エンティティコンテキストで動作するプレイブックが想定されますが、実はAutomation Ruleから呼び出す標準的なプレイブックは **「Microsoft Sentinel Incident」** トリガーが主流です。しかし、特定のエンティティに対してアクションを行う（entity mapping等）場合、Entityトリガーも選択肢に入ります。
-   *ただし*、自動化ルールで呼び出す場合、現在は「Incident」トリガーが一般的です。しかし、図の選択肢にある **「Entity - Get Hosts」** アクションは、エンティティコンテキストを必要とします。正解画像が「Microsoft Sentinel Entity」を選択している場合、それはエンティティに対する操作（オンデマンド実行など）を意図しているか、特定のエンティティトリガー機能を指しています。
-2. **Parameter**: **「Account」**（またはHost）。「Get Hosts」アクションを使うのであれば、通常はIPやAccount情報からHostを検索するなどの流れになりますが、質問が「エンティティに対して...」といっているので、Entityトリガー設定で対象とするエンティティタイプ（Hostなど）を選択します。
-※正解画像は **Trigger: Microsoft Sentinel Incident**, **Parameter: Entities** の組み合わせ、あるいは **Trigger: Microsoft Sentinel Entity**, **Parameter: Host** などの可能性があります。画像（image369）の選択肢配置に依存します。
-一般的に、Automation Ruleから自動実行するのはIncidentトリガーです。アクション内で `Get Hosts` を使うには、インシデント内のエンティティリストを入力にします。
+- **Playbook types（プレイブックの種類）:** * **Only a playbook that uses an incident trigger and a playbook that uses an alert trigger only**
+    
+    - （インシデントトリガーを使用するプレイブック、およびアラートトリガーのみを使用するプレイブックのみ）
+        
+- **Parameters（パラメーター）:** * **Alert and FullIncidentProperties only**
+    
+    - （AlertおよびFullIncidentPropertiesのみ）
+        
+
+---
+
+#### **解説**
+
+1. プレイブックの種類について**
+
+Microsoft Sentinelの**自動化ルール（Automation rules）**は、以下の条件が発生したときにプレイブックを実行できます。
+
+- インシデントの作成時
+    
+- インシデントの更新時
+    
+- アラートの作成時
+    
+
+そのため、自動化ルールに関連付けられるプレイブックは、**「Microsoft Sentinel インシデントトリガー」**または**「Microsoft Sentinel アラートトリガー」**を使用している必要があります。 「エンティティトリガー」を使用するプレイブックは、エンティティページなどからの**手動実行**を目的としたものであり、自動化ルールから直接トリガーすることはできません。
+
+2. パラメーターについて**
+
+プレイブック内で「エンティティ - ホストの取得（Get - Entities (Host)）」などのアクションを呼び出すには、トリガーとなったイベントからエンティティ情報を抽出する必要があります。
+
+- インシデントトリガーの場合、**FullIncidentProperties**（インシデントの全プロパティ）にエンティティ情報が含まれます。
+    
+- アラートトリガーの場合、**Alert**（アラート）オブジェクトにエンティティ情報が含まれます。
+    
+
+したがって、自動化ルールを介してこれらの情報を処理するためには、これらのパラメーターが指定されている必要があります。
 
 質問#29 トピック4
-
-HOTSPOT  
-\-  
   
-contoso.com という Microsoft Entra テナントにリンクされた Sub1 という Azure サブスクリプションがあります。Contoso.com には User1 というユーザーがいます。Sub1 には Microsoft Sentinel ワークスペースがあります。Microsoft  
-  
-Copilot for Security のキャパシティをプロビジョニングします。User1  
-  
-が Copilot for Security を使用して以下のタスクを実行できるようにする必要があります。  
+contoso.com という Microsoft Entra テナントにリンクされた Sub1 という Azure サブスクリプションがあります。Contoso.com には User1 というユーザーがいます。Sub1 には Microsoft Sentinel ワークスペースがあります。Microsoft Copilot for Security のキャパシティをプロビジョニングします。User1 が Copilot for Security を使用して以下のタスクを実行できるようにする必要があります。  
   
 • データ共有およびフィードバックのオプションを更新する。  
 • Microsoft Sentinel のインシデントを調査する。  
@@ -136,20 +138,29 @@ Copilot for Security のキャパシティをプロビジョニングします�
 **正解:** ![](https://img.examtopics.com/sc-200/image371.png)
 
 **解説:**
-Microsoft Copilot for Securityの最小権限ロール割り当てです。
+1. データ共有およびフィードバックのオプションの更新**
 
-1. **Update data sharing and feedback options**: **「Copilot Owner」**。データ共有設定（Microsoftへのフィードバックやデータ共有）を変更できるのはOwnerロールのみです。Contributorは使用のみです。
-2. **Investigate incidents in Microsoft Sentinel**: **「Unified Experience User」**（またはSecurity OperatorなどのXDRロール）。Copilotを使用してSentinelインシデントを調査（スキル実行）するには、Copilotの使用権限（Contributor以上）に加え、Sentinelへのアクセス権が必要です。しかし、Copilot固有のロールについて問われている場合、調査を行うのは **「Copilot Contributor」** で十分です。
-※画像の正解は、上段「Copilot Owner」、下段「Copilot Contributor」となっている可能性が高いです。
+Microsoft Copilot for Security の設定（データ共有プロンプト、フィードバック、テナント設定など）を管理するには、**管理者権限**が必要です。
+
+- **Security Administrator（セキュリティ管理者）** または **Global Administrator（グローバル管理者）** は、デフォルトで Copilot for Security の「所有者」権限を持ち、これらの設定を構成できます。
+    
+- 「最小権限の原則」に従う場合、全権限を持つグローバル管理者ではなく、**Security Administrator** を選択するのが適切です。
+    
+- Security Operator（セキュリティ オペレーター）は、ツールの利用は可能ですが、テナント全体の共有設定などを変更する権限は持ちません。
+    
+2. Microsoft Sentinel インシデントの調査**
+
+Copilot for Security を通じて Microsoft Sentinel のデータにアクセスし、インシデントの調査を行うには、Sentinel ワークスペース側で適切な権限が必要です。
+
+- **Microsoft Sentinel Responder（Microsoft Sentinel 応答者）**：インシデントの表示、割り当て、ステータスの変更、および調査を行うことができます。「調査（Investigate）」という要件を満たすための最小権限のロールです。
+    
+- **Microsoft Sentinel Reader（Microsoft Sentinel 閲覧者）**：データの表示は可能ですが、インシデントの調査（アクションの実行）には不十分です。
+    
+- **Cloud App Security Administrator**：Microsoft Defender for Cloud Apps に特化したロールであり、Sentinel 全体のインシデント調査には適していません。
 
 質問#30 トピック4
 
-HOTSPOT  
-\-  
-  
-Microsoft Defender for Cloud を使用する Azure サブスクリプションをお持ちです。Azure  
-  
-Resource Manager (ARM) テンプレートを使用して、Microsoft Defender for Cloud が特定のアラートを受信したときにロジック アプリをトリガーするワークフロー自動化を作成する必要があります。  
+Microsoft Defender for Cloud を使用する Azure サブスクリプションをお持ちです。Azure Resource Manager (ARM) テンプレートを使用して、Microsoft Defender for Cloud が特定のアラートを受信したときにロジック アプリをトリガーするワークフロー自動化を作成する必要があります。  
   
 テンプレートはどのように完成させるべきですか？回答するには、回答エリアで適切なオプションを選択してください。  
   
@@ -159,20 +170,33 @@ Resource Manager (ARM) テンプレートを使用して、Microsoft Defender fo
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image373.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image373.png)
 
-**解説:**
-Defender for Cloudのワークフロー自動化（ARMテンプレート）設定。（Q30と重複の可能性あり、または以前の類似問題）
+### **回答エリアの選択**
 
-1. **type**: **`Microsoft.Security/automations`**
-2. **actionType**: **`LogicApp`**
-これはワークフロー自動化リソースを定義し、ロジックアプリをトリガーする標準的な構成です。
+- **logicAppResourceId:** **Microsoft.Logic**
+    
+
+---
+
+#### **解説**
+
+Azure Resource Manager (ARM) テンプレートにおいて、リソースの完全な ID を生成する `resourceId` 関数を使用する場合、**「リソース プロバイダー/リソース タイプ」** の形式で指定する必要があります。
+
+- **Microsoft.Logic:** Azure Logic Apps のリソース プロバイダーです。Logic App 本体は `Microsoft.Logic/workflows` というタイプで定義されます。
+    
+- **Microsoft.Security:** これはワークフロー自動化リソース自体（`Microsoft.Security/automations`）を定義する際に使用するプロバイダーであり、呼び出し先の Logic App を指すものではありません。
+    
+- **Microsoft.Automation:** Azure Automation（Runbookなど）に使用されるプロバイダーです。
+    
+- **Microsoft.AlertsManagement:** Azure Monitor のアラート管理に関連するプロバイダーです。
+    
+
+したがって、テンプレートの該当箇所を `[resourceId('Microsoft.Logic/workflows', parameters('logicAppName'))]` と完成させることで、正しい Logic App のリソース ID が参照されるようになります。
 
 質問#31 トピック4
 
-Microsoft 365 E5 サブスクリプションをお持ちです。Windows  
-  
-デバイスで PowerShell を使用して Microsoft Purview 監査ログを検索する必要があります。  
+Microsoft 365 E5 サブスクリプションをお持ちです。Windows デバイスで PowerShell を使用して Microsoft Purview 監査ログを検索する必要があります。  
   
 まず何をすればよいでしょうか？
 
@@ -189,23 +213,16 @@ Microsoft 365 E5 サブスクリプションをお持ちです。Windows
 PowerShellを使用してMicrosoft Purview（旧コンプライアンス）監査ログを検索するための前提条件です。
 **「Install the Microsoft Exchange Online PowerShell module」**: 監査ログ検索コマンドレット `Search-UnifiedAuditLog` は、**Exchange Online PowerShell** モジュールに含まれています。これを使用するために、モジュールのインストールとExchange Onlineへの接続が必要です。
 
-*コミュニティ投票の配分*
-
-C（100％）
-
 質問#32 トピック4
-
-HOTSPOT  
-\-  
   
 Microsoft 365 サブスクリプションをお持ちです。サブスクリプションには、Microsoft Defender for Endpoint にオンボードされている Windows 11 デバイスが 500 台含まれています。  
   
 次の要件を満たすように Defender for Endpoint を構成する必要があります。  
   
 • セキュリティ運用アナリストがクライアントコンピューターで PowerShell スクリプトを実行できるようにする。  
-• クライアントコンピューター上の脅威の自動修復を実行する。Microsoft  
-  
-Defender XDR ポータルで構成する必要があるエンドポイント設定はどれですか？回答するには、回答領域で適切なオプションを選択してください。  
+• クライアントコンピューター上の脅威の自動修復を実行する。
+
+Microsoft Defender XDR ポータルで構成する必要があるエンドポイント設定はどれですか？回答するには、回答領域で適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
   
@@ -213,26 +230,48 @@ Defender XDR ポータルで構成する必要があるエンドポイント設�
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image445.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image445.png)
 
-**解説:**
-Defender for Endpointの設定要件。
+#### **回答エリアの選択**
 
-1. **Analyst run PowerShell scripts (Live Response)**: **「Live Response」** をオンにします。これにより、セキュリティアナリストがリモートセッションを開始し、スクリプトを実行できるようになります。
-2. **Automated remediation of threats**: **「Automated Investigation」**（またはAutomation level）。自動修復を有効にするには、デバイスグループ設定で自動化レベルを「Full - remodel threats automatically」にするか、全体設定で自動調査をオンにする必要があります。質問が「Endpoint settings」の項目選択を求めている場合、**「Automated investigation」** や **「Live Response」** のスイッチをオンにする箇所（Advanced features）を指しています。
+- **To ensure that the analysts can run PowerShell script（アナリストが PowerShell スクリプトを実行できるようにする）:**
+    
+    - **Live Response in Advanced features**（高度な機能のライブ応答）
+        
+- **To perform the automatic remediation of threats（脅威の自動修復を実行する）:**
+    
+    - **Device groups**（デバイス グループ）
+        
+
+---
+
+#### **解説**
+
+1. PowerShell スクリプトの実行（Live Response）**
+
+セキュリティ運用アナリストがリモートからデバイスに対して PowerShell スクリプトを実行したり、調査コマンドを走らせたりするには、**ライブ応答（Live Response）**機能を有効にする必要があります。
+
+- **設定箇所:** [設定] > [エンドポイント] > [高度な機能] 内にある「Live Response」および「Live Response unsigned script execution（未署名のスクリプト実行）」をオンにします。
+    
+- これにより、アナリストは「ライブ応答セッション」を開始し、ライブラリにアップロードしたスクリプトを実行できるようになります。
+    
+
+2. 脅威の自動修復（Automatic Remediation）**
+
+Defender for Endpoint では、デバイスごとにどの程度の自動化を許可するか（完全な自動修復、承認が必要な修復、修復なしなど）を**デバイスグループ**単位で設定します。
+
+- **設定箇所:** [設定] > [エンドポイント] > [デバイス グループ] を作成または編集し、**「自動化レベル（Automation level）」**を「Full - remediate threats automatically（完全 - 脅威を自動的に修復する）」に設定します。
+    
+- 特定のデバイスセット（この場合は Windows 11 デバイス）に対してこのレベルを適用することで、検知された脅威が人間の介入なしに自動的に処理されるようになります。
 
 質問#33 トピック4
 
-HOTSPOT  
-\-  
-  
 次の表に示すリソースがあります。Microsoft  
   
 ![](https://img.examtopics.com/sc-200/image454.png)  
   
-Defender for Cloud を使用する Azure サブスクリプションがあります。VM1  
-  
-と Server1 を保護するには、Defender for Cloud を使用する必要があります。ソリューションは、以下の要件を満たす必要があります。  
+Defender for Cloud を使用する Azure サブスクリプションがあります。
+VM1 と Server1 を保護するには、Defender for Cloud を使用する必要があります。ソリューションは、以下の要件を満たす必要があります。  
   
 • Advanced Threat Protection と脆弱性評価をサポートする。  
 • 各 SQL Server 2022 インスタンスを SQL 仮想マシンとして登録する。  
@@ -246,19 +285,41 @@ Defender for Cloud を使用する Azure サブスクリプションがありま
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   1](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image456.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image456.png)
 
 **解説:**
-Defender for Cloudプランの選択（Q6の類似/重複）。
+### **回答エリアの選択**
 
-1. **VM1 (Advanced Threat Protection/Va)**: **「Defender for Servers Plan 2」**。
-2. **Server1 (SQL Server 2022 instance)**: **「Defender for SQL on machines」**（またはDefender for Servers P2）。SQL IaaS Agent Extensionのインストールと保護が必要です。
+- **VM1:** **A VM extension only**
+    
+    - （VM 拡張機能のみ）
+        
+- **Server1:** **Azure Connected Machine agent and VM extension**
+    
+    - （Azure Connected Machine エージェントおよび VM 拡張機能）
+        
+
+---
+
+### **解説**
+1. VM1 (Azure VM) の構成**
+
+VM1 は既に Azure 上の仮想マシンであるため、Azure の管理フレームワーク（Azure Resource Manager）に直接統合されています。
+
+- **SQL 仮想マシンとしての登録:** Azure VM 上の SQL Server を管理・保護するには、**SQL IaaS Agent 拡張機能**（VM 拡張機能の一種）をインストールします。これにより、自動的に「SQL 仮想マシン」リソースとして登録されます。
+    
+- **最小限の労力:** Azure VM の場合、追加の外部エージェント（Azure Arc など）をインストールする必要はなく、拡張機能を有効にするだけで「Advanced Threat Protection」や「脆弱性評価」が利用可能になります。
+    
+
+2. Server1 (オンプレミス サーバー) の構成**
+Server1 はオンプレミス環境にあるため、Azure 以外のリソースを Azure 制御プレーン（ARM）に接続するための仕組みが必要です。
+
+- **Azure Arc の利用:** オンプレミスのサーバーを Azure 上の「SQL 仮想マシン」のように管理するには、まず **Azure Connected Machine エージェント** をインストールして **Azure Arc 対応サーバー** として登録する必要があります。
+    
+- **VM 拡張機能の展開:** Azure Arc を通じて、Azure VM と同様に **SQL IaaS Agent 拡張機能** をデプロイすることが可能になります。これにより、オンプレミスの SQL Server インスタンスを Azure ポータルから一元管理し、Defender for Cloud による高度なセキュリティ機能を提供できるようになります。
 
 質問#34 トピック4
 
-ホットスポット  
-\-  
-  
 contoso.com という Microsoft 365 サブスクリプションがあり、そこには Device1 という Windows 11 デバイスが含まれています。Device1 は Microsoft Defender for Endpoint にオンボードされています。  
   
 次の操作を実行します。  
@@ -283,21 +344,10 @@ contoso.com という Microsoft 365 サブスクリプションがあり、そ�
 デバイスグループへの自動割り当て（ランク順）に関する問題です。
 Defender for Endpointのデバイスグループは、**上から順に評価（ランク1が最優先）**され、最初に条件に合致したグループにデバイスが割り当てられます。
 
-1. **Device1 (Windows 11)**:
-   - Rank 1 (Group1): OS=Windows 10 -> 不一致
-   - Rank 2 (Group2): OS=Windows 11 -> **一致**。したがって **Group2**。
-   - Rank 3 (Group3): OS in Windows 10, 11 -> 条件は合うが、既にGroup2でマッチしたため評価されない。
-2. **Device2 (Android)**:
-   - Rank 1 (Group1): OS=Windows 10 -> 不一致
-   - Rank 2 (Group2): OS=Windows 11 -> 不一致
-   - Rank 3 (Group3): OS in Windows 10, 11 (Androidは含まれない) -> 不一致。
-   - Rank 4 (Group4): Name starts with Device -> Device2はこれに一致。したがって **Group4**。
+デバイス 1 = グループ 2 のみ - 最初に一致するルールが優先され、グループ 2 はグループ 3 よりも優先順位が高くなります デバイス 2 = グループ 1 のみ
 
 質問#35 トピック4
 
-HOTSPOT  
-\-  
-  
 ケース スタディ  
 \-  
   
@@ -362,20 +412,27 @@ Contoso 社では、次の技術要件を特定しています。• Microsoft S
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)  
 
-**正解:** ![](https://img.examtopics.com/sc-200/image461.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image461.png)
 
 **解説:**
-Contosoケーススタディの要件に基づく推奨事項です。
+技術要件として「正当なアクセス試行への影響を最小限に抑える」ことが求められています。
 
-1. **Detect failed first-time sign-ins from specific country (BehaviorAnalytics)**:
-   クエリの穴埋め問題です。「特定の国からの初回サインイン失敗」を検出するためには、行動分析（BehaviorAnalytics）テーブルの `ActivityInsights` または同様のフィールドを確認します。正解画像の選択肢から判断すると、**`ActivityInsights.FirstTimeUserFromCountry`** のようなプロパティがTrueであることを確認する条件式になります。
-2. **Remediation for Defender for Cloud alerts**:
-   修復アクションの推奨。
-   - **Vulnerability in app source code**: **「Implement GitHub Advanced Security」**（またはDefender for DevOps）。ソースコードの脆弱性にはDevOpsセキュリティツールが有効です。
-   - **Exploit toolkit in declarative templates**: **「Install Defender for DevOps」**。IaCテンプレート（Bicep/ARM）のスキャン機能を提供します。
-   - **Activity from malicious IP address**: **「Enable Defender for Servers Plan 2」**（JIT VM AccessやNetwork Hardeningなど）。
-   - **Exposed secrets**: **「Configure secret scanning」**（GitHub Advanced Security or Defender for DevOps）。
-※画像の解答配置に合わせて選択します。通常、DevOps関連の脅威にはDefender for DevOps機能が推奨されます。
+#### 内部脅威 (Internal threat)
+
+内部のユーザーや管理者による誤操作や悪意のある削除・変更を防ぐには、**リソースロック (Resource locks)** が最も効果的です。
+
+- **なぜこれか:** `ReadOnly` または `CanNotDelete` ロックを適用することで、権限を持つユーザーであっても誤って Key Vault を削除することを防げます。
+    
+- **他が不適切な理由:** アクセスポリシーの変更や新規作成は、既存のアプリケーションやユーザーの正当なアクセスを遮断（ダウンタイムの発生）させるリスクが高く、要件である「影響を最小限に抑える」に反します。
+    
+
+#### 外部脅威 (External threat)
+
+外部からの不審なアクセスが検知された場合、ネットワークレベルでの隔離が必要です。
+
+- **なぜこれか:** **Key Vault ファイアウォール設定**を構成して、信頼できる特定のネットワークまたはプライベートエンドポイントからのみアクセスを許可するように制限することで、外部の攻撃者からのアクセスを即座にブロックできます。
+    
+- **他が不適切な理由:** NSG (ネットワークセキュリティグループ) は一般的にサブネットや VM レベルで動作しますが、Key Vault 自体のアクセス制御としては、組み込みの「ファイアウォールと仮想ネットワーク」設定を操作するのが直接的かつ推奨される修復手順です。
 
 [以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/26/)
 
