@@ -8,35 +8,6 @@ description: "Free, Actual and Latest Practice Test for those who are preparing 
 tags:
   - "clippings"
 ---
-質問8 トピック6
-
-HOTSPOT  
-\-  
-  
-Microsoft Defender for Endpoint を使用する Microsoft 365 E5 サブスクリプションがあり、Device1 という Windows デバイスが搭載されています。Device1  
-  
-で検出された不審な実行ファイルを調査する必要があります。調査には以下の要件を満たす必要があります。  
-  
-• ファイルのイメージファイルパスを特定する。  
-• Device1 でファイルが最初に検出された日時を特定する。  
-  
-検出イベントのタイムラインから確認すべき点は何ですか？回答するには、回答エリアで適切なオプションを選択してください。  
-  
-注: 正解は 1 点です。  
-  
-![](https://img.examtopics.com/sc-200/image280.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   14](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
-
-**正解:** ![](https://img.examtopics.com/sc-200/image281.png)
-
-**解説:**
-MDEの検出イベントタイムラインからファイルの詳細情報を特定する箇所です。
-
-1. **File image file path**: **「File Details」**（またはFile Profile / File Page）。タイムライン上でファイル名をクリックするとファイル詳細ページまたはフライアウトが開き、パス、ハッシュ、署名情報などが確認できます。あるいはタイムラインイベントの詳細ウィンドウ内に **「File path」** が表示されます。画像選択肢依存ですが、通常は「File」に関連する詳細表示部分です。
-2. **Date and time file was first seen**: **「File Details -> Prevalence / First seen」**。ファイル詳細ページには「First seen in organization」や「First seen on device」の日時が表示されます。タイムライン上の個々のイベントは「その時の実行時刻」ですが、「Device1で最初に検出された日時」を知るにはファイルエンティティのプロパティ（First seen on this device）を見るのが最も正確です。
-※正解画像は、左側でイベント詳細の **「File path」**（または実行ファイルのパス欄）、右側でファイル詳細の **「First seen」** 項目を選択していると思われます。
-
 質問9 トピック6
 
 Microsoft 365 サブスクリプションをお持ちで、Microsoft Defender for Endpoint プラン 2 を使用し、1,000 台の Windows デバイスが含まれています。Script1.ps1  

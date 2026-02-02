@@ -10,9 +10,6 @@ tags:
 ---
 
 質問18 トピック5
-
-HOTSPOT  
-\-  
   
 次の表に示すホストを含​​むMicrosoft 365 E5サブスクリプションをご利用です。Microsoft  
   
@@ -34,44 +31,71 @@ Defender for Endpointには、次の表に示すインジケーターがあり�
 
 **正解:** ![](https://img.examtopics.com/sc-200/image319.png)
 
-**解説:**
-Defender for Endpointのファイルインジケーター（ハッシュブロック）の優先順位と競合解決に関する問題です。
+Microsoft Defender for Endpointのインジケーター動作について、Microsoft Learn MCP を使って正確な情報を確認します。
 
-- ID1: File hash (ID3=Hash) -> **Allow** (Scope: Windows 11 only)
-- ID2: File hash (ID3=Hash) -> **Block** (Scope: All devices)
-- ID3: File 1 (Hash)
+まず、関連するドキュメントを検索します。この情報から、3つの質問に回答します。
 
-競合の解決ルール（優先順位）:
+## 分析
 
-1. 証明書インジケーター（Allow）
-2. **ファイルインジケーター: Allow**
-3. **ファイルインジケーター: Block**
+提供された情報から、以下のルールが適用されます:
 
-同じハッシュに対してAllowとBlockがある場合、**Allowが優先**されます。ただし、スコープが関係します。
+### ポリシー競合の処理ルール:
 
-1. **Host1 (Windows 11)**:
-   - ID1 (Allow) のスコープに含まれる -> Allowが優先される。
-   - 結果: **User1 can run File1? -> Yes**
-2. **Host2 (Windows 10)**:
-   - ID1 (Allow) のスコープ（Windows 11）に含まれない -> ID1は適用されない。
-   - ID2 (Block) のスコープ（All devices）に含まれる -> Blockが適用される。
-   - 結果: **User1 can run File1? -> No**
-3. **Host3 (Windows Server 2019)**:
-   - ID1 (Allow) のスコープに含まれない。
-   - ID2 (Block) のスコープに含まれる。
-   - 結果: **User1 can run File1? -> No**
-※正解画像も Yes, No, No となっています。
+1. **ハッシュタイプの優先順位**: SHA-256 > SHA-1 > MD5
+2. **スコープの優先順位**: 特定のデバイスグループにスコープされたインジケーター > 全デバイスを対象とするインジケーター
+
+### 各ホストの分析:
+
+**Host1** (Windows 11, DG1):
+
+- ID2 (SHA-256, Allow, DG1) - 適用対象
+- ID3 (SHA-1, Block execution, DG1, DG2) - 適用対象
+- ID4 (SHA-256, Block execution, DG1) - 適用対象
+- ID1とID2が同じファイルを参照しているため、Host1には適用されません
+
+**Host2** (Windows 11, DG2):
+
+- ID1 (SHA-256, Block and remediate, DG2) - 適用対象
+- ID3 (SHA-1, Block execution, DG1, DG2) - 適用対象
+- ID4はDG1のみなので適用されません
+
+**Host3** (macOS, DG1):
+
+- ID2 (SHA-256, Allow, DG1) - 適用対象
+- ID3 (SHA-1, Block execution, DG1, DG2) - 適用対象
+- ID4 (SHA-256, Block execution, DG1) - 適用対象
+
+### 各文の評価:
+
+**文1**: "Host1 will block the execution of a file that has the SHA-1 hash value of 2aae6c35c94fcfb415dbe95f408b9ce91ee846ed."
+
+- ID3 (SHA-1) はHost1のデバイスグループ(DG1)に適用されます
+- しかし、ID4 (SHA-256) も同じDG1に適用され、同じファイルに対するものです
+- SHA-256 > SHA-1 の優先順位により、ID4が適用されます
+- ID4のアクションは "Block execution" です
+- **答え: Yes**
+
+**文2**: "Host2 will block and remediate a file that has the SHA-256 hash value of 88d4266fd4e6338d13b845fcf289579d209c897823b9217da3e161936f031589."
+
+- ID4はDG1のみに適用され、Host2はDG2に属するため、ID4は適用されません
+- **答え: No**
+
+**文3**: "Host3 will block the execution of a file that has the SHA-256 hash value of 88d4266fd4e6338d13b845fcf289579d209c897823b9217da3e161936f031589."
+
+- ID4 (SHA-256, Block execution) はHost3のデバイスグループ(DG1)に適用されます
+- **答え: Yes**
+
+## 回答:
+
+| 文                                                                                                                                             | Yes | No  |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | --- | --- |
+| Host1 will block the execution of a file that has the SHA-1 hash value of 2aae6c35c94fcfb415dbe95f408b9ce91ee846ed.                           | ○   |     |
+| Host2 will block and remediate a file that has the SHA-256 hash value of 88d4266fd4e6338d13b845fcf289579d209c897823b9217da3e161936f031589.    |     | ○   |
+| Host3 will block the execution of a file that has the SHA-256 hash value of 88d4266fd4e6338d13b845fcf289579d209c897823b9217da3e161936f031589. | ○   |     |
 
 質問19 トピック5
 
-HOTSPOT  
-\-  
-  
-Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあります。Microsoft  
-  
-Sentinel ワークスペースがあります。Microsoft  
-  
-Sentinel コネクタは、次の表に示すように構成されています。Microsoft Sentinel を  
+Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあります。Microsoft Sentinel ワークスペースがあります。Microsoft Sentinel コネクタは、次の表に示すように構成されています。Microsoft Sentinel を  
   
 ![](https://img.examtopics.com/sc-200/image347.png)  
   
@@ -105,9 +129,6 @@ Microsoft Sentinelで監査ログを調査するためのテーブル選択で�
 
 質問#20 トピック5
 
-HOTSPOT  
-\-  
-  
 Microsoft 365 サブスクリプションがあり、User1、User2、User3 という 3 人のユーザーと、次の表に示すリソースが含まれています。Rule1  
   
 ![](https://img.examtopics.com/sc-200/image374.png)  
@@ -134,24 +155,28 @@ o ファイル:ブロック
 **正解:** ![](https://img.examtopics.com/sc-200/image376.png)
 
 **解説:**
-カスタム検出ルールのアクション（ユーザー侵害マーク、ファイルブロック）の動作とスコープです。
-ルール構成: Scope=DevGroup1, Action=User(Mark as compromised), File(Block)
+### 1. Device3 での File1.exe のブロックについて
 
-1. **User1 (Device1 in DevGroup1)**:
-   - ファイル実行 -> 検知される
-   - アクション: ユーザー侵害マーク -> **Yes**
-   - ファイルブロック -> **Yes**（今後ブロックされる）
-   - 質問: 「User1は侵害されたとマークされるか？」-> **Yes**
-2. **User2 (Device2 in DevGroup2)**:
-   - デバイスはスコープ外（DevGroup2）。
-   - ファイル実行 -> ルールはDevGroup1のみ対象なので検知されない（またはアクションが発動しない）。
-   - 質問: 「User2は侵害されたとマークされるか？」-> **No**
-3. **User3 (Device3 in DevGroup1)**:
-   - デバイスはスコープ内。
-   - User1のアクションでファイルはブロックリストに追加された（"Block"アクションは通常、組織全体またはポリシーに従ってグローバルに効くインジケーターを作成するか、修復アクションとして特定ファイルを除去する）。
-   - カスタム検出の「Block」アクションは「修復（Remediation）」として動作する場合、その検出時のファイル操作をブロックまたは検疫します。インジケーターとして登録される場合もあります。
-   - 質問: 「User3はDevice3でFile1.exeを実行できるか？」-> もしUser1の実行時にブロック措置（インジケーター追加）が行われていれば、実行できなくなります。通常、Defenderの「Block」アクションはインジケーターを作成するため、**No** になります。
-※正解画像を確認: Yes, No, No。
+- **判定:** **いいえ**
+    
+- **理由:** Rule1 の適用範囲（スコープ）は **DevGroup1** に限定されています。Device3 は **DevGroup2** に所属しているため、このルールの対象外となります。したがって、File1.exe が実行されてもブロックのアクションはトリガーされません。
+    
+
+### 2. User2 のリスクレベルについて
+
+- **判定:** **いいえ**
+    
+- **理由:** User2 がサインインしている Device2 は DevGroup1 に属しているため、ルールのアクション「ユーザー：侵害済みとしてマーク（Mark as compromised）」が実行されます。
+    
+- **詳細:** Microsoft Entra ID 保護（Entra ID Protection）の仕様では、ユーザーを「侵害済みとしてマーク」した場合、そのユーザーのリスクレベルは自動的に「**高 (High)**」に設定されます。「中 (Medium)」ではないため、この文は正しくありません。
+    
+### 3. Device1 からの調査パッケージの収集について
+
+- **判定:** **はい**
+    
+- **理由:** User1 がサインインしている Device1 は **DevGroup1** に属しており、ルールのスコープ内です。
+    
+- **詳細:** Rule1 のアクションとして「デバイス：調査パッケージを収集（Collect investigation package）」が構成されているため、条件に一致する File1.exe が実行されると、Device1 から調査パッケージが正しく収集されます。
 
 質問#21 トピック5
 
@@ -180,18 +205,9 @@ Microsoft 365 E5 サブスクリプションをお持ちです。
 カスタム検出ルールが特定のアクション（デバイス分離、ウイルススキャン、調査パッケージ収集など）をエンティティに対して実行するためには、クエリの結果セットに、そのエンティティを識別する識別子（**DeviceId**）と、イベントの時間（**Timestamp**）が含まれている必要があります。これらがマッピングされていないと、システムはどのデバイスに対していつのアクションを実行すればよいかわかりません。
 ユーザー（Account）に対するアクションならAccountUpnなどが必要です。
 
-*コミュニティ投票の配分*
-
-D（100％）
-
 質問#22 トピック5
 
-HOTSPOT  
-\-  
-  
-Windows 11 および Linux CentOS デバイスを含む Microsoft 365 E5 サブスクリプションをご利用です。Microsoft  
-  
-Defender XDR で「Deception」が「オン」に設定されています。  
+Windows 11 および Linux CentOS デバイスを含む Microsoft 365 E5 サブスクリプションをご利用です。Microsoft Defender XDR で「Deception」が「オン」に設定されています。  
   
 カスタムルアーを使用するデセプションルールを作成する予定です。  
   
@@ -205,22 +221,31 @@ Defender XDR で「Deception」が「オン」に設定されています。
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image379.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image379.png)
 
 **解説:**
-DefenderのDeception機能におけるカスタムルアー（おとり）の作成要件です。
+### 1. File type (ファイルの種類) について
 
-1. **File type**: **「Lnk」**（ショートカットファイル）。現在のDefender Deception機能でサポートされているルアーファイルタイプは主にドキュメントやショートカット（.lnk）などですが、画像選択肢にある中でルアーとして一般的なのは `.lnk` や `.docx` です。攻撃者が「パスワードリスト」や「重要なサーバーへのリンク」だと思ってクリックするのを誘います。
-2. **Planting path**: **「Client」**。ルアーを配置するパスとして推奨またはサポートされているのは、ユーザーがアクセスしやすい場所（デスクトップ、ドキュメントなど）です。Linuxの場合 `/home` や `/root` など。Windowsの場合は `C:\Users\...`。選択肢が「Client」か「Server」かのような区分けなら、Windows 11（クライアントOS）とLinux（サーバーOS）の両方を含む環境への展開として適切なパス構造を選ぶ必要がありますが、おそらく「特定のパス（例: Desktop, Documents）」を選ぶ形式です。
-※正解画像（image379）では、左側が **「Lnk」**、右側が **「LocalDrive」**（または具体的なパス）などを選択していると思われます。（Deceptionルアーはローカルドライブに展開されます）
+- **LNK** が推奨されます。
+    
+- デセプションルールにおける **LNK（ショートカットファイル）** は、攻撃者がそのファイルをクリックしたりプロパティを確認したりした際に、自動的にデコイ（偽のサーバーやリソース）へと誘導するよう設計されています。
+    
+- 攻撃者が「機密情報へのショートカット」と誤認してアクセスする可能性が高いため、おとりとして非常に有効です。
+    
+
+### 2. Planting path (配置パス) について
+
+- **{HOME}** を指定します。
+    
+- Microsoft Defender XDR のデセプション設定では、変数の **`{HOME}`** を使用することで、対象となる Windows デバイスのユーザープロファイル（例: `C:\Users\Username`）や、Linux デバイスのホームディレクトリ（例: `/home/username`）にルアーを自動的に配置できます。
+    
+- これにより、環境内の複数のユーザーや異なる OS（Windows/Linux）に対して、攻撃者の目に留まりやすい場所に一括でおとりを設置することが可能になります。
 
 質問#23 トピック5
 
 Microsoft 365 E5 サブスクリプションをご利用です。  
   
-攻撃者が特定のデバイスに接続しようとした際に、Microsoft Defender XDR でアラートが生成されるようにする必要があります。ソリューションは管理作業を最小限に抑える必要があります。Microsoft  
-  
-Defender ポータルではどのような操作を行うべきでしょうか？
+攻撃者が特定のデバイスに接続しようとした際に、Microsoft Defender XDR でアラートが生成されるようにする必要があります。ソリューションは管理作業を最小限に抑える必要があります。Microsoft Defender ポータルではどのような操作を行うべきでしょうか？
 
 - A. デコイを含む欺瞞ルールを作成します。
 - B. 既存のデバイスをハニートークン エンティティとしてタグ付けします。
@@ -236,15 +261,9 @@ Defender ポータルではどのような操作を行うべきでしょうか�
 **「Tag existing devices as honeytoken entities (既存のデバイスをハニートークンエンティティとしてタグ付けする)」**:
 Defender for Identity (または XDR) には、特定のエンティティ（ユーザーやデバイス）を **「Honeytoken (ハニートークン)」** として指定する機能があります。これを設定すると、そのエンティティに関連するアクティビティ（認証、クエリなど）が発生しただけで、即座に高忠実度のアラートがトリガーされます。「特定のデバイスへの接続試行」を検知したいなら、そのデバイスをハニートークンとしてマークするのが最も簡単で確実です。デセプションルールを作成する（A, C）よりも、既存デバイスのタグ付け（B）の方が「管理作業を最小限」に抑えられます。
 
-*コミュニティ投票の配分*
-
-B（100％）
-
 質問#24 トピック5
 
-Microsoft 365 E5 サブスクリプションをお持ちで、Site1 という Microsoft SharePoint Online サイトが含まれています。Site1  
-  
-に対して Microsoft Defender for Cloud Apps セッション制御を有効にする必要があります。  
+Microsoft 365 E5 サブスクリプションをお持ちで、Site1 という Microsoft SharePoint Online サイトが含まれています。Site1 に対して Microsoft Defender for Cloud Apps セッション制御を有効にする必要があります。  
   
 まず、どの種類のポリシーを作成すればよいでしょうか？
 
@@ -262,44 +281,53 @@ Microsoft Defender for Cloud Apps (MDCA) のセッション制御（Session Cont
 **「Conditional Access (条件付きアクセス)」**:
 MDCAのセッションポリシー（ダウンロードブロックやコピペ禁止など）を適用するには、まずMicrosoft Entra IDの **「条件付きアクセスポリシー」** を作成し、セッションコントロール（Session）の項目で **「Use Conditional Access App Control (条件付きアプリ アクセス制御を使用する)」** を選択して、トラフィックをMDCAにルーティングする必要があります。これにより、ユーザーのセッションがMDCAのプロキシを経由するようになり、その後MDCA側で作成したセッションポリシーが適用されます。
 
-*コミュニティ投票の配分*
-
-D（100％）
-
 質問#25 トピック5
-
-HOTSPOT  
-\-  
   
 Microsoft 365 E5 サブスクリプションがあり、Policy1 という条件付きアクセスポリシーが設定されています。  
   
 以下の操作を行う必要があります。  
   
 • Custom1 という条件付きアプリアクセス制御カスタムポリシーを作成します。  
-• Custom1 を使用するように Policy1 を構成します。Custom1  
-  
-の作成にはどのような設定が必要ですか？また、Policy1 のどの設定で条件付きアプリアクセス制御を有効にする必要がありますか？回答するには、回答エリアから適切なオプションを選択してください。  
+• Custom1 を使用するように Policy1 を構成します。
+
+Custom1 の作成にはどのような設定が必要ですか？また、Policy1 のどの設定で条件付きアプリアクセス制御を有効にする必要がありますか？回答するには、回答エリアから適切なオプションを選択してください。
   
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image380.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
-
-**正解:** ![](https://img.examtopics.com/sc-200/image381.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image381.png)
 
 **解説:**
-条件付きアクセスアプリ制御（CAAC）の設定です。（Q24の詳細版）
+## 回答エリア (Answer Area)
 
-1. **Setting to configure in Custom1**: **「Session control type」**（またはTemplate）。MDCAでカスタムポリシー（Custom1）を作成する際、セッションポリシーの種類には「Block download」や「Monitor only」がありますが、これらは **「Session policy」** として作成します。質問が「どのような設定が必要か」を問うている場合、**「Session policy」** テンプレートを選択します。
-2. **Setting to configure in Policy1**: **「Session」**。Entra IDの条件付きアクセスポリシー（Policy1）の設定項目の中で、MDCAへの転送を有効にするのは **「Session」** ブレード内の「Use Conditional Access App Control」です。Grant（許可）ではありません。
-※正解画像の配置: 左側「Session Policy」、右側「Session」。
+- **Use:** **Microsoft Defender portal**
+    
+- **Settings:** **Session**
+    
+---
+
+## 解説とロジック
+
+### 1. 「Use」について（Custom1 の作成場所）
+
+- **機能の所在:** 条件付きアプリアクセス制御（Conditional Access App Control）は、**Microsoft Defender for Cloud Apps** の機能です。
+    
+- **管理ポータル:** 現在、Microsoft Defender for Cloud Apps のポリシー作成や管理は、統合された **Microsoft Defender portal**（https://www.google.com/search?q=security.microsoft.com）で行います。
+    
+- **作成手順:** Defender ポータル内で「クラウド アプリ」＞「ポリシー」＞「ポリシー管理」から、条件付きアプリアクセス制御用のカスタムポリシー（Custom1）を作成します。
+    
+
+### 2. 「Settings」について（Policy1 での構成）
+
+- **連携の仕組み:** 条件付きアクセスポリシー（Policy1）で特定のアプリへのアクセスを制御し、そのトラフィックを Defender for Cloud Apps にリダイレクトする必要があります。
+    
+- **設定箇所:** 条件付きアクセスポリシーの「アクセス制御」セクションにある **「セッション (Session)」** コントロールを使用します。
+    
+- **具体的な構成:** 「セッション」内で **「条件付きアプリアクセス制御を使う」** を選択し、そこで「カスタム ポリシーを使用する」などの設定を行うことで、事前に作成した Custom1 と Policy1 を紐付けることができます。
 
 質問#26 トピック5
 
-HOTSPOT  
-\-  
-  
 Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションをお持ちです。  
   
 デセプションルールを実装しています。  
@@ -316,17 +344,75 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image383.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image383.png)
 
-**解説:**
-Deceptionルアーの設定詳細。
+## 回答エリア (Answer Area)
 
-1. **File type**: **「Lnk」**。Deceptionでカスタムルアーとして使用できるファイルタイプとして、選択肢にある中ではショートカットファイル（**Lnk**）がサポートされています（他にはmsg, docx, xlsxなどもサポートされますが、画像内の選択肢によります。CmdやBatは通常ルアーとしては不自然です）。
-2. **Directory**: **「Downloads」**。Planting pathを「HOME」に設定した場合、ルアーはユーザーのホームディレクトリ配下の特定のフォルダに配置されます。選択肢の中でホームディレクトリ配下のサブフォルダとして適切なのは **「Downloads」**（またはDesktop, Documents）です。TempやWindowsはホームではありません。
-※HOMEパス設定時の配置場所: `Requires planting path to be set to HOME: Downloads, Desktop, Documents`
+- **File types:** **EXE, XLSX, and PDF**
+    
+- **The home directory of:** **The planted cached user**
+    
+---
 
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/29/)
+## 解説とロジック
 
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 30 ページを表示しています。
+### 1. カスタムルアーのファイル形式について
+
+Microsoft Defender XDR のデセプションルールでは、攻撃者が興味を持ちそうな「おとり」として複数のファイル形式をサポートしています。
+
+- **サポートされている形式:** 代表的なものとして **EXE**（実行ファイル）、**XLSX**（Excel スプレッドシート）、**PDF**（ドキュメント）などが含まれます。
+    
+- 選択肢の中で、これら主要な3つの形式をすべて含む **「EXE, XLSX, and PDF」** が最も包括的かつ正しい設定です。これらを組み合わせることで、より自然なユーザー環境を装うことができます。
+    
+### 2. 配置場所（Planting path）について
+
+`Planting path` を `{HOME}` に設定した場合、ファイルがどのユーザーのディレクトリに配置されるかが重要です。
+
+- **デコイアカウントの役割:** デセプションルールが適用されると、デバイス上には「デコイ（おとり）」となる偽のユーザーアカウントが生成またはキャッシュされます。これを **Planted cached user** と呼びます。
+    
+- **配置の意図:** 実ユーザーの業務を妨げず、かつ攻撃者が横展開（ラテラルムーブメント）を試みた際に見つけやすい場所に配置するため、おとりファイルはこの **Planted cached user（植え付けられたキャッシュユーザー）** のホームディレクトリに配置されます。
+
+  
+質問#27 トピック5
+
+Microsoft Defender for Cloud を使用する Azure サブスクリプションをお持ちです。  
+  
+以下のリスクを軽減するには、Defender for Cloud を構成する必要があります。  
+  
+• アプリケーション ソースコード内の脆弱性  
+• 宣言型テンプレート内のエクスプロイトツールキット  
+• 悪意のある IP アドレスからの操作  
+• 公開されたシークレット  
+  
+使用すべき 2 つの Defender for Cloud サービスはどれですか？ 正解はそれぞれソリューションの一部を示しています。  
+  
+注: 正解は 1 点です。
+
+- A. API 向け Microsoft Defender
+- B. リソース マネージャー用の Microsoft Defender
+- C. Microsoft Defender for App Service
+- D. Microsoft Defender for Servers
+- E. DevOps 向け Microsoft Defender
+
+正解は **B. リソース マネージャー用の Microsoft Defender** と **E. DevOps 向け Microsoft Defender** です。
+
+それぞれのサービスが対応するリスクの詳細は以下の通りです。
+
+### 1. DevOps 向け Microsoft Defender (Microsoft Defender for DevOps)
+
+以下の 3 つのリスクを包括的にカバーします。
+
+- **アプリケーション ソースコード内の脆弱性:** GitHub や Azure DevOps などの開発環境と連携し、コードのスキャン結果を Defender for Cloud 上で一元管理します。
+    
+- **宣言型テンプレート内のエクスプロイトツールキット:** Terraform や Bicep、ARM テンプレートなどの Infrastructure as Code (IaC) スキャンを行い、設定ミスや脆弱な構成を検出します。
+    
+- **公開されたシークレット:** コード内にハードコードされたパスワード、API キー、トークンなどの「シークレット」をスキャンして検出します。
+    
+
+### 2. リソース マネージャー用の Microsoft Defender (Microsoft Defender for Resource Manager)
+
+残り 1 つのリスクに対応します。
+
+- **悪意のある IP アドレスからの操作:** Azure Resource Manager (ARM) を介したコントロール プレーン（管理レイヤー）の操作を常に監視しています。既知の悪意のある IP アドレスからのリソース作成や設定変更などの不審なアクティビティを検出します。
 
 410問中**291 - 300**問 を表示
