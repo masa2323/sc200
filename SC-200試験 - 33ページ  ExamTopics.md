@@ -8,31 +8,6 @@ description: "Free, Actual and Latest Practice Test for those who are preparing 
 tags:
   - "clippings"
 ---
-質問18 トピック6
-
-Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションをお持ちです。  
-  
-インシデントの影響を受けるすべてのエンティティを特定する必要があります。Microsoft  
-  
-Defender ポータルのどのタブを使用すればよいですか？
-
-- A. 調査
-- B. 資産
-- C. 証拠と応答
-- D. アラート
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   20](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
-
-**正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)  
-
-*コミュニティ投票の配分*
-
-C（56％）
-
-B（31％）
-
-13%
-
 質問19 トピック6
 
 Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションをご利用です。Microsoft  
@@ -53,30 +28,24 @@ Graph API を攻撃ベクトルとして利用することが知られている�
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
 
-**正解：** E [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)  
+**正解：B**
 
 **解説:**
-Microsoft Graph Activity Logsテーブルで分析可能な戦術について。（Q19の類題）
-Graph APIを使用する全てのアクティビティは `MicrosoftGraphActivityLogs` に記録されます。表に示された戦術（例えばTactic 1: Reconnaissance, Tactic 2: Discovery, Tactic 3: Collectionなど）がすべて「Graph API呼び出し」によって実行されるものである場合、それらはすべてこのログテーブルで検出可能です。
+CloudAppEventsテーブルは、Microsoft Defender for Cloud Appsによって収集される、Office 365および他のクラウドアプリやサービスに関するアクティビティ情報を含んでいます。具体的には以下のアプリケーションをカバーしています:
 
-- Tactic 1: `User.Read.All` など（偵察） -> 記録される
-- Tactic 2: `Mail.Read` など（探索） -> 記録される
-- Tactic 3: データのダウンロードなど（収集） -> 記録される
-提示された画像（image298）の内容がGraph APIリクエストである限り、すべての戦術が分析可能です。
+- **Exchange Online** (メールボックス関連)
+- **SharePoint Online**
+- **Microsoft Teams**
+- **Dynamics 365**
+- その他のSaaSアプリケーション
 
-*コミュニティ投票の配分*
+このテーブルには、これらのアプリケーションで行われた活動の詳細が記録されており、`ActionType`、`Application`、`ActivityType`などのフィールドを通じて、メールボックスの検出やTeamsチャットの検索といった活動を追跡できます。
 
-E（67％）
-
-B（33％）
+**Tactic3について:** 「Deletes Azure virtual machines (Azure仮想マシンを削除する)」は、**CloudAppEventsテーブルでは分析できません**。Azure仮想マシンの削除は、インフラストラクチャレベルの操作であり、これを追跡するには**AzureActivityログ**など、Azureリソース管理に関連する別のテーブルが必要です。
 
 質問#20 トピック6
 
-HOTSPOT  
-\-  
-  
-Microsoft 365 サブスクリプションがあり、Microsoft Defender for Endpoint プラン 2 を使用しています。このサブスクリプションには、Device1 という名前の Windows デバイスが含まれています。Device1  
-でライブ応答セッションを開始し、バックグラウンドで File1.exe という実行可能ファイルを起動します。  
+Microsoft 365 サブスクリプションがあり、Microsoft Defender for Endpoint プラン 2 を使用しています。このサブスクリプションには、Device1 という名前の Windows デバイスが含まれています。Device1 でライブ応答セッションを開始し、バックグラウンドで File1.exe という実行可能ファイルを起動します。  
   
 次の操作を実行する必要があります。  
   
@@ -89,31 +58,19 @@ Microsoft 365 サブスクリプションがあり、Microsoft Defender for Endp
   
 ![](https://img.examtopics.com/sc-200/image299.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   10](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image300.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image300.png)
 
 **解説:**
-MDEのライブ応答でプロセスを操作するためのコマンドです。
+Microsoft Defender for Endpoint のライブ応答セッションでは、コマンドの末尾に `&` を付けて実行することで、プロセスをバックグラウンド（ジョブ）として動作させることができます。
 
-1. **Identify the command ID of File1.exe**: **`processes`**。実行中のプロセス一覧を表示し、Process ID（PID）やImage Nameなどを確認するコマンドです。これでFile1.exeのPIDを特定できます。
-2. **Manipulate File1.exe [in the background]**: **`run`**。質問が「バックグラウンドで起動したFile1.exe（質問文にある）を操作する」か、あるいは「File1.exeを起動・操作する」かによりますが、プロセスの操作にはPIDを使用します。
-   *修正*: 質問の文脈「Start an executable named File1.exe in the background... You need to perform the following actions...」
-   おそらく「開始したプロセスの情報を得る」のと「操作する」のですが、正解画像（image300）を見ると、
-   - 左側（Identify...）: **`processes`**（プロセス一覧取得）
-   - 右側（Manipulate...）: **`run`** ではなく、もしかすると **`remediate`** かもしれませんが、起動したプロセスをどう操作するかです。
-   もし質問が「起動したバックグラウンドタスク（コマンド）のIDを確認する」なら **`bg`** コマンドかもしれません（Live Responseにはバックグラウンドジョブ確認用コマンドがある場合がありますが、標準的なリストには `processes` が有力）。
-   そして「Manipulate（操作）」が「停止・削除」を意味するなら **`remediate`** ですが、単に実行することを指すなら **`run`** です。
-   ※正解画像では、左側 **`processes`**、右側 **`remediate`**（またはkill/stopに類するもの）が選ばれている可能性が高いです。プロセスに対する操作として最も一般的なのは停止（remediate）です。
+- **jobs コマンド**: 現在バックグラウンドで実行されているすべてのジョブの一覧を表示します。各ジョブには固有の **Command ID** が割り当てられており、このリストから目的の ID を特定できます。
+    
+- **fg コマンド**: "foreground" の略です。`fg <Command ID>` と入力することで、バックグラウンドで動いているプロセスをフォアグラウンド（前面）に戻し、セッション内で直接対話（入力など）ができるようになります。
 
 質問#21 トピック6
 
-HOTSPOT  
-\-  
-  
-Microsoft Purview を使用する Microsoft 365 サブスクリプションがあり、Site1 という Microsoft SharePoint Online サイトが含まれています。Site1  
-  
-には、次の表に示すファイルが含まれています。Microsoft  
+Microsoft Purview を使用する Microsoft 365 サブスクリプションがあり、Site1 という Microsoft SharePoint Online サイトが含まれています。Site1 には、次の表に示すファイルが含まれています。Microsoft  
   
 ![](https://img.examtopics.com/sc-200/image301.png)  
   
@@ -127,33 +84,43 @@ Purview から、次の表に示すコンテンツ検索クエリを作成しま
   
 ![](https://img.examtopics.com/sc-200/image303.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   21](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image304.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image304.png)
 
 **解説:**
-Purviewコンテンツ検索のキーワードクエリ（KQL）の動作確認です。
-クエリ: `(c:c) (Date=2024-01-01..2024-02-01)`
-`c:c` は `keyword query` の一部と考えられますが、通常 `c:c` という構文は「すべてのプロパティに対して "c" を検索」などの意味か、あるいは単なる文字列検索です。日付範囲指定があります。
-ファイルリスト（image301）：
+この問題のポイントは、KQL（Kusto Query Language）に基づいたコンテンツ検索クエリの構文と、論理演算の理解です。
 
-- File1: created 2024-01-15, content "Project Alpha"
-- File2: created 2024-02-05, content "Budget Report"
-- File3: created 2024-01-20, content "c:c test" (仮定)
-クエリの `(c:c)` が何を意味するかによりますが、もし `c:c` という文字列そのものを検索しているのであれば、その文字列を含むファイルがヒットします。
-しかし、一般的にこのような問題では `c:c` は「コンテンツタイプ」などのプロパティ指定の誤記か、特定の条件です。
-日付範囲 `2024-01-01..2024-02-01` に合致するのは:
-- File1 (1/15) -> **範囲内**
-- File2 (2/05) -> **範囲外**
-- File3 (1/20) -> **範囲内**
-質問内容（image303）が「File1は結果に含まれるか？」などであれば、日付フィルターに基づいて判断します。日付だけで言えばFile1とFile3が含まれます。
-※正解画像（image304）のYes/Noの配置に従いますが、一般的に日付範囲外のものはNo、範囲内のものはYesです。
+#### **1. Search1 will return File3: [いいえ]**
+
+- **クエリ:** `Author:"User1" FileExtension:xlsx`
+    
+- **条件:** 作成者が「User1」**かつ** 拡張子が「xlsx」である必要があります。
+    
+- **対象ファイル:** File3 は拡張子こそ「xlsx」ですが、作成者は「User3」です。
+    
+- **理由:** 作成者が一致しないため、検索結果には含まれません。
+    
+
+#### **2. Search2 will return File1: [はい]**
+
+- **クエリ:** `Author:"User*" and FileExtension:*`
+    
+- **条件:** 作成者が「User」で始まる名前（ワイルドカード `*`）であり、**かつ** 拡張子が何であっても（ワイルドカード `*`）一致します。
+    
+- **対象ファイル:** File1 は作成者が「User1」であり「User*」に合致し、拡張子「docx」も「*」に合致するため、条件を完全に満たします。
+    
+
+#### **3. Search3 will return File2: [いいえ]**
+
+- **クエリ:** `Author:("User1..3")`
+    
+- **条件:** ここで使用されている `..` は KQL の**範囲演算子（Range Operator）**です。
+    
+- **理由:** Microsoft Purview のコンテンツ検索において、範囲演算子 `..` は**日付（Date）**または**数値（Numeric）**プロパティに対してのみ使用可能です。「Author」のような**文字列（String）**プロパティには対応していません。そのため、このクエリは「User2」を範囲として認識せず、期待通りに動作しません。
 
 質問#22 トピック6
 
-SW1というMicrosoft Sentinelワークスペースがあります。SW1  
-  
-で、以下のエンティティに関連付けられたインシデントを調査します。  
+SW1というMicrosoft Sentinelワークスペースがあります。SW1 で、以下のエンティティに関連付けられたインシデントを調査します。  
   
 • ホスト  
 • IPアドレス  
@@ -167,8 +134,6 @@ SW1というMicrosoft Sentinelワークスペースがあります。SW1
 - C. ユーザーアカウント
 - D. IPアドレス
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
-
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)  
 
 **解説:**
@@ -178,14 +143,7 @@ Sentinelのインシデント調査画面において、エンティティ（IP�
 ユーザーアカウントやホストは「エンティティ」ですが、「IoC（Indicator of Compromise）」としてTIリストに登録する対象（ネットワーク遮断や検知に使用する静的な指標）は通常、**IP、ドメイン、Hash、URL** です。ユーザーやホストはIoCというよりは被害資産やアクターです。
 したがって、選択肢の中でIoCとして登録可能なのは **IPアドレス** (D) です。
 
-*コミュニティ投票の配分*
-
-D（100％）
-
 質問#23 トピック6
-
-HOTSPOT  
-\-  
   
 Microsoft Defender XDR と Microsoft Defender for Endpoint を使用する Microsoft 365 サブスクリプションがあります。サブスクリプションには、次の表に示すデバイスが含まれています。  
   
@@ -208,40 +166,34 @@ Microsoft Defender XDR と Microsoft Defender for Endpoint を使用する Micro
   
 ![](https://img.examtopics.com/sc-200/image321.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
-
-**正解:** ![](https://img.examtopics.com/sc-200/image322.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image322.png)
 
 **解説:**
-デバイス分離（Isolation）の影響範囲に関する問題です。
+#### **1. Device1 will block connections from Device4: [はい]**
 
-- アクション: **Device 1** と **Device 2** を分離（Isolate）した。
-- 分離の動作: 分離されたデバイスは、Defender for Endpointサービスへの接続を除き、すべてのネットワーク通信が遮断されます。ただし、「Outlook/Teams/Skype」などの許可されたアプリや、設定されたIP除外リストへの通信は許可される場合がありますが、デフォルトでは「Full Isolation」は外部通信を遮断します。
+- **理由**: Device1 は「分離（Isolated）」されています。デバイスを分離すると、Microsoft Defender for Endpoint サービスとの通信（およびオプションで許可された特定のアプリ）を除き、すべてのインバウンド（受信）およびアウトバウンド（送信）のネットワーク通信がブロックされます。
+    
+- **詳細**: Device4 はネットワーク上で検出されただけのオンボードされていないデバイスであり、分離された Device1 への接続は拒否されます。
+    
+#### **2. Existing connections from Device2 to Device3 will be maintained: [いいえ]**
 
-1. **Device 1 can connect to Device 2 on port 5555?**:
-   - Device 1は分離されています。Device 2も分離されています。
-   - 分離されたデバイス同士であっても、通信は遮断されます（分離とは「ネットワークからの切断」です）。
-   - 答え: **No**。
-2. **Device 2 can connect to Device 3 on port 5555?**:
-   - Device 2は分離されています。Device 3は通常（分離されていない）。
-   - Device 2からの送信通信も遮断されます。
-   - 答え: **No**。
-3. **Device 4 can connect to Device 1 on port 5555?**:
-   - Device 4は通常。Device 1は分離されている。
-   - Device 1への着信通信も遮断されます（Device 1が応答しない）。
-   - 答え: **No**。
-※ライブ応答セッションを確立しているDevice 1に対しては、管理者（MDEサービス）からの接続は維持されますが、デバイス間の通信は遮断されます。
+- **理由**: デバイスの分離アクションが実行されると、そのデバイスが確立している**既存のすべてのネットワーク接続も即座に切断**されます。
+    
+- **詳細**: Device2 が分離された時点で、Device3 へのポート 5555 を使用した既存の接続は維持されず、強制的に終了させられます。
+    
+#### **3. The command run in the live response session will identify all the startup processes: [いいえ]**
+
+- **理由**: ライブ応答で一般的に使用される `processes` コマンドなどは、実行した瞬間に**アクティブ（稼働中）であるプロセス**を表示するものです。
+    
+- **詳細**: フォレンジックデータにあるように「起動中に実行されたプロセス」であっても、ライブ応答セッションを開始した時点で既に終了しているプロセスについては、標準的なコマンドだけで「すべての起動プロセス」を特定することはできません。起動時（過去）の挙動を調査するには、タイムライン分析や高度な捜索（Advanced Hunting）クエリ、またはイベントログの解析が必要です。
+    
+---
+
+**補足:** デバイスを分離しても、Microsoft Defender ポータルからの「ライブ応答（Live Response）」セッションは引き続き可能です。これは、Defender サービスへの通信だけは例外的に許可されているためです。
 
 質問#24 トピック6
 
-HOTSPOT  
-\-  
-  
-Microsoft Defender XDR を使用し、Device1 という名前の Windows デバイスを含む Microsoft 365 E5 サブスクリプションを所有しています。Device1  
-  
-で悪意のあるアクティビティを検出しました。Device1  
-  
-でライブ応答セッションを開始しました。  
+Microsoft Defender XDR を使用し、Device1 という名前の Windows デバイスを含む Microsoft 365 E5 サブスクリプションを所有しています。Device1 で悪意のあるアクティビティを検出しました。Device1 でライブ応答セッションを開始しました。  
   
 次の操作を実行する必要があります。  
   
@@ -254,24 +206,36 @@ Microsoft Defender XDR を使用し、Device1 という名前の Windows デバ�
   
 ![](https://img.examtopics.com/sc-200/image323.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image324.png)
 
-**解説:**
-ライブ応答コマンドの選択。（Q7, Q16, Q20と類似）
+### 正解の組み合わせ
 
-1. **Download a file from the Live Response library**:
-   ライブラリからデバイスへダウンロードするには、**`putfile`** を使用します（ローカルPCからアップロードする場合やライブラリから配置する場合）。
-   *補足*: ライブラリから持ってくるコマンドは、実はUI上は「Get file from library」的な操作ですが、コマンドラインでは「Put file to device」というニュアンスで **`putfile`** が使われます。
-   しかし、ファイルを「Download from library (to the device)」する場合、コマンドは **`getfile`** ではなく **`put`** 系の操作です。
-   *訂正*: 実は、MDE Live Response コマンドで「ライブラリからファイルを取得してデバイスに置く」コマンドは **`putfile`** です。ファイルIDを指定します。
-   一方、「デバイスからファイルをダウンロード（収集）する」のが `getfile` です。
-   質問は「Download a file **from the Live Response library** (to the device)」なので、**`putfile`** が正解です。
-2. **Stop a running process on Device1**:
-   プロセスを停止するには、Q20解説でも触れましたが **`remediate`** コマンドを使用できる場合があるか、あるいはカスタムスクリプトを実行します。しかし、Live Responseコマンドリストにあるプロセス強制終了コマンドは **`stop`** ではなく **`kill`** でもありません。プロセスIDを指定する場合、PowerShellなどで `Stop-Process` を実行するのが一般的ですが、選択肢に **`remediate`** があればそれを選びます（ファイル検疫に関連するが）。
-   もしかすると、**`run`** コマンドで停止スクリプトを走らせることを意図しているかもしれませんが、画像選択肢によります。
-   ※恐らく、この問題のコンテキストでの正解は **`putfile`** と **`run`**（停止スクリプト実行）か、あるいは **`remediate`** です。
+1. **Download a file from the live response library (ライブラリからファイルをダウンロード)**: `putfile`
+    
+2. **Stop a process that is running on Device1 (実行中のプロセスを停止)**: `remediate`
+    
+---
+### 解説
+
+ライブ応答セッションでは、デバイスに対して直接調査や操作を行うための専用コマンドが用意されています。
+
+- **putfile**: Microsoft Defender のクラウド上にある「ライブ応答ライブラリ」から、操作対象のデバイス（Device1）にファイルをコピー（ダウンロード）するために使用します。
+    
+    > [!NOTE] 逆に、デバイス上のファイルを管理者側の端末へダウンロードしたい場合は `getfile` を使用します。
+    
+- **remediate**: 不正なプロセスを停止させたり、悪意のあるファイルを削除したり、サービスを無効化したりするための「修復」コマンドです。特定のプロセスを停止させる場合は `remediate process <process_id>` のように実行します。
+    
+---
+### その他の選択肢について
+
+- **analyze**: ファイルのエンティティ（ハッシュなど）を分析するために使用します。
+    
+- **getfile**: デバイスからファイルを「取り出す」ためのコマンドであり、ライブラリから「入れる」ものではありません。
+    
+- **library**: ライブラリに登録されているファイルの一覧を確認するコマンドです。
+    
+- **services**: デバイス上のサービス一覧を確認・操作するコマンドです。
 
 質問#25 トピック6
 
@@ -290,24 +254,12 @@ Microsoft 365 サブスクリプションをお持ちで、Microsoft Defender fo
 - C. デバイス3とデバイス4のみ
 - D. デバイス1、デバイス2、デバイス3、デバイス4
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   11](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
-
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)  
-
-*コミュニティ投票の配分*
-
-C（89％）
-
-11%
+collectコマンドはLinuxとmacOSでのみ使用できます。Windowsではgetfileコマンドを使用する必要があります。質問には高度なコマンドが明記されていますが、高度なコマンドのセクションにはcollectコマンドのみが記載されているため、答えはCとなります。
 
 質問#26 トピック6
 
-HOTSPOT  
-\-  
-  
-Microsoft Sentinel ワークスペースを所有しています。Microsoft  
-  
-Defender コネクタによって生成されたインシデントを一時的に抑制するために、Fusion 分析ルールを構成する必要があります。ソリューションは、以下の要件を満たす必要があります。  
+Microsoft Sentinel ワークスペースを所有しています。Microsoft Defender コネクタによって生成されたインシデントを一時的に抑制するために、Fusion 分析ルールを構成する必要があります。ソリューションは、以下の要件を満たす必要があります。  
   
 • 多段階攻撃の検出能力への影響を最小限に抑える。  
 • 管理作業を最小限に抑える。  
@@ -320,16 +272,31 @@ Defender コネクタによって生成されたインシデントを一時的�
 
 [解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   11](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image327.png)
+**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image327.png)
 
-**解説:**
-Fusion分析ルール（高度なマルチステージ攻撃検出）のアラート生成を一時的に抑制しつつ、検出能力への影響を最小限にする設定。
+### 正解の組み合わせ
 
-1. **Fusion rule configuration**: **「Configure a source signal to exclude a specific alert provider」**。
-   Fusionルール全体を無効にするのではなく、ノイズとなっている特定のアラートプロバイダー（Defenderコネクタなど）からのシグナルを除外するように構成します。これにより、他のプロバイダーからのFusion検出は維持されます。
-   ※SentinelのFusion設定画面では、ソースシグナル（Anomalies, Alerts from other providers）を含めるか除外するかを選択できます。
-2. **Parameter**: **「Source monitoring」**（またはExclude patterns）。特定のパターンを除外するか、ソースをモニタリング対象から外す設定を行います。
-正解画像では、**「Source signal」** 設定で特定のプロバイダーを除外する形になっていると思われます。
+1. **Trigger (トリガー)**: `When incident is created` (インシデントの作成時)
+    
+2. **Actions (アクション)**: `Change status` (ステータスの変更)
+    
+---
+### 解説
+
+Microsoft Sentinel の **Fusion（融合）分析ルール** は、機械学習を使用して複数の低信頼度アラートを相関させ、高信頼度の多段階攻撃を検出します。特定のインシデントを「一時的に抑制」したい場合、インシデント自体の生成を止める（ルールを無効化する）のではなく、**「自動化ルール（Automation rule）」** を使用して管理するのがベストプラクティスです。
+
+- **Trigger: When incident is created**: Fusion ルールや Defender コネクタによってインシデントが生成された瞬間に動作を開始します。
+    
+- **Action: Change status**: インシデントのステータスを「終了（Closed）」に変更し、分類理由を「良性のポジティブ」や「抑制済み」に設定することで、SOC のアクティブなキューから効率的に取り除く（＝抑制する）ことができます。
+    
+
+#### なぜ他の選択肢ではないのか？
+
+- **Trigger: When alert is created**: Sentinel の自動化ルールは、アラート単位ではなく「インシデント」単位でステータス管理を行うのが標準的です。
+    
+- **Action: Run playbook**: Logic Apps（プレイブック）の作成が必要になり、「管理作業を最小限に抑える」という要件に反します。
+    
+- **Action: Add task**: インシデントにタスクを追加するだけであり、抑制（非表示化）にはなりません。
 
 質問#27 トピック6
 
@@ -355,16 +322,64 @@ Sentinelで調査用のブックマーク（Bookmarks）を作成する場所で
 **「Hunting (ハンティング)」**:
 ブックマーク機能は、主に **「Hunting」** タブ（ログ検索結果）で使用します。ハンティングクエリを実行し、興味深い結果（行）が見つかった場合に、それを「Bookmark」として保存し、後でインシデントに追加したり調査したりできます。「Logs」ブレードからも可能ですが、ハンティングワークフローの一部として機能が統合されています。選択肢にHuntingがある場合、それが最も適切なコンテキストです。
 
-*コミュニティ投票の配分*
+質問#28トピック6
+  
+次の表に示すユーザーを含むAzureサブスクリプションがあります。  
+  
+![](https://img.examtopics.com/sc-200/image350.png)  
+  
+サブスクリプションには、次の表に示すAzure Firewallのインスタンスが含まれています。Microsoft  
+  
+![](https://img.examtopics.com/sc-200/image351.png)  
+  
+Copilot for Securityを使用するMicrosoft 365 E5サブスクリプションがあります。次の表に示すCopilot for Securityロールの割り当てがあります。  
+  
+![](https://img.examtopics.com/sc-200/image352.png)  
+  
+各ユーザーはCopilot for Securityセッションを実行します。  
+  
+次の各文について、正しい場合は「はい」を選択してください。そうでない場合は「いいえ」を選択してください。  
+  
+注：正しい選択ごとに1点が加算されます  
+  
+![](https://img.examtopics.com/sc-200/image353.png)
 
-B（36％）
+Microsoft Copilot for Security を使用して Azure Firewall から情報を取得（プロンプトによる照会）するには、以下の**すべての要件**を満たす必要があります。
 
-D（36％）
+1. **Copilot for Security のロール**: 「オーナー」または「共同作成者」であること（User1, 2, 3 全員が満たしています）。
+    
+2. **Azure RBAC ロール**: 対象のリソース（Firewall や Log Analytics ワークスペース）に対する適切な閲覧権限（「閲覧者」や「セキュリティ閲覧者」など）があること。
+    
+3. **ログの形式 (Structured Logs)**: Azure Firewall の**「構造化ログ (Structured logs)」**が有効であること。非構造化ログ（従来形式）はサポートされていません。
+    
+4. **ログの転送先**: ログが **Log Analytics ワークスペース**に送信されていること。
+    
 
-A（28％）
+#### **1. User1 と AFW1 の判定: [いいえ]**
 
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/32/)
+- **権限**: サブスクリプションの「共同作成者」であり十分です。
+    
+- **ログ設定**: ログが **「非構造化ログ (Unstructured logs)」** です。
+    
+- **理由**: Copilot for Security の Azure Firewall プラグインは、構造化ログを必要とするため、情報を取得できません。
+    
 
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 33 ページを表示しています。
+#### **2. User2 と AFW2 の判定: [いいえ]**
+
+- **権限**: サブスクリプションの「共同作成者」であり十分です。
+    
+- **ログ設定**: 宛先が **「Azure Event Hubs」** です。
+    
+- **理由**: Copilot for Security は Log Analytics ワークスペースに保存されたデータをクエリします。Event Hubs はサポート対象外の宛先であるため、情報を取得できません。
+    
+
+#### **3. User3 と AFW3 の判定: [はい]**
+
+- **権限**: リソースグループの「セキュリティ閲覧者」であり、対象リソースの情報を読み取るのに十分な権限です。
+    
+- **ログ設定**: **「構造化ログ (Structured IDPS logs)」** かつ **「Log Analytics」** が宛先となっています。
+    
+- **理由**: すべての要件（構造化ログ、サポートされた宛先、適切な権限）を満たしているため、プロンプトを使用して情報を取得できます。
+
 
 410問中**321 - 330**問 を表示

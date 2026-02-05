@@ -10,9 +10,7 @@ tags:
 ---
 質問9 トピック6
 
-Microsoft 365 サブスクリプションをお持ちで、Microsoft Defender for Endpoint プラン 2 を使用し、1,000 台の Windows デバイスが含まれています。Script1.ps1  
-  
-というデジタル署名付きの PowerShell スクリプトがあります。  
+Microsoft 365 サブスクリプションをお持ちで、Microsoft Defender for Endpoint プラン 2 を使用し、1,000 台の Windows デバイスが含まれています。Script1.ps1 というデジタル署名付きの PowerShell スクリプトがあります。  
   
 いずれかのデバイスのライブ応答セッションで Script1.ps1 を実行できることを確認する必要があります。  
   
@@ -35,17 +33,8 @@ Microsoft 365 サブスクリプションをお持ちで、Microsoft Defender fo
 2. その後、セッション内で `run Script1.ps1` コマンドを実行します。
 A: `library` コマンドはリスト表示用です。C: `putfile` はデバイスへのファイル転送用で、スクリプト実行用ではありません（実行にはライブラリ経由が一般的）。D: 実行ポリシー変更はセキュリティ上非推奨かつ、MDEライブ応答は独自の実行制御を持っています。
 
-*コミュニティ投票の配分*
-
-B（100％）
-
 質問10 トピック6
-
-HOTSPOT -  
-  
-Microsoft Defender for Endpoint Plan 2 を使用する Microsoft 365 サブスクリプションがあり、Device1 という Windows デバイスが含まれています。Device1  
-  
-でライブ応答セッションを開始しました。  
+Microsoft Defender for Endpoint Plan 2 を使用する Microsoft 365 サブスクリプションがあり、Device1 という Windows デバイスが含まれています。Device1 でライブ応答セッションを開始しました。  
   
 ライブ応答ライブラリから Device1 に File1.exe という 250 MB のファイルをダウンロードするコマンドを実行する必要があります。このソリューションでは、File1.exe がバックグラウンド プロセスとしてダウンロードされるようにする必要があります。  
   
@@ -55,34 +44,28 @@ Microsoft Defender for Endpoint Plan 2 を使用する Microsoft 365 サブス�
   
 ![](https://img.examtopics.com/sc-200/image282.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   11](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image442.png)
 
 **解説:**
-ライブ応答ライブラリからデバイスへファイルをダウンロードし、バックグラウンドで実行させるコマンドです。
+- **putfile コマンド**: ライブ応答ライブラリに保存されているファイルを、対象のデバイス（Device1）にダウンロード（コピー）するために使用するコマンドです。
+    
+- **& 演算子**: コマンドの末尾に `&` を付けることで、そのタスクを**バックグラウンド**で実行させることができます。今回の要件である「250 MB という比較的大きなファイルをバックグラウンドでダウンロードする」という条件を満たすために必須の記号です。
 
-1. **Command**: **`run`**。ライブラリにあるスクリプトを実行する場合は `run` ですが、質問は「ファイルをダウンロードするコマンド」と言いつつ「バックグラウンドプロセスとして実行されるように」と言っています。もしライブラリ内の実行可能ファイル（File1.exe）を実行するなら `run File1.exe` です。しかし、MDEの `run` コマンドは基本的にスクリプト用です。
-   *実は、質問の意図は「カスタム操作を行うスクリプトを実行する」か、あるいは「getfile」で取得するのではなく「putfile」で送るのではなく、「Libraryからダウンロードして実行」という機能があるかです。*
-   正確には、Live Responseでファイルを送り込んで実行するには、**`putfile`** でファイルを配置し、**`run`** で実行、あるいはライブラリに登録されたスクリプト/ツールを実行します。
-   しかし、画像（image442）の正解を見ると、**`run`** コマンドと **`&`**（バックグラウンド実行パラメータ）などの組み合わせが選ばれている可能性があります。
-   *注*: PowerShellスクリプトではなく250MBのEXEファイル（ツール）をライブラリから実行する場合、**`run`** コマンドで指定し、パラメータを追加します。バックグラウンド実行には特定のフラグ（例: `-background` や `&`）が必要か、コマンド自体のオプションです。
-   正解画像では左側 **`run`**、右側 **`-background`**（またはそれに類するオプション）が選ばれている可能性が高いです。
-   ※標準的な `run` コマンドはスクリプト実行用ですが、ツールとして登録されたEXEも実行可能です。
+### 他の選択肢について
+
+- **collect**: フォレンジック目的でデバイスからファイルを収集するためのコマンドです。
+    
+- **getfile**: デバイスからファイルをダウンロードして分析するために使用します（今回の目的とは逆方向です）。
+    
+- **library**: ライブラリ内のファイル一覧を表示するコマンドです。
 
 質問11 トピック6
 
 注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある独自の解決策が含まれています。一部の質問セットには複数の正解がある場合もあれば、正解がない場合もあります。  
   
-このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft  
-  
-Defender XDR を使用する Azure サブスクリプションがあります。Microsoft  
-  
-Defender ポータルから監査検索を実行し、その結果を 10,000 行を含む File1.csv というファイルにエクスポートします。Microsoft  
-  
-Excel を使用してデータの取得と変換操作を実行し、File1.csv の AuditData 列を解析します。この操作では、特定の JSON プロパティの列を生成できません。Excel  
-  
-が監査検索結果で特定の JSON プロパティの列を生成するようにする必要があります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。
+
+Microsoft Defender XDR を使用する Azure サブスクリプションがあります。Microsoft Defender ポータルから監査検索を実行し、その結果を 10,000 行を含む File1.csv というファイルにエクスポートします。Microsoft Excel を使用してデータの取得と変換操作を実行し、File1.csv の AuditData 列を解析します。この操作では、特定の JSON プロパティの列を生成できません。Excel が監査検索結果で特定の JSON プロパティの列を生成するようにする必要があります。  
   
 解決策: Defender から、監査検索の検索条件を変更して返されるレコード数を増やし、結果をエクスポートします。Excel から、新しいエクスポートを使用してデータの取得と変換操作を実行します。  
   
@@ -103,23 +86,13 @@ Excel を使用してデータの取得と変換操作を実行し、File1.csv �
 レコード数を増やすと、Excelの処理負荷が増え、サンプリングの問題（全てのJSONパターンを網羅できない問題）は解決しないか、悪化する可能性があります。あるいは、Excelのセル文字数制限（32,767文字）でJSONが切れている場合、レコード数を増やしても意味がありません。
 通常、この問題（JSONプロパティの列生成漏れ）の解決策は、Power Queryエディタで「JSON解析」ステップを手動で調整するか、事前にレコードを絞り込んでスキーマを確定させることです。レコード数を増やすことは逆効果または無関係です。
 
-*コミュニティ投票の配分*
-
-B（100％）
-
 質問12 トピック6
 
 注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を満たす可能性のある固有の解決策が含まれています。一部の質問セットには複数の正しい解決策がある場合もあれば、正しい解決策がない場合もあります。  
   
-このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft  
-  
-Defender XDR を使用する Azure サブスクリプションがあります。Microsoft  
-  
-Defender ポータルから監査検索を実行し、結果を 10,000 行を含む File1.csv というファイルとしてエクスポートします。Microsoft  
-  
-Excel を使用してデータの取得と変換操作を実行し、File1.csv の AuditData 列を解析します。この操作では、特定の JSON プロパティの列を生成できません。Excel  
-  
-が監査検索結果で特定の JSON プロパティの列を生成するようにする必要があります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。
+
+Microsoft Defender XDR を使用する Azure サブスクリプションがあります。Microsoft Defender ポータルから監査検索を実行し、結果を 10,000 行を含む File1.csv というファイルとしてエクスポートします。Microsoft Excel を使用してデータの取得と変換操作を実行し、File1.csv の AuditData 列を解析します。この操作では、特定の JSON プロパティの列を生成できません。Excel が監査検索結果で特定の JSON プロパティの列を生成するようにする必要があります。  
   
 解決策: Excel から、File1.csv の既存の列にフィルターを適用して行数を減らし、データの取得と変換操作を実行して AuditData 列を解析します。  
   
@@ -127,8 +100,6 @@ Excel を使用してデータの取得と変換操作を実行し、File1.csv �
 
 - A. はい
 - B. いいえ
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)  
 
@@ -139,25 +110,14 @@ Excel を使用してデータの取得と変換操作を実行し、File1.csv �
 行数を減らしてからJSON解析を行うと、サンプリング範囲内で必要なJSONプロパティが出現すれば列が生成されますが、逆に「必要なプロパティを持つ行」がフィルタで除外されてしまうと、その列は生成されません。
 この問題の「特定のJSONプロパティの列を生成できない」原因が「データ量が多すぎて処理しきれない」ことなら行数削減は有効ですが、Power Queryの仕様上、JSONスキーマ検出は「最初のN行」に基づくため、フィルタリングの**タイミング**（解析前か後か）が重要です。Power Queryエディタでの操作の話であれば、JSON解析ステップの前にフィルタを入れて対象データを絞り込めば、スキーマ検出が正確になる可能性があります。
 しかし、Microsoftの推奨ソリューション（次のQ13参照）は「検索側で絞り込む」ことです。Excel側で読み込んでからフィルタするのは、読み込み時点でデータが欠損している（セル制限など）場合には無効です。
-※正解はBとされていますが、コミュニティ投票はA（Yes）が100%になっており、混乱が見られます。ただ、公式の意図としては次のQ13（検索側で減らす）をSucceededとしたいパターンが多いため、ここはNoになります。
-
-*コミュニティ投票の配分*
-
-A（100％）
 
 質問13 トピック6
 
 注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある独自の解決策が含まれています。一部の質問セットには複数の正解がある場合もあれば、正解がない場合もあります。  
   
-このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft  
-  
-Defender XDR を使用する Azure サブスクリプションがあります。Microsoft  
-  
-Defender ポータルから監査検索を実行し、その結果を 10,000 行を含む File1.csv というファイルにエクスポートします。Microsoft  
-  
-Excel を使用してデータの取得と変換操作を実行し、File1.csv の AuditData 列を解析します。この操作では、特定の JSON プロパティの列を生成できません。Excel  
-  
-が監査検索結果で特定の JSON プロパティの列を生成するようにする必要があります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。
+
+Microsoft Defender XDR を使用する Azure サブスクリプションがあります。Microsoft Defender ポータルから監査検索を実行し、その結果を 10,000 行を含む File1.csv というファイルにエクスポートします。Microsoft Excel を使用してデータの取得と変換操作を実行し、File1.csv の AuditData 列を解析します。この操作では、特定の JSON プロパティの列を生成できません。Excel が監査検索結果で特定の JSON プロパティの列を生成するようにする必要があります。  
   
 解決策: Defender から、監査検索の検索条件を変更して返されるレコード数を減らし、結果をエクスポートします。Excel から、新しいエクスポートを使用してデータの取得と変換操作を実行します。  
   
@@ -165,8 +125,6 @@ Excel を使用してデータの取得と変換操作を実行し、File1.csv �
 
 - A. はい
 - B. いいえ
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)  
 
@@ -176,18 +134,9 @@ Excel を使用してデータの取得と変換操作を実行し、File1.csv �
 評価: **Yes (A)**。
 検索条件を具体的に絞り込む（例: 特定のOperationsのみにする）ことで、JSON構造（AuditData）のバリエーションが減り、Excel (Power Query) がスキーマを正しく認識しやすくなります。また、データ量も減るため処理が安定します。これが推奨されるアプローチです。
 
-*コミュニティ投票の配分*
-
-A（100％）
-
 質問14 トピック6
 
-HOTSPOT  
-\-  
-  
-Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあり、Device1 という Windows デバイスが含まれています。Device1  
-  
-の悪意のあるアクティビティを調査し、File1.exe という不審なファイルを発見しました。Device1 から調査パッケージを収集します。  
+Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあり、Device1 という Windows デバイスが含まれています。Device1 の悪意のあるアクティビティを調査し、File1.exe という不審なファイルを発見しました。Device1 から調査パッケージを収集します。  
   
 以下のフォレンジックデータポイントを確認する必要があります。  
   
@@ -200,7 +149,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
   
 ![](https://img.examtopics.com/sc-200/image294.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image295.png)
 
@@ -212,9 +160,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 
 質問15 トピック6
 
-HOTSPOT  
-\-  
-  
 Microsoft 365 サブスクリプションをご利用で、Microsoft Defender for Endpoint プラン 2 を使用しています。このサブスクリプションには、Device1 という Windows デバイスが含まれています。  
   
 調査の一環として、Device1 上の 20 個のファイルがカスタム インジケーターによって隔離されています。  
@@ -232,18 +177,30 @@ Microsoft 365 サブスクリプションをご利用で、Microsoft Defender fo
 **正解:** ![](https://img.examtopics.com/sc-200/image297.png)
 
 **解説:**
-検疫（Quarantine）されたファイルを復元（Un-quarantine）するコマンドです。
+- **MpCmdRun.exe**: Microsoft Defender ウイルス対策のコマンドラインユーティリティです。スキャン、定義の更新、そして検疫されたアイテムの操作などを行う際に使用します。
+    
+- **-Restore**: 検疫されたアイテムを元の場所に戻す（復元する）ためのオプションです。
+    
+- **-Name EUS:Win32/CustomEnterpriseBlock**: カスタムインジケーターによってブロックされた際に付与される特定の名称を指定しています。
+    
+- **-All**: 指定した名称に一致するすべてのファイルを一括で処理するために使用します。今回の要件である「20個のファイルを解放する」を満たすために必要です。
+    
 
-1. **Command**: **`UndoRemove`**（またはRestore）。Defender for Endpointでの検疫ファイル復元アクションは「Restore」ですが、コマンドラインやAPI的な文脈、あるいは古い用語では `UndoRemove` が使われることがありました。しかし、現在のポータル操作では「Restore file」です。選択肢がコマンドの場合、MDEアクション名として適切なものを選びます。
-   *注*: MDEのAction CenterやEntityページでのアクションは「Restore」です。質問が「コマンドを実行する」と言っている場合、PowerShellやAPIではなくポータル上のアクション選択肢を指しているなら **Restore**、もしCLIツールなら **UndoRemove** の可能性があります。
-   正解画像では **`UndoRemove`** が選択されていることが多いです。
-2. **Permission**: **「Security Administrator」**（またはActive Remediation Actions権限を持つロール）。ファイルの復元はセキュリティリスクを伴うため、管理者レベルの権限が必要です。
+---
+
+### 他の選択肢について
+
+- **MsMpEng.exe**: Microsoft Defender のマルウェア対策サービス本体（スキャンエンジン）であり、直接コマンドラインから操作するツールではありません。
+    
+- **Start-MpRollback**: マルウェア対策の定義ファイルを以前のバージョンにロールバックするためのコマンドです。
+    
+- **-RemoveDefinitions**: インストールされている定義ファイルを削除するためのオプションです。
+    
+- **-ResetPlatform**: マルウェア対策プラットフォームの設定をデフォルトにリセットするために使用します。
 
 質問16 トピック6
 
-Microsoft 365 E5 サブスクリプションをご利用です。Microsoft  
-  
-Defender for Office 365 では自動調査・対応 (AIR) が有効になっており、デバイスは Microsoft Defender for Endpoint で完全な自動化機能を使用しています。  
+Microsoft 365 E5 サブスクリプションをご利用です。Microsoft Defender for Office 365 では自動調査・対応 (AIR) が有効になっており、デバイスは Microsoft Defender for Endpoint で完全な自動化機能を使用しています。  
   
 管理対象デバイスでマルウェアに感染したメールを受信したユーザーに関するインシデントが発生しました。  
   
@@ -264,19 +221,9 @@ Defender for Office 365 (AIR) と Defender for Endpoint (AIR) が連携してい
 メール（ZAP: Zero-hour Auto Purge）やファイル（Quarantine）の修復は「Full automation」設定下では自動的に行われますが、**「デバイスの分離（Isolate device）」** のような重大な影響を及ぼすアクションは、通常、自動調査の結果として提案されても自動実行されず、**承認（Approve）** または手動実行が必要です。管理者が介入して「本当に感染しているため隔離する」と判断する必要があります。
 ※「Full - remediate threats automatically」レベルでも、デバイス隔離は自動化の対象外（要承認）となるのが一般的です。
 
-*コミュニティ投票の配分*
-
-C（75％）
-
-B（25％）
-
 質問17 トピック6
 
-Microsoft Defender XDRを使用するMicrosoft 365サブスクリプションがあり、Device1というWindowsデバイスが含まれています。Device1  
-  
-のタイムラインには、File1.ps1、File2.exe、File3.dllという3つのファイルが含まれています。Microsoft  
-  
-Defender XDRで詳細分析を行うためにファイルを送信する必要があります。  
+Microsoft Defender XDRを使用するMicrosoft 365サブスクリプションがあり、Device1というWindowsデバイスが含まれています。Device1 のタイムラインには、File1.ps1、File2.exe、File3.dllという3つのファイルが含まれています。Microsoft Defender XDRで詳細分析を行うためにファイルを送信する必要があります。  
   
 どのファイルを送信できますか？
 
@@ -286,8 +233,6 @@ Defender XDRで詳細分析を行うためにファイルを送信する必要�
 - D. File2.exe と File3.dll のみ
 - E. File1.ps1 と File2.exe のみ
 - F. File1.ps1、File2.exe、およびFile3.dll
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
 
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)  
 
@@ -302,12 +247,31 @@ Deep Analysisは、ファイルを安全なサンドボックス環境で実行�
 - File1.ps1 (NG - Script)
 よって、**File2.exe and File3.dll only (D)** が正解です。
 
-*コミュニティ投票の配分*
+質問18 トピック6
 
-D（100％）
+Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションをお持ちです。  
+  
+インシデントの影響を受けるすべてのエンティティを特定する必要があります。Microsoft  Defender ポータルのどのタブを使用すればよいですか？
 
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/31/)
+Microsoft Defender XDRでインシデントの影響を受けるすべてのエンティティを特定するには、**B. 資産(Assets)**タブを使用します。
 
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 32 ページを表示しています。
+**理由:**
+Assetsタブは、インシデントに関連するすべての資産を1か所で簡単に表示・管理できる統合ビューを提供します。このタブには以下が含まれます:
+
+- **Devices(デバイス)** - インシデントに関連するすべてのデバイス
+- **Users(ユーザー)** - インシデントの一部または関連するすべてのユーザー
+- **Mailboxes(メールボックス)** - インシデントに関連するすべてのメールボックス
+- **Apps(アプリ)** - インシデントに関連するすべてのアプリ
+- **Cloud resources(クラウドリソース)** - インシデントに関連するすべてのクラウドリソース
+
+Assetsタブには各カテゴリの資産数が表示され、影響を受けたエンティティの全体像を把握できます。
+
+**他の選択肢について:**
+
+- **調査(Investigations)タブ**: 自動調査の情報を表示
+- **証拠と応答(Evidence and Response)タブ**: インシデント内のアラートに含まれる疑わしいイベントとエンティティを表示
+- **アラート(Alerts)タブ**: インシデントに関連するアラートのキューを表示
+
+
 
 410問中**311 - 320**問 を表示
