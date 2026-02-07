@@ -1,33 +1,18 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、30ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/30/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
-
 質問18 トピック5
   
-次の表に示すホストを含​​むMicrosoft 365 E5サブスクリプションをご利用です。Microsoft  
-  
+次の表に示すホストを含​​むMicrosoft 365 E5サブスクリプションをご利用です。
+Microsoft Defender for Endpointには、次の表に示すインジケーターがあります。 
 ![](https://img.examtopics.com/sc-200/image316.png)  
   
-Defender for Endpointには、次の表に示すインジケーターがあります。ID1  
+ID1とID2は、ID3と同じファイルを参照しています。  
   
 ![](https://img.examtopics.com/sc-200/image317.png)  
-  
-とID2は、ID3と同じファイルを参照しています。  
-  
+
 以下の各記述について、正しい場合は「はい」を選択してください。そうでない場合は「いいえ」を選択してください。  
   
 注：正しい選択肢は1つにつき1ポイントです。  
   
 ![](https://img.examtopics.com/sc-200/image318.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image319.png)
 
@@ -95,12 +80,10 @@ Microsoft Defender for Endpointのインジケーター動作について、Micr
 
 質問19 トピック5
 
-Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあります。Microsoft Sentinel ワークスペースがあります。Microsoft Sentinel コネクタは、次の表に示すように構成されています。Microsoft Sentinel を  
+Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあります。Microsoft Sentinel ワークスペースがあります。Microsoft Sentinel コネクタは、次の表に示すように構成されています。Microsoft Sentinel を使用して、条件付きアクセス ポリシーに関連する疑わしい Microsoft Graph API アクティビティを調査します。  
   
 ![](https://img.examtopics.com/sc-200/image347.png)  
-  
-使用して、条件付きアクセス ポリシーに関連する疑わしい Microsoft Graph API アクティビティを調査します。  
-  
+
 次のアクティビティを検索する必要があります。  
   
 • PowerShell を使用した条件付きアクセス ポリシーのダウンロード  
@@ -111,8 +94,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 注: 正しい選択ごとに 1 ポイントが与えられます。  
   
 ![](https://img.examtopics.com/sc-200/image348.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image349.png)
 
@@ -129,11 +110,10 @@ Microsoft Sentinelで監査ログを調査するためのテーブル選択で�
 
 質問#20 トピック5
 
-Microsoft 365 サブスクリプションがあり、User1、User2、User3 という 3 人のユーザーと、次の表に示すリソースが含まれています。Rule1  
-  
+Microsoft 365 サブスクリプションがあり、User1、User2、User3 という 3 人のユーザーと、次の表に示すリソースが含まれています。
 ![](https://img.examtopics.com/sc-200/image374.png)  
   
-という Microsoft Defender XDR 検出ルールがあり、その構成は次のとおりです。  
+Rule1 という Microsoft Defender XDR 検出ルールがあり、その構成は次のとおりです。  
   
 • スコープ:DevGroup1  
 • ファイルハッシュ:File1.exe  
@@ -150,8 +130,6 @@ o ファイル:ブロック
   
 ![](https://img.examtopics.com/sc-200/image375.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image376.png)
 
 **解説:**
@@ -161,7 +139,6 @@ o ファイル:ブロック
     
 - **理由:** Rule1 の適用範囲（スコープ）は **DevGroup1** に限定されています。Device3 は **DevGroup2** に所属しているため、このルールの対象外となります。したがって、File1.exe が実行されてもブロックのアクションはトリガーされません。
     
-
 ### 2. User2 のリスクレベルについて
 
 - **判定:** **いいえ**
@@ -195,8 +172,6 @@ Microsoft 365 E5 サブスクリプションをお持ちです。
 - C. 集計演算子を追加します。
 - D. プロジェクト オペレーターに DeviceId 列と Timestamp 列を追加します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   1](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
-
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)  
 
 **解説:**
@@ -219,8 +194,6 @@ Windows 11 および Linux CentOS デバイスを含む Microsoft 365 E5 サブ�
   
 ![](https://img.examtopics.com/sc-200/image378.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
-
 **正解:間違っている！** ![](https://img.examtopics.com/sc-200/image379.png)
 
 **解説:**
@@ -232,7 +205,6 @@ Windows 11 および Linux CentOS デバイスを含む Microsoft 365 E5 サブ�
     
 - 攻撃者が「機密情報へのショートカット」と誤認してアクセスする可能性が高いため、おとりとして非常に有効です。
     
-
 ### 2. Planting path (配置パス) について
 
 - **{HOME}** を指定します。
@@ -252,8 +224,6 @@ Microsoft 365 E5 サブスクリプションをご利用です。
 - C. ルアーを含む欺瞞ルールを作成します。
 - D. 既存のデバイスを機密エンティティとしてタグ付けします。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
-
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)  
 
 **解説:**
@@ -271,8 +241,6 @@ Microsoft 365 E5 サブスクリプションをお持ちで、Site1 という Mi
 - B. セッション
 - C. アプリガバナンス
 - D. 条件付きアクセス
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
 
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)  
 
@@ -306,7 +274,6 @@ Custom1 の作成にはどのような設定が必要ですか？また、Policy
 - **Settings:** **Session**
     
 ---
-
 ## 解説とロジック
 
 ### 1. 「Use」について（Custom1 の作成場所）
@@ -317,7 +284,6 @@ Custom1 の作成にはどのような設定が必要ですか？また、Policy
     
 - **作成手順:** Defender ポータル内で「クラウド アプリ」＞「ポリシー」＞「ポリシー管理」から、条件付きアプリアクセス制御用のカスタムポリシー（Custom1）を作成します。
     
-
 ### 2. 「Settings」について（Policy1 での構成）
 
 - **連携の仕組み:** 条件付きアクセスポリシー（Policy1）で特定のアプリへのアクセスを制御し、そのトラフィックを Defender for Cloud Apps にリダイレクトする必要があります。
@@ -342,8 +308,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
   
 ![](https://img.examtopics.com/sc-200/image382.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)
-
 **正解:間違っている！** ![](https://img.examtopics.com/sc-200/image383.png)
 
 ## 回答エリア (Answer Area)
@@ -353,7 +317,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 - **The home directory of:** **The planted cached user**
     
 ---
-
 ## 解説とロジック
 
 ### 1. カスタムルアーのファイル形式について
@@ -372,7 +335,6 @@ Microsoft Defender XDR のデセプションルールでは、攻撃者が興味
     
 - **配置の意図:** 実ユーザーの業務を妨げず、かつ攻撃者が横展開（ラテラルムーブメント）を試みた際に見つけやすい場所に配置するため、おとりファイルはこの **Planted cached user（植え付けられたキャッシュユーザー）** のホームディレクトリに配置されます。
 
-  
 質問#27 トピック5
 
 Microsoft Defender for Cloud を使用する Azure サブスクリプションをお持ちです。  
@@ -408,11 +370,8 @@ Microsoft Defender for Cloud を使用する Azure サブスクリプション�
     
 - **公開されたシークレット:** コード内にハードコードされたパスワード、API キー、トークンなどの「シークレット」をスキャンして検出します。
     
-
 ### 2. リソース マネージャー用の Microsoft Defender (Microsoft Defender for Resource Manager)
 
 残り 1 つのリスクに対応します。
 
 - **悪意のある IP アドレスからの操作:** Azure Resource Manager (ARM) を介したコントロール プレーン（管理レイヤー）の操作を常に監視しています。既知の悪意のある IP アドレスからのリソース作成や設定変更などの不審なアクティビティを検出します。
-
-410問中**291 - 300**問 を表示

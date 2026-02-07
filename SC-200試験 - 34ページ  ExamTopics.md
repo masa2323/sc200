@@ -1,14 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、34ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/34/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
-
 質問#29 トピック6
 
 Microsoft 365 E5 サブスクリプションを所有しており、Device1 というデバイスが含まれています。Microsoft Defender ポータルで、Device1 でアラートがトリガーされたことを確認しました。  
@@ -110,9 +99,6 @@ Microsoft Sentinel の分析ルール（Rule1）から Logic App（LApp1）を�
 
 質問#34 トピック6
 
-ドラッグ＆ドロップ  
-\-  
-  
 Microsoft Defender for Endpoint にオンボードされている、オンプレミスの Windows 11 Pro デバイス（Device1）があります。Microsoft 365 サブスクリプションを所有しています。Device1 で実行されているプロセスと、プロセスが開いているネットワーク接続を特定する必要があります。このソリューションは、管理作業を最小限に抑える必要があります。Microsoft Defender ポータルで、どの 4 つのアクションを順番に実行する必要がありますか？ 回答するには、アクション一覧から該当するアクションを回答領域に移動し、正しい順序に並べ替えてください。  
   
 ![](https://img.examtopics.com/sc-200/image387.png)
@@ -270,7 +256,3 @@ Purview で、次の表に示すコンテンツ検索を作成します。
     - `contenttype:item document`: SharePoint における標準的なドキュメントのコンテンツタイプ（ContentType）は、単一の単語で **「Document」** です。
         
 - **結論**: 「item document」という名称のコンテンツタイプは標準では存在せず、クエリがこの特定のフレーズを検索している場合、標準の「Document」属性を持つ File3.docx は一致しないと判定されます。
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 34 ページを表示しています。
-
-410問中**331 - 340**問 を表示

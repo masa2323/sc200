@@ -142,8 +142,6 @@ Microsoft Sentinel ワークスペースで KQL クエリを作成してくだ�
   
 ![](https://img.examtopics.com/sc-200/image328.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
-
 **Correct Answer:** ![](https://img.examtopics.com/sc-200/image329.png)
 
 **解説:**

@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、35ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/35/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問#39 トピック6
 
 Microsoft 365 E5 サブスクリプションを所有しており、Device1 というデバイスが含まれています。Microsoft Defender ポータルで、Device1 でアラートがトリガーされたことを確認しました。  
@@ -260,8 +250,6 @@ Device1 という名前の Windows 11 デバイスを含む Microsoft 365 E5 サ
   
 ![](https://img.examtopics.com/sc-200/image470.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/35/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/35/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/35/#)
-
 - **From the Microsoft Defender XDR portal, select Advanced features.**
     - まず、「詳細機能」設定で「**Live response unsigned script execution**（署名なしスクリプト実行）」を有効化する必要があります
     - ドキュメントには以下の記載があります：
@@ -346,8 +334,3 @@ Microsoft 365 サブスクリプションを所有しています。このサブ
 ### **まとめ**
 
 侵害されたLinuxデバイスが、Defender for Endpointにオンボードされているすべてのデバイスと通信できないようにするためには、**「デバイスを分離する（Isolate device）」**が正しい対応アクションです。
-
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 35 ページを表示しています。
-
-410問中**341 - 350**問 を表示

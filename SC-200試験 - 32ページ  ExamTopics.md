@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、32ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/32/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問9 トピック6
 
 Microsoft 365 サブスクリプションをお持ちで、Microsoft Defender for Endpoint プラン 2 を使用し、1,000 台の Windows デバイスが含まれています。Script1.ps1 というデジタル署名付きの PowerShell スクリプトがあります。  
@@ -20,8 +10,6 @@ Microsoft 365 サブスクリプションをお持ちで、Microsoft Defender fo
 - B. Script1.ps1 をライブラリにアップロードします。
 - C. putfile コマンドを実行します。
 - D. デバイスの PowerShell 実行ポリシーを変更します。
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)  
 
@@ -73,8 +61,6 @@ Microsoft Defender XDR を使用する Azure サブスクリプションがあ�
 
 - A. はい
 - B. いいえ
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)  
 
@@ -172,8 +158,6 @@ Microsoft 365 サブスクリプションをご利用で、Microsoft Defender fo
   
 ![](https://img.examtopics.com/sc-200/image296.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image297.png)
 
 **解説:**
@@ -185,9 +169,7 @@ Microsoft 365 サブスクリプションをご利用で、Microsoft Defender fo
     
 - **-All**: 指定した名称に一致するすべてのファイルを一括で処理するために使用します。今回の要件である「20個のファイルを解放する」を満たすために必要です。
     
-
 ---
-
 ### 他の選択肢について
 
 - **MsMpEng.exe**: Microsoft Defender のマルウェア対策サービス本体（スキャンエンジン）であり、直接コマンドラインから操作するツールではありません。
@@ -210,8 +192,6 @@ Microsoft 365 E5 サブスクリプションをご利用です。Microsoft Defen
 - B. 電子メールメッセージを強制的に削除する
 - C. デバイスの分離
 - D. デバイスを含む
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)   [議論   11](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)
 
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/32/#)  
 
@@ -272,6 +252,3 @@ Assetsタブには各カテゴリの資産数が表示され、影響を受け�
 - **証拠と応答(Evidence and Response)タブ**: インシデント内のアラートに含まれる疑わしいイベントとエンティティを表示
 - **アラート(Alerts)タブ**: インシデントに関連するアラートのキューを表示
 
-
-
-410問中**311 - 320**問 を表示

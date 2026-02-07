@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、33ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/33/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問19 トピック6
 
 Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションをご利用です。Microsoft  
@@ -25,8 +15,6 @@ Graph API を攻撃ベクトルとして利用することが知られている�
 - C. 戦術1と戦術3のみ
 - D. 戦術2と戦術3のみ
 - E. 戦術1、戦術2、戦術3
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
 
 **正解：B**
 
@@ -270,8 +258,6 @@ Microsoft Sentinel ワークスペースを所有しています。Microsoft Def
   
 ![](https://img.examtopics.com/sc-200/image326.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   11](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
-
 **正解:間違っている！** ![](https://img.examtopics.com/sc-200/image327.png)
 
 ### 正解の組み合わせ
@@ -312,8 +298,6 @@ Microsoft Sentinelワークスペースをお持ちです。
 - B. 狩猟
 - C. コンテンツハブ
 - D. ログ
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)   [議論   17](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/33/#)  
 
@@ -380,6 +364,3 @@ Microsoft Copilot for Security を使用して Azure Firewall から情報を取
 - **ログ設定**: **「構造化ログ (Structured IDPS logs)」** かつ **「Log Analytics」** が宛先となっています。
     
 - **理由**: すべての要件（構造化ログ、サポートされた宛先、適切な権限）を満たしているため、プロンプトを使用して情報を取得できます。
-
-
-410問中**321 - 330**問 を表示

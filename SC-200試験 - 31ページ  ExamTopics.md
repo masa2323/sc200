@@ -1,22 +1,10 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、31ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/31/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問#28 トピック5
 
 Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションをご利用です。  
   
 デバイス上でウイルス対策ソフトウェアによる検出が 5 件以上検出された場合にアラートを生成する、Rule1 というカスタム検出ルールがあります。Rule1 のルックバック期間は 12 時間です。  
   
-ルックバック期間を 48 時間に変更する必要があります。Rule1  
-  
-のどこを変更すればよいでしょうか？
+ルックバック期間を 48 時間に変更する必要があります。Rule1 のどこを変更すればよいでしょうか？
 
 - A. 範囲
 - B. KQLクエリの要約演算子
@@ -54,9 +42,6 @@ Microsoft Defender XDRのカスタム検出ルールでは、**頻度（Frequenc
 
 質問#29 トピック5
 
-ドラッグ アンド ドロップ  
-\-  
-  
 Microsoft 365 サブスクリプションを所有しています。サブスクリプションには、Microsoft Defender for Endpoint にオンボードされている 500 台の Windows 11 デバイスが含まれています。Microsoft Defender XDR で次の操作を実行する必要があります。  
   
 • 会社の財務部門で、偽のキャッシュされた資格情報をランダムなエンドポイントに入力します。  
@@ -70,8 +55,6 @@ Microsoft 365 サブスクリプションを所有しています。サブスク
   
 ![](https://img.examtopics.com/sc-200/image446.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image447.png)
 
 **解説:**
@@ -84,7 +67,6 @@ Microsoft 365 サブスクリプションを所有しています。サブスク
 |**3**|**From the Endpoints settings, create a basic lure.**|
 
 ---
-
 ## 解説とロジック
 
 このソリューションを実現するためには、機能の有効化、対象の限定、および実際のデプロイという3つのステップが必要です。
@@ -111,9 +93,6 @@ Microsoft 365 サブスクリプションを所有しています。サブスク
 
 質問1 トピック6
 
-ドラッグ＆ドロップ  
-\-  
-  
 Microsoft Exchange Online を使用する Microsoft 365 E5 サブスクリプションをお持ちです。  
   
 フィッシング詐欺メールを識別する必要があります。  
@@ -144,8 +123,6 @@ WS1 という Microsoft Sentinel ワークスペースを含む Azure サブス�
 注: 正しい選択ごとに 1 ポイントが加算されます。  
   
 ![](https://img.examtopics.com/sc-200/image252.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image440.png)
 
@@ -192,8 +169,6 @@ Microsoft Sentinel を使用する Azure サブスクリプションを所有し
 - D. Microsoft Sentinel プレイブック
 - E. Azure Functions アプリ
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)
-
 **正解** [：](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)CD🗳️  
 
 **解説:**
@@ -207,20 +182,16 @@ Sentinelでインシデント対応と脅威修復の管理作業を最小化す
 
 AzureサブスクリプションにUser1というユーザーとWS1というMicrosoft Sentinelワークスペースが含まれています。WS1はMicrosoft Defender for Cloudを使用しています。  
   
-次の表に示すMicrosoftセキュリティ分析ルールがあります。User1  
+次の表に示すMicrosoftセキュリティ分析ルールがあります。
   
 ![](https://img.examtopics.com/sc-200/image275.png)  
   
-がRule1、Rule2、Rule3、Rule4に一致するアクションを実行した場合、  
-  
-WS1にはいくつのインシデントが作成されますか？
+User1 がRule1、Rule2、Rule3、Rule4に一致するアクションを実行した場合、WS1にはいくつのインシデントが作成されますか？
 
 - A. 1
 - B. 2
 - C. 3
 - D.4 ​
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)   [議論   15](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)
 
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)  
 
@@ -324,7 +295,6 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
     
 - **理由:** `remediate` コマンドは、ファイル、レジストリ、または **プロセス** に対して修復アクションを実行するために使用されます。プロセスを停止（Kill）したい場合は、`remediate process <ProcessId>` のように入力します。
     
-
 ### 2. Send Proc1 for further review (詳細確認のための送信)
 
 - **コマンド:** **analyze**
@@ -356,11 +326,8 @@ Microsoft Defender for Endpoint を使用する Microsoft 365 E5 サブスクリ
 
 - **Entities（エンティティ）:** このタブには、そのイベントに関与した「ファイル」「プロセス」「ユーザー」などの詳細な属性がリストされます。ファイルの **イメージ ファイル パス（実行場所）** は、このエンティティ情報のメタデータとして明記されています。
     
-
 ### 2. 最初に検出された時刻の特定 (Event entities graph)
 
 - **Event entities graph（イベント エンティティ グラフ）:** このタブは、関連するイベントを時系列の相関図として視覚化します。
     
 - ファイルが作成され、実行され、その後のアクティビティにつながる一連のフローを表示するため、攻撃のチェーンの中で **「いつ、どのアクションが最初のトリガー（最初の検出）となったのか」** を時系列で追跡して特定するのに最適です。
-
-410問中**301 - 310**問 を表示

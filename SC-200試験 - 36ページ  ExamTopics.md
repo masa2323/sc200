@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、36ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/36/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問#49トピック6
 
 以下のテーブルを含むMicrosoft Sentinelワークスペースがあります。  
@@ -59,7 +49,6 @@ User1というユーザーとWS1というMicrosoft Sentinelワークスペース
   
 ![](https://img.examtopics.com/sc-200/image254.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/36/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/36/#)   [議論   10](https://www.examtopics.com/exams/microsoft/sc-200/view/36/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image255.png)
 
@@ -100,8 +89,6 @@ AzureサブスクリプションにUser1というユーザーとWS1というMicr
   
 ![](https://img.examtopics.com/sc-200/image256.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/36/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/36/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/36/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image257.png)
 
 **解説:**
@@ -113,15 +100,8 @@ SentinelでUEBA（User and Entity Behavior Analytics）を有効にするため�
    *詳細*: UEBA有効化には「ディレクトリ閲覧」以上の権限（データ同期の設定など）が必要です。
 
 質問3 トピック7
-
-ドラッグ＆ドロップ  
-\-  
   
-SW1 という Microsoft Sentinel ワークスペースがあります。SW1  
-  
-では、ユーザーおよびエンティティ行動分析 (UEBA) を有効にします。KQL  
-  
-を使用して、次のタスクを実行する必要があります。  
+SW1 という Microsoft Sentinel ワークスペースがあります。SW1 では、ユーザーおよびエンティティ行動分析 (UEBA) を有効にします。KQL を使用して、次のタスクを実行する必要があります。  
   
 • 各エンティティタイプのフィールドを持つエンティティデータを表示します。  
 • ルールのパフォーマンスを分析して、ルールの品質を評価します。  
@@ -131,8 +111,6 @@ SW1 という Microsoft Sentinel ワークスペースがあります。SW1
 注: 正しい選択ごとに 1 ポイントが付与されます。  
   
 ![](https://img.examtopics.com/sc-200/image284.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/36/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/36/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/36/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image285.png)
 
@@ -498,4 +476,3 @@ DeviceInfo
 - ✅ 各ネットワークデバイスを検出したオンボードデバイスのIDを取得できる
 - ✅ ネットワークトポロジーとデバイスの位置を理解できる
 
-410問中**351 - 360**問 を表示
