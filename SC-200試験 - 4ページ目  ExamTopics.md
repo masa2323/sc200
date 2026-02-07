@@ -1,39 +1,18 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、4ページ目 | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/4/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問#31 トピック1
 
 Microsoft 365 Defender を使用する Microsoft 365 サブスクリプションをお持ちです。  
-インシデントの影響を受けるすべてのエンティティを特定する必要があります。Microsoft  
-365 Defender ポータルのどのタブを使用すればよいですか？  
+インシデントの影響を受けるすべてのエンティティを特定する必要があります。Microsoft 365 Defender ポータルのどのタブを使用すればよいですか？  
 
 - A. 調査
 - B. デバイス
 - C. 証拠と応答
 - D. アラート
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   40](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
-
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)  
 
 **解説:**
 インシデントの影響を受けるすべてのエンティティ（デバイス、ユーザー、メールボックス、アプリなど）を確認するには、**「証拠と応答 (Evidence and Response)」** タブを使用します。
 このタブでは、アラートに関連するすべてのサポートされているイベントと疑わしいエンティティが表示され、それらに対する調査状況や修復状態を一目で確認できます。「アラート」タブはアラート自体のリストを表示し、「デバイス」タブはデバイスのみに焦点が当たりますが、「証拠と応答」はインシデント全体の広がりを把握するのに最適です。
-
-*コミュニティ投票の配分*
-
-C（67％）
-
-D（20％）
-
-12%
 
 質問#32 トピック1
 
@@ -48,34 +27,22 @@ D（20％）
 - C. Azure Active Directory プロビジョニング分析ワークブック
 - D. インサイダーリスク管理の概要設定
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   14](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)  
 
 **解説:**
 Domain Adminsなどの機密グループ（Sensitive groups）への変更を監視・特定するには、**Microsoft Defender for Identity** のレポート機能である **「機密グループの変更レポート (Modifications of sensitive groups report)」** を使用します。
 このレポートは、特定の期間（過去30日間など）に行われた機密グループのメンバーシップ変更を一覧表示します。Defender for Cloud AppsやAzure ADのプロビジョニング分析よりも、オンプレミスADと同期されている機密グループの監視にはDefender for Identityが特化しています。
 
-*コミュニティ投票の配分*
-
-A（93％）
-
-7%
-
 質問#33 トピック1
 
 Microsoft 365 サブスクリプションをお持ちです。このサブスクリプションでは Microsoft 365 Defender を使用しており、集約アラートが設定されたデータ損失防止 (DLP) ポリシーが適用されています。  
   
-集約アラートで影響を受けるエンティティを特定する必要があります。Microsoft  
-  
-365 コンプライアンス センターの DLP アラート管理ダッシュボードで確認すべき項目は何ですか？
+集約アラートで影響を受けるエンティティを特定する必要があります。Microsoft 365 コンプライアンス センターの DLP アラート管理ダッシュボードで確認すべき項目は何ですか？
 
 - A. アラートのイベントタブ
 - B. アラートの「機密情報の種類」タブ
 - C. 管理ログ
 - D. アラートの詳細タブ
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   33](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)  
 
@@ -83,30 +50,16 @@ Microsoft 365 サブスクリプションをお持ちです。このサブスク
 DLPアラート管理ダッシュボードで、集約アラート（Aggregated alerts）に関連する個々のイベントや、それによって影響を受けたエンティティ（ファイル、メール、ユーザーなど）を確認するには、アラートの詳細画面にある **「イベント (Events)」** タブを確認します。
 このタブには、その集約アラートを構成するすべてのアクティビティがリストされ、具体的な違反内容や関与したエンティティを特定することができます。
 
-*コミュニティ投票の配分*
-
-A（74％）
-
-D（24％）
-
-1%
-
 質問#34 トピック1
 
-Microsoft 365 Defender を使用する Microsoft 365 サブスクリプションをお持ちです。Microsoft  
+Microsoft 365 Defender を使用する Microsoft 365 サブスクリプションをお持ちです。Microsoft Defender からハンティングクエリを作成する予定です。  
   
-Defender からハンティングクエリを作成する予定です。  
-  
-サブスクリプションの脅威ステータスを評価するために使用する、カスタム追跡クエリを作成する必要があります。Microsoft  
-  
-365 Defender ポータルのどのページからクエリを作成すればよいですか？
+サブスクリプションの脅威ステータスを評価するために使用する、カスタム追跡クエリを作成する必要があります。Microsoft 365 Defender ポータルのどのページからクエリを作成すればよいですか？
 
 - A. 脅威分析
 - B. 高度な狩猟
 - C. エクスプローラー
 - D. ポリシーとルール
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)  
 
@@ -114,53 +67,32 @@ Defender からハンティングクエリを作成する予定です。
 Microsoft 365 Defenderポータルで、KQL（Kusto Query Language）を使用してカスタム追跡クエリ（Custom tracking query / Custom detection rules）を作成し、脅威ステータスを評価または脅威ハンティングを行う機能は **「高度な狩猟 (Advanced hunting)」** です。
 ここからクエリを実行し、その結果に基づいて検出ルールを作成することができます。
 
-*コミュニティ投票の配分*
-
-B（100％）
-
 質問#35 トピック1
 
-Microsoft 365 サブスクリプションで Microsoft Defender for Endpoint をご利用いただいています。171.23.34.32  
-  
-～171.23.34.63 の範囲にあるすべての IP アドレスに脅威インジケーターを追加する必要があります。このソリューションは管理作業を最小限に抑える必要があります。Microsoft  
-  
-365 Defender ポータルではどのような操作を行うべきでしょうか？
+Microsoft 365 サブスクリプションで Microsoft Defender for Endpoint をご利用いただいています。171.23.34.32～171.23.34.63 の範囲にあるすべての IP アドレスに脅威インジケーターを追加する必要があります。このソリューションは管理作業を最小限に抑える必要があります。Microsoft 365 Defender ポータルではどのような操作を行うべきでしょうか？
 
 - A. 範囲内の個々のIPアドレスを含むインポートファイルを作成します。「インポート」を選択し、ファイルをインポートします。
 - B. IPアドレス171.23.34.32/27を含むインポートファイルを作成します。「インポート」を選択してファイルをインポートします。
 - C. \[インジケーターの追加\] を選択し、IP アドレスを 171.23.34.32 ～ 171.23.34.63 に設定します。
 - D. \[インジケーターの追加\] を選択し、IP アドレスを 171.23.34.32/27 に設定します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   40](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)  
 
 **解説:**
 IPアドレスの範囲（171.23.34.32 ～ 171.23.34.63）に対して脅威インジケーター（IoC）を追加する場合、Microsoft Defender for Endpointの現在の仕様では「範囲（IP Range / CIDR）」を直接1つのインジケーターとして登録することはサポートされていません。
-したがって、管理作業を最小限に抑えるための最善の方法は、**範囲内のIPアドレスをリスト化したファイル（CSVなど）を作成し、それを「インポート」機能を使って一括登録すること**です。個別に登録する（選択肢C）よりも効率的です。
-
-*コミュニティ投票の配分*
-
-A（52％）
-
-D（33％）
-
-他の
+したがって、管理作業を最小限に抑えるための最善の方法は、**範囲内のIPアドレスをリスト化したファイル（CSVなど）を作成し、それを「インポート」機能を使って一括登録すること**です。
+個別に登録する（選択肢C）よりも効率的です。
 
 質問#36 トピック1
 
 Microsoft Defender for Endpoint を使用する Azure サブスクリプションをお持ちです。  
   
-ユーザーが指定した IP アドレスと URL の範囲を許可またはブロックできるようにする必要があります。Microsoft  
-  
-365 Defender ポータルのエンドポイント設定にある「高度な機能」で、まず何を有効にすべきでしょうか？
+ユーザーが指定した IP アドレスと URL の範囲を許可またはブロックできるようにする必要があります。Microsoft 365 Defender ポータルのエンドポイント設定にある「高度な機能」で、まず何を有効にすべきでしょうか？
 
 - A. カスタムネットワークインジケーター
 - B. サーバーのライブ応答
 - C. ブロックモードでのエンドポイント検出および応答（EDR）
 - D. ウェブコンテンツフィルタリング
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)  
 
@@ -168,14 +100,8 @@ Microsoft Defender for Endpoint を使用する Azure サブスクリプショ�
 特定のIPアドレスやURLへのアクセスを許可またはブロックするインジケーターを作成するには、まずDefender for Endpointの「高度な機能 (Advanced features)」設定で **「カスタムネットワークインジケーター (Custom network indicators)」** を有効にする必要があります。
 また、前提条件としてネットワーク保護（Network Protection）がブロックモードで有効になっている必要があります。
 
-*コミュニティ投票の配分*
-
-A（100％）
-
 質問#37 トピック1
 
-ドラッグ＆ドロップ -  
-  
 次の表に示すユーザーを含むAzureサブスクリプションがあります。  
   
 ![](https://img.examtopics.com/sc-200/image154.png)  
@@ -193,8 +119,6 @@ A（100％）
   
 ![](https://img.examtopics.com/sc-200/image155.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   49](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image412.png)
 
 **解説:**
@@ -204,7 +128,6 @@ Microsoft Defender for Cloud の各プラン（Defender for Servers など）の
 
 - **最小権限の原則**: **Contributor（共同作成者）** もこの操作が可能ですが、Contributor は仮想マシンの削除やネットワーク構成の変更など、セキュリティ管理以外の強力な権限も持っています。セキュリティ設定の有効化だけであれば、権限が限定された Security administrator を選ぶのが正解です。
     
-
 2. タスク 2：推奨事項の確認と脆弱性スキャンの有効化
 
 このタスクは「確認（閲覧）」と「有効化（修正/適用）」の 2 つの操作を含んでいます。
@@ -217,9 +140,8 @@ Microsoft Defender for Cloud の各プラン（Defender for Servers など）の
 
 	質問#38 トピック1
   
-Microsoft 365 E5 サブスクリプションをお持ちです。Document.pdf  
-  
-という添付ファイルを含むすべてのメールを返すハンティングクエリを作成する必要があります。クエリは以下の要件を満たす必要があります。  
+Microsoft 365 E5 サブスクリプションをお持ちです。
+Document.pdf という添付ファイルを含むすべてのメールを返すハンティングクエリを作成する必要があります。クエリは以下の要件を満たす必要があります。  
   
 • 過去 1 時間以内に送信されたメールのみを表示する。  
 • クエリのパフォーマンスを最適化する。  
@@ -229,8 +151,6 @@ Microsoft 365 E5 サブスクリプションをお持ちです。Document.pdf
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image157.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   14](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image158.png)
 
@@ -256,8 +176,6 @@ Microsoft 365 E5 サブスクリプションをお持ちです。Document.pdf
 - C. 公開エンティティとしてリストされているコンピューター オブジェクトのプロパティを変更します。
 - D. 公開エンティティとしてリストされているコンピューターに、Local Administrator Password Solution (LAPS) 拡張機能をインストールします。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
-
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)  
 
 **解説:**
@@ -265,37 +183,21 @@ Microsoft 365 E5 サブスクリプションをお持ちです。Document.pdf
 具体的には、Active Directoryユーザーとコンピューターなどで対象のコンピューターアカウントのプロパティを開き、「委任（Delegation）」タブの設定を「任意のサービスへの委任でこのコンピューターを信頼する（Unconstrained delegation）」から、「指定されたサービスへの委任でのみこのコンピューターを信頼する（Constrained delegation）」に変更するか、委任を無効にする必要があります。
 LDAP署名やLAPSは別のセキュリティ対策であり、Kerberos委任の直接的な修復ではありません。
 
-*コミュニティ投票の配分*
-
-C（100％）
-
 質問#40 トピック1
 
 Microsoft 365 サブスクリプションをお持ちで、Microsoft 365 Defender をご利用いただいています。  
   
 自動調査の修復アクションにより、複数のデバイスでファイルが検疫されます。  
   
-ファイルを安全としてマークし、デバイス上の検疫からファイルを削除する必要があります。Microsoft  
-  
-365 Defender ポータルでは何を使用すればよいですか？
+ファイルを安全としてマークし、デバイス上の検疫からファイルを削除する必要があります。Microsoft 365 Defender ポータルでは何を使用すればよいですか？
 
 - A. アクション センターの \[履歴\] タブから、アクションを元に戻します。
 - B. 調査ページから、AIR プロセスを確認します。
 - C. \[レビュー\] ページの \[隔離\] からルールを変更します。
 - D. 脅威トラッカーからクエリを確認します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/4/#)  
 
 **解説:**
 自動調査（Automated investigation）によって検疫されたファイルを復元（検疫から削除して安全とする）するには、Microsoft 365 Defenderポータルの **「アクションセンター (Action center)」** を使用します。
 アクションセンターの **「履歴 (History)」** タブから、元に戻したい「ファイルの検疫 (Quarantine file)」アクションを選択し、**「元に戻す (Undo)」** を実行します。これにより、ファイルは検疫から解放され、デバイス上で再び利用可能になります。
-
-*コミュニティ投票の配分*
-
-A（100％）
-
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/3/)
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 4 ページ目を表示しています。

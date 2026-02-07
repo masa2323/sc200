@@ -21,21 +21,81 @@ RG1 というリソースグループを含む Azure サブスクリプション
 - C. Microsoft Sentinel Automation 貢献者
 - D. 貢献者
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
+### **正解：B. ワークブック寄稿者 (Workbook Contributor)**
 
-**Correct Answer:** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)  
+## 理由
 
-*Community vote distribution*
+公式ドキュメントに明確に記載されています：
 
-B (70%)
+### **ワークブックの作成/削除に必要なロール**
 
-A (30%)
+> "**Create/delete workbooks**: [Microsoft Sentinel Contributor](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#microsoft-sentinel-contributor) or a lesser Microsoft Sentinel role **AND** [Workbook Contributor](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#workbook-contributor)"
+
+### **前提条件セクションより**
+
+> "You must have at least **Workbook reader** or **Workbook contributor** permissions on the resource group of the Microsoft Sentinel workspace."
+
+## 最小権限の原則による分析
+
+### **要件:**
+
+- ワークブックテンプレートをデプロイする
+- ワークブックをカスタマイズする
+- 最小権限の原則に従う
+
+### **各選択肢の評価:**
+
+#### **A. Microsoft Sentinel Contributor（Microsoft Sentinel 貢献者）**
+
+- ❌ **過剰な権限**
+- アナリティクスルール、インシデント管理、コンテンツハブ管理など、ワークブック以外の多くの権限が含まれます
+- ドキュメント表の「Create/edit analytics rules, workbooks, etc.」列で ✓ となっています
+- 最小権限の原則に**違反**します
+
+#### **B. Workbook Contributor（ワークブック寄稿者）** ✅
+
+- ✅ **最小権限**
+- ワークブックの作成、編集、削除に**特化**した権限のみ
+- ワークブックテンプレートのデプロイとカスタマイズに**必要十分**
+- 他のMicrosoft Sentinelリソース（アナリティクスルール、インシデントなど）への不要な権限は含まない
+- 最小権限の原則に**完全に準拠**
+
+#### **C. Microsoft Sentinel Automation Contributor（Microsoft Sentinel Automation 貢献者）**
+
+- ❌ **関係ない権限**
+- "Allows Microsoft Sentinel to add playbooks to automation rules. Not used for user accounts."
+- ユーザーアカウントには使用されない
+- オートメーションルールにプレイブックを追加するための権限で、ワークブックとは無関係
+
+#### **D. Contributor（貢献者）**
+
+- ❌ **過剰な権限**
+- リソースグループ内のすべてのリソースへの広範なアクセス権限
+- ワークブック以外の多くのリソース（VM、ストレージ、ネットワークなど）への権限が含まれます
+- 最小権限の原則に大きく**違反**します
+
+## まとめ
+
+公式ドキュメントの権限要件表より：
+
+|ロール|ワークブックの作成/編集|
+|---|---|
+|Microsoft Sentinel Reader|❌ (Workbook Contributorとの組み合わせで可能*)|
+|Microsoft Sentinel Responder|❌ (Workbook Contributorとの組み合わせで可能*)|
+|Microsoft Sentinel Contributor|✓|
+|**Workbook Contributor**|**✓** (単独で可能)|
+
+*ドキュメント注記: "With Workbook Contributor role"
+
+**Workbook Contributor**ロールは：
+
+- ✅ ワークブックテンプレートをデプロイできる
+- ✅ ワークブックをカスタマイズ（作成、編集、削除）できる
+- ✅ ワークブックに特化した最小権限のロール
+- ✅ 不要な権限を含まない
 
 質問12 トピック7
 
-HOTSPOT  
-\-  
-  
 Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションをお持ちです。  
   
 過去 24 時間以内に 5 件を超えるウイルス検出があったデバイスを識別するカスタム検出ルールを作成する必要があります。  
@@ -46,25 +106,45 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
   
 ![](https://img.examtopics.com/sc-200/image309.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
-
 **Correct Answer:** ![](https://img.examtopics.com/sc-200/image310.png)
 
-**解説:**
-KQLで「過去24時間に5件を超えるウイルス検出があったデバイス」を特定するカスタム検出ルール。
+## 解説
 
-1. **Source Table**: **`DeviceEvents`**。ウイルス検出イベントは `DeviceEvents` テーブル（ActionTypeが `AntivirusDetection` など）に記録されます。
-2. **Filter**: **`where ActionType == 'AntivirusDetection'`**。
-3. **Summarize**: **`| summarize count() by DeviceName`**。デバイスごとにカウントします。
-4. **Condition**: **`| where count_ > 5`**。カウントが5より大きいものをフィルタします。
-正解画像の選択肢も同様の構成になっています。
+このクエリの目的は、過去24時間以内に5回を超える「AntivirusDetection」が発生した **DeviceId** を特定し、その集計結果の中に **ReportId** などの詳細情報を含めることです。
+
+### 1. arg_max 関数と列の保持
+
+`summarize` 句の中で `arg_max(Timestamp, *)` のように使用すると、指定した列（ここでは `Timestamp`）が最大（最新）であるレコードから、他の列の値を取得できます。
+
+- **ReportId:** カスタム検出ルールを作成する際、`summarize` 句の結果には **ReportId** 列が含まれている必要があります。これは、検出されたイベントを特定し、アラートに関連付けるためにシステムが必要とする識別子だからです。
+    
+- 選択肢にある `InitiatingProcessAccountObjectId` や `TimeGenerated` も列として存在しますが、検出ルールの整合性と一意性を保つために `ReportId` を選択するのが標準的なプラクティスです。
+    
+### 2. クエリの構造
+
+コード スニペット
+
+```
+DeviceEvents
+| where ingestion_time() > ago(1d)
+| where ActionType == "AntivirusDetection"
+| summarize (Timestamp, ReportId)=arg_max(Timestamp, ReportId), count() by DeviceId
+| where count_ > 5
+```
+
+このクエリは以下の処理を行っています：
+
+1. `DeviceEvents` テーブルから過去1日のデータを抽出。
+    
+2. ウイルス検出イベント（AntivirusDetection）に絞り込み。
+    
+3. `DeviceId` ごとにグループ化し、出現回数をカウント。同時に `arg_max` を使って、そのデバイスにおける最新の `Timestamp` とそれに対応する `ReportId` を取得。
+    
+4. カウントが5件を超えるデバイスのみを抽出。
 
 質問13 トピック7
-
-HOTSPOT  
-\-  
   
-Microsoft Sentinel ワークスペースで KQL クエリを作成してください。クエリは、EventID 値が 4624 である最後のレコードを持つアカウントの SecurityEvent レコードを返す必要があります。  
+Microsoft Sentinel ワークスペースで KQL クエリを作成してください。クエリは、EventID 値が 4624 である最後のレコードを持つアカウントの SecurityEvent レコードを返す必要があります。
   
 クエリをどのように完成させるべきですか？回答するには、回答エリアで適切なオプションを選択してください。  
   
@@ -102,8 +182,6 @@ Microsoft 365 サブスクリプションがあり、User1 というユーザー
 - E. SMBとRPCのみ
 - F. RDP、RPC、SMB
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
-
 **Correct Answer:** F [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)  
 
 **解説:**
@@ -112,10 +190,6 @@ Defender XDRの「Automatic Attack Disruption（自動攻撃阻止）」機能�
 ブロックされるプロトコルには、横展開で使用される主要なリモートアクセスプロトコルである **RDP, RPC, SMB** が含まれます。
 したがって、Device2はUser1からの **RDP, RPC, SMB** すべての検出された接続試行をブロックします。
 正解は **F** です。
-
-*Community vote distribution*
-
-F (100%)
 
 質問15 トピック7
 
@@ -130,13 +204,21 @@ WS1 という Microsoft Sentinel ワークスペースを含む Azure サブス�
 - C. コンテンツ ハブから、Microsoft Purview インサイダー リスク管理ソリューションをインストールします。
 - D. コンテンツ ハブから、Cloud Identity Threat Protection Essentials をインストールします。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
-
 **Correct Answer:** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)  
+Microsoft Sentinel の **UEBA (User and Entity Behavior Analytics)** を有効にすることで、個別のログ調査を手動で行う手間を大幅に削減し、エンティティ（ユーザーやホスト）中心の視点で分析が可能になります。
 
-*Community vote distribution*
+- **アカウントとインシデントの紐付け:** UEBA を有効にすると、ユーザーに関連付けられたアラート、インシデント、および異常な動作が自動的に集計され、特定のユーザー（エンティティ）の「エンティティ ページ」で一元的に確認できるようになります。
+    
+- **管理作業の最小化:** 自分で複雑な KQL クエリを書いてアカウントごとのアラート数を集計・可視化する代わりに、UEBA が提供する組み込みの分析機能と視覚的なプロファイルを活用できます。
+    
+- **前提条件の充足:** 既に Azure アクティビティ コネクタと Microsoft Entra ID コネクタが構成されているため、UEBA が分析対象とする主要なデータ ソースは整っています。
+    
 
-B (100%)
+### 他の選択肢が適切でない理由
+
+- **A. 異常を検出する:** 異常を検出するためには、まず UEBA そのものを有効化（構成）してデータを学習させる必要があるため、最初のアクションにはなりません。
+    
+- **C & D. コンテンツ ハブのソリューション:** これらは特定の脅威シナリオ（インサイダー リスクやアイデンティティ保護）を強化するためのテンプレート集ですが、今回のような「アカウントごとのアラート集計とインシデント調査」という汎用的な分析基盤を整えるには、プラットフォーム機能である UEBA の有効化が先決です。
 
 質問16 トピック7
 
@@ -155,8 +237,6 @@ Microsoft 365 E5 サブスクリプションをご利用で、Microsoft Copilot 
 - C. KQL
 - D. SQL
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
-
 **Correct Answer:** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)  
 
 **解説:**
@@ -165,10 +245,6 @@ Formatフィールドに指定する値。
 コード例: `Descriptor: ... SkillGroups: ... Format: KQL`
 カスタムプラグインがSentinelやAdvanced Huntingに対してクエリを実行するスキルを定義する場合、そのクエリ言語形式を指定します。Microsoft DefenderやSentinelに対するクエリは **KQL (Kusto Query Language)** です。
 したがって、`Format: KQL` が正解です。
-
-*Community vote distribution*
-
-C (100%)
 
 質問17 トピック7
 
@@ -184,8 +260,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 - B. タスクとアクティビティログのみ
 - C. タスクとアラートのタイムラインのみ
 - D. タスク、アクティビティログ、アラートのタイムライン
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
 
 **Correct Answer:** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)  
 
@@ -204,20 +278,9 @@ Defenderポータルのインシデントページで確認できる情報。
 したがって、これらすべて（Tasks, activity log, alert timeline）が利用可能です。
 ※Dが正解ですが、最新UIでは「Attack story」「Assets」などに再編されているため、選択肢の用語は少し古いUIに基づいている可能性がありますが、機能としては全て存在します。
 
-*Community vote distribution*
-
-D (67%)
-
-B (33%)
-
 質問18 トピック7
-
-HOTSPOT  
-\-  
   
-Azureサブスクリプションをお持ちです。Microsoft  
-  
-Sentinelワークブックには、以下のテキストパラメータが含まれています。  
+Azureサブスクリプションをお持ちです。Microsoft Sentinelワークブックには、以下のテキストパラメータが含まれています。  
   
 • text1  
 • grouptime1  
@@ -230,27 +293,47 @@ Sentinelワークブックには、以下のテキストパラメータが含ま
   
 ![](https://img.examtopics.com/sc-200/image331.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
+## 正解
 
-**Correct Answer:** ![](https://img.examtopics.com/sc-200/image332.png)
+### **1番目のドロップダウン（where AlertName ==）**
 
-**解説:**
-Q18（Page 37 Q8?の類題）。
-セキュリティアラートの数を表示。
+選択肢：
 
-1. **Filter**: **`where AlertName contains {text1}`** あるいは `where ProviderName == {text1}` など、パラメータ `text1` を使用したフィルタ。
-2. **Summarize**: **`summarize count() by bin(TimeGenerated, {grouptime1})`**。
-   Q8とほぼ同じですが、対象が `SecurityEvent` ではなく `SecurityAlert` かもしれません。
-   正解画像（image332）では、**`SecurityAlert`** テーブルを使用し、**`summarize count() by bin(TimeGenerated, {grouptime1})`** としています。
+- `{text1}`
+- `<text1>`
+- `"{text1}"`
+- `<text1>`
+
+**正解：`"{text1}"`**
+
+**理由：**
+
+- ワークブックパラメータを参照する場合、波括弧 `{}` を使用します
+- AlertNameは文字列フィールドなので、比較には引用符が必要です
+- 正しい構文：`where AlertName == "{text1}"`
+- これにより、text1パラメータの値がAlertNameフィールドと比較されます
+
+### **2番目のドロップダウン（summarize count() by bin(StartTime,）**
+
+選択肢：
+
+- `{grouptime1}`
+- `<grouptime1>`
+- `"{grouptime1}"`
+- `<grouptime1>`
+
+**正解：`{grouptime1}`**
+
+**理由：**
+
+- `bin()` 関数の時間間隔パラメータは時間値（例：1h, 1d）を期待します
+- 時間値は引用符なしで渡されます
+- 正しい構文：`bin(StartTime, {grouptime1})`
+- `{grouptime1}` は `1h`（1時間）、`1d`（1日）などの時間値に展開されます
 
 質問19 トピック7
-
-HOTSPOT  
-\-  
   
-Device1 という Windows デバイスを含む Microsoft 365 サブスクリプションを所有しています。Device1 は Microsoft Defender for Endpoint にオンボードされています。Device1  
-  
-でライブ応答セッションを開始します。  
+Device1 という Windows デバイスを含む Microsoft 365 サブスクリプションを所有しています。Device1 は Microsoft Defender for Endpoint にオンボードされています。Device1 でライブ応答セッションを開始します。  
   
 実行時間の長いスクリプトを実行する必要があります。このソリューションでは、スクリプトの実行中にセッション中に追加のコマンドを実行できるようにする必要があります。  
   

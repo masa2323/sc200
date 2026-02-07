@@ -1,26 +1,12 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、ページ2 | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/2/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問11 トピック1
 
 注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある独自の解決策が含まれています。一部の質問セットには複数の正解がある場合もあれば、正解がない場合もあります。  
-このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft  
-Defender for Identity と Active Directory の統合を構成しています。Microsoft  
-Defender for Identity ポータルから、攻撃者が悪用できる複数のアカウントを構成する必要があります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft Defender for Identity と Active Directory の統合を構成しています。Microsoft Defender for Identity ポータルから、攻撃者が悪用できる複数のアカウントを構成する必要があります。  
 解決策: Azure AD Identity Protection から、サインインリスクポリシーを構成します。  
 これは目標を達成していますか?  
 
 - A. はい
 - B. いいえ
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)  
 
@@ -28,32 +14,20 @@ Defender for Identity ポータルから、攻撃者が悪用できる複数の�
 ハニートークンアカウント（Honeytoken account）は、Defender for Identity ポータルではなく、Microsoft 365 Defender ポータル（現在のMicrosoft Defender XDR）の設定にある「エンティティタグ」から構成します。
 ユーザーが提案した「Azure AD Identity Protection のサインインリスクポリシー」は、リアルタイムのリスク検出には有効ですが、特定の「おとりアカウント」を設定するハニートークンの要件とは異なります。したがって、この解決策は目標を達成しません。
 
-*コミュニティ投票の配分*
-
-B（100％）
-
 質問12 トピック1
 
 注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある独自の解決策が含まれています。一部の質問セットには複数の正解がある場合もあれば、正解がない場合もあります。  
-このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft  
-Defender for Identity と Active Directory の統合を構成しています。Microsoft  
-Defender for Identity ポータルから、攻撃者が悪用できる複数のアカウントを構成する必要があります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft Defender for Identity と Active Directory の統合を構成しています。Microsoft Defender for Identity ポータルから、攻撃者が悪用できる複数のアカウントを構成する必要があります。  
 解決策: アカウントを Active Directory グループに追加し、そのグループを機密グループとして追加します。  
 これで目標は達成されますか?  
 
 - A. はい
 - B. いいえ
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)   [議論   12](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)
-
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)  
 
 **解説:**
 Defender for Identity でハニートークンアカウント（Honeytoken account）を設定する場合、Active Directory グループを使用して構成するのではなく、Microsoft Defender ポータル上で特定のエンティティ（ユーザー）に対して直接タグ付けを行います（Entity tags）。機密グループ（Sensitive Group）は、管理者権限などを持つ高リスクなグループを監視するためのものであり、攻撃をおびき寄せるためのおとり（ハニートークン）とは目的と設定方法が異なります。
-
-*コミュニティ投票の配分*
-
-B（100％）
 
 質問13 トピック1
 
@@ -67,17 +41,11 @@ Microsoft Defender for Office 365 に「安全な添付ファイル」ポリシ�
 - C. リダイレクトをブロックして有効にする
 - D. リダイレクトを監視して有効にする
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)   [議論   15](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)  
 
 **解説:**
 **ダイナミックデリバリー (Dynamic Delivery)** は、安全な添付ファイル（Safe Attachments）ポリシーの機能の1つで、添付ファイルのスキャンが完了する前に、まずメール本文だけを受信者に配信します。
 ユーザーは本文をすぐに読むことができ、添付ファイルの部分には「スキャン中」である旨のプレースホルダーが表示されます。スキャンが完了し安全と判断されれば、添付ファイルが利用可能になります。これにより、セキュリティを確保しつつ、メール受信の遅延を感じさせないユーザーエクスペリエンスを提供できます。
-
-*コミュニティ投票の配分*
-
-A（100％）
 
 質問14 トピック1
 
@@ -89,9 +57,7 @@ A（100％）
 ホットエリア：  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0002400001.png)  
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)   [議論   22](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)
-
-**==正解:==** ![](https://www.examtopics.com/assets/media/exam-media/04261/0002500001.png) 参照:  
+**==正解:==** ![](https://www.examtopics.com/assets/media/exam-media/04261/0002500001.png)
 
 **解説:**
 
@@ -136,22 +102,16 @@ A（100％）
 - C. アクションが「警告とブロック」に設定されているファイルハッシュインジケータ
 - D. アクションが「警告とブロック」に設定されている証明書インジケータ
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)
-
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)  
 
 **解説:**
 画像ファイルを用いた攻撃を防ぐためには、そのファイルのハッシュ値（File Hash）に基づいた侵害の兆候（IoC: Indicator of Compromise）を作成するのが最も確実です。
 アクションとして **「警告とブロック (Alert and Block)」** を選択することで、該当するファイルが検出された場合に、管理者にアラートを通知すると同時に、そのファイルの実行や読み込みをブロックし、攻撃を未然に防ぐことができます。URL/ドメインインジケーターはWebサイトへのアクセス制御に使用され、ファイルそのもののブロックにはファイルハッシュが適しています。
 
-*コミュニティ投票の配分*
-
-C（100％）
-
 質問16 トピック1
 
-会社では以下のサービスを展開しています。✑  
-Microsoft Defender for Identity  
+会社では以下のサービスを展開しています。
+✑ Microsoft Defender for Identity  
 ✑ Microsoft Defender for Endpoint  
 ✑ Microsoft Defender for Office 365  
 セキュリティアナリストに Microsoft 365 セキュリティセンターを使用する権限を与える必要があります。アナリストは、Microsoft Defender for Endpoint によって生成された保留中のアクションを承認または拒否できる必要があります。ソリューションでは、最小権限の原則を使用する必要があります。  
@@ -163,8 +123,6 @@ Microsoft Defender for Identity
 - C. Azure Active Directory (Azure AD) のセキュリティ管理者ロール
 - D. Azure Active Directory (Azure AD) のセキュリティ リーダー ロール
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)   [議論   26](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)
-
 **正解** [：](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)BD🗳️  
 
 **解説:**
@@ -173,12 +131,6 @@ Microsoft Defender for Identity
 - **B. Microsoft Defender for Endpoint の「アクティブ修復アクション (Active remediation actions)」ロール**: これはDefender for Endpoint内の特定の権限で、修復アクション（ファイルの隔離や実行ブロックなど）を承認するために必須です。
 - **D. Azure AD のセキュリティ リーダー (Security Reader) ロール**: セキュリティセンター内の情報やアラートを表示するために必要です。「セキュリティ管理者」ロールも可能ですが、権限が強すぎるため最小権限の原則に反します。
 （※選択肢Dが「セキュリティリーダー」ではなく「Global Reader」の場合もありますが、文脈上は「閲覧権限+修復実行権限」の組み合わせが正解となります。）
-
-*コミュニティ投票の配分*
-
-BD（82％）
-
-紀元前（18％）
 
 質問17 トピック1
 
@@ -189,8 +141,6 @@ Microsoft Defender を使用する Microsoft 365 E5 サブスクリプション�
 注: 正しい選択ごとに 1 ポイント獲得できます。  
 ホットエリア:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0002700001.jpg)  
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)   [議論   8](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)
 
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0002800001.jpg) 参照:  
 
@@ -220,8 +170,6 @@ App Securityポータルで実行する必要がある2つのアクションは�
 - E. \[設定\] から \[情報保護\] を選択し、\[ファイル\] を選択して、ファイル監視を有効にします。
 - F. \[ファイルの調査\] を選択し、\[ファイルの種類\] を \[ドキュメント\] にフィルターします。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)   [議論   37](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)
-
 **正解：** DE [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)  
 
 **解説:**
@@ -230,14 +178,6 @@ Cloud App Security (Defender for Cloud Apps) で機密ファイルの外部共�
 - **D**: 設定（Settings）の「Information Protection」→「Azure Information Protection」で、**「新しいファイルを自動的にスキャンする (Automatically scan new files...)」** を有効にします。これにより、新しくアップロードや変更されたファイルも監視対象になります（ファイル監視）。
 - **C**: **「ファイルの調査 (Files)」** メニューではなく、**「ポリシー (Policies)」** メニューから「ファイルポリシー (File policy)」を新規作成します。（※正解選択肢の記述が少し変則的ですが、要点は「新しいファイルをスキャンする設定をオンにする」ことと、「ファイルポリシーを作成して外部共有を検知する」ことです。）
 ※一般的な手順としては、「設定でAIPスキャンを有効化」し、「ファイルポリシーを作成して、フィルタで『アクセスレベル＝外部/公開』かつ『分類ラベル＝機密』などを指定」します。選択肢Eの「ファイル監視を有効にする」もDと同義の操作を指している可能性があります。
-
-*コミュニティ投票の配分*
-
-ドイツ（77％）
-
-CE（17％）
-
-3%
 
 質問19 トピック1
 
@@ -249,8 +189,6 @@ Cloud App Security を構成する予定です。
 注: 正解は1つにつき1ポイントです。  
 ホットエリア:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0003000001.jpg)  
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)   [議論   53](https://www.examtopics.com/exams/microsoft/sc-200/view/2/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image410.png)
 

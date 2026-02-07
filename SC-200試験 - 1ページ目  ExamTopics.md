@@ -1,13 +1,3 @@
----
-title: SC-200試験  ExamTopics
-source: https://www.examtopics.com/exams/microsoft/sc-200/view/
-author:
-published:
-created: 2026-01-18
-description: Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    .
-tags:
-  - clippings
----
 ## トピック1 - 質問セット1
 
 質問1 トピック1
@@ -19,8 +9,6 @@ Microsoft 365 Defender を使用してインシデントを調査しています
 注: 正しい選択肢は 1 つにつき 1 ポイントです。  
 選択して配置:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0001100001.png)  
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   32](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
 
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0001200001.png)
 
@@ -53,13 +41,7 @@ Microsoft 365 Defender を使用してインシデントを調査しています
 - C. まれな国からの活動
 - D. マルウェア検出
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   37](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
-
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/#)  
-
-*コミュニティ投票の配分*
-
-C（100％）
 
 **解説:**
 「組織内の他のユーザーが使用したことのない場所」からのサインインは、通常とは異なる国や地域からのアクセスを示唆しており、**「まれな国からの活動 (Activity from infrequent country)」** ポリシーが該当します。
@@ -79,15 +61,7 @@ SharePoint Online サイトには機密文書が含まれています。これ�
 - C. Azure 情報保護
 - D. 正規表現パターンマッチング
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   65](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
-
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/#)  
-
-*コミュニティ投票の配分*
-
-D（59％）
-
-C（41％）
 
 **解説:**
 32文字の英数字という特定のパターン（顧客アカウント番号）を検出する場合、**正規表現 (Regular Expression)** を使用した「機密情報の種類 (Sensitive info type)」の作成が最適です。SharePointの検索機能や単なるハンティングクエリではDLPポリシーとしての自動保護・検出の要件を満たせません。
@@ -106,8 +80,6 @@ C.
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0001400003.png)  
 D.  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0001400004.png)  
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   49](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
 
 **解説:**
 この問題の核心は、「防止 (Prevent/Block)」するために必要な設定値と、PowerShell のコマンドレットの使い分けにあります。
@@ -148,13 +120,7 @@ Microsoft Defender の設定を変更する際、以下の 2 つのコマンド�
 - D. デバイス グループを対象とする抑制ルールを作成します。
 - E. アラートを生成します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   87](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
-
 **正解:** BDE [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/#)  
-
-*コミュニティ投票の配分*
-
-BDE（82％）
 
 **解説:**
 誤検知（False Positive）を管理しつつセキュリティ体制を維持するためには、以下の対応が適切です。
@@ -163,8 +129,6 @@ BDE（82％）
 - **D. 抑制ルールを作成する (Create a suppression rule)**: 特定の条件（デバイスグループなど）に一致するイベントに対して、将来的にアラートが生成されないようにします（または自動的に解決します）。
 - **E. アラートを生成 (Generate alert)**: （※選択肢の意味が文脈上不明確ですが、除外設定や分類に関連する操作を指している可能性があります。一般的にはBとDが主要な管理手法です。）
 推奨されるアプローチは、誤検知として分類し、類似のアラートに対して抑制ルールを作成することです。
-
-他の
 
 質問6 トピック1
 
@@ -176,8 +140,6 @@ BDE（82％）
 どの 4 つのアクションを順番に実行する必要がありますか？ 回答するには、アクションリストから適切なアクションを回答エリアに移動し、正しい順序に並べ替えてください。  
 選択して配置:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0001600001.png)  
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   20](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
 
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0001700001.png) 参照:  
 <https://docs.microsoft.com/en-us/cloud-app-security/governance-discovery>
@@ -192,16 +154,12 @@ Microsoft Defender for Endpointが統合されていない環境で、Cloud App 
 
 質問7 トピック1
 
-ホットスポット -  
-Microsoft 365 E5 サブスクリプションをご利用です。Microsoft  
-365 Defender を使用してクロスドメイン調査を実施する予定です。  
+Microsoft 365 E5 サブスクリプションをご利用です。Microsoft 365 Defender を使用してクロスドメイン調査を実施する予定です。  
 悪意のあるメール添付ファイルの影響を受けるデバイスを特定するための高度なハンティングクエリを作成する必要があります。  
 クエリはどのように完成させるべきでしょうか？回答するには、回答エリアで適切なオプションを選択してください。  
 注: 正解は1つにつき1ポイントです。  
 ホットエリア:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0001800001.png)  
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   31](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
 
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0001900001.png) 参照:  
 <https://docs.microsoft.com/en-us/microsoft-365/security/mtp/advanced-hunting-query-emails-devices?view=o365-worldwide>
@@ -235,15 +193,7 @@ Microsoft 365 Defender で、次のような高度なハンティングクエリ
 - D. DeviceProcessEventsをDeviceNetworkEventsに置き換えます。
 - E. クエリの出力に DeviceId と ReportId を追加します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   21](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
-
 **正解:** AE [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/#)  
-
-*コミュニティ投票の配分*
-
-AE（88％）
-
-12%
 
 **解説:**
 高度なハンティングクエリの結果に基づいてアラートを受信するには、**「検出ルール (Detection Rule) の作成」** (A) が必要です。
@@ -265,15 +215,7 @@ AE（88％）
 - E. 新しい管理者ロールを作成します。
 - F. ランク 4 の新しいデバイス グループを作成します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/#)   [議論   22](https://www.examtopics.com/exams/microsoft/sc-200/view/#)
-
 **正解:** ACD [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/#)  
-
-*コミュニティ投票の配分*
-
-ACD（98％）
-
-2%
 
 **解説:**
 ランサムウェア攻撃などへの対応として、特定のデバイス群に対して一時的に強力な制限や自動対処を適用する場合の一般的な手法です。
