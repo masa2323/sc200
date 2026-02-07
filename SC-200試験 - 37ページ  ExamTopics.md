@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、37ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/37/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問11 トピック7
 
 RG1 というリソースグループを含む Azure サブスクリプションがあります。RG1 には Microsoft Sentinel ワークスペースが含まれています。このサブスクリプションは、User1 というユーザーを含む Microsoft Entra テナントにリンクされています。User1  
@@ -343,8 +333,6 @@ Device1 という Windows デバイスを含む Microsoft 365 サブスクリプ
   
 ![](https://img.examtopics.com/sc-200/image333.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
-
 **Correct Answer:** ![](https://img.examtopics.com/sc-200/image334.png)
 
 **解説:**
@@ -378,25 +366,29 @@ Purview で、次の表に示すコンテンツ検索を作成します。以下
   
 ![](https://img.examtopics.com/sc-200/image337.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#) [Hide Solution](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/37/#)
+#### 1. Search1 will include Email1: **はい**
 
-**Correct Answer:** ![](https://img.examtopics.com/sc-200/image338.png)
+- **Email1の条件:** 送信者 `prizes@contoso.com`、添付ファイル `File1.docx`。
+    
+- **Search1のクエリ:** `(filetype=docx)` かつ `(senderauthor=prizes@contoso.com)`。
+    
+- **理由:** クエリの条件（docx形式の添付ファイル、特定の送信者）がEmail1の情報と完全に一致します。
+    
 
-**解説:**
-Purviewコンテンツ検索の条件判定（メール）。
-検索条件 `(c:c) (Date=2024-01-01..2024-02-01)` （Q21/Page 33と同様のクエリ）。
-メールリスト（image335）：
+#### 2. Search2 will include Email2: **いいえ**
 
-- Email1: Sent 2024-01-15, Subject "Project Alpha" -> **Match**
-- Email2: Sent 2024-02-05, Subject "Budget Report" -> **No Match** (日付範囲外)
-- Email3: Sent 2024-01-20, Subject "c:c test" -> **Match**
-質問要件に基づき、Yes/Noを選択します。
-Email1: Yes
-Email2: No
-Email3: Yes
+- **Email2の条件:** 送信者 `hrhr@contoso.com`、件名 `Update your benefits in the Contoso HR portal`。
+    
+- **Search2のクエリ:** `(-subjecttitle=benefits)` かつ `(from=hrhr@contoso.com)`。
+    
+- **理由:** クエリ内の `-` 記号は「除外（NOT）」を意味します。つまり、このクエリは「件名に **benefits を含まない**」メールを探します。Email2の件名には `benefits` が含まれているため、この検索結果からは除外されます。
+    
 
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/36/)
+#### 3. Search3 will include Email3: **はい**
 
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 37 ページを表示しています。
+- **Email3の条件:** 送信者 `benefits@contoso.com`、件名 `You have WON a free gold coin`。
+    
+- **Search3のクエリ:** `(subjecttitle=won)` かつ `(from=benefits@contoso.com)`。
+    
+- **理由:** 件名に `won` が含まれており、送信者も一致するため、Email3は検索結果に含まれます。
 
-410問中**361 - 370**問 を表示

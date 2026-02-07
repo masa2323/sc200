@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、39ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/39/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問#31 トピック7
 
 Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションを所有しています。このサブスクリプションには、Microsoft Defender for Endpoint にオンボードされている 500 台の Windows 11 デバイスが含まれています。  
@@ -26,87 +16,110 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
 - C. アラート調整ルール
 - D. 検出ルール
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)
+### 正解の理由：B. 高度なハンティングクエリ
 
-**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)  
+このソリューションの核となるのは「**カスタム検出ルール (Custom detection rule)**」ですが、Microsoft Defender XDR ポータルのワークフロー上、それを設定するためには**まずクエリを作成して実行する**必要があります。
 
-**解説:**
-ローカル管理者グループ（Administrators）のメンバーシップ変更を1時間ごとにチェックし、変更があった場合にインシデントを作成するソリューション。
-**「B. Advanced hunting query (高度なハンティングクエリ)」**（およびそれをベースにしたカスタム検出ルール）。
-Defender for Endpointの `DeviceLocalUsers` テーブルや `DeviceEvents` (UserAccountAddedToLocalGroup) を使用して、現在のメンバーシップを定期的にチェックしたり、変更イベントを検出したりするクエリを作成できます。
-高度なハンティングクエリを作成し、それを「Detection rule（検出ルール）」として保存することで、定期実行（1時間ごとなど）とインシデント作成が可能になります。
-質問は「What should you create first?（まず何を作成すべきか）」とあるため、検出ルールの元となる **「Advanced hunting query」** が正解です。（その後、検出ルールを作成します）。
-選択肢D「検出ルール」も回答の一部ですが、プロセスとしてはまずクエリを書くことから始まります。また、選択肢に「Custom detection rule」がなく、単に「Detection rule」とある場合、プロセス順序を問われている可能性が高いです。
+1. **ロジックの定義:** メンバーシップの変更（例：`DeviceEvents` テーブルの `LocalGroupMemberAdded` アクションなど）を特定するための KQL クエリを記述します。
+    
+2. **ルールの作成:** クエリを実行し、結果が表示された状態で初めて「**検出ルールの作成 (Create detection rule)**」ボタンがアクティブになります。
+    
+3. **スケジュールの設定:** ルールの作成画面の中で、要件にある「1時間ごと」のチェック頻度や「インシデントの作成」などのアクションを設定します。
+    
+つまり、クエリ（B）がなければ、ルール（D）を作成・構成すること自体ができないため、「まず（First）」作成すべきものはクエリとなります。
 
-*コミュニティ投票の配分*
+---
+### 他の選択肢が最適ではない理由
 
-B（100％）
+- **A. デバイスグループ:** デバイスを論理的にグループ化（タグ付けや権限管理用）するものですが、メンバーシップの監視やインシデント作成のロジックとは直接関係ありません。
+    
+- **C. アラート調整ルール (Alert tuning rules):** 既存のアラートを抑制したり、誤検知を減らしたりするための設定です。新しい検知ロジックを作成するものではありません。
+    
+- **D. 検出ルール:** 最終的なソリューションそのものですが、前述の通り、これを作成するための「入力データ」として高度なハンティングクエリを先に用意する必要があります。
 
 質問#32 トピック7
-
-HOTSPOT  
-\-  
   
 Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションをご利用です。  
   
-ネットワークには、Microsoft Entra テナントと同期するオンプレミスの Active Directory Domain Services (AD DS) ドメインが含まれています。デバイス  
-  
-と AD DS ドメイン コントローラーに記録された直近 100 件のサインイン試行を特定する必要があります。KQL  
-  
-クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
-  
+ネットワークには、Microsoft Entra テナントと同期するオンプレミスの Active Directory Domain Services (AD DS) ドメインが含まれています。デバイスと AD DS ドメイン コントローラーに記録された直近 100 件のサインイン試行を特定する必要があります。KQL クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。
+
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image448.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)  
-
 **正解:** ![](https://img.examtopics.com/sc-200/image449.png)
 
 **解説:**
-直近100件のサインイン試行を取得するKQL。
+#### 1. `union` を選択する理由
 
-1. **Source Table**: **`IdentityLogonEvents`**。AD DSドメインコントローラと同期している環境でのサインインイベントは、Defender for Identityによって `IdentityLogonEvents` に記録されます（または `SecurityEvent`）。選択肢に `IdentityLogonEvents` があればそれが適切です。
-2. **Sort**: **`sort by Timestamp desc`**。最新のものを取得するため降順にソートします。
-3. **Limit**: **`take 100`**。100件取得します。
-正解画像では、`IdentityLogonEvents | sort by Timestamp desc | take 100` となっています。
+今回の目的は、2 つの異なるソース（デバイスのログとドメインコントローラーのログ）から得られた**行を組み合わせて 1 つの結果セットにする**ことです。
+
+- **`union`:** 複数のテーブルから行を統合するために使用されます。今回のクエリ構造のように、一方のテーブルの結果と、括弧 `( )` 内で定義されたもう一方のテーブルの結果を連結するのに最適です。
+    
+- **`join`:** 共通のキー（ユーザー名や ID など）に基づいて、2 つのテーブルの「列」を横に結合するために使用されます。今回は「サインイン試行を一覧表示する」ことが目的であり、列を増やすことではないため不適切です。
+    
+#### 2. `IdentityLogonEvents` を選択する理由
+
+要件にある「AD DS ドメインコントローラーに記録されたサインイン試行」を特定するには、Microsoft Defender for Identity がキャプチャする認証イベントを保持しているテーブルが必要です。
+
+- **`IdentityLogonEvents`:** オンプレミスの Active Directory（ドメインコントローラー経由）および Microsoft Entra ID で行われた認証アクティビティを記録します。
+    
+- **`IdentityInfo`:** ユーザーのプロファイル情報（部署、役職など）を保持するテーブルであり、個々のサインインイベントは記録されません。
+    
+- **`IdentityQueryEvents`:** Active Directory に対して行われた LDAP クエリなどの「探索」アクティビティを記録するもので、サインイン試行の特定には向きません。
+    
+---
+### 💡 実務・試験対策のポイント
+
+SC-200 において、サインインの調査でよく使われるテーブルの使い分けを整理しておくと非常に有利です。
+
+| **テーブル名**                 | **記録される内容**                                       |
+| ------------------------- | ------------------------------------------------- |
+| **`DeviceLogonEvents`**   | **デバイス（エンドポイント）上**でのログオンイベント                      |
+| **`IdentityLogonEvents`** | **AD / Entra ID** での認証イベント（DC へのログオンなど）           |
+| **`SigninLogs`**          | **Microsoft Entra ID** の純粋なサインインログ（Sentinel 等で使用） |
 
 質問#33 トピック7
 
-HOTSPOT  
-\-  
-  
-Workspace1 という Microsoft Sentinel ワークスペースがあります。Workspace1  
-  
-にカスタムブックを作成する必要があります。Workspace1 には、過去 7 日間の Microsoft Entra サインインの失敗を示すタイムチャートを表示する必要があります。ソリューションでは、チャートに各日のサインイン失敗回数が含まれるようにする必要があります。KQL  
-  
-クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
+Workspace1 という Microsoft Sentinel ワークスペースがあります。Workspace1 にカスタムブックを作成する必要があります。Workspace1 には、過去 7 日間の Microsoft Entra サインインの失敗を示すタイムチャートを表示する必要があります。ソリューションでは、チャートに各日のサインイン失敗回数が含まれるようにする必要があります。KQL クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image450.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)
+**正解:**### 回答領域
 
-**正解:** ![](https://img.examtopics.com/sc-200/image451.png)
+- **最初のドロップダウン:** **`| make-series`**
+    
+- **2 番目のドロップダウン:** **`default=0 on TimeGenerated step 1d`**
+    
+---
+### 技術解説
 
-**解説:**
-過去7日間のEntra ID（Azure AD）サインイン失敗回数を日別にタイムチャート表示するKQL。
+#### 1. `| make-series` を選択する理由
 
-1. **Source**: **`SigninLogs`**。Azure ADのサインインログ。
-2. **Filter**: **`where ResultType != 0`**。ResultType 0 は成功を表すため、失敗（0以外）をフィルタリングします。
-3. **Summarize**: **`summarize count() by bin(TimeGenerated, 1d)`**。1日（1d）ごとのビン（bin）で集計します。
-4. **Visualization**: **`render timechart`**。
-正解画像（image451）の構成：
-`SigninLogs`
-`| where ResultType != 0`
-`| summarize count() by bin(TimeGenerated, 1d)`
-`| render timechart`
+今回の要件は「各日のサインイン失敗回数」をタイムチャートで表示することです。
+
+- **`make-series`:** 指定した期間（今回は 7 日間）の時系列データを生成します。最大の特徴は、**データが存在しない期間に対しても、指定したデフォルト値（0など）を補完して連続した系列を作成できる**点です。
+    
+- **`summarize`:** データを集計しますが、特定の日に失敗が 1 件もなかった場合、その日の行自体が生成されません。その結果、タイムチャートに「穴」が開いてしまい、要件である「各日の回数を含める」を正確に満たせなくなります。
+    
+#### 2. `default=0 on TimeGenerated step 1d` を選択する理由
+
+`make-series` 演算子を使用する場合の標準的な構文です。
+
+- **`default=0`:** ログが存在しない時間帯のカウントを 0 として扱います。
+    
+- **`on TimeGenerated`:** どの列を時間軸として使用するかを指定します。
+    
+- **`step 1d`:** グラフの粒度（ビン）を 1 日単位に設定します。
+    
+---
+### 💡 試験・実務でのポイント
+
+SC-200 の試験で **「タイムチャート (timechart)」** や **「データの欠損を 0 で埋める (Replace missing data with 0 / default=0)」** というキーワードが出てきたら、迷わず **`make-series`** を探してください。
 
 質問#34 トピック7
-
-HOTSPOT  
-\-  
   
 Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあります。Azure  
   
@@ -114,32 +127,45 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
   
 すべてのログを Workspace1 に転送しています。  
   
-過去 24 時間以内に Microsoft Entra グループの変更を要求したすべてのアプリケーションとセキュリティ プリンシパルを特定する必要があります  
-  
-。KQL クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
+過去 24 時間以内に Microsoft Entra グループの変更を要求したすべてのアプリケーションとセキュリティ プリンシパルを特定する必要があります。KQL クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image452.png)
+### 回答領域
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)
+- **最初のドロップダウン (テーブル名):** **`MicrosoftGraphActivityLogs`**
+    
+- **2 番目のドロップダウン (RequestMethod):** **`GET`**
+    
+---
+### 技術解説
 
-**正解:** ![](https://img.examtopics.com/sc-200/image453.png)
+#### 1. `MicrosoftGraphActivityLogs` を選択する理由
 
-**解説:**
-過去24時間にEntraグループの変更を要求したアプリケーションとセキュリティプリンシパルを特定するKQL。
+今回の要件は、Microsoft Entra（旧 Azure AD）グループへの「変更要求」を特定することです。
 
-1. **Source**: **`AuditLogs`**。グループ変更などの監査ログは `AuditLogs` テーブルにあります。
-2. **Filter**: **`where OperationName contains "Group"`**（または "Update group" など）。
-3. **Project**: **`InitiatedBy.app.displayName, InitiatedBy.user.userPrincipalName`**。
-   `InitiatedBy` カラムには、操作を行った主体（User または App）の情報がJSONで入っています。アプリケーション名とユーザープリンシパル名を取得します。
-正解画像（image453）では、`AuditLogs` を選択し、`InitiatedBy` 内のフィールドを選択しています。
+- **`MicrosoftGraphActivityLogs`**: Microsoft Graph API に対して行われたすべての HTTP リクエストの詳細（URI、メソッド、実行したアプリ、ユーザー、サービスプリンシパルなど）を記録するテーブルです。クエリ内の `RequestUri` や `RequestMethod` といった列は、このテーブルの標準的なスキーマです。
+    
+- `EnrichedMicrosoft365AuditLogs` は主に監査イベントの結果を扱いますが、API レベルの生の要求（Request）を詳細に追跡するには Graph アクティビティログが適しています。
+    
+- `SecurityEvent` は Windows のイベントログを扱うため、Entra ID の API 操作の特定には使用しません。
+    
+#### 2. `GET` を選択する理由
+
+要件にある「グループの**変更**」を特定するには、参照のみの操作を除外する必要があります。
+
+- **`GET`**: データの取得（読み取り）に使用されるメソッドです。これを除外（`!=`）することで、`POST`（作成）、`PUT` / `PATCH`（更新）、`DELETE`（削除）といった、リソースに対して**何らかの変更を加える操作**だけを抽出できます。
+    
+- `POST` や `PUT` を除外してしまうと、肝心の変更操作そのものが結果から消えてしまうため不適切です。
+    
+---
+### 💡 実務・試験対策のポイント
+Microsoft Sentinel や Defender XDR において、**Microsoft Graph アクティビティログ**は「どのアカウント（またはアプリ）が、機密性の高いグループ（Global Admins など）に対して不審な変更を試みたか」を調査する際の非常に強力な武器になります。
 
 質問#35 トピック7
 
-Microsoft Defender XDR、Microsoft Purview、Exchange Online を利用する Microsoft 365 サブスクリプションをご利用です。Contoso  
-  
-社というパートナー企業から、  
+Microsoft Defender XDR、Microsoft Purview、Exchange Online を利用する Microsoft 365 サブスクリプションをご利用です。Contoso 社というパートナー企業から、  
   
 過去 1 か月間に受信した PDF 添付ファイルを含むすべてのメールを確認する必要があります。管理作業を最小限に抑えるソリューションが必要です。  
   
@@ -150,8 +176,6 @@ Microsoft Defender XDR、Microsoft Purview、Exchange Online を利用する Mic
 - C. アクティビティエクスプローラー
 - D. 高度な狩猟
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)  
 
 **解説:**
@@ -161,10 +185,6 @@ Microsoft Purviewコンプライアンスポータルのコンテンツ検索機
 「管理作業を最小限に」という点では、高度なハンティング（Advanced Hunting）も可能ですが、コンテンツ検索はGUIベースでメール本文や添付ファイルの有無を含めた検索に特化しており、eDiscoveryの一部として機能するため適切です。
 また、Advanced Huntingの `EmailAttachmentInfo` テーブルは通常30日間の保持期間ですが、「Review all emails（メール自体を確認）」という要件ならコンテンツ検索が適しています（プレビュー機能やエクスポートが可能）。
 Topic 7 Q14 (Page 22) や Q21 (Page 33) と類似していますが、ここではコンテンツ検索が正解とされています。
-
-*コミュニティ投票の配分*
-
-A（100％）
 
 質問#36 トピック7
 
@@ -179,8 +199,6 @@ Microsoft Sentinel を使用する Azure サブスクリプションをお持ち
 - C. ワークスペース使用状況レポート
 - D. 調査の洞察
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)  
 
 **解説:**
@@ -191,10 +209,6 @@ B: Incident Overviewはインシデントの現状把握用。
 C: Workspace Usageはデータ量とコスト用。
 D: Investigation Insightsは調査の詳細用。
 したがって、効率性指標（平均時間）を見るには **A** が正解です。
-
-*コミュニティ投票の配分*
-
-A（100％）
 
 質問#37 トピック7
 
@@ -208,9 +222,7 @@ Microsoft 365 サブスクリプションで Microsoft Defender for Endpoint プ
 - B. ファイルを許可またはブロックする
 - C. アラートを自動的に解決する
 - D. 改ざん防止
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論   1](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)
-
+- 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)  
 
 **解説:**
@@ -220,15 +232,9 @@ Microsoft 365 サブスクリプションで Microsoft Defender for Endpoint プ
 しかし、「EDR in block mode」を有効にすると、Defender for EndpointのEDR機能が脅威を検出した場合に、Microsoft Defender Antivirusがパッシブモードであっても、その悪意のあるアーティファクトをブロック・修復することができます。
 これにより、サードパーティAVが見逃した脅威をDefenderが補完的にブロックできます。
 
-*コミュニティ投票の配分*
-
-A（100％）
-
 質問#38 トピック7
 
-Microsoft 365 サブスクリプションをお持ちです。このサブスクリプションには、Microsoft Defender for Endpoint にオンボードされているデバイスが 500 台含まれています。Microsoft  
-  
-Sentinel ワークスペースを含む Azure サブスクリプションもお持ちです。  
+Microsoft 365 サブスクリプションをお持ちです。このサブスクリプションには、Microsoft Defender for Endpoint にオンボードされているデバイスが 500 台含まれています。Microsoft Sentinel ワークスペースを含む Azure サブスクリプションもお持ちです。  
   
 脅威を自動的に修復するパイロットを 50 台のデバイスで実行する必要があります。ソリューションは以下の要件を満たす必要があります。  
   
@@ -242,8 +248,6 @@ Sentinel ワークスペースを含む Azure サブスクリプションもお�
 - C. デバイスグループ
 - D. 自動化ルール
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論   1](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)
-
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)  
 
 **解説:**
@@ -256,14 +260,7 @@ Defender for Endpointの設定で、「Automated Investigation（自動調査）
 3. 他のデバイスグループはより低い自動化レベルに設定しておきます。
 これにより、特定のデバイス群（パイロット）のみで自動修復を有効にできます。
 
-*コミュニティ投票の配分*
-
-C（100％）
-
 質問#39 トピック7
-
-HOTSPOT  
-\-  
   
 Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションをご利用です。KQL  
   
@@ -277,33 +274,43 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image472.png)
+### 回答領域
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)
+1. **最初のドロップダウン (join kind):** **`innerunique`**
+    
+2. **2 番目のドロップダウン (join key):** **`SHA256`**
+    
+---
+### 技術解説
 
-**正解:** ![](https://img.examtopics.com/sc-200/image473.png)
+#### 1. `innerunique` を選択する理由
 
-**解説:**
-過去12時間以内に「File1.pdf」という添付ファイルを受信し、かつそれを「開いた」デバイスを特定するクエリ。
+要件にある「**クエリの実行に必要なリソースを最小限に抑える**」を満たすために最適な結合の種類です。
 
-1. **Join**: **`EmailAttachmentInfo`** と **`DeviceFileEvents`** を結合します。メール添付ファイル情報と、デバイス上のファイル操作イベントを紐付けます。
-2. **Filter**: **`where FileName == "File1.pdf"`**。
-3. **Join condition**: **`SHA256`**（ハッシュ値）で結合するのが最も確実です。ファイル名だけでは同名の別ファイルの可能性があります。
-   `on SHA256` (またはFileHash)。
-4. **Action**: デバイス上でファイルが開かれたことを確認するため、`DeviceFileEvents` 側で `ActionType` が `FileCreated` や `FileModified` などを確認し、さらにプロセスイベントと相関させることもありますが、選択肢の中で最も適切な結合を選びます。
-   正解画像（image473）:
-   `EmailAttachmentInfo`
-   `| where FileName == "File1.pdf"`
-   `| join DeviceFileEvents on SHA256` ...
-   これにより、メールで受信したファイルと同じハッシュを持つファイルがデバイス上で操作されたイベントを特定できます。
+- **パフォーマンスの最適化:** KQL において `innerunique` は結合操作のデフォルトであり、左側のテーブル（`EmailAttachmentInfo`）のキーを重複排除してから結合します。これにより、メモリ消費と処理時間を削減できるため、リソースを最小限に抑えることができます。
+    
+- **要件の充足:** 今回の目的は「デバイスを特定する」ことであり、1 つの悪意のあるファイルに対してデバイスごとの一致が確認できればよいため、重複排除を行う `innerunique` が効率的です。
+    
+#### 2. `SHA256` を選択する理由
+
+メールの添付ファイルと、デバイス上で開かれたファイルを正確に紐付けるための唯一かつ最も信頼性の高いキーです。
+
+- **正確な相関:** `EmailAttachmentInfo`（メール側）と `DeviceFileEvents`（デバイス側）の両方のテーブルに存在する共通の列であり、ファイルの内容を一意に識別するハッシュ値です。
+    
+- **他の列が不適切な理由:**
+    
+    - `FilePath`: メール添付時のテンポラリパスと、デバイスで保存・展開されたパスは通常異なるため、結合には向きません。
+        
+    - `FileOriginUrl`: メールからのダウンロード時に必ずしも一貫して記録されるわけではなく、相関キーとしては不十分です。
+        
+---
+### 💡 試験・実務でのポイント
+
+SC-200 などの試験対策として、**「パフォーマンス最適化」** や **「リソースの最小化」** という言葉とセットで **`innerunique`** と **「両方のテーブルへのタイムスタンプフィルタの適用（`ago(12h)`）」** を覚えておくと非常に役立ちます。
 
 質問#40 トピック7
 
-HOTSPOT  
-\-  
-  
-Microsoft Sentinel ワークスペースがあります。KQL  
-  
-クエリがあります。このクエリは、SecurityIncident テーブルに保存され、過去 90 日間に発生した Microsoft Sentinel インシデントを返します。  
+Microsoft Sentinel ワークスペースがあります。KQL クエリがあります。このクエリは、SecurityIncident テーブルに保存され、過去 90 日間に発生した Microsoft Sentinel インシデントを返します。  
   
 クエリの視覚化を含む Microsoft Sentinel ワークブックを作成する必要があります。  
   
@@ -313,20 +320,99 @@ Microsoft Sentinel ワークスペースがあります。KQL
   
 ![](https://img.examtopics.com/sc-200/image474.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/39/#)
+### **正解：**
+**Data source（データソース）:** **Logs (Analytics)**
+**Resource type（リソースの種類）:** **Log Analytics**
 
-**正解:** ![](https://img.examtopics.com/sc-200/image475.png)
+## 理由
+公式ドキュメントの「Visualize and monitor your data by using workbooks in Microsoft Sentinel」セクションに明確に記載されています。
 
-**解説:**
-Sentinelワークブックで `SecurityIncident` テーブルのデータを使用する場合のデータソース設定。
+### **ワークブック作成時の設定**
 
-1. **Data source**: **`Azure Sentinel`**（選択肢に Log Analytics がある場合はそちらも候補ですが、Sentinel固有のテーブル `SecurityIncident` を扱う文脈では Azure Sentinel 自体がデータプロバイダとなることが多いです。ただし、実体は Log Analytics ワークスペースです）。
-   正解画像では **`Log Analytics`** が選ばれている可能性があります。すべてのSentinelデータはLog Analyticsワークスペースに格納されるため、ワークブックのデータソースとしては「Log Analytics」を選択し、Resource Typeとしてワークスペースを指定するのが一般的です。
-   *画像確認*: Image 475を確認すると、Data source: **`Log Analytics`**, Resource Type: **`Log Analytics`**（またはSentinel Workspace）となっています。
-   KQLクエリを実行する基盤はLog Analyticsです。
+> "When building a query, set the **Data source** to **Logs** and **Resource type** to **Log Analytics**, and then choose one or more workspaces."
 
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/38/)
+### **SecurityIncidentテーブルについて**
 
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 39 ページを表示しています。
+公式ドキュメント「Manage your SOC better with incident metrics」より：
 
-410問中**381 - 390**問 を表示
+> "The **SecurityIncident** table is built into Microsoft Sentinel. You'll find it with the other tables in the **SecurityInsights** collection under **Logs**. You can query it like any other table in **Log Analytics**."
+
+## 選択肢の分析
+
+### **Data source（データソース）の選択肢**
+
+#### ❌ **Azure Data Explorer**
+
+- 独立したデータ分析サービス
+- Microsoft SentinelのSecurityIncidentテーブルには使用しない
+
+#### ❌ **Azure Resource Graph**
+
+- Azureリソースのメタデータをクエリするサービス
+- セキュリティインシデントデータには使用しない
+
+#### ❌ **Azure Resource Manager**
+
+- Azureリソースのデプロイと管理のサービス
+- ログデータのクエリには使用しない
+
+#### ✅ **Logs (Analytics)**
+
+- Log Analyticsワークスペースのログデータにアクセス
+- SecurityIncidentテーブルはLog Analyticsにある
+- KQLクエリを実行するための正しいデータソース
+
+#### ❌ **Logs (Basic)**
+
+- Basic Logsは低コストのログ取り込み層
+- SecurityIncidentテーブルは通常のAnalytics層にある
+
+### **Resource type（リソースの種類）の選択肢**
+
+#### ❌ **Application Insights**
+
+- アプリケーションパフォーマンス監視サービス
+- Microsoft Sentinelインシデントには使用しない
+
+#### ✅ **Log Analytics**
+
+- Microsoft SentinelはLog Analyticsワークスペース上に構築される
+- SecurityIncidentテーブルはLog Analyticsワークスペースに格納される
+- KQLクエリはLog Analyticsで実行される
+
+#### ❌ **Microsoft Sentinel**
+
+- これはリソースタイプの選択肢として表示されるが、実際のワークブックでは「Log Analytics」を選択する
+- Microsoft SentinelはLog Analyticsの上位レイヤー
+
+#### ❌ **Security Alert**
+
+- これはテーブル名であり、リソースタイプではない
+
+#### ❌ **Workspace**
+
+- 一般的な用語だが、正しいリソースタイプは「Log Analytics」
+
+## SecurityIncidentテーブルとLog Analyticsの関係
+
+```
+Microsoft Sentinel
+    ↓
+Log Analytics Workspace
+    ↓
+SecurityInsights Collection
+    ↓
+SecurityIncident Table
+```
+
+### **重要なポイント：**
+1. **SecurityIncidentテーブルの場所**
+    - Log Analyticsワークスペース内
+    - SecurityInsightsコレクション
+2. **クエリの実行**
+    - KQLクエリはLog Analyticsで実行される
+    - データソースは「Logs (Analytics)」
+3. **ワークブックの設定**
+    - Data source: Logs (Analytics)
+    - Resource type: Log Analytics
+    - Workspace: Microsoft Sentinelワークスペースを選択
