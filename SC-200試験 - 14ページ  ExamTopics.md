@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、14ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/14/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問4 トピック3
 
 Azure Active Directory (Azure AD) ユーザーをブロックするために使用する既存の Azure ロジック アプリがあります。このロジック アプリは手動でトリガーされます。Azure  
@@ -20,19 +10,11 @@ Sentinel をデプロイします。
 - C. Azure Sentinel でカスタム脅威インテリジェンス コネクタを構成します。
 - D. ロジック アプリでトリガーを変更します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   65](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
-
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
 
 **解説:**
 既存の汎用的なLogic AppをSentinelプレイブックとして使用するための最初のステップです。
 **「ロジック アプリでトリガーを変更します」**: Sentinelプレイブックとして動作させるには、Logic Appの開始トリガーを「Microsoft Sentinel incident」または「Microsoft Sentinel alert」に変更する必要があります。HTTPトリガーなどの通常のトリガーのままでは、Sentinelの自動化ルールや手動実行から呼び出すことができません。
-
-*コミュニティ投票の配分*
-
-D（61％）
-
-B（39％）
 
 質問5 トピック3
 
@@ -46,17 +28,11 @@ B（39％）
 - C. ノートブック
 - D. ブックマーク
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
-
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
 
 **解説:**
 脅威検知・調査を簡素化し、MLを用いた高度な分析や可視化を行う機能です。
 **「ノートブック (Notebooks)」**: Azure Sentinelのノートブック（Jupyter Notebooks）を使用すると、Pythonベースの機械学習ライブラリ（MSTICPyなど）を活用して、カスタム分析、高度な脅威ハンティング、独自の可視化を行うことができます。
-
-*コミュニティ投票の配分*
-
-C（100％）
 
 質問6 トピック3
 
@@ -70,22 +46,12 @@ Azure Sentinel にプレイブックがあります。
 - C. 条件を追加してアクションを変更します。
 - D. アラートを追加し、アクションを変更します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   45](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
-
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
 
 **解説:**
 プレイブックの送信先を配布グループ（静的）から「リソースの所有者」（動的）に変更するための修正手順です。
 **「条件を追加してアクションを変更します」**: 特定のリソース所有者にメールを送るには、まずインシデントやアラートから所有者情報を取得するか、条件分岐（Condition）を追加して宛先を特定する必要があります。その後、メール送信アクション（Send email）の宛先フィールドを、取得した動的な値（所有者のメールアドレス）に変更します。
 （※「パラメータを追加してトリガーを変更」はトリガー自体の話になり不適切です。「条件を追加」し、それに基づいて「アクションを変更（宛先設定）」するのがロジックの流れです。）
-
-*コミュニティ投票の配分*
-
-C（42％）
-
-D（29％）
-
-A（29％）
 
 質問7 トピック3
 
@@ -102,22 +68,12 @@ A（29％）
 - C. IPアドレス
 - D. コンピューター
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   34](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
-
 **正解：** AD [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
 
 **解説:**
 Sentinelのアラートグルーピング設定で、関連するアラートを同じインシデントにまとめるために使用できるエンティティコンポーネントです。
 **「ユーザー (User)」** と **「コンピューター (Computer/Host)」** は、インシデントのグルーピングに使用される主要なエンティティタイプです。これらが一致するアラートを一つのインシデントとしてまとめることで、調査の効率化が可能になります。IPアドレスやURLなども使用可能です。
 ※リソースグループ（B）はAzureリソースのコンテナであり、Sentinelの標準的なエンティティベースのグルーピングキーとしては一般的ではありません。
-
-*コミュニティ投票の配分*
-
-AD（78％）
-
-CD（19％）
-
-4%
 
 質問8 トピック3
 
@@ -134,8 +90,6 @@ Sentinelでハンティングクエリを実行し、すべてのサブスクリ
 - D. リソース式とエイリアス演算子を使用するクエリを作成します。
 - E. Azure Sentinel ソリューションを各ワークスペースに追加します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   32](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
-
 **正解** [：](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)BE🗳️  
 
 **解説:**
@@ -145,36 +99,20 @@ Sentinelでハンティングクエリを実行し、すべてのサブスクリ
 2. **E. Azure Sentinelソリューションを各ワークスペースに追加します**: ※これは必須ではありませんが、Sentinelのコンテキストで検索する場合、各ワークスペースがSentinelにオンボードされていることが望ましいケースがあります。しかし、純粋なログ検索（ADX/Log Analytics）としてはBと、エイリアス（関数）の使用などが一般的です。
 ※ 設問の意図として「Sentinelでハンティングする」前提なら、マルチワークスペース機能を使う設定（ポータルでの複数選択）もありますが、クエリレベルでの結合には `union` と `workspace()` が必須です。
 
-*コミュニティ投票の配分*
-
-BE（71％）
-
-AB（29％）
-
 質問9 トピック3
 
-Azure Sentinel ワークスペースをお持ちです。Azure  
-ポータルでプレイブックを手動でテストする必要があります。Azure  
-Sentinel のどこからテストを実行できますか？  
+Azure Sentinel ワークスペースをお持ちです。Azure ポータルでプレイブックを手動でテストする必要があります。Azure Sentinel のどこからテストを実行できますか？  
 
 - A. プレイブック
 - B. 分析
 - C. 脅威情報
 - D. 事件
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   27](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
-
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
 
 **解説:**
 Sentinelプレイブックを手動でテスト・実行する場所です。
 **「インシデント (Incidents)」**: インシデントの調査画面（詳細ページ）やアラートビューから、特定のインシデント/アラートに対して「プレイブックの実行 (Run guidebook)」を選択し、手動でトリガーして動作確認を行うことができます。これが最も一般的なテスト方法です。
-
-*コミュニティ投票の配分*
-
-D（71％）
-
-A（29％）
 
 質問10 トピック3
 
@@ -187,19 +125,11 @@ Azure Sentinel で脅威を検出するためのカスタム分析ルールが�
 - C. ルール クエリの実行に時間がかかりすぎて、タイムアウトになります。
 - D. ルール クエリのデータ ソースの 1 つに対する権限が変更されました。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   24](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
-
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
 
 **解説:**
 Sentinel分析ルールが「AUTO DISABLED」となり停止する一般的な原因です。
 **「ルール クエリのデータ ソースの 1 つに対する権限が変更されました」**: 分析ルールを作成したユーザー（または使用されているID）が、クエリ対象のテーブルやワークスペースへのアクセス権を失った場合、ルールは実行に失敗し続け、最終的にシステムによって自動的に無効化されます。
-
-*コミュニティ投票の配分*
-
-D（84％）
-
-他の
 
 質問11 トピック3
 
@@ -213,8 +143,6 @@ D（84％）
 - C. Azure Sentinel コントリビューター
 - D. Azure Sentinelリーダー
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
 
 **解説:**
@@ -222,15 +150,10 @@ D（84％）
 **「Azure Sentinel Responder (レスポンダー)」**: このロールは、インシデントの管理（割り当て、ステータス更新、コメント追加）と調査が可能です。分析ルールの作成などの設定変更権限は持たないため、アナリスト業務には最適かつ最小権限です。
 Contributor（C）は設定変更権限も持つため過剰です。Reader（D）は表示のみで変更できません。
 
-*コミュニティ投票の配分*
-
-A（100％）
-
 質問12 トピック3
 
 最近、Azure Sentinel をデプロイしました。  
-デフォルトの Fusion ルールではアラートが生成されないことがわかりました。ルールが有効になっていることを確認しました。Fusion  
-ルールでアラートを生成できることを確認する必要があります。  
+デフォルトの Fusion ルールではアラートが生成されないことがわかりました。ルールが有効になっていることを確認しました。Fusion ルールでアラートを生成できることを確認する必要があります。  
 どうすればよいでしょうか？  
 
 - A. ルールを無効にしてから有効にします。
@@ -238,25 +161,17 @@ A（100％）
 - C. 新しい機械学習分析ルールを作成します。
 - D. 狩猟のブックマークを追加します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
-
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
 
 **解説:**
 Fusionルール（高度なマルチステージ攻撃検出）がアラートを生成しない場合、最も可能性の高い原因と対処法です。
 **「データコネクタを追加する」**: Fusion機械学習モデルは、異常検出や相関分析を行うために、十分な量のデータと多様なシグナルを必要とします。特に、Azure AD Identity ProtectionやDefender for Cloudなどの関連するデータコネクタが有効になっていない場合、Fusionは動作するための入力を得られず、アラートを生成しません。
 
-*コミュニティ投票の配分*
-
-B（100％）
-
 質問13 トピック3
 
-ドラッグ＆ドロップ -  
-会社では Azure Sentinel を導入しています。Azure  
-Sentinel の管理をさまざまなグループに委任する予定です。  
-委任する必要があるタスクは次のとおりです。✑  
-プレイブックの作成と実行  
+会社では Azure Sentinel を導入しています。Azure Sentinel の管理をさまざまなグループに委任する予定です。  
+委任する必要があるタスクは次のとおりです。
+✑ プレイブックの作成と実行  
 ✑ ワークブックと分析ルールの作成。  
 ソリューションでは、最小権限の原則を使用する必要があります。  
 各タスクにどのロールを割り当てる必要がありますか？ 回答するには、適切なロールを正しいタスクにドラッグしてください。各ロールは、1 回使用することも、複数回使用することも、まったく使用しないこともできます。  
@@ -264,8 +179,6 @@ Sentinel の管理をさまざまなグループに委任する予定です。
 注: 正しい選択ごとに 1 ポイントが与えられます。  
 選択して配置:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0011800003.png)  
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)   [議論   14](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)
 
 **Correct Answer:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0011900001.png) Reference:  
 <https://docs.microsoft.com/en-us/azure/sentinel/roles>
@@ -276,8 +189,3 @@ Sentinel の管理をさまざまなグループに委任する予定です。
 1. **Create and run playbooks**: **「Logic App Contributor」**。プレイブックの実体はLogic Appであるため、作成・編集にはLogic Appリソースへの貢献者権限が必要です。（Sentinel ContributorではLogic App自体の作成はできません）
 2. **Create workbooks and analytics rules**: **「Azure Sentinel Contributor」**。Sentinel固有のリソース（ブック、分析ルール）の作成・管理にはSentinel Contributor権限が必要です。
 
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/13/)
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 14 ページを表示しています。
-
-410問中**131 - 140**問 を表示

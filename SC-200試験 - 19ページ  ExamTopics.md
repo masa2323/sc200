@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、19ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/19/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問#54 トピック3
   
 次のKQLクエリがあります。  
@@ -19,8 +9,6 @@ tags:
 注：正しい選択は1点です。  
   
 ![](https://img.examtopics.com/sc-200/image140.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   20](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image429.png)
 
@@ -44,8 +32,6 @@ Microsoft Sentinelワークスペースがあります。Parser1  というカ�
   
 ![](https://img.examtopics.com/sc-200/image142.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image143.png)
 
 **解説:**
@@ -65,8 +51,6 @@ Microsoft Sentinelワークスペースがあります。Parser1  というカ�
 注: 正しい選択ごとに 1 ポイントが加算されます。  
   
 ![](https://img.examtopics.com/sc-200/image144.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   10](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image145.png)
 
@@ -98,8 +82,6 @@ Microsoft Sentinelワークスペースをお持ちです。
   
 ![](https://img.examtopics.com/sc-200/image146.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image147.png)
 
 **解説:**
@@ -113,7 +95,6 @@ Microsoft Sentinelワークスペースをお持ちです。
     
 - 他の `imNetworkSession`（ネットワーク通信）や `imWebSession`（HTTPリクエスト）などは、サインインの成功/失敗を判定するスキーマではありません。
     
-
  2. `SrcGeoCountry` を選択する理由
 
 「複数の国から」という条件を判定するためには、接続元（ソース）の国情報をカウントする必要があります。
@@ -124,18 +105,12 @@ Microsoft Sentinelワークスペースをお持ちです。
     
 - **DstGeoCountry** は「宛先」の国を指すため、ユーザーがどこからアクセスしたかを判定するこのケースには適しません。
     
-
  完成したクエリのロジック
 このクエリは、過去3時間に成功したログオンイベントを集計し、異なる送信元の国（`SrcGeoCountry`）の数（`dcount`）が5（`threshold`）以上のユーザーを抽出する、典型的な「あり得ない移動（Impossible Travel）」や「広範囲からのアクセス」を検知するためのものです。
 
 質問#58 トピック3
-
-HOTSPOT  
-\-  
   
-Azureサブスクリプションを所有しています。Microsoft  
-  
-Sentinelワークスペースを実装する予定です。1日あたり20GBのセキュリティログデータを取り込む予定です。  
+Azureサブスクリプションを所有しています。Microsoft Sentinelワークスペースを実装する予定です。1日あたり20GBのセキュリティログデータを取り込む予定です。  
   
 ワークスペースのストレージを構成する必要があります。ソリューションは、以下の要件を満たす必要があります。  
   
@@ -147,8 +122,6 @@ Sentinelワークスペースを実装する予定です。1日あたり20GBの�
 注：正解は1つにつき1ポイントです。  
   
 ![](https://img.examtopics.com/sc-200/image148.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   18](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image149.png)
 
@@ -163,7 +136,6 @@ Microsoft Sentinelの「コミットメントティア（予約容量）」は�
     
 - **Pay-As-You-Go (従量課金)** モデルであれば、実際に取り込んだ20GB分のみ（1GBあたり約4.3ドル × 20GB = 1日約86ドル）の支払いで済むため、こちらのほうが低コストになります。
     
-
  2. データ保持期間の最大化について
 
 Microsoft Sentinelが有効なワークスペースでは、**最初の90日間** のデータ保持が追加コストなし（無料）で提供されます。
@@ -176,9 +148,7 @@ Microsoft Sentinelが有効なワークスペースでは、**最初の90日間*
 
 質問#59 トピック3
 
-sws1 という Microsoft Sentinel ワークスペースがあります。sws1  
-  
-でインシデントが発生した際に、オンプレミスの IT サービス管理システムでインシデントを通知する Azure ロジック アプリを作成する予定です。  
+sws1 という Microsoft Sentinel ワークスペースがあります。sws1 でインシデントが発生した際に、オンプレミスの IT サービス管理システムでインシデントを通知する Azure ロジック アプリを作成する予定です。  
   
 このロジック アプリ用に Microsoft Sentinel コネクタの資格情報を構成する必要があります。ソリューションは、以下の要件を満たす必要があります。  
   
@@ -190,8 +160,6 @@ sws1 という Microsoft Sentinel ワークスペースがあります。sws1
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image150.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   18](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image430.png)
 
@@ -206,7 +174,6 @@ Logic AppのSentinelコネクタ用資格情報を、最小権限かつ管理負
     
 - **An Azure AD user account (Azure AD ユーザー アカウント)** は、個人のパスワード管理や多要素認証 (MFA) の影響を受けるため、自動化には適しません。
     
-
 	 1. Microsoft Sentinel Reader を選択する理由 (最小権限の原則)
 
 今回の要件は、インシデントが発生した際に「通知」を行うことです。
@@ -233,8 +200,6 @@ Microsoft Sentinelワークスペースを使用しています。
 - D. 組み込みパーサーを再デプロイし、Built-in の CallerContext パラメータを指定します。
 - E. 組み込みパーサーを含む分析ルールを作成します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   20](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
-
 **正解:** BC [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)  
 
 **解説:**
@@ -242,19 +207,10 @@ Microsoft Sentinelワークスペースを使用しています。
 **「B. カスタムの統合パーサーを構築し、特定のバージョンを含める」**: デフォルトの統合パーサー（Unifying parser）は常に最新のパーサーを呼び出します。これを防ぐには、独自のカスタム統合パーサーを作成し、その中で使用するソース特定パーサーのバージョン（例: `vimNetworkSessionMicrosoftWindowsEventFirewallV02`）を明示的に指定します。
 **「C. (またはWatchlistを使用)」**: もう一つの方法は、`ASim Disabled Parsers` ウォッチリストを使用して、特定の組み込みパーサーを統合パーサーの対象から除外（無効化）することです。
 
-*コミュニティ投票の配分*
-
-紀元前（53％）
-
-BE（44％）
-
-4%
-
 質問#61 トピック3
 
-Workbook1 というカスタム Microsoft Sentinel ワークブックがあります。Workbook1  
-  
-にグリッドを追加する必要があります。ソリューションでは、グリッドに最大 100 行が含まれるようにする必要があります。  
+Workbook1 というカスタム Microsoft Sentinel ワークブックがあります。
+Workbook1 にグリッドを追加する必要があります。ソリューションでは、グリッドに最大 100 行が含まれるようにする必要があります。  
   
 どうすればよいでしょうか？
 
@@ -263,8 +219,6 @@ Workbook1 というカスタム Microsoft Sentinel ワークブックがあり�
 - C. クエリ エディター インターフェイスで、設定を構成します。
 - D. クエリ エディター インターフェイスで、\[詳細エディター\] を選択します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   13](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)  
 
 **解説:**
@@ -272,17 +226,8 @@ Workbookのグリッド表示を最大100行に制限する方法です。
 **「グリッド クエリに take 演算子を含めます」**: KQLクエリの末尾に `| take 100` （または `limit 100`）を追加することで、クエリ結果自体を100行に制限するのが最も確実かつ一般的な方法です。
 ※UI上の「Advanced Settings」でも表示行数を設定できますが、クエリレベルでの制御（A）が正解とされることが多いです。
 
-*コミュニティ投票の配分*
-
-A（86％）
-
-14%
-
 質問#62 トピック3
 
-HOTSPOT  
-\-  
-  
 SW1というMicrosoft Sentinelワークスペースがあります。  
   
 タイムチャートを含むカスタムブックを作成する予定です。  
@@ -294,8 +239,6 @@ SW1というMicrosoft Sentinelワークスペースがあります。
 注：正しい選択肢は1つにつき1ポイントです。  
   
 ![](https://img.examtopics.com/sc-200/image152.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image153.png)
 
@@ -310,7 +253,6 @@ SW1というMicrosoft Sentinelワークスペースがあります。
     
 - その他の `series_add` などの関数は、集計後の動的配列（シリーズ）を操作するためのものであり、ここでのグルーピングには適しません。
     
-
  2. `render` を選択する理由
 
 クエリの結果を「タイムチャート」として視覚化するためには、結果セットをどのように表示するかを指定する演算子が必要です。
@@ -323,16 +265,12 @@ SW1というMicrosoft Sentinelワークスペースがあります。
 
 Workspace1 という Microsoft Sentinel ワークスペースがあります。  
   
-組み込みの統合型 ASIM パーサーから、組み込みのソース固有の Advanced Security Information Model (ASIM) パーサーを除外する必要があります。Workspace1  
-  
-には何を作成すればよいでしょうか？
+組み込みの統合型 ASIM パーサーから、組み込みのソース固有の Advanced Security Information Model (ASIM) パーサーを除外する必要があります。Workspace1 には何を作成すればよいでしょうか？
 
 - A. 解析規則
 - B. ウォッチリスト
 - C. ワークブック
 - D. 狩猟に関する質問
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)   [議論   12](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/19/#)  
 
@@ -340,14 +278,3 @@ Workspace1 という Microsoft Sentinel ワークスペースがあります。
 組み込みの統合ASIMパーサーから、特定のソース固有パーサーを除外するために作成するものです。
 **「ウォッチリスト (Watchlist)」**: ASIMフレームワークでは、`ASim Disabled Parsers` という名前のウォッチリストを使用して、統合パーサーから除外したいパーサーを管理します。このリストに除外したいパーサー名とCallerContextを追加することで、クエリ変更なしに動作を制御できます。
 
-*コミュニティ投票の配分*
-
-B（94％）
-
-6%
-
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/18/)
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 19 ページを表示しています。
-
-410問中**181 - 190**問 を表示
