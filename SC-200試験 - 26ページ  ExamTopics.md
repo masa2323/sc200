@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、26ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/26/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問16 トピック4
 
 Microsoft 365 E5 サブスクリプションをご利用で、Microsoft Copilot for Security を使用しています。Copilot for Security はデフォルト設定になっています。User というユーザーが Copilot for Security を使用して以下のタスクを実行できるようにする必要があります。  
@@ -24,8 +14,6 @@ Microsoft 365 E5 サブスクリプションをご利用で、Microsoft Copilot 
 - B. クラウドアプリケーション管理者
 - C. セキュリティ管理者
 - D. 副操縦士 貢献者
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   8](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)  
 
@@ -47,10 +35,6 @@ Sub1 という Azure サブスクリプションがあります。Sub1 には、
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image341.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   1](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
-
-**正解:** 間違っている！？![](https://img.examtopics.com/sc-200/image342.png)
 
 **解説:**
 Windows イベントログにおいて、**Audit Failure**（監査失敗）はキーワード **`0x8010000000000000`** で識別されます（監査成功は `0x8020000000000000`）。このキーワード情報は、イベント XML の **`System`** セクション内に保持されています。
@@ -75,8 +59,6 @@ Microsoft 365 E5 サブスクリプションと Microsoft Sentinel ワークス�
 - C. ![](https://img.examtopics.com/sc-200/image345.png)
 - D. ![](https://img.examtopics.com/sc-200/image346.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
-
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)  
 
 **解説:**
@@ -85,13 +67,9 @@ Microsoft Graphからのデータと、Entra ID Protectionのリスクユーザ�
 
 質問19 トピック4
 
-Microsoft 365 E5 サブスクリプションをご利用です。  
-  
+Microsoft 365 E5 サブスクリプションをご利用です。
 統合監査ログをクエリする PowerShell スクリプトがあります。  
-  
-サーバー側のページングが原因で、クエリは最初のページの結果しか返さないことがわかりました。  
-  
-すべての結果を取得する必要があります。  
+サーバー側のページングが原因で、クエリは最初のページの結果しか返さないことがわかりました。すべての結果を取得する必要があります。  
   
 結果のどのプロパティをクエリすればよいでしょうか？
 
@@ -99,8 +77,6 @@ Microsoft 365 E5 サブスクリプションをご利用です。
 - B. @odata.count
 - C. @odata.nextLink
 - D. @odata.deltaLink
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
 
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)  
 
@@ -114,9 +90,8 @@ Microsoft 365 E5 サブスクリプションがあり、Group1 と Group2 とい
   
 • Group1 のメンバーがプロンプトを実行し、Microsoft Defender XDR セキュリティ インシデントに応答できるようにします。  
 • Group2 のメンバーがプロンプトを実行できるようにします。  
-• 最小権限の原則に従います。Copilot  
-  
-共同作成者ロールから Everyone を削除します。  
+• 最小権限の原則に従います。
+• Copilot 共同作成者ロールから Everyone を削除します。  
   
 次に実行する必要がある 2 つのアクションはどれですか。正解はそれぞれソリューションの一部です。  
   
@@ -127,8 +102,6 @@ Microsoft 365 E5 サブスクリプションがあり、Group1 と Group2 とい
 - C. グループ1に副操縦士オーナーの役割を割り当てる
 - D. グループ2にセキュリティ オペレータ ロールを割り当てます。
 - E. Copilot Contributor ロールを Group2 に割り当てます。
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
 
 **正解:** AE [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)  
 
@@ -156,8 +129,6 @@ Microsoft 365 E5 サブスクリプションをご利用で、DB1 というデ�
 - C. センシティブエンティティタグ
 - D. ハニートークンエンティティタグ
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
-
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)  
 
 **解説:**
@@ -178,8 +149,6 @@ AMA コネクタ経由のSyslogを使用してApp1に関連するメッセージ
 注：正しい選択ごとに1ポイントが付与されます。  
   
 ![](https://img.examtopics.com/sc-200/image357.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image358.png)
 
@@ -233,10 +202,6 @@ Syslog の重大度は、数値が小さいほど緊急度が高くなります�
   
 ![](https://img.examtopics.com/sc-200/image360.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
-
-**正解:** 間違っている！![](https://img.examtopics.com/sc-200/image361.png)
-
 **解説:**
 この問題の鍵は、**「オンプレミスサーバーを Azure リソースとして DCR に登録するための要件」**にあります。
 
@@ -246,7 +211,6 @@ Syslog の重大度は、数値が小さいほど緊急度が高くなります�
     
 - **エージェントの欠如:** Server1 と Server3 は AMA はインストールされていますが、Azure Connected Machine エージェントが「Not installed」です。この状態では Azure ポータル上で「リソース」として認識・選択できないため、DCR に追加することはできません。
     
-
 2. Server2 が「はい」の理由
 
 - **リソースとしての認識:** Server2 は Azure Connected Machine エージェントがインストールされているため、Azure Arc 対応サーバーとして Azure 上で「リソース」として扱えます。
@@ -258,9 +222,7 @@ Syslog の重大度は、数値が小さいほど緊急度が高くなります�
 質問#24 トピック4
 
 Microsoft 365 E5 サブスクリプションをお持ちです。
-Microsoft Defender for Cloud Apps によって生成されたシグナルを使用するように、Microsoft Defender XDR の自動攻撃阻止を構成する必要があります。Microsoft  
-  
-Defender ポータルで Defender for Cloud Apps に対して実行する必要がある 2 つのアクションはどれですか？ 正解はそれぞれ解答の一部です。  
+Microsoft Defender for Cloud Apps によって生成されたシグナルを使用するように、Microsoft Defender XDR の自動攻撃阻止を構成する必要があります。Microsoft Defender ポータルで Defender for Cloud Apps に対して実行する必要がある 2 つのアクションはどれですか？ 正解はそれぞれ解答の一部です。  
   
 注: 正解は 1 点です。
 
@@ -269,8 +231,6 @@ Defender ポータルで Defender for Cloud Apps に対して実行する必要�
 - C. アプリガバナンスをオンにします。
 - D. Cloud Discovery ユーザー エンリッチメントを展開します。
 - E. 情報保護から、ファイル監視を有効にします。
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
 
 **正解:** AC [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)  
 
@@ -282,9 +242,7 @@ Defender XDRの「自動攻撃阻止（Automatic Attack Disruption）」が、De
 
 質問#25 トピック4
   
-Sub1 という Azure サブスクリプションがあり、このサブスクリプションには Vault1 という Azure Key Vault と Automation1 という Azure Automation アカウントが含まれています。Automation1  
-  
-が Vault1 にアクセスできることを確認する必要があります。solution1 は次の要件を満たす必要があります。  
+Sub1 という Azure サブスクリプションがあり、このサブスクリプションには Vault1 という Azure Key Vault と Automation1 という Azure Automation アカウントが含まれています。Automation1 が Vault1 にアクセスできることを確認する必要があります。solution1 は次の要件を満たす必要があります。  
   
 • Automation1 が削除された場合、Vault1 に付与されたアクセス許可も自動的に削除されるようにする。  
 • Automation1 で作成された Runbook が、Vault1 に保存されているシークレット値を読み取れるようにする。  
@@ -296,8 +254,6 @@ Sub1 という Azure サブスクリプションがあり、このサブスク�
   
 ![](https://img.examtopics.com/sc-200/image362.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)   [議論   1](https://www.examtopics.com/exams/microsoft/sc-200/view/26/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image363.png)
 
 **解説:**
@@ -305,9 +261,3 @@ Azure Automationアカウント（Automation1）がKey Vault（Vault1）にア�
 
 1. **Identity configuration**: **「System assigned」**。Automationアカウントのシステム割り当てマネージドIDを有効にします。これにより、Automationアカウントが削除されたときに、関連付けられたIDおよびKey Vaultでのアクセス許可も自動的に削除されます（要件「Automation1が削除された場合、アクセス許可も削除」を満たす）。ユーザー割り当てIDはIDリソースが独立して残るため不適です。
 2. **Role**: **「Key Vault Secrets User」**。シークレット値を「読み取る」だけであれば、Contributorなどの強力な権限は不要です。Key Vault Secrets Userは、シークレットの取得（Get）が可能であり、最小権限の原則に従います。
-
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/25/)
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 26 ページを表示しています。
-
-410問中**251 - 260**問 を表示

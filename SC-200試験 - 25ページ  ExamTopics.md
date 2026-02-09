@@ -1,22 +1,10 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、25ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/25/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問6 トピック4
 
 次の表に示すリソースがあります。Microsoft  
   
 ![](https://img.examtopics.com/sc-200/image265.png)  
   
-Defender for Cloud を使用する Azure サブスクリプションがあります。VM1  
-  
-と Server1 を保護するには、Defender for Cloud を使用する必要があります。ソリューションは、以下の要件を満たす必要があります。  
+Defender for Cloud を使用する Azure サブスクリプションがあります。VM1 と Server1 を保護するには、Defender for Cloud を使用する必要があります。ソリューションは、以下の要件を満たす必要があります。  
   
 • Advanced Threat Protection と脆弱性評価をサポートする。  
 • 各 SQL Server 2022 インスタンスを SQL 仮想マシンとして登録する。  
@@ -27,8 +15,6 @@ Defender for Cloud を使用する Azure サブスクリプションがありま
 注: 正しい選択はそれぞれ 1 ポイントです。  
   
 ![](https://img.examtopics.com/sc-200/image266.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image267.png)
 
@@ -41,12 +27,12 @@ Defender for Cloud を使用する Azure サブスクリプションがありま
     
 - **Server1 (Azure Arc 対応サーバー):** Azure Arc にオンボード済みのオンプレミスサーバー上の SQL Server 2022 を管理・保護するには、**SQL Server 用 Azure 拡張機能**（Azure extension for SQL Server）を使用します。これも Azure Arc を通じてデプロイされる「Azure 仮想マシン拡張機能」です。
     
-
 2. 「最小限の手間」とエージェントの選択
 
 - 以前のバージョンでは Log Analytics エージェントが必要でしたが、SQL Server 2022 以降、および最新の Microsoft Defender for SQL では、**拡張機能のみ**で登録、脆弱性評価、および Advanced Threat Protection の主要機能をサポートできるようになっています。
     
 - **Azure Monitor Agent (AMA)** や **Log Analytics エージェント** を追加で導入・管理することは、今回の要件である「実装と管理の手間を最小限に抑える」に反するため、拡張機能のみを選択するのが正解となります。
+
 3. 補足
 
 - **Advanced Threat Protection:** 拡張機能を通じて、SQL インジェクションや異常なアクセスなどの脅威を検知します。
@@ -67,8 +53,6 @@ Workbook1  には何を追加すればよいでしょうか。
 - C. グループ
 - D. リンクまたはタブ
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)  
 
 **解説:**
@@ -85,8 +69,6 @@ Workbook1  には何を追加すればよいでしょうか。
 注：正解は1つにつき1ポイントです。  
   
 ![](https://img.examtopics.com/sc-200/image268.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image269.png)
 
@@ -107,13 +89,12 @@ Azureサブスクリプションをお持ちです。Microsoft Graphのアクテ
 - C. Azure Event Grid 名前空間
 - D. Log Analytics ワークスペース
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)  
 
 **解説:**
 Microsoft GraphアクティビティログをサードパーティSIEMにストリーミングする方法です。
 **「Azure Event Hubs namespace」**: Azure Monitorの診断設定（Diagnostic settings）を使用してログをエクスポートする際、サードパーティSIEM（Splunk, QRadarなど）への転送には通常 **Event Hubs** が仲介役として使用されます。Log AnalyticsはAzure内での分析用、Storage Accountはアーカイブ用です。
+
 
 質問10 トピック4
   
@@ -131,8 +112,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
   
 ![](https://img.examtopics.com/sc-200/image290.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image291.png)
 
 **解説:**
@@ -142,7 +121,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
     
 - **最小権限の原則:** `Security Reader` や `Global Reader` も情報の参照は可能ですが、監査サービスに特化した `Audit Reader` を使用するのが最も権限を限定できるため適切です。
     
-
 #### User2: Microsoft Exchange Online メールボックスの検索
 
 - **Data Investigator (データ調査員):** この役割グループは、組織内のコンテンツ（メールボックス、SharePoint、OneDrive など）を検索し、コンテンツのプレビューやエクスポートを行う権限を持っています。eDiscovery（電子証拠開示）やコンテンツ検索を実行するために必要な役割が含まれています。
@@ -178,8 +156,6 @@ Microsoft 365 サブスクリプションをご利用で、Microsoft Defender fo
 - D. File2.pdf、File3.docx、File4.xlsxのみ
 - E. File1.sys、File2.pdf、File3.docx、およびFile4.xlsx
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   28](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)  
 
 **解説:**
@@ -198,8 +174,6 @@ Microsoft Defender for Endpoint を使用する Microsoft 365 サブスクリプ
 - C. ライブレスポンス機能: 基本
 - D. セキュリティ設定を管理する
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   11](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
-
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)  
 
 **解説:**
@@ -216,8 +190,6 @@ Microsoft Defender for Cloud を使用する Azure サブスクリプション�
   
 ![](https://img.examtopics.com/sc-200/image292.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image293.png)
 
 **解説:**
@@ -230,15 +202,7 @@ ARMテンプレートを使用してDefender for Cloudのワークフロー自�
 
 注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある固有の解決策が含まれています。一部の質問セットには複数の正解がある場合もあれば、正解がない場合もあります。  
   
-このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft  
-  
-Defender XDR を使用する Azure サブスクリプションがあります。Microsoft  
-  
-Defender ポータルから監査検索を実行し、その結果を 10,000 行を含む File1.csv というファイルとしてエクスポートします。Microsoft  
-  
-Excel を使用してデータの取得と変換操作を実行し、File1.csv の AuditData 列を解析します。この操作では、特定の JSON プロパティの列を生成できません。Excel  
-  
-が監査検索結果で特定の JSON プロパティの列を生成するようにする必要があります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft Defender XDR を使用する Azure サブスクリプションがあります。Microsoft Defender ポータルから監査検索を実行し、その結果を 10,000 行を含む File1.csv というファイルとしてエクスポートします。Microsoft Excel を使用してデータの取得と変換操作を実行し、File1.csv の AuditData 列を解析します。この操作では、特定の JSON プロパティの列を生成できません。Excel が監査検索結果で特定の JSON プロパティの列を生成するようにする必要があります。  
   
 解決策: Excel から、File1.csv の既存の列にフィルターを適用して JSON プロパティの数を減らし、データの取得と変換操作を実行して AuditData 列を解析します。  
   
@@ -246,8 +210,6 @@ Excel を使用してデータの取得と変換操作を実行し、File1.csv �
 
 - A. はい
 - B. いいえ
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)  
 
@@ -273,8 +235,6 @@ Microsoft 365 E5 サブスクリプションがあり、User1 と User2 とい�
 - D. プロンプト1とプロンプト3のみ
 - E. プロンプト1、プロンプト2、およびプロンプト3
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)   [議論   12](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)
-
 **正解：** E [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)  
 
 **解説:**
@@ -282,8 +242,3 @@ Copilot for Securityの共有セッションにおける可視性の問題です
 User1（権限あり）がセッションを作成し、User2（権限なし：Intuneアクセス権限なし）に共有しました。
 共有セッションでは、**プロンプトの結果（回答）は、そのセッション内ですでに生成されたテキストとしてUser2にも表示されます**。User2が自分で新たにIntuneデータを取得するアクションを実行しようとすると権限エラーになりますが、User1が既に実行して生成した回答（結果）を見ることは可能です。したがって、User1が実行したすべてのプロンプトの結果（1, 2, 3）が表示されます。
 
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/24/)
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 25 ページを表示しています。
-
-410問中**241 - 250**問 を表示

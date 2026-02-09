@@ -1,122 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、24ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/24/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
-質問#104 トピック3
-  
-ケース スタディ  
-\-  
-  
-これはケース スタディです。ケース スタディは個別に時間が計測されません。各ケースを完了するのに必要なだけの試験時間を使用できます。ただし、この試験には追加のケース スタディとセクションが含まれる場合があります。与えられた時間内にこの試験に含まれるすべての質問を完了できるように、時間を管理する必要があります。  
-  
-ケース スタディに含まれる質問に回答するには、ケース スタディで提供される情報を参照する必要があります。ケース スタディには、ケース スタディで説明されているシナリオに関する詳細情報を提供する展示資料やその他のリソースが含まれている場合があります。各質問は、このケース スタディの他の質問とは独立しています。  
-  
-このケース スタディの最後に、確認画面が表示されます。この画面では、試験の次のセクションに進む前に回答を確認し、変更を加えることができます。新しいセクションを開始した後は、このセクションに戻ることはできません。  
-  
-ケース スタディを開始するには  
-\-  
-このケース スタディの最初の質問を表示するには、\[次へ\] ボタンをクリックします。質問に回答する前に、左側のペインのボタンを使用してケース スタディの内容を確認してください。これらのボタンをクリックすると、ビジネス要件、既存の環境、問題の説明などの情報が表示されます。 ケース スタディに \[すべての情報\] タブがある場合、表示される情報は、後続のタブに表示される情報と同じであることに注意してください。 質問に回答する準備ができたら、\[質問\] ボタンをクリックして質問に戻ります。  
-  
-概要  
-\-  
-  
-Adatum Corporation は、ニューヨーク、シカゴ、サンフランシスコに支社を持つ、米国を本拠地とする金融サービス会社です。  
-  
-既存の環境  
-\-  
-  
-ID 環境  
-\-  
-  
-オンプレミス ネットワークには、adatum.com という名前の Azure AD テナントと同期する corp.adatum.com という名前の Active Directory ドメイン サービス (AD DS) フォレストが含まれています。 すべてのユーザーとグループの管理タスクは、corp.adatum.com で実行されます。corp.adatum.com ドメインには、adatum.com と同期する Group1 という名前のグループが含まれています。  
-  
-ライセンスの状態  
-\-  
-  
-Adatum のすべてのユーザーには、Microsoft 365 ES ライセンスと Azure Active Directory Premium P2 ライセンスが割り当てられています。  
-  
-クラウド環境  
-\-  
-  
-クラウド環境には、Microsoft 365 サブスクリプション、adatum.com テナントにリンクされた Azure サブスクリプション、および次の表に示すリソースが含まれています。  
-  
-![](https://img.examtopics.com/sc-200/image233.png)  
-  
-オンプレミス環境  
-\-  
-  
-オンプレミスネットワークには、次の表に示すリソースが含まれています。  
-  
-![](https://img.examtopics.com/sc-200/image234.png)  
-  
-要件  
-\-  
-  
-計画されている変更  
-\-  
-  
-Adatum は、次の変更を行う予定です。  
-  
-• 次の KQL クエリを含む rulequery1 というクエリを実装します。  
-  
-![](https://img.examtopics.com/sc-200/image235.png)  
-  
-• rulequery1 に基づいてインシデントを生成する Microsoft Sentinel のスケジュールされたルールを実装します。  
-  
-Microsoft Defender for Cloud の要件  
-  
-Adatum では、次の Microsoft Defender for Cloud の要件が特定されています。  
-  
-• Group1 のメンバーは、Defender for Cloud プランを有効にして、規制コンプライアンス イニシアチブを適用できる必要があります。  
-• Microsoft Defender for Servers プラン 2 は、すべての Azure 仮想マシンで有効にする必要があります。 •  
-Server2 は、エージェントレス スキャンから除外する必要があります。  
-  
-Microsoft Sentinel の要件  
-  
-Adatum では、次の Microsoft Sentinel の要件が特定されています。  
-  
-• Infoblox1 からの NXDOMAIN 応答をもたらす DNS 要求の数を返す Advanced Security Information Model (ASIM) クエリを実装します。  
-• 1 人のユーザーが Azure Cloud Shell を複数回起動したことに応答して rulequery1 によって生成される複数のアラートが、単一のインシデントとして統合されるようにします。  
-• Microsoft Sentinel の AMA コネクタを介して Windows セキュリティ イベントを実装  
-• 会社の SecOps チームによって Azure Cloud Shell が起動された場合に、rulequery1 によって生成されたインシデントが自動的に閉じられるようにします。  
-• Webapp1 からデータを動的に取得するクエリを含む、Workbook1 という名前のカスタム Microsoft Sentinel ブックを実装します。  
-• 指定された緊急アカウントへのサインインを検出する Microsoft Sentinel ニアリアルタイム (NRT) 分析ルールを実装します。  
-• Azure ポータルで Microsoft Sentinel の Hunting ページにアクセスされたときに、HuntingQuery1 が自動的に実行されるようにします。  
-• corp.adatum.com ユーザー アカウントのパスワード リセットが通常よりも多く検出されるようにします。  
-• ASIM パーサーを使用するクエリに関連するオーバーヘッドを最小限に抑えます。  
-• Group1 のメンバーがプレイブックを作成および編集できるようにします。  
-• 可能な限り、組み込みの ASIM パーサーを使用します。ビジネス  
-  
-要件  
-\-  
-  
-Adatum では、次のビジネス要件が示されています。  
-  
-• 可能な限り、最小権限の原則に従います。 •  
-可能な限り、管理の労力を最小限に抑えますクエリはどのように設定すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。注：正しい選択ごとに1ポイント獲得できます。  
-  
-![](https://img.examtopics.com/sc-200/image242.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
-
-**正解:** ![](https://img.examtopics.com/sc-200/image243.png)
-
-**解説:**
-「Webapp1 からデータを動的に取得する Workbook1」を実装するための設定です。
-
-- **Data source to query: Custom Endpoint
-  - Webapp1は「オンプレミスにある、パブリックに公開されたHTTP/HTTPSウェブサービス」です。Azureのリソース外にある外部ソースからデータを取得する場合、Azure Monitor Workbooksでは **Custom Endpoint データソースを使用します。
-
-- **On Webapp1:** **Enable Cross-Origin Resource Sharing (CORS).**
-
-  - Azure Monitor ブック（Workbook1）などのクライアントサイドのブラウザから外部の Web サービス（Webapp1）に直接リクエストを送信してデータを取得する場合、ブラウザのセキュリティ制限を回避するために Webapp1 側で **CORS** を許可する必要があります。
-
 質問#105 トピック3
 
 Workspace1 という Microsoft Sentinel ワークスペースを含む Azure サブスクリプションがあります。Content Hub から Microsoft Sentinel 用の Microsoft Entra ソリューションをデプロイし、コネクタを構成します。  
@@ -129,8 +10,6 @@ Workspace1 という Microsoft Sentinel ワークスペースを含む Azure サ
 - B. Microsoft Entra 監査ログ
 - C. Microsoft Entra サインイン ログ
 - D. アイデンティティとアクセス
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)  
 
@@ -150,8 +29,6 @@ Workspace1 という Microsoft Sentinel ワークスペースと User1 という
 - B. Microsoft Sentinel 貢献者
 - C. Microsoft Sentinel Automation 貢献者
 - D. Microsoft Sentinel リーダー
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)  
 
@@ -178,23 +55,13 @@ Workspace1 という Microsoft Sentinel ワークスペースと User1 という
 
 質問#107 トピック3
 
-HOTSPOT -  
+Workspace1 という Log Analytics ワークスペースを含む Azure サブスクリプションがあります。Azure アクティビティ ログと Microsoft Entra ID ログを Workspace1 に転送するように構成します。  
   
-Workspace1 という Log Analytics ワークスペースを含む Azure サブスクリプションがあります。Azure  
-  
-アクティビティ ログと Microsoft Entra ID ログを Workspace1 に転送するように構成します。  
-  
-認証不足により失敗したすべてのリクエストを特定するには、Workspace1 に対してクエリを実行する必要があります。KQL  
-  
-クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
+認証不足により失敗したすべてのリクエストを特定するには、Workspace1 に対してクエリを実行する必要があります。KQL クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image313.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   14](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
-
-**正解:** 間違っている！![](https://img.examtopics.com/sc-200/image436.png)
 
 **解説:**
 このクエリは、Microsoft Graph API に対するリクエストの中で、認証や認可の問題で失敗したものを特定するためのものです。
@@ -228,8 +95,6 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
 - C. センチネル監査
 - D. セキュリティアラート
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)  
 
 **解説:**
@@ -240,9 +105,7 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
 
 質問1 トピック4
 
-WS1 という Microsoft Sentinel ワークスペースと、Windows Server を実行する 100 台の仮想マシンを含む Azure サブスクリプションがあります。Windows  
-  
-セキュリティ イベント ログの収集を構成して WS1 に取り込む必要があります。ソリューションは、以下の要件を満たす必要があります。  
+WS1 という Microsoft Sentinel ワークスペースと、Windows Server を実行する 100 台の仮想マシンを含む Azure サブスクリプションがあります。Windows セキュリティ イベント ログの収集を構成して WS1 に取り込む必要があります。ソリューションは、以下の要件を満たす必要があります。  
   
 • ユーザーのサインインおよびサインアウト イベントを含む、完全なユーザー監査証跡をキャプチャする。  
 • イベントの量を最小限に抑える。  
@@ -255,23 +118,15 @@ WS1 という Microsoft Sentinel ワークスペースと、Windows Server を�
 - C. すべてのイベント
 - D. カスタム
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
-
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)  
 
 **解説:**
 完全なユーザー監査証跡（サインイン/ログオフ）をキャプチャしつつ、データ量と管理負担を最小限に抑えるイベントセットです。
 **「Common (共通)」**: Azure Monitor Agent (AMA) や MMA の設定における「Common」セットには、セキュリティ監査に必要な主要なイベント（ログオン/ログオフの成功・失敗、プロセス作成、ユーザー管理など）が含まれており、監査証跡の要件を満たします。「Minimal」ではログオン成功などの重要イベントが不足する可能性があり、「All events」ではデータ量が過大になります。「Custom」は管理負担（XML作成など）が大きくなります。
 
-*コミュニティ投票の配分*
-
-B（100％）
-
 質問2 トピック4
 
-Microsoft 365 サブスクリプションをご利用で、Microsoft Defender for Cloud Apps を使用し、Cloud Discovery が有効になっています。Cloud  
-  
-Discovery データを拡充する必要があります。このソリューションでは、Cloud Discovery トラフィック ログ内のユーザー名が、対応する Microsoft Entra ID ユーザー アカウントのユーザー プリンシパル名 (UPN) に関連付けられていることを確認する必要があります。  
+Microsoft 365 サブスクリプションをご利用で、Microsoft Defender for Cloud Apps を使用し、Cloud Discovery が有効になっています。Cloud Discovery データを拡充する必要があります。このソリューションでは、Cloud Discovery トラフィック ログ内のユーザー名が、対応する Microsoft Entra ID ユーザー アカウントのユーザー プリンシパル名 (UPN) に関連付けられていることを確認する必要があります。  
   
 まず何をすべきでしょうか？
 
@@ -279,8 +134,6 @@ Discovery データを拡充する必要があります。このソリューシ�
 - B. Microsoft 365 アプリ コネクタを作成します。
 - C. Microsoft 365 Defender への自動リダイレクトを有効にします。
 - D. Azure アプリ コネクタを作成します。
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)  
 
@@ -306,10 +159,6 @@ Cloud Discovery（シャドーIT検出）のログ内のユーザー名をAzure 
   
 ![](https://img.examtopics.com/sc-200/image260.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   14](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
-
-**正解:** 間違っている！![](https://img.examtopics.com/sc-200/image437.png)
-
 **解説:**
 この問題のポイントは、Microsoft Sentinel（Log Analytics）における**テーブルプラン（Basic vs Analytics）**と**保持期間（インタラクティブ保持 vs 合計保持）**の仕様の違いにあります。
 
@@ -320,7 +169,6 @@ Cloud Discovery（シャドーIT検出）のログ内のユーザー名をAzure 
 - **ワークスペースのデフォルト保持期間:** 30日間。
 
 ---
-
 1. Query1 について: はい**
 
 - **現状:** `Table1` は **Basic** プランです。
@@ -366,8 +214,6 @@ Microsoft Defender for Endpoint を使用する Microsoft 365 E5 サブスクリ
   
 ![](https://img.examtopics.com/sc-200/image263.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   12](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image264.png)
 
 **解説:**
@@ -380,7 +226,6 @@ Microsoft Defender for Endpoint を使用する Microsoft 365 E5 サブスクリ
 - **Device2:** **Contain device only**
 
 ---
-
 ### **解説**
 
 この問題の鍵は、デバイスが「**管理対象（オンボード済み）**」か「**未管理（検出のみ）**」か、およびそれぞれのオペレーティングシステムで利用可能な機能の違いにあります。
@@ -406,9 +251,7 @@ Microsoft Defender for Endpoint を使用する Microsoft 365 E5 サブスクリ
   - **Contain device (デバイスの封じ込め):** これは未管理デバイス専用の機能です。ネットワーク内の他の「管理対象デバイス」に対して、この未管理デバイスからの通信をブロックするよう指示を出します。これにより、未管理デバイスを直接操作することなく、管理対象デバイスへの感染拡大を防ぐことができます。
 
   - **制限:** 未管理であるため、デバイス側での「分離（Isolate）」や「自動調査（AIR）」を実行することはできません。
-
 ---
-
 ### **まとめ表
 
 | **デバイス**    | **OS**  | **状態**  | **推奨されるアクション**     | **理由**                         |
@@ -425,16 +268,8 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 - C. クラウドデバイス管理者
 - D. デスクトップ分析管理者
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/24/#)  
 
 **解説:**
 Defender XDRのカスタム検出ルールとエンドポイントセキュリティポリシーの両方を管理できる最小権限です。
 **「Security Administrator (セキュリティ管理者)」**: このロールは、Microsoft 365 Defenderポータル全体（エンドポイント、メール、IDなど）のセキュリティ設定、ポリシー、検出ルールの作成・編集を行う権限を持っています。「Security Operator」は運用（アラート対応）中心でポリシー変更権限が限定的、「Cloud Device Administrator」はEntra ID/Intuneのデバイス管理中心です。
-
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/23/)
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 24 ページを表示しています。
-
-410問中**231 - 240**問 を表示

@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、27ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/27/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問#26 トピック4
 
 次の表に示すユーザーを含むMicrosoft 365 E5サブスクリプションをご利用の場合、  
@@ -23,8 +13,6 @@ Entra Internet Accessを管理できるのはどのユーザーですか？
 - C. ユーザー3のみ
 - D. ユーザー1とユーザー2のみ
 - E. ユーザー1、ユーザー2、ユーザー3
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
 
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)  
 
@@ -52,8 +40,6 @@ Sub1 という Azure サブスクリプションがあり、RG1 というリソ�
   
 ![](https://img.examtopics.com/sc-200/image366.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image367.png)
 
 **解説:**
@@ -74,8 +60,6 @@ Microsoft Sentinel ワークスペースがあります。
   
 ![](https://img.examtopics.com/sc-200/image368.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   1](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image369.png)
 
 **解説:**
@@ -89,9 +73,7 @@ Microsoft Sentinel ワークスペースがあります。
     
     - （AlertおよびFullIncidentPropertiesのみ）
         
-
 ---
-
 #### **解説**
 
 1. プレイブックの種類について**
@@ -104,7 +86,6 @@ Microsoft Sentinelの**自動化ルール（Automation rules）**は、以下の
     
 - アラートの作成時
     
-
 そのため、自動化ルールに関連付けられるプレイブックは、**「Microsoft Sentinel インシデントトリガー」**または**「Microsoft Sentinel アラートトリガー」**を使用している必要があります。 「エンティティトリガー」を使用するプレイブックは、エンティティページなどからの**手動実行**を目的としたものであり、自動化ルールから直接トリガーすることはできません。
 
 2. パラメーターについて**
@@ -115,7 +96,6 @@ Microsoft Sentinelの**自動化ルール（Automation rules）**は、以下の
     
 - アラートトリガーの場合、**Alert**（アラート）オブジェクトにエンティティ情報が含まれます。
     
-
 したがって、自動化ルールを介してこれらの情報を処理するためには、これらのパラメーターが指定されている必要があります。
 
 質問#29 トピック4
@@ -132,8 +112,6 @@ contoso.com という Microsoft Entra テナントにリンクされた Sub1 と
 注: 正しい選択はそれぞれ 1 ポイントです。  
   
 ![](https://img.examtopics.com/sc-200/image370.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   4](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image371.png)
 
@@ -168,17 +146,11 @@ Microsoft Defender for Cloud を使用する Azure サブスクリプション�
   
 ![](https://img.examtopics.com/sc-200/image372.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   5](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
-
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image373.png)
-
 ### **回答エリアの選択**
 
 - **logicAppResourceId:** **Microsoft.Logic**
     
-
 ---
-
 #### **解説**
 
 Azure Resource Manager (ARM) テンプレートにおいて、リソースの完全な ID を生成する `resourceId` 関数を使用する場合、**「リソース プロバイダー/リソース タイプ」** の形式で指定する必要があります。
@@ -191,7 +163,6 @@ Azure Resource Manager (ARM) テンプレートにおいて、リソースの完
     
 - **Microsoft.AlertsManagement:** Azure Monitor のアラート管理に関連するプロバイダーです。
     
-
 したがって、テンプレートの該当箇所を `[resourceId('Microsoft.Logic/workflows', parameters('logicAppName'))]` と完成させることで、正しい Logic App のリソース ID が参照されるようになります。
 
 質問#31 トピック4
@@ -204,8 +175,6 @@ Microsoft 365 E5 サブスクリプションをお持ちです。Windows デバ�
 - B. PowerShell リモート処理を有効にします。
 - C. Microsoft Exchange Online PowerShell モジュールをインストールします。
 - D. TrustedHosts リストを変更します。
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
 
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)  
 
@@ -228,10 +197,6 @@ Microsoft Defender XDR ポータルで構成する必要があるエンドポイ
   
 ![](https://img.examtopics.com/sc-200/image444.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   3](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
-
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image445.png)
-
 #### **回答エリアの選択**
 
 - **To ensure that the analysts can run PowerShell script（アナリストが PowerShell スクリプトを実行できるようにする）:**
@@ -242,9 +207,7 @@ Microsoft Defender XDR ポータルで構成する必要があるエンドポイ
     
     - **Device groups**（デバイス グループ）
         
-
 ---
-
 #### **解説**
 
 1. PowerShell スクリプトの実行（Live Response）**
@@ -266,11 +229,11 @@ Defender for Endpoint では、デバイスごとにどの程度の自動化を�
 
 質問#33 トピック4
 
-次の表に示すリソースがあります。Microsoft  
+次の表に示すリソースがあります。
+Microsoft Defender for Cloud を使用する Azure サブスクリプションがあります。
   
 ![](https://img.examtopics.com/sc-200/image454.png)  
-  
-Defender for Cloud を使用する Azure サブスクリプションがあります。
+
 VM1 と Server1 を保護するには、Defender for Cloud を使用する必要があります。ソリューションは、以下の要件を満たす必要があります。  
   
 • Advanced Threat Protection と脆弱性評価をサポートする。  
@@ -283,10 +246,6 @@ VM1 と Server1 を保護するには、Defender for Cloud を使用する必要
   
 ![](https://img.examtopics.com/sc-200/image455.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論   1](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)
-
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image456.png)
-
 **解説:**
 ### **回答エリアの選択**
 
@@ -298,9 +257,7 @@ VM1 と Server1 を保護するには、Defender for Cloud を使用する必要
     
     - （Azure Connected Machine エージェントおよび VM 拡張機能）
         
-
 ---
-
 ### **解説**
 1. VM1 (Azure VM) の構成**
 
@@ -310,7 +267,6 @@ VM1 は既に Azure 上の仮想マシンであるため、Azure の管理フレ
     
 - **最小限の労力:** Azure VM の場合、追加の外部エージェント（Azure Arc など）をインストールする必要はなく、拡張機能を有効にするだけで「Advanced Threat Protection」や「脆弱性評価」が利用可能になります。
     
-
 2. Server1 (オンプレミス サーバー) の構成**
 Server1 はオンプレミス環境にあるため、Azure 以外のリソースを Azure 制御プレーン（ARM）に接続するための仕組みが必要です。
 
@@ -336,8 +292,6 @@ contoso.com という Microsoft 365 サブスクリプションがあり、そ�
   
 ![](https://img.examtopics.com/sc-200/image458.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)  
-
 **正解:** ![](https://img.examtopics.com/sc-200/image459.png)
 
 **解説:**
@@ -346,96 +300,3 @@ Defender for Endpointのデバイスグループは、**上から順に評価（
 
 デバイス 1 = グループ 2 のみ - 最初に一致するルールが優先され、グループ 2 はグループ 3 よりも優先順位が高くなります デバイス 2 = グループ 1 のみ
 
-質問#35 トピック4
-
-ケース スタディ  
-\-  
-  
-これはケース スタディです。ケース スタディは個別に時間が計測されません。各ケースを完了するのに必要なだけの試験時間を使用できます。ただし、この試験には追加のケース スタディとセクションが含まれる場合があります。与えられた時間内にこの試験に含まれるすべての質問を完了できるように、時間を管理する必要があります。  
-  
-ケース スタディに含まれる質問に回答するには、ケース スタディで提供される情報を参照する必要があります。ケース スタディには、ケース スタディで説明されているシナリオに関する詳細情報を提供する展示資料やその他のリソースが含まれている場合があります。各質問は、このケース スタディの他の質問とは独立しています。  
-  
-このケース スタディの最後に、確認画面が表示されます。この画面では、試験の次のセクションに進む前に回答を確認し、変更を加えることができます。新しいセクションを開始した後は、このセクションに戻ることはできません。  
-  
-ケース スタディを開始するには  
-\-  
-このケース スタディの最初の質問を表示するには、\[次へ\] ボタンをクリックします。質問に回答する前に、左側のペインのボタンを使用してケース スタディの内容を確認してください。これらのボタンをクリックすると、ビジネス要件、既存の環境、問題の説明などの情報が表示されます。 ケース スタディに \[すべての情報\] タブがある場合、表示される情報は後続のタブに表示される情報と同じであることに注意してください。 質問に回答する準備ができたら、\[質問\] ボタンをクリックして質問に戻ります。  
-  
-概要  
-\-  
-  
-Contoso Ltd. という会社には、北米各地に本社と 5 つの支社があります。本社はシアトルにあります。支社は、トロント、マイアミ、ヒューストン、ロサンゼルス、バンクーバーにあります。Contoso  
-  
-には、ニューヨークとサンフランシスコにオフィスがある Fabrikam, Ltd. という子会社があります。  
-  
-既存の環境  
-\-  
-  
-エンド ユーザー環境  
-\-  
-  
-Contoso のすべてのユーザーは、Windows 11 デバイスを使用します。各ユーザーには、Microsoft 365 のライセンスが付与されています。さらに、iOS デバイスが Contoso の営業チームのメンバーに配布されています。  
-  
-クラウドとハイブリッド インフラストラクチャ  
-  
-Contoso のすべてのアプリケーションは、Azure に展開されています。Microsoft  
-  
-Defender for Cloud Apps を有効にします。Contoso  
-  
-と Fabrikam には、異なる Microsoft Entra テナントがあります。 Fabrikamは最近Azureサブスクリプションを購入し、サポートされているすべてのリソースタイプに対してMicrosoft Defender for Cloudを有効にしました。  
-  
-現在の問題  
-\-  
-  
-Contoso 社のセキュリティ チームは、大量のサイバーセキュリティ アラートを受信して​​います。セキュリティ チームは、どのサイバーセキュリティ アラートが正当な脅威で、どれがそうでないかを識別するのに多くの時間を費やしています。Contoso社の  
-  
-営業チームは、iOS デバイスのみを使用しています。営業チームのメンバーは、さまざまなサードパーティ ツールを使用して顧客とファイルを交換しています。過去に、営業チームはデバイスがフィッシング攻撃を受けたことが  
-  
-あります。Contoso 社のマーケティング チームは、外部ベンダーとのコラボレーション用に複数の Microsoft SharePoint Online サイトを所有しています。マーケティング チームは、ベンダーがマルウェアを含むファイルをアップロードするインシデントを何度か経験しています。Contoso  
-  
-社の経営陣は、セキュリティ侵害を疑っています。経営陣は、Microsoft Defender for Cloud Apps で保護されたアプリケーションのデータ アクセス、ダウンロード、削除など、過去 48 時間以内に 5 件を超えるアクティビティがあったファイルを特定するよう依頼しています。  
-  
-要件  
-\-  
-  
-計画されている変更  
-\-  
-  
-Contoso 社は、両社のセキュリティ運用を統合し、すべてのセキュリティ運用を一元管理する予定です。技術  
-  
-要件  
-\-  
-  
-Contoso 社では、次の技術要件を特定しています。• Microsoft Sentinel を使用して、環境に対するアクティブな攻撃を迅速に修復することで、組織のリスクを軽減します。• Contoso と Fabrikam の Microsoft Entra テナント間でデータを相関させる Microsoft Sentinel クエリを実装します。• 外部および内部の脅威が発生した場合に Contoso の Microsoft Defender for Key Vault アラートを修復する手順を開発します。ソリューションは、Key Vault コンテンツへの正当なアクセス試行への影響を最小限に抑える必要があります。• 特定の国から Azure リソースへの初回サインインに失敗したユーザーのすべてのケースを特定します。 ジュニア セキュリティ管理者から次の不完全なクエリが提供されます。BehaviorAnalytics \- | where ActivityType == "FailedLogOn" | where \_\_\_\_\_\_\_\_ == True Contoso の Microsoft Defender for Cloud アラートに対する修復アクションを推奨する必要があります。それぞれの脅威に対して何を推奨しますか。 回答するには、回答領域で適切なオプションを選択します。注: 正しい選択ごとに 1 ポイントが付与されます。  
-  
-![](https://img.examtopics.com/sc-200/image460.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)   [議論](https://www.examtopics.com/exams/microsoft/sc-200/view/27/#)  
-
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image461.png)
-
-**解説:**
-技術要件として「正当なアクセス試行への影響を最小限に抑える」ことが求められています。
-
-#### 内部脅威 (Internal threat)
-
-内部のユーザーや管理者による誤操作や悪意のある削除・変更を防ぐには、**リソースロック (Resource locks)** が最も効果的です。
-
-- **なぜこれか:** `ReadOnly` または `CanNotDelete` ロックを適用することで、権限を持つユーザーであっても誤って Key Vault を削除することを防げます。
-    
-- **他が不適切な理由:** アクセスポリシーの変更や新規作成は、既存のアプリケーションやユーザーの正当なアクセスを遮断（ダウンタイムの発生）させるリスクが高く、要件である「影響を最小限に抑える」に反します。
-    
-
-#### 外部脅威 (External threat)
-
-外部からの不審なアクセスが検知された場合、ネットワークレベルでの隔離が必要です。
-
-- **なぜこれか:** **Key Vault ファイアウォール設定**を構成して、信頼できる特定のネットワークまたはプライベートエンドポイントからのみアクセスを許可するように制限することで、外部の攻撃者からのアクセスを即座にブロックできます。
-    
-- **他が不適切な理由:** NSG (ネットワークセキュリティグループ) は一般的にサブネットや VM レベルで動作しますが、Key Vault 自体のアクセス制御としては、組み込みの「ファイアウォールと仮想ネットワーク」設定を操作するのが直接的かつ推奨される修復手順です。
-
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/26/)
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 27 ページを表示しています。
-
-410問中**261 - 270**問 を表示

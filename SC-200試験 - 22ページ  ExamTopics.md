@@ -1,29 +1,9 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、22ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/22/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問#84 トピック3
 
-ドラッグ＆ドロップ  
-\-  
-  
-ネットワークには、Azure AD テナントと同期するオンプレミスの Active Directory Domain Services (AD DS) ドメインが含まれています。Sentinel1  
-  
-という Microsoft Sentinel ワークスペースがあります。Sentinel1  
-  
-でユーザーおよびエンティティ行動分析 (UEBA) を有効にし、AD DS ドメインからセキュリティイベントを収集する必要があります。3  
-  
-つのアクションのうち、順番に実行する必要があるのはどれですか？ 回答するには、アクションリストから適切なアクションを回答領域に移動し、正しい順序に並べ替えてください。  
+ネットワークには、Azure AD テナントと同期するオンプレミスの Active Directory Domain Services (AD DS) ドメインが含まれています。Sentinel1 という Microsoft Sentinel ワークスペースがあります。Sentinel1 でユーザーおよびエンティティ行動分析 (UEBA) を有効にし、AD DS ドメインからセキュリティイベントを収集する必要があります。
+3 つのアクションのうち、順番に実行する必要があるのはどれですか？ 回答するには、アクションリストから適切なアクションを回答領域に移動し、正しい順序に並べ替えてください。  
   
 ![](https://img.examtopics.com/sc-200/image207.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image208.png)
 
@@ -40,9 +20,7 @@ UEBA を最大限に活用し、AD DS のデータを Microsoft Sentinel に取�
 
 Microsoft Sentinel ワークスペースを使用しています。  
   
-監査ログとサインインログを使用して、ユーザーおよびエンティティ行動分析 (UEBA) を有効にしています。Azure  
-  
-AD テナントで以下のエンティティが検出されました。  
+監査ログとサインインログを使用して、ユーザーおよびエンティティ行動分析 (UEBA) を有効にしています。Azure AD テナントで以下のエンティティが検出されました。  
   
 • アプリ名: App1  
 • IP アドレス: 192.168.1.2  
@@ -58,8 +36,6 @@ UEBA を使用して調査できるエンティティはどれですか？
 - C. IPアドレスのみ
 - D. クライアントアプリとアプリ名のみを使用
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
-
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)  
 
 **解説:**
@@ -67,12 +43,8 @@ UEBA (User and Entity Behavior Analytics) が分析・プロファイリング�
 **「B. App Name, Computer Name, IP Address, Mail Address, and Client App Used only」**: UEBAはユーザー（Mail Address/Account）だけでなく、IPアドレス、ホスト（Computer Name）、アプリケーション（App Name）、クライアント情報など、多角的なエンティティの行動を学習し、異常を検知します。提示されたすべてのエンティティが調査対象となり得ます。
 
 質問#86 トピック3
-
-HOTSPOT -  
   
-Microsoft Sentinel ワークスペースを含む Azure サブスクリプションを所有しています。Kusto  
-  
-クエリ言語 (KQL) を使用して、以下の要件を満たすハンティング クエリを作成する必要があります。  
+Microsoft Sentinel ワークスペースを含む Azure サブスクリプションを所有しています。Kusto クエリ言語 (KQL) を使用して、以下の要件を満たすハンティング クエリを作成する必要があります。  
   
 • 同じセキュリティ プリンシパルによってネットワーク セキュリティ グループ (NSG) のルールに加えられた異常な数の変更を特定する。  
 • セキュリティ プリンシパルを Microsoft Sentinel エンティティに自動的に関連付ける。  
@@ -82,8 +54,6 @@ Microsoft Sentinel ワークスペースを含む Azure サブスクリプショ
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image209.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   8](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image433.png)
 
@@ -100,7 +70,6 @@ Microsoft Sentinel ワークスペースを含む Azure サブスクリプショ
         
     - `AzureDiagnostics` はリソース内部の動作ログに使用されます。
         
-
 2. なぜ `| extend` なのか？
 
 - **エンティティのマッピング:** クエリの最後にある `AccountCustomEntity = Caller` は、既存の `Caller`（操作したユーザーのメールアドレス等）という値を、新しい `AccountCustomEntity` という列名に代入しようとしています。
@@ -117,15 +86,13 @@ Microsoft Sentinel ワークスペースがあります。
   
 カスタムブックのレポートビジュアルを構成する必要があります。ソリューションは以下の要件を満たす必要があります。  
 • AppDisplayName のカウントと使用状況の傾向が含まれている必要があります。  
-• TrendList 列がスパークラインビジュアルで使用可能である必要があります。KQL  
-  
-クエリをどのように完了すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
+• TrendList 列がスパークラインビジュアルで使用可能である必要があります。
+
+KQL クエリをどのように完了すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image211.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   7](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image212.png)
 
@@ -138,7 +105,6 @@ Microsoft Sentinel ワークスペースがあります。
     
 - **結合の必要性:** 後半部分で生成するトレンドリスト（時間経過による変化）と、前半の合計カウントを `AppDisplayName` をキーにして結合する必要があります。KQL で異なる集計結果を結合するには **`join`** 演算子を使用します。
     
-
 2. なぜ `make-series` なのか？
 
 - **トレンドの生成:** 要件にある「TrendList 列がスパークラインビジュアルで使用可能であること」を満たすには、時間軸に沿った数値の配列を作成する必要があります。
@@ -149,9 +115,6 @@ Microsoft Sentinel ワークスペースがあります。
 
 質問#88 トピック3
 
-ドラッグ アンド ドロップ  
-\-  
-  
 User1 と User2 という 2 人のユーザーと、workspace1 という Microsoft Sentinel ワークスペースを含む Azure サブスクリプションがあります。  
   
 ユーザーがワークスペース 1 で次のタスクを実行できるようにする必要があります。  
@@ -165,8 +128,6 @@ User1 と User2 という 2 人のユーザーと、workspace1 という Microso
 注: 正しい選択ごとに 1 ポイントが与えられます。  
   
 ![](https://img.examtopics.com/sc-200/image213.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   8](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image214.png)
 
@@ -186,8 +147,6 @@ Microsoft 365 Defender データコネクタを使用する Microsoft Sentinel �
 - B. Microsoft Sentinelのインシデントページのタイムラインタブ
 - C. Microsoft Sentinelのインシデントページの調査グラフ
 - D. Microsoft 365 Defender ポータルのアラートページ
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   30](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)  
 
@@ -215,8 +174,6 @@ Microsoft Sentinel ワークスペースがあります。
 - C. サーバー1
 - D. ユーザー1
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   10](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)  
 
 **解説:**
@@ -236,8 +193,6 @@ Microsoft Sentinelワークスペースで、サインインログにユーザ�
 - C. UEBAアクティビティテンプレート
 - D. 狩猟に関する質問
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   25](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
-
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)  
 
 **解説:**
@@ -246,20 +201,13 @@ Microsoft Sentinelワークスペースで、サインインログにユーザ�
 
 質問#92 トピック3
 
-HOTSPOT  
-\-  
-  
-ハイブリッド Azure AD テナントにリンクされ、Sentinel1 という Microsoft Sentinel ワークスペースを含む Azure サブスクリプションがあります。Sentinel  
-  
-でユーザーおよびエンティティ行動分析 (UEBA) を有効にし、Active Directory ドメイン サービス (AD DS) から収集されたデータを使用するように UEBA を構成する必要があります。  
+ハイブリッド Azure AD テナントにリンクされ、Sentinel1 という Microsoft Sentinel ワークスペースを含む Azure サブスクリプションがあります。Sentinel でユーザーおよびエンティティ行動分析 (UEBA) を有効にし、Active Directory ドメイン サービス (AD DS) から収集されたデータを使用するように UEBA を構成する必要があります。  
   
 どうすればよいでしょうか？回答するには、回答エリアで適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image227.png)
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
 
 **正解:** ![](https://img.examtopics.com/sc-200/image228.png)
 
@@ -283,8 +231,6 @@ HOTSPOT
   
 ![](https://img.examtopics.com/sc-200/image229.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)   [議論   9](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image230.png)
 
 **解説:**
@@ -301,9 +247,3 @@ HOTSPOT
 - **時間のグループ化:** タイムチャートを作成するには、連続的な時間を特定の粒度（この場合は `1d` ＝ 1日）で区切る必要があります。**`bin()`** 関数（またはそのエイリアスの `floor()`）を使用することで、`TimeGenerated` を指定した間隔に丸めることができます。
     
 - `range` は数値や時間の配列を生成する関数、`make-series` はスパークラインなどの時系列配列を作成する演算子ですが、今回のクエリ構造（`summarize ... by ...`）には `bin` を組み合わせるのが標準的です。
-
-[以前の質問](https://www.examtopics.com/exams/microsoft/sc-200/view/21/)
-
-![ファイル](https://www.examtopics.com/assets/images/file.svg) 41 ページ中 22 ページを表示しています。
-
-410問中**211 - 220**問 を表示

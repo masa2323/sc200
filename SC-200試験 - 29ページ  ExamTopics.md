@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、29ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/29/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 ## トピック5 - 質問セット5
 
 質問1 トピック5
@@ -62,8 +52,6 @@ Microsoft Defender for Cloud を使用する Azure サブスクリプション�
 - C. Microsoft Defender for App Service
 - D. Microsoft Defender for Servers
 - E. DevOps 向け Microsoft Defender
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)   [議論   8](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)
 
 **正解:** AE [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)  
 
@@ -126,8 +114,6 @@ as Code (IaC)ファイルを作成し、Repo1に保存します。IaCファイ�
   
 ![](https://img.examtopics.com/sc-200/image246.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)   [議論   6](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)
-
 **正解:** ![](https://img.examtopics.com/sc-200/image247.png)
 
 **解説:**
@@ -154,7 +140,6 @@ Microsoft Defender for Endpoint を使用して、Windows サーバーに対し�
     
 - **For the device group (デバイスグループの設定):** `The Automation level`
     
-
 ---
 ## 解説
 
@@ -260,9 +245,6 @@ MicrosoftGraphActivityLogsテーブルで検出可能な戦術（Tactic）につ
 
 質問10 トピック5
 
-ドラッグ アンド ドロップ  
-\-  
-  
 次の Advanced Security Information Model (ASIM) パーサーを含む Microsoft Sentinel ワークスペースがあります。  
   
 • \_Im\_ProcessCreate  

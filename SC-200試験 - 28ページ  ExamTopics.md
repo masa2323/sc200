@@ -1,13 +1,3 @@
----
-title: "SC-200試験 - 無料の実際のQ&A、28ページ | ExamTopics"
-source: "https://www.examtopics.com/exams/microsoft/sc-200/view/28/"
-author:
-published:
-created: 2026-01-18
-description: "Free, Actual and Latest Practice Test for those who are preparing for Microsoft Security Operations Analyst    ."
-tags:
-  - "clippings"
----
 質問#36 トピック4
 
 Microsoft 365 E5 サブスクリプションがあり、500 台の Windows 11 デバイスが含まれています。Microsoft Defender for Endpoint の展開では、以下の設定になっています。  
@@ -26,8 +16,6 @@ Microsoft Defender XDR に自動攻撃阻止機能を実装する必要があり
 - C. 改ざん防止をオンに設定します。
 - D. ブロック モードで EDR を有効にするをオンに設定します。
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)
-
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)  
 
 **解説：**
@@ -44,8 +32,6 @@ Microsoft Security Copilot を使用している Microsoft 365 サブスクリ�
 - C. ダヴィンチ-002
 - D. gpt-35-ターボ
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)   [議論   2](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)
-
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)  
 
 **解説:**
@@ -55,17 +41,13 @@ Security Copilotのカスタムプラグインで使用するGPTモデルです�
 質問#38 トピック4
 
 Microsoft Security Copilot をご利用の Azure サブスクリプションをお持ちです。  
-  
-セキュリティ コンピューティング ユニットの数を一時的に増やす必要があります。  
-  
+セキュリティ コンピューティング ユニットの数を一時的に増やす必要があります。
 課金対象となる最短の期間はどのくらいですか？
 
 - A. 1秒
 - B. 1分
 - C. 1時間
 - D. 1日
-
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)   [議論](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)  
 
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)  
 
@@ -91,10 +73,6 @@ Workspace1 という Microsoft Sentinel ワークスペースがあります。W
   
 ![](https://img.examtopics.com/sc-200/image462.png)
 
-[解決策を明らかにする](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#) [ソリューションを非表示](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)   [議論](https://www.examtopics.com/exams/microsoft/sc-200/view/28/#)  
-
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image463.png)
-
 **解説:**
 Log Analyticsワークスペースのデータ保持期間とアーカイブ設定です。AzureActivityテーブルの180日分のデータを、コスト最小化かつ利用期間最大化の要件で構成します。
 
@@ -118,9 +96,7 @@ Linux を実行するオンプレミス サーバーが 200 台あります。Wo
     
 - **Property:** `facilityNames: [`
     
-
 ---
-
 ### 解説
 
 1. streams (ストリーム) の選択
@@ -182,7 +158,8 @@ Microsoft Defender の脆弱性管理（Vulnerability Management）を実装し�
 次のアクションを実行する KQL クエリを作成する必要があります。  
   
 • 各ワークスペースに AzureActivity テーブルが存在するかどうかを確認します。  
-• テーブルが存在する場合は、isMissing 列が 0 に設定された単一の行を返します。• テーブルが存在しない場合は、isMissing 列が 1 に設定された単一の行を返します。  
+• テーブルが存在する場合は、isMissing 列が 0 に設定された単一の行を返します。
+• テーブルが存在しない場合は、isMissing 列が 1 に設定された単一の行を返します。  
   
 クエリをどのように完了する必要がありますか？回答するには、回答領域で適切なオプションを選択してください。  
   
@@ -196,9 +173,7 @@ Microsoft Defender の脆弱性管理（Vulnerability Management）を実装し�
     
 - **2つ目の選択肢:** `isfuzzy=true`
     
-
 ---
-
 ## 解説
 
 このクエリの目的は、ワークスペース内に `AzureActivity` テーブルが存在するかどうかでフラグ（`isMissing`）を切り替えることです。
@@ -243,9 +218,7 @@ Microsoft 365 E5 サブスクリプションをお持ちです。Microsoft Entra
     
 - **Data connectors (データ コネクタ):** 「Configuration (構成)」セクション内
     
-
 ---
-
 ## 解説
 
 Microsoft Sentinel の新しい運用モデル（統合セキュリティ運用プラットフォーム）では、特定のソースからログを収集するために以下の 2 段階のステップが必要になります。
@@ -332,7 +305,6 @@ Workspace1 という Microsoft Sentinel ワークスペースがあり、そこ�
     
 - **データ読み込み時間の最小化:** 外部クエリを実行してリストを生成する `Drop down` よりも、ネイティブなピッカーである `Subscription picker` の方が高速に動作します。
     
-
 2. Select Allow multiple selections. (複数選択を許可する) の選択
 
 - **「1つ以上」の要件:** ユーザーが複数のサブスクリプションを選択できるようにするためには、この設定を有効にする必要があります。
