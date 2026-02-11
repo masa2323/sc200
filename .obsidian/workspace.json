@@ -69,12 +69,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SC-200試験 - ケーススタディ4.md",
+                "file": "間違えた問題 KQL.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SC-200試験 - ケーススタディ4"
+              "title": "間違えた問題 KQL"
             }
           }
         ],
@@ -252,8 +252,17 @@
   },
   "active": "e3462e7ba0eb1456",
   "lastOpenFiles": [
-    "SC-200試験 - ケーススタディ3.md",
+    "SC-200試験 - 4ページ目  ExamTopics.md",
+    "間違えた問題.md",
+    "間違えた問題 KQL.md",
+    "SC-200試験 - 1ページ目  ExamTopics.md",
+    "SC-200試験 - 3ページ目  ExamTopics.md",
+    "SC-200試験 - 2ページ  ExamTopics.md",
     "SC-200試験 - ケーススタディ4.md",
+    "間違えた問題 copy.md",
+    "間違えた問題",
+    "README.md",
+    "SC-200試験 - ケーススタディ3.md",
     "SC-200試験 - ケーススタディ2.md",
     "SC-200試験 - ケーススタディ1.md",
     "SC-200試験 - 40ページ  ExamTopics.md",
@@ -279,13 +288,6 @@
     "SC-200試験 - 27ページ  ExamTopics.md",
     "SC-200試験 - 26ページ  ExamTopics.md",
     "SC-200試験 - 25ページ  ExamTopics.md",
-    "SC-200試験 - 24ページ  ExamTopics.md",
-    "SC-200試験 - 23ページ  ExamTopics.md",
-    "SC-200試験 - 22ページ  ExamTopics.md",
-    "SC-200試験 - 21ページ  ExamTopics.md",
-    "SC-200試験 - 20ページ  ExamTopics.md",
-    "SC-200試験 - 38ページ  ExamTopics.md",
-    "SC-200試験 - 11ページ  ExamTopics.md",
-    "SC-200試験 - 10ページ  ExamTopics.md"
+    "SC-200試験 - 24ページ  ExamTopics.md"
   ]
 }

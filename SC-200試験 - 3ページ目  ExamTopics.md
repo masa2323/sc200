@@ -14,13 +14,24 @@ Microsoft Cloud App Security を構成しています。
 - D. IP アドレスを他のアドレス範囲カテゴリに追加し、タグを追加します。
 - E. IP アドレスを除外するアクティビティ ポリシーを作成します。
 
-**正解：** AB [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/3/#)  
+### **B. IP アドレスを企業アドレス範囲カテゴリに追加**
 
-**解説:**
-誤検知（False Positive）を減らし、正当な「あり得ない移動（Impossible Travel）」アラートを抑制するためには、以下の2つのアクションが有効です。
+Microsoftのドキュメントによると、**Corporate（企業）カテゴリ**にIPアドレス範囲を追加することで、誤検知を減らすことができます：
+つまり、**Corporate（企業）カテゴリにタグ付けされたIPアドレスは、あり得ない移動検出から自動的に除外されます**。
 
-- **B. IPアドレスを企業アドレス範囲カテゴリに追加する**: 本社のIPアドレスを「企業（Corporate）」IPアドレス範囲として登録することで、信頼できる場所とみなされます。
-- **A. 自動データ拡充（Automatic data enrichment）を構成する**: これにより、エンリッチメントデータ（IPアドレスの所有者情報など）を利用して、正当なVPNやプロキシからのアクセスを識別しやすくなります。（※ただし、最も直接的な解決策は企業IPの登録です。選択肢によっては、企業IPの登録とセットで「そのIPからのアラートを除外するポリシー設定」などが正解になることもありますが、ここではABが推奨されています。）
+### **C. あり得ない移動の異常検出ポリシーの感度レベルを上げます**
+
+実際には：
+- 感度を**低く**設定すると、より多くの活動が抑制され、誤検知が減ります
+- 感度を**高く**設定すると、より厳密な検出が行われます
+
+しかし、IPアドレスがCorporateカテゴリにタグ付けされている場合、感度が高くても**それらのIPアドレスは信頼され、除外されます**。
+
+### なぜ他の選択肢が不正解か：
+
+- **A. 自動データ拡充を構成** - これはIPアドレスの地理的情報を自動的に追加する機能ですが、誤検知のブロックには直接関係ありません
+- **D. IPアドレスを他のアドレス範囲カテゴリに追加し、タグを追加** - 「他のカテゴリ」（Other category）では、企業のIPアドレスとして認識されず、あり得ない移動検出から除外されません
+- **E. IPアドレスを除外するアクティビティポリシーを作成** - これは個別のカスタムポリシーを作成する必要があり、組み込みの異常検出ポリシーには影響しません。より簡単で効果的な方法は、IPアドレスをCorporateカテゴリにタグ付けすることです
 
 質問#22 トピック1
 
@@ -97,8 +108,7 @@ Azure ADのサインインイベントを「ほぼリアルタイム（near real
 Azure AD（Entra ID）の診断設定（Diagnostic settings）を構成し、ログのストリーミング先としてイベントハブを選択します。SIEMツールはイベントハブからログを収集します。ストレージアカウントへのアーカイブ（選択肢D）は長期保存向けであり、リアルタイム性には欠けます。
 
 質問#26 トピック1
-
-ドラッグ＆ドロップ -  
+  
 Azure Active Directory (Azure AD) テナントにリンクされた Azure サブスクリプションがあります。テナントには、User1 と User2 という 2 人のユーザーがいます。Azure Defender をデプロイする予定です。  
 次の表に示すように、User1 と User2 がサブスクリプション レベルでタスクを実行できるようにする必要があります。  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0003500001.png)  
@@ -108,34 +118,64 @@ Azure Active Directory (Azure AD) テナントにリンクされた Azure サブ
 選択して配置:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0003600001.png)  
 
-**Correct Answer:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0003700001.png) Box 1: Owner -  
-Only the Owner can assign initiatives.  
-  
-Box 2: Contributor -  
-Only the Contributor or the Owner can apply security recommendations.  
-Reference:  
-<https://docs.microsoft.com/en-us/azure/defender-for-cloud/permissions>
+## 正解
 
-**解説:**
-この問題のポイントは、Microsoft Defender for Cloud における **Security Administrator（セキュリティ管理者）** ロールの具体的な権限範囲を理解しているかどうかにあります。
+**User1: Security administrator**
+**User2: Contributor**
 
-### User1 への割り当て理由
+## 解説
+### User1のタスク分析：
 
-User1 が実行する必要のある以下のタスクは、すべて **Security Administrator** ロールで許可されています。
+User1は以下のタスクを実行する必要があります：
 
-- **イニシアチブの割り当て（Assign initiatives）**: セキュリティポリシーの管理権限が必要です。
+- **イニシアティブの割り当て（Assign initiatives）**
+- **セキュリティポリシーの編集（Edit security policies）**
+- **自動プロビジョニングの有効化（Enable automatic provisioning）**
 
-- **セキュリティポリシーの編集（Edit security policies）**: Security Administrator はポリシーの表示および編集が可能です。
+Microsoftのドキュメントによると、これらのタスクに必要な権限は：
 
-- **自動プロビジョニングの有効化（Enable automatic provisioning）**: エージェントの自動インストール設定などの管理には、Security Administrator または Owner ロールが必要です。
+|アクション|Security Reader|Security Admin|Contributor|Owner|
+|---|---|---|---|---|
+|Add/assign initiatives|-|✔|-|✔|
+|Edit security policy|-|✔|-|✔|
+|Enable / disable Microsoft Defender plans|-|✔|✔|✔|
 
-### User2 への割り当て理由
+**Security Administrator**ロールは以下が可能です：
 
-User2 のタスクにおいて決定的なのは「アラートの却下」です。
+> "A user in this role has the same access as the Security Reader and can also **update security policies** and **dismiss alerts and recommendations**."
 
-- **推奨事項の適用（Apply security recommendations）**: リソースの修正には書き込み権限が必要ですが、セキュリティ管理の文脈では Security Administrator がこれを担います。
+また、ドキュメントには明確に記載されています：
 
-- **アラートの却下（Dismiss alerts）**: **Security Administrator** ロールの重要な権限の一つです。Security Reader（セキュリティ閲覧者）は表示のみが可能で、却下はできません。また、通常の Contributor（共同作成者）ロールにはセキュリティアラートを管理する特定の権限が含まれていないため、最小権限の原則に照らすと Security Administrator が最適です。
+> "Only subscription Owners/Contributors and **Security Admins can edit a security policy**."
+
+**最小権限の原則**に従うと、User1には**Security administrator**が適切です（Ownerロールは過剰な権限を持つため）。
+
+### User2のタスク分析：
+
+User2は以下のタスクを実行する必要があります：
+
+- **アラートと推奨事項の表示（View alerts and recommendations）**
+- **セキュリティ推奨事項の適用（Apply security recommendations）**
+- **アラートの却下（Dismiss alerts）**
+
+Microsoftのドキュメントによると：
+
+| アクション                           | Security Reader | Security Admin | Contributor | Owner |
+| ------------------------------- | --------------- | -------------- | ----------- | ----- |
+| View alerts and recommendations | ✔               | ✔              | ✔           | ✔     |
+| Apply security recommendations  | -               | -              | ✔           | ✔     |
+| Dismiss alerts                  | -               | ✔              | ✔           | ✔     |
+
+**重要な注意点：**
+
+1. **セキュリティ推奨事項の適用**には、実際のリソースの変更が必要です。ドキュメントには以下のように記載されています：
+    
+    > "**Apply security recommendations for a resource** - Only subscription and resource group **Owners and Contributors** can apply security recommendations for a resource."
+    
+2. **Security administrator**は推奨事項の**適用（Apply）**ができません。読み取りと却下のみが可能です。
+3. User2は**アラートの却下**と**推奨事項の適用**の両方が必要なため、**Contributor**ロールが必要です。
+
+**最小権限の原則**に従うと、User2には**Contributor**が適切です（Ownerロールは過剰な権限を持つため）。
 
 質問#27 トピック1
 
@@ -145,11 +185,24 @@ Microsoft 365 E5 サブスクリプションがあり、Microsoft Defender for E
 ホットエリア:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0003800001.png)  
 
-**Correct Answer:** ![](https://img.examtopics.com/sc-200/image411.png)
+## 正しい回答：
 
-**解説:**
-Microsoft 365 Defender ポータル（Defender for Endpoint）からデバイスへのリモートシェル接続を行う機能は **「ライブ応答 (Live Response)」** です。
-この機能を使用するには、まず Defender for Endpoint の設定（Settings）にある **「高度な機能 (Advanced features)」** メニューで、「ライブ応答 (Live Response)」をオンにする必要があります。
+**Microsoft Defender for Endpoint の設定:**
+- **Turn on Live Response** ✓
+
+**デバイスの設定:**
+- **Create a device group that contains the devices and set Automation level to No automated response** ✓
+
+## 理由：
+
+### 1. Turn on Live Response
+Live Response は、Microsoft 365 Defender ポータルから直接デバイスにリモートシェル接続する機能です。この機能を有効にする必要があります。
+
+### 2. Automation level を "No automated response" に設定
+最小権限の原則を適用するため：
+
+- **No automated response** = 自動応答を無効にし、手動での承認と操作のみを許可
+- これにより、管理者の明示的な操作なしに自動的なアクションが実行されることを防ぎます
 
 質問#28 トピック1
 
@@ -159,26 +212,7 @@ Microsoft 365 Defender を使用する Microsoft 365 サブスクリプション
 ホットエリア:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0004000001.jpg)  
 
-**Correct Answer:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0004100001.jpg) Box 1: join -  
-An inner join.  
-This query uses kind=inner to specify an inner-join, which prevents deduplication of left side values for DeviceId.  
-This query uses the DeviceInfo table to check if a potentially compromised user (<account-name>) has logged on to any devices and then lists the alerts that have been triggered on those devices.  
-  
-DeviceInfo -  
-//Query for devices that the potentially compromised account has logged onto  
-| where LoggedOnUsers contains '<account-name>'  
-| distinct DeviceId  
-//Crosscheck devices against alert records in AlertEvidence and AlertInfo tables  
-| join kind=inner AlertEvidence on DeviceId  
-| project AlertId  
-//List all alerts on devices that user has logged on to  
-| join AlertInfo on AlertId  
-| project AlertId, Timestamp, Title, Severity, Category  
-DeviceInfo LoggedOnUsers AlertEvidence "project AlertID"  
-  
-Box 2: project -  
-Reference:  
-<https://docs.microsoft.com/en-us/microsoft-365/security/defender/advanced-hunting-query-emails-devices?view=o365-worldwide>
+**Correct Answer:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0004100001.jpg) 
 
 **解説:**
 侵害されたユーザー (`<account-name>`) がログインしたデバイス上のすべてのアラートを一覧表示するクエリです。
