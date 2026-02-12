@@ -50,9 +50,7 @@ Microsoft Defender for Endpointのアラート調整（チューニング）ル�
 
 注: このセクションには、同じシナリオおよび問題に関する 1 つ以上の質問セットが含まれています。各質問は、問題に対する固有の解決策を提示します。解決策が定められた目標を満たしているかどうかを判断する必要があります。セット内の複数の解決策が問題を解決できる可能性があります。また、セット内のどの解決策も問題を解決できない可能性もあります。  
   
-このセクションの質問に回答した後は、戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft  
-  
-365 サブスクリプションを所有しています。  
+このセクションの質問に回答した後は、戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Microsoft 365 サブスクリプションを所有しています。  
   
 サードパーティ製のウイルス対策製品がインストールされ、Microsoft Defender ウイルス対策がパッシブ モードになっている Windows デバイスが 1,000 台あります。  
   
@@ -143,10 +141,8 @@ Microsoft Defender XDRのデセプション（欺瞞）機能のルール適用�
 質問1 トピック2
 
 注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある独自の解決策が含まれています。一部の質問セットには複数の正解がある場合もあれば、正解がない場合もあります。  
-このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Azure  
-Security Center を使用しています。Security  
-Center でセキュリティ アラートを受信しました。Security  
-Center でアラートを解決するための推奨事項を確認する必要があります。  
+このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Azure Security Center を使用しています。Security 
+Center でセキュリティ アラートを受信しました。Security Center でアラートを解決するための推奨事項を確認する必要があります。  
 解決策: \[セキュリティ アラート\] からアラートを選択し、\[アクションの実行\] を選択して、\[将来の攻撃を防ぐ\] セクションを展開します。  
 これで目標は達成されましたか?  
 
@@ -185,11 +181,23 @@ Key Vaultへの不審なIPアドレスからのアクセスを検知した場合
 
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0005600001.png)  
 
-**正解:** ![](https://img.examtopics.com/sc-200/image415.png)
+## 回答
+画像の質問に対する正しい設定は以下の通りです:
 
-**解説:**
-Azure Security Center（Defender for Cloud）のアラートや推奨事項に基づいてLogic Appを自動実行する場合、Logic App側では適切なトリガーを設定する必要があります。
-**「Defender for Cloudのアラートが作成またはトリガーされたとき (When a Defender for Cloud Alert is created or triggered)」**: このトリガーを使用することで、セキュリティアラートが発生した際に自動的にLogic Appワークフローを開始し、修復アクションなどを実行できます。（推奨事項に対するトリガーもありますが、設問の「リスクを自動的に修復する」という文脈ではアラートトリガーが一般的です。）
+### **Set the LA1 trigger to:**
+**「When an Azure Security Center Alert is created or triggered」**
+
+### **Trigger the execution of LA1 from:**
+**「Security alerts」**
+
+## 理由
+Microsoft Defender for Cloud(旧Azure Security Center)の公式ドキュメントによると、Logic Appsをテストする際に使用できるトリガーは以下の3種類です:
+
+1. **When a Microsoft Defender for Cloud recommendation is created or triggered** - レコメンデーション用
+2. **When a Defender for Cloud Alert is created or triggered** - セキュリティアラート用
+3. **When a Defender for Cloud regulatory compliance assessment is created or triggered** - 規制コンプライアンス用
+
+セキュリティリスクの自動修復を目的とする場合、**セキュリティアラート**(Security alerts)をトリガーソースとして使用し、「When an Azure Security Center Alert is created or triggered」をトリガーとして設定するのが最も適切です。
 
 質問4 トピック2
 

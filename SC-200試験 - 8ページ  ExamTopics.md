@@ -79,15 +79,32 @@ AzureとGoogle Cloudにリソースがあります。Google Cloud Platform (GCP)
 選択して配置してください。  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0006100001.png)  
 
-**正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0006200001.png)
+### ステップ1: GCP側の準備
 
-**解説:**
-GCP (Google Cloud Platform) プロジェクトをAzure Defender (Defender for Cloud) にオンボードし、監査ログを取り込む手順です。
+まず、GCP環境で以下を準備する必要があります:
 
-1. **GCPセキュリティコマンドセンターで、Security Health Analyticsを有効にする**: GCP側のセキュリティ検出機能を有効にします。
-2. **GCP Cloud Consoleで専用のサービスアカウントを作成する**: Azure DefenderがGCPリソースにアクセスし、ログを読み取るための権限を持つサービスアカウントを作成します。
-3. **Azure Security Centerで、GCPコネクタを追加する**: Defender for Cloudポータルで「クラウドコネクタ」を選択し、GCPアカウントを接続します。この際、作成したサービスアカウントの認証情報を使用します。
-（※手順は更新されることがありますが、コネクタ作成と権限付与（サービスアカウント）は必須ステップです。）
+- **サービスアカウントの作成**: Defender for Cloudが認証に使用する専用のサービスアカウントを作成
+- **プライベートキーの生成**: JSONフォーマットのプライベートキーを作成してダウンロード
+- **必要なAPIの有効化**: 以下のAPIを有効にする必要があります
+    - `iam.googleapis.com`
+    - `sts.googleapis.com`
+    - `cloudresourcemanager.googleapis.com`
+    - `iamcredentials.googleapis.com`
+    - `compute.googleapis.com`
+
+### ステップ2: Azure側での接続設定
+
+次に、Azure portalで:
+
+1. **Microsoft Defender for Cloud** > **Environment settings** > **Add environment** > **Google Cloud Platform**に移動
+2. 必要な情報(コネクタ名、サブスクリプション、リソースグループなど)を入力
+3. プランを選択
+4. アクセスを設定(生成されたGCloudスクリプトをGCPで実行)
+
+### ステップ3: GCP Security Command Centerの設定
+
+- Security Command Center APIを有効化
+- Security Health Analyticsを有効化して、セキュリティの脆弱性を検出
 
 質問10 トピック2
 
@@ -167,9 +184,9 @@ Azure Resource Manager テンプレートを使用して、Azure Security Center
 
 **正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0006700001.png)
 
-**解説:**
-ARMテンプレートでワークフロー自動化（Logic Appのトリガー）を定義する設定です。
+### 重要なポイント
+- **type フィールド**: `Microsoft.Security/automations` - これがワークフロー自動化リソースの正しいタイプ
+- **uri フィールド**: Logic Appのコールバック URLを取得するために `Microsoft.Logic/workflows/triggers` を使用
+- `listCallbackURL` 関数は、Logic Appの手動トリガーのエンドポイントURLを動的に取得します
 
-1. **`type`: `Microsoft.Security/automations`**: Security Centerのオートメーションリソースタイプを指定します。
-2. **`actionType`: `LogicApp`**: アクションの種類としてLogic Appを指定します。
-3. **`trigger`: `Alert`**: トリガー条件として「アラート（Alert）」を指定します（特定のセキュリティアラート受信時に発火するため）。`State`Change`トリガーもありますが、アラート受信そのものをトリガーにする場合はAlertが一般的です。
+この構成により、Azure Security Centerが特定のセキュリティアラートを検出すると、指定されたLogic Appが自動的にトリガーされ、自動修復アクションが実行されます。
