@@ -1,0 +1,280 @@
+質問19 トピック2
+
+Azure Security Center を使用しています。Security Center でセキュリティアラートを受信しました。Security Center でアラートを解決するための推奨事項を確認する必要があります。  
+どうすればよいでしょうか？  
+
+- A. 「セキュリティ アラート」からアラートを選択し、「アクションを実行」を選択して、「将来の攻撃を防ぐ」セクションを展開します。
+- B. \[セキュリティ アラート\] から \[アクションの実行\] を選択し、\[脅威の軽減\] セクションを展開します。
+- C. 規制コンプライアンスからレポートをダウンロードします。
+- D. 「推奨事項」から CSV レポートをダウンロードします。
+
+**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/9/#)  
+
+**解説:**
+アラートを解決するための推奨事項を確認するための直接的な方法は、アラートの詳細ページからアクションを取ることです。
+**「[セキュリティアラート] から [アクションの実行] を選択し、[脅威の軽減 (Mitigate the threat)] セクションを展開します」**: これが正解です。ここには、現在のアラートに対処するための具体的な手順（手動または自動）が表示されます。
+「将来の攻撃を防ぐ (Prevent future attacks)」セクション（選択肢A）は、同様の攻撃が再発しないように環境を強化するための推奨事項であり、現在のアラート自体の解決（Mitigation）とは区別されます。
+
+質問#20 トピック2
+
+Azure Security Center には、テスト用に使用されている 10 台の仮想マシンに対する抑制ルールが設定されています。これらの仮想マシンは Windows Server を実行しています。  
+これらの仮想マシンで発生した問題のトラブルシューティングを行っています。Security Center で、過去 5 日間にこれらの仮想マシンによって生成されたアラートを確認する必要があります。  
+どうすればよいでしょうか？  
+
+- A. 抑制ルールのルール有効期限を変更します。
+- B. 抑制ルールの状態を「無効」に変更します。
+- C. セキュリティアラートページのフィルターを変更します。
+- D. 仮想マシン上の Windows イベント ログを表示します。
+
+**正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/9/#)  
+
+**解説:**
+抑制ルール（Suppression rules）が適用されているアラートは、デフォルトのビューでは非表示になります。これらを確認するにはフィルタ設定を変更する必要があります。
+**「セキュリティアラートページのフィルターを変更します」**: アラート一覧ページにはフィルタ機能があり、通常は「アクティブ」なアラートのみが表示されています。フィルタ条件でステータスに **「破棄済み (Dismissed)」** を含めることで、抑制ルールによって自動的に破棄されたアラートを表示し、確認することができます。（※抑制ルールはアラートを「Dismissed」状態にします。）
+抑制ルール自体を無効化（B）すると、今後のアラートは表示されますが、過去に抑制されたものが自動的にアクティブに戻るわけではないため、過去のアラートを確認するにはフィルタ変更が適切です。
+
+質問#26 トピック2
+
+Azure Defender を使用する Azure サブスクリプションを所有しています。Azure Security Center のワークフロー自動化を使用して、Azure Defender の脅威アラートに対応する予定です。  
+脅威の修復を自動的に実行する Azure ポリシーを作成する必要があります。  
+ソリューションには何を含めるべきですか？回答するには、回答エリアで適切なオプションを選択してください。  
+注: 正しい選択ごとに 1 ポイントが加算されます。  
+ホットエリア:  
+![](https://www.examtopics.com/assets/media/exam-media/04261/0008300001.jpg)  
+
+**解説:**
+このソリューションは、「特定の条件下で自動的に修復（オートメーションの構成）をデプロイする」という Azure Policy の仕組みと、「アラートを検知してアクションを実行する」ワークフロー自動化の仕組みを組み合わせています。
+
+1. Set available effects to: DeployIfNotExists
+
+Azure Policy において、リソースが準拠していない場合に「リソースをデプロイして修復する」ために使用されるエフェクトは **DeployIfNotExists (DINE)** です。
+
+- **Append**: リソース作成時に特定のフィールドを追加しますが、既存の構成の欠落を補ってデプロイ（修復）することはできません。
+    
+- **EnforceRegoPolicy**: 主に Azure Kubernetes Service (AKS) のアドミッション コントロールで使用されるもので、今回のケースには適しません。
+    
+2. To perform remediation use: Azure Logic Apps (Alert trigger)
+
+Microsoft Defender for Cloud のワークフロー自動化（Workflow Automation）は、基本的に **Azure Logic Apps** をエンジンとして使用します。
+
+- **トリガーの種類**: 脅威アラートに対応する場合、Logic App のトリガーは **「When an Azure Security Center Alert is created or triggered（アラートが作成またはトリガーされたとき）」** である必要があります。
+    
+- **Automation Runbook**: Webhook を介して Runbook を呼び出すことも技術的には可能ですが、Defender for Cloud の「ワークフロー自動化」機能がネイティブに統合し、推奨しているのは Logic Apps です。
+    
+### まとめ
+1. **Azure Policy (DeployIfNotExists)** を使用して、サブスクリプション内に「ワークフロー自動化（アラート時に Logic App を動かす設定）」が確実に存在するように強制します。
+    
+2. そのポリシーによってデプロイされる **Logic App** が、アラート発生時に実際の修復処理（脅威の遮断など）を実行します。
+
+質問#31 トピック2
+
+Azureサブスクリプションをお持ちです。このサブスクリプションには、Microsoft Defender for Cloudにオンボードされている仮想マシンが10台含まれています。Defender for Cloudが仮想マシン上でデジタル通貨マイニング行為を検出した場合、メール通知を受信するようにする必要があります。ソリューションはテストメールを生成する必要があります。
+3 つのアクションのうち、どのアクションを順番に実行する必要がありますか？ 回答するには、アクションリストから適切なアクションを回答エリアに移動し、正しい順序で並べ替えてください。  
+選択して配置：  
+![](https://www.examtopics.com/assets/media/exam-media/04261/0008700001.jpg)  
+
+- **From Logic App Designer, create a logic app.**
+    - ドキュメントによると、まずAzure Logic Appsでロジックアプリを作成する必要があります
+    - Workflow automationの設定画面で「visit the Logic Apps page」を選択してLogic Appの作成プロセスを開始します
+- **From Workflow automation in Defender for Cloud, add a workflow automation.**
+    - Logic Appを作成した後、Defender for Cloudの「Workflow automation」セクションで新しい自動化ルールを追加します
+    - ここでトリガー条件（デジタル通貨マイニング検出など）を設定し、作成したLogic Appを選択します
+    - ドキュメントには「Select your logic app, and then save the automation」と記載されています
+- **From Security alerts in Defender for Cloud, create a sample alert.**
+    - ドキュメントの「Generate sample security alerts」セクションによると、設定をテストするためにサンプルアラートを作成できます
+    - Security alertsページのツールバーから「Sample alerts」を選択し、サブスクリプションとDefenderプランを選択して「Create sample alerts」をクリックします
+    - これにより、メール通知などの設定が正しく機能するかを検証できます（テストメールが生成されます）
+
+質問#32 トピック2
+  
+Microsoft Defender for Cloud が有効になっている Microsoft サブスクリプションをお持ちです。  
+  
+次の表に示す Azure ロジック アプリを構成します。  
+  
+![](https://img.examtopics.com/sc-200/image128.png)  
+  
+「不審なプロセスが実行されました」というアラートがトリガーされたときに実行される自動アクションを構成する必要があります。このソリューションでは、管理作業を最小限に抑える必要があります。
+3 つのアクションのうち、順番に実行する必要があるのはどれですか？ 回答するには、アクションの一覧から適切なアクションを回答領域に移動し、正しい順序で並べ替えてください。  
+  
+![](https://img.examtopics.com/sc-200/image129.png)
+
+**解説:**
+「この問題の鍵は、既存のアラート詳細画面から直接ワークフロー自動化を作成することで、設定の手間（アラート名の指定など）を省く点にあります。
+
+1. ロジックアプリの選択
+
+まず、表に示された 2 つのロジックアプリのうち、今回のアラート（Alert）に対応できるのは **LogicApp2** です。
+
+- **LogicApp1**: トリガーが「推奨事項（Recommendation）」のため、アラートには反応しません。
+- **LogicApp2**: トリガーが「アラート（Alert）」のため、今回の要件に適しています。
+    
+2. 手順の詳細
+
+- **Filter by alert title**: Microsoft Defender for Cloud の「セキュリティ アラート」画面で、対象となる「不審なプロセスが実行されました（Suspicious process executed）」を検索して特定します。
+    
+- **Select Take action**: アラートの詳細を開き、「アクションの実行（Take action）」タブを選択します。ここには、その特定のアラートに対する推奨される対応策や自動化オプションが集約されています。
+    
+- **Configure the Trigger automated response settings**: 「アクションの実行」タブ内にある「自動応答のトリガー（Trigger automated response）」セクションで、**LogicApp2** を選択してワークフロー自動化を作成します。これにより、今後同じタイトルのアラートが発生した際に、自動的にロジックアプリが実行されるようになります。
+    
+
+この手順で構成を行うと、アラート名などのフィルター条件が自動的に入力されるため、ゼロからワークフロー自動化を作成するよりも管理作業を最小限に抑えることができます。
+
+質問#36 トピック2
+
+サードパーティのセキュリティ情報イベント管理（SIEM）ソリューションを使用して、Microsoft Defender for Cloud のアラートを確認する予定です。MITRE ATT&CK の権限昇格戦術の使用を示すアラートを見つける必要があります。  
+  
+どの JSON キーを検索すればよいでしょうか？
+
+- A. Description
+- B. Intent
+- C. ExtendedProperies
+- D. Entities
+
+**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/11/#)  
+
+**解説:**
+SIEMでDefender for Cloudアラートを取り込む際、MITRE ATT&CKの戦術（Privilege Escalationなど）を識別するために使用されるJSONキーです。
+**「Intent」**: Defender for CloudのアラートJSONスキーマには `Intent` というプロパティがあり、ここに攻撃の意図（Kill Chain Intent）としてMITRE ATT&CKの戦術名（例: "Privilege Escalation"）がマッピングされます。
+`ExtendedProperties` にも詳細情報が含まれますが、戦術の分類として標準的に使用されるトップレベルのフィールドは `Intent` です。
+
+
+質問#37 トピック2
+
+オンプレミスサーバーが50台あります。Microsoft Defender for Cloudを使用するAzureサブスクリプションがあります。Defender for Cloudの展開では、Microsoft Defender for Serversと自動プロビジョニングが有効になっています。  
+  
+オンプレミスサーバーをサポートするには、Defender for Cloudを構成する必要があります。ソリューションは、以下の要件を満たす必要があります。  
+  
+• 脅威と脆弱性の管理を提供する。  
+• データ収集ルールをサポートする。  
+  
+これらの3つのアクションのうち、順番に実行する必要があるのはどれですか？ 回答するには、アクションリストから適切なアクションを回答エリアに移動し、正しい順序で並べ替えてください。  
+  
+![](https://img.examtopics.com/sc-200/image131.png)
+
+**正解:** ![](https://img.examtopics.com/sc-200/image418.png)
+
+**解説:**
+この構成の鍵は、オンプレミスサーバーを **Azure Arc** 対応サーバーとして定義し、最新の監視エージェントを導入することにあります。
+
+1. スクリプトの生成と Arc 接続
+オンプレミスリソースを Azure の管理下に置くには、まず Azure Arc を使用する必要があります。ポータルからインストールスクリプトを生成し、各サーバーで実行することで、**Azure Connected Machine エージェント**がインストールされます。これにより、オンプレミスサーバーが Azure 上のリソース（Arc サーバー）として認識されるようになります。
+
+2. データ収集ルール (DCR) のサポート
+要件にある「データ収集ルール (DCR)」をサポートするためには、従来の Log Analytics エージェントではなく、**Azure Monitor エージェント (AMA)** をインストールする必要があります。
+
+- **Log Analytics agent (旧称 MMA)**: DCR をサポートしておらず、現在は非推奨（廃止予定）に向かっています。
+    
+- **Azure Monitor agent (AMA)**: DCR を使用して、どのデータを収集し、どこに送信するかをきめ細かく制御できます。
+    
+3. 脅威と脆弱性の管理 (TVM)
+Microsoft Defender for Servers（プラン1またはプラン2）が有効で、サーバーが Azure Arc に接続されている場合、Microsoft Defender for Endpoint の拡張機能が自動的にデプロイされます。これにより、要件である「脅威と脆弱性の管理（TVM）」機能が提供されます。
+
+まとめ：なぜこの 3 つか？
+
+- **Azure Connected Machine agent**: オンプレミスを Azure に「繋ぐ」ために必須。
+- **Azure Monitor agent**: 「データ収集ルール (DCR)」に対応するために必須。
+- **Log Analytics agent**: DCR をサポートしないため、今回の要件では選択しません。
+
+質問#38 トピック2
+  
+Microsoft Defender for Cloud を使用する Azure サブスクリプションがあり、app1 という Azure ロジック アプリが含まれています。  
+  
+特定の Defender for Cloud セキュリティ アラートが生成されたときに、app1 が起動するようにする必要があります。Azure Resource Manager (ARM) テンプレートをどのように完了すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
+  
+注: 正解は 1 点です。  
+  
+![](https://img.examtopics.com/sc-200/image133.png)
+
+**解説:**
+このテンプレートは、Defender for Cloud の「ワークフロー自動化（Workflow Automation）」リソースを定義しています。
+
+1. リソースタイプ ("Microsoft.Security/automations")
+
+- **Microsoft.Security/automations**: これは Microsoft Defender for Cloud におけるワークフロー自動化リソースを定義するための正しいリソース種類です。これにより、特定のアラートや推奨事項をトリガーとして、後続のアクションを紐付けることができます。
+- **Microsoft.Automation/automationAccounts**: Azure Automation アカウントを定義するためのもので、今回のワークフロー自動化の定義には使用しません。
+- **Microsoft.Logic/workflows**: これはロジックアプリ本体を定義するための種類です。
+    
+2. コールバック URL の取得 (triggers)
+
+- ロジックアプリを外部から（この場合は Defender for Cloud から）呼び出すには、そのロジックアプリの「トリガー」エンドポイントの URL が必要です。
+- `listCallbackURL` 関数を使用して URL を動的に取得する場合、対象となるリソースパスの階層として、ロジックアプリ名の後に **triggers** を指定する必要があります（例：`Microsoft.Logic/workflows/triggers`）。
+- テンプレート内の `'manual'` という記述は、ロジックアプリ側のトリガー名（通常は HTTP 要求の受信時トリガーなど）を指しています。
+
+質問#46 トピック2
+
+Microsoft Defender for Cloud を使用し、RG1 というリソース グループを含む Azure サブスクリプションがあります。RG1 には、Windows Server 2019 を実行する 20 台の仮想マシンが含まれています。RG1 内の仮想マシンに対して、ジャストインタイム (JIT) アクセスを構成する必要があります。ソリューションは、以下の要件を満たす必要があります。  
+  
+• 最大要求時間を 2 時間に制限する。  
+• プロトコル アクセスをリモート デスクトップ プロトコル (RDP) のみに制限する。  
+• 管理作業を最小限に抑える。  
+  
+では、どのようなソリューションを使用すべきでしょうか。
+
+- A. Azure AD 特権 ID 管理 (PIM)
+- B. Azureポリシー
+- C. アズール・バスティオン
+- D. アズールフロントドア
+
+**Correct Answer:** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/12/#)  
+
+**解説:**
+管理作業を最小限に抑えつつ、RDPアクセスのJIT (Just-In-Time) 制御を2時間制限で構成する場合の選択肢です。
+**「Azure Policy」**: JIT VMアクセスを大規模に適用し、構成を強制するための推奨される方法です。Azure Policyを使用することで、すべてのVM（または特定のリソースグループ内のVM）に対してJITを有効にするポリシー定義を割り当てることができます。個別に設定する手間を省き、管理を効率化できます。
+※JITの時間はデフォルト3時間ですが、設定で変更可能です。要件の「2時間」もポリシーパラメータやDefender for Cloudの設定で対応できます。
+
+質問#47 トピック2
+
+Microsoft Defender for Cloud を使用する Azure サブスクリプションを所有しています。GCP1 という Google Cloud Platform (GCP) 組織を作成します。  
+  
+ネイティブ クラウド コネクタを使用して、GCP1 を Defender for Cloud にオンボードする必要があります。このソリューションでは、今後作成されるすべての GCP プロジェクトが自動的にオンボードされるようにする必要があります。  
+  
+このソリューションには何を含めるべきですか？回答するには、回答エリアから適切なオプションを選択してください。 
+  
+注: 正解は 1 点です。  
+  
+![](https://img.examtopics.com/sc-200/image170.png)
+
+### **正解**
+
+- **Create:** **A management project and a custom role**
+- **By:** **Running a script in GCP Cloud Shell**
+    
+---
+### **解説**
+
+1. **なぜ「A management project and a custom role」なのか？** GCP 組織全体を Defender for Cloud に接続する場合、Microsoft は GCP 側に「管理用プロジェクト（Management Project）」を作成することを推奨しています。ここに、Defender for Cloud が GCP リソースをスキャンしたりセキュリティ設定を確認したりするために必要な権限を持つ**カスタムロール**を配置します。これにより、組織レベルでの一元管理が可能になり、新しいプロジェクトが追加された際も自動的にスキャンの対象に含めることができます。
+    
+2. **なぜ「Running a script in GCP Cloud Shell」なのか？** Microsoft Defender for Cloud のオンボードプロセスでは、GCP 側の環境設定（API の有効化、サービスアカウントの作成、ロールの割り当てなど）を自動化するための **Cloud Shell スクリプト**が提供されます。このスクリプトを GCP の Cloud Shell で実行することで、必要なインフラ設定が数分で完了します。Azure 側の Bicep やスクリプトではなく、接続先である GCP 側の設定操作が必要となるため、GCP Cloud Shell を使用します。
+
+質問#48 トピック2
+
+VM1 という仮想マシンを含む Azure サブスクリプションがあり、Microsoft Defender for Cloud を使用しています。Microsoft Defender for Cloud では、Azure Monitor エージェントを使用するように自動プロビジョニングが設定されています。VM1 での PowerShell の不審な使用に関する誤検知アラートを抑制するカスタムアラート抑制ルールを作成する必要があります。  
+  
+まず何をすべきでしょうか？
+
+- A. Microsoft Defender for Cloud から、アラートを Log Analytics ワークスペースにエクスポートします。
+- B. Microsoft Defender for Cloud からワークフロー自動化を追加します。
+- C. VM1 で PowerShell アラートをトリガーします。
+- D. VM1 で、Get-MPThreatCatalog コマンドレットを実行します。
+
+**Correct Answer:** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/12/#)  
+
+**解説:**
+誤検知（False Positive）のアラートに対する抑制ルールを作成する前に必要なステップです。
+**「VM1でPowerShellアラートをトリガーします」**: アラート抑制ルールを作成するには、まず対象となるアラートがDefender for Cloud上に存在している必要があります。既存のアラートを選択して「同様のアラートを抑制する」アクションを実行するのが標準的な手順です。そのため、まだアラートが発生していない場合は、まずアラートをトリガーさせる必要があります。
+
+質問#53 トピック2
+
+Microsoft Defender for Cloud を使用する Azure サブスクリプションをお持ちです。Account1 という GitHub アカウントがあり、10 個のリポジトリが含まれています。Defender for Cloud が Account1 のリポジトリにアクセスできることを確認する必要があります。Microsoft Defender for Cloud ポータルでまず何をすべきでしょうか？
+
+- A. 統合を有効にします。
+- B. プランを有効にします。
+- C. 環境を追加します。
+- D. セキュリティポリシーを有効にします。
+
+**Correct Answer:** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/12/#)  
+
+**解説:**
+GitHubリポジトリをDefender for Cloudに統合する最初のステップです。
+**「環境を追加します (Add environment)」**: Defender for Cloudの「環境設定 (Environment settings)」ブレードから、「環境を追加 (Add environment)」を選択し、「GitHub」を選んで接続ウィザードを開始します。これにより、GitHub組織またはアカウントとの接続（コネクタ）を作成します。
+

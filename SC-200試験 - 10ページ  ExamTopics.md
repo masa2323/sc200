@@ -43,8 +43,6 @@ Azure Defender を使用する Azure サブスクリプションを所有して�
 ホットエリア:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0008300001.jpg)  
 
-**Correct Answer:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0008400001.jpg) Reference:  
-
 **解説:**
 このソリューションは、「特定の条件下で自動的に修復（オートメーションの構成）をデプロイする」という Azure Policy の仕組みと、「アラートを検知してアクションを実行する」ワークフロー自動化の仕組みを組み合わせています。
 
@@ -56,7 +54,6 @@ Azure Policy において、リソースが準拠していない場合に「リ�
     
 - **EnforceRegoPolicy**: 主に Azure Kubernetes Service (AKS) のアドミッション コントロールで使用されるもので、今回のケースには適しません。
     
-
 2. To perform remediation use: Azure Logic Apps (Alert trigger)
 
 Microsoft Defender for Cloud のワークフロー自動化（Workflow Automation）は、基本的に **Azure Logic Apps** をエンジンとして使用します。
@@ -65,9 +62,7 @@ Microsoft Defender for Cloud のワークフロー自動化（Workflow Automatio
     
 - **Automation Runbook**: Webhook を介して Runbook を呼び出すことも技術的には可能ですが、Defender for Cloud の「ワークフロー自動化」機能がネイティブに統合し、推奨しているのは Logic Apps です。
     
-
 ### まとめ
-
 1. **Azure Policy (DeployIfNotExists)** を使用して、サブスクリプション内に「ワークフロー自動化（アラート時に Logic App を動かす設定）」が確実に存在するように強制します。
     
 2. そのポリシーによってデプロイされる **Logic App** が、アラート発生時に実際の修復処理（脅威の遮断など）を実行します。
@@ -151,46 +146,21 @@ Azureサブスクリプションをお持ちです。このサブスクリプシ
 選択して配置：  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0008700001.jpg)  
 
-**Correct Answer:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0008700002.jpg) Step 1: From Logic App Designer, create a logic app.  
+- **From Logic App Designer, create a logic app.**
+    - ドキュメントによると、まずAzure Logic Appsでロジックアプリを作成する必要があります
+    - Workflow automationの設定画面で「visit the Logic Apps page」を選択してLogic Appの作成プロセスを開始します
+- **From Workflow automation in Defender for Cloud, add a workflow automation.**
+    - Logic Appを作成した後、Defender for Cloudの「Workflow automation」セクションで新しい自動化ルールを追加します
+    - ここでトリガー条件（デジタル通貨マイニング検出など）を設定し、作成したLogic Appを選択します
+    - ドキュメントには「Select your logic app, and then save the automation」と記載されています
+- **From Security alerts in Defender for Cloud, create a sample alert.**
+    - ドキュメントの「Generate sample security alerts」セクションによると、設定をテストするためにサンプルアラートを作成できます
+    - Security alertsページのツールバーから「Sample alerts」を選択し、サブスクリプションとDefenderプランを選択して「Create sample alerts」をクリックします
+    - これにより、メール通知などの設定が正しく機能するかを検証できます（テストメールが生成されます）
 
-**解説:**
-このソリューションでは、Azure のサーバーレス機能である Logic Apps を「メール送信エンジン」として利用し、それを Defender for Cloud のアラートと紐付けます。
-
-1. Logic App の作成
-
-まず、メールを送るための「箱」と「ロジック」を作成する必要があります。Logic App デザイナーを使用して、Defender for Cloud のアラートをトリガーとし、指定したアドレスにメールを送信するワークフローを定義します。
-
-2. ワークフロー自動化の追加
-
-作成した Logic App を、実際に Defender for Cloud が検知したアラートと連携させる設定です。Defender for Cloud 側の「ワークフロー自動化（Workflow Automation）」メニューから、どのアラート（今回はマイニング関連など）が発生したときに、どの Logic App を実行するかを定義します。
-
-3. サンプルアラートの作成
-
-最後に、設定が正しく動作するか（実際にメールが届くか）をテストします。Defender for Cloud には、本物の脅威を待つことなく「サンプルアラート」を生成する機能があります。これを利用することで、エンドツーエンドの通知フローが機能していることを即座に確認できます。
-
-> **注意:** 以前は Defender for Cloud 内の「メール通知」設定でシンプルに通知できましたが、複雑な条件分岐やカスタマイズされた通知を行う場合は、この **Workflow Automation + Logic Apps** の組み合わせが標準的な構成となります。
-
-
-Create a logic app and define when it should automatically run  
-1\. From Defender for Cloud's sidebar, select Workflow automation.  
-2\. To define a new workflow, click Add workflow automation. The options pane for your new automation opens.  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0008800001.png)  
-Here you can enter:  
-A name and description for the automation.  
-The triggers that will initiate this automatic workflow. For example, you might want your Logic App to run when a security alert that contains "SQL" is generated.  
-The Logic App that will run when your trigger conditions are met.  
-3\. From the Actions section, select visit the Logic Apps page to begin the Logic App creation process.  
-4\. Etc.  
-Step 2: From Logic App Designer, run a trigger.  
-  
-Manually trigger a Logic App -  
-You can also run Logic Apps manually when viewing any security alert or recommendation.  
-Step 3: From Workflow automation in Defender for cloud, add a workflow automation.  
-Configure workflow automation at scale using the supplied policies  
-Automating your organization's monitoring and incident response processes can greatly improve the time it takes to investigate and mitigate security incidents.  
+
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0008900001.png)  
-Reference:  
-<https://docs.microsoft.com/en-us/azure/defender-for-cloud/workflow-automation>
 
 質問#32 トピック2
   
@@ -205,8 +175,6 @@ Microsoft Defender for Cloud が有効になっている Microsoft サブスク�
   
 ![](https://img.examtopics.com/sc-200/image129.png)
 
-**Correct Answer:** ![](https://img.examtopics.com/sc-200/image417.png)
-
 **解説:**
 「この問題の鍵は、既存のアラート詳細画面から直接ワークフロー自動化を作成することで、設定の手間（アラート名の指定など）を省く点にあります。
 
@@ -215,10 +183,8 @@ Microsoft Defender for Cloud が有効になっている Microsoft サブスク�
 まず、表に示された 2 つのロジックアプリのうち、今回のアラート（Alert）に対応できるのは **LogicApp2** です。
 
 - **LogicApp1**: トリガーが「推奨事項（Recommendation）」のため、アラートには反応しません。
-    
 - **LogicApp2**: トリガーが「アラート（Alert）」のため、今回の要件に適しています。
     
-
 2. 手順の詳細
 
 - **Filter by alert title**: Microsoft Defender for Cloud の「セキュリティ アラート」画面で、対象となる「不審なプロセスが実行されました（Suspicious process executed）」を検索して特定します。

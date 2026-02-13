@@ -41,20 +41,23 @@ Microsoft Defender for Cloud を使用する Azure サブスクリプション�
   
 ネイティブ クラウド コネクタを使用して、GCP1 を Defender for Cloud にオンボードする必要があります。このソリューションでは、今後作成されるすべての GCP プロジェクトが自動的にオンボードされるようにする必要があります。  
   
-このソリューションには何を含めるべきですか？回答するには、回答エリアから適切なオプションを選択してください。  
+このソリューションには何を含めるべきですか？回答するには、回答エリアから適切なオプションを選択してください。 
   
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image170.png)
 
-**Correct Answer:** ![](https://img.examtopics.com/sc-200/image171.png)
+### **正解**
 
-**解説:**
-GCP組織をDefender for Cloudにオンボードし、新しいプロジェクトも自動的に対象にするための設定です。
+- **Create:** **A management project and a custom role**
+- **By:** **Running a script in GCP Cloud Shell**
+    
+---
+### **解説**
 
-1. **Azure Arcの自動プロビジョニング**: Azure Arcエージェントを自動的にインストールする設定を有効にします。これにより、GCP上のVMが自動的にAzure Arcに接続され、管理対象となります。
-2. **Microsoft Defender for Containersの自動プロビジョニング**: コンテナ保護（GKEなど）も要件に含まれる場合（設問には明示されていませんが、完全な保護には通常含まれます）、これも有効にします。しかし、より重要なのは**「監査ログ (Audit logs)」**の設定です。GCPコネクタの設定で、「GCP監査ログをDefener for Cloudに送信する」構成を行うことで、組織レベルでの監視が可能になります。
-※画像選択肢の詳細は不明ですが、Defender for CloudのGCPコネクタ設定における「自動プロビジョニング（Auto provisioning）」設定画面での適切なオプションを選択する問題です。
+1. **なぜ「A management project and a custom role」なのか？** GCP 組織全体を Defender for Cloud に接続する場合、Microsoft は GCP 側に「管理用プロジェクト（Management Project）」を作成することを推奨しています。ここに、Defender for Cloud が GCP リソースをスキャンしたりセキュリティ設定を確認したりするために必要な権限を持つ**カスタムロール**を配置します。これにより、組織レベルでの一元管理が可能になり、新しいプロジェクトが追加された際も自動的にスキャンの対象に含めることができます。
+    
+2. **なぜ「Running a script in GCP Cloud Shell」なのか？** Microsoft Defender for Cloud のオンボードプロセスでは、GCP 側の環境設定（API の有効化、サービスアカウントの作成、ロールの割り当てなど）を自動化するための **Cloud Shell スクリプト**が提供されます。このスクリプトを GCP の Cloud Shell で実行することで、必要なインフラ設定が数分で完了します。Azure 側の Bicep やスクリプトではなく、接続先である GCP 側の設定操作が必要となるため、GCP Cloud Shell を使用します。
 
 質問#48 トピック2
 
@@ -88,16 +91,6 @@ VM1 という仮想マシンを含む Azure サブスクリプションがあり
 
 **Correct Answer:** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/12/#)  
 
-**解説:**
-Microsoft Defender for Serversを有効にするためにAzure Arcエージェントのインストールが必要なリソースを特定します。
-
-- **Server1 (AWS EC2)**: Azure外のVMなので、**必要**。
-- **Server2 (Azure VM)**: Azureネイティブのリソースなので、Arcエージェントは**不要**（VMエージェントを使用）。
-- **Server3 (Azure VM with SQL)**: Azureネイティブなので、Arcエージェントは**不要**。
-- **Server4 (Physical Server)**: オンプレミスの物理サーバーなので、**必要**。
-したがって、Arcエージェントが必要なのは **Server1 と Server4** です。
-（※正解選択肢が C (Server1, Server2, Server4) となっていますが、Server2はAzure VMであれば不要なはずです。ただし、Server2が「Azure VM」と明記されているにも関わらずCが正解とされる場合、設問の前提（OS要件や管理形態）に特殊な条件があるか、あるいはServer2が管理されていない（エージェントが壊れている等）とみなされている可能性があります。標準的な知識では **Server1とServer4** ですが、選択肢の構成上Cが選ばれているようです。ここでは解説として「Azure外のリソースにはArcが必要、Azure VMには不要」という原則を押さえておいてください。）
-
 質問#53 トピック2
 
 Microsoft Defender for Cloud を使用する Azure サブスクリプションをお持ちです。Account1 という GitHub アカウントがあり、10 個のリポジトリが含まれています。Defender for Cloud が Account1 のリポジトリにアクセスできることを確認する必要があります。Microsoft Defender for Cloud ポータルでまず何をすべきでしょうか？
@@ -126,8 +119,6 @@ Microsoft Defender for Cloud を使用する Sub1 という Azure サブスク�
   
 ![](https://img.examtopics.com/sc-200/image195.png)
 
-**Correct Answer:** ![](https://img.examtopics.com/sc-200/image196.png)
-
 **解説:**
 1. Defender for Cloud での設定: Add an environment
 
@@ -137,7 +128,6 @@ Azure DevOps などの外部リポジトリを Defender for Cloud と連携さ�
     
 - 「Enable a plan」はサブスクリプション全体で DevOps セキュリティを有効にする操作ですが、特定の組織 `AzDO1` との**統合**を直接行う操作は「Add an environment」です。
     
-
 2. AzDO1 での設定: Install an extension
 
 パイプライン内で公開されているシークレット（パスワードや API キーなど）を検出するには、パイプラインのビルドプロセス中にスキャンを実行する必要があります。

@@ -10,10 +10,10 @@ Microsoft Defender for Cloud を使用する Azure サブスクリプション�
   
 どの重大度を使用すればよいですか？
 
-- A. 情報提供
-- 吹く ​
-- C. 中
-- D. ハイ
+- A. Informational
+- B. Low
+- C. Medium
+- D. High
 
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/11/#)  
 
@@ -28,10 +28,10 @@ High（高）はマルウェアの実行など、より確実で即時性の高�
   
 どの JSON キーを検索すればよいでしょうか？
 
-- A. 説明
-- B. 意図
-- C. 拡張プロパティ
-- D. エンティティ
+- A. Description
+- B. Intent
+- C. ExtendedProperies
+- D. Entities
 
 **正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/11/#)  
 
@@ -59,42 +59,33 @@ SIEMでDefender for Cloudアラートを取り込む際、MITRE ATT&CKの戦術�
 この構成の鍵は、オンプレミスサーバーを **Azure Arc** 対応サーバーとして定義し、最新の監視エージェントを導入することにあります。
 
 1. スクリプトの生成と Arc 接続
-
 オンプレミスリソースを Azure の管理下に置くには、まず Azure Arc を使用する必要があります。ポータルからインストールスクリプトを生成し、各サーバーで実行することで、**Azure Connected Machine エージェント**がインストールされます。これにより、オンプレミスサーバーが Azure 上のリソース（Arc サーバー）として認識されるようになります。
 
 2. データ収集ルール (DCR) のサポート
-
 要件にある「データ収集ルール (DCR)」をサポートするためには、従来の Log Analytics エージェントではなく、**Azure Monitor エージェント (AMA)** をインストールする必要があります。
 
 - **Log Analytics agent (旧称 MMA)**: DCR をサポートしておらず、現在は非推奨（廃止予定）に向かっています。
     
 - **Azure Monitor agent (AMA)**: DCR を使用して、どのデータを収集し、どこに送信するかをきめ細かく制御できます。
     
-
 3. 脅威と脆弱性の管理 (TVM)
-
 Microsoft Defender for Servers（プラン1またはプラン2）が有効で、サーバーが Azure Arc に接続されている場合、Microsoft Defender for Endpoint の拡張機能が自動的にデプロイされます。これにより、要件である「脅威と脆弱性の管理（TVM）」機能が提供されます。
 
 まとめ：なぜこの 3 つか？
 
 - **Azure Connected Machine agent**: オンプレミスを Azure に「繋ぐ」ために必須。
-    
 - **Azure Monitor agent**: 「データ収集ルール (DCR)」に対応するために必須。
-    
 - **Log Analytics agent**: DCR をサポートしないため、今回の要件では選択しません。
 
 質問#38 トピック2
   
 Microsoft Defender for Cloud を使用する Azure サブスクリプションがあり、app1 という Azure ロジック アプリが含まれています。  
   
-特定の Defender for Cloud セキュリティ アラートが生成されたときに、app1 が起動するようにする必要があります。Azure  
-Resource Manager (ARM) テンプレートをどのように完了すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
+特定の Defender for Cloud セキュリティ アラートが生成されたときに、app1 が起動するようにする必要があります。Azure Resource Manager (ARM) テンプレートをどのように完了すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image133.png)
-
-**正解:** ![](https://img.examtopics.com/sc-200/image134.png)
 
 **解説:**
 このテンプレートは、Defender for Cloud の「ワークフロー自動化（Workflow Automation）」リソースを定義しています。
@@ -102,18 +93,13 @@ Resource Manager (ARM) テンプレートをどのように完了すればよい
 1. リソースタイプ ("Microsoft.Security/automations")
 
 - **Microsoft.Security/automations**: これは Microsoft Defender for Cloud におけるワークフロー自動化リソースを定義するための正しいリソース種類です。これにより、特定のアラートや推奨事項をトリガーとして、後続のアクションを紐付けることができます。
-    
 - **Microsoft.Automation/automationAccounts**: Azure Automation アカウントを定義するためのもので、今回のワークフロー自動化の定義には使用しません。
-    
 - **Microsoft.Logic/workflows**: これはロジックアプリ本体を定義するための種類です。
     
-
 2. コールバック URL の取得 (triggers)
 
 - ロジックアプリを外部から（この場合は Defender for Cloud から）呼び出すには、そのロジックアプリの「トリガー」エンドポイントの URL が必要です。
-    
 - `listCallbackURL` 関数を使用して URL を動的に取得する場合、対象となるリソースパスの階層として、ロジックアプリ名の後に **triggers** を指定する必要があります（例：`Microsoft.Logic/workflows/triggers`）。
-    
 - テンプレート内の `'manual'` という記述は、ロジックアプリ側のトリガー名（通常は HTTP 要求の受信時トリガーなど）を指しています。
 
 質問#39 トピック2
@@ -126,32 +112,42 @@ Resource Manager (ARM) テンプレートをどのように完了すればよい
   
 ![](https://img.examtopics.com/sc-200/image159.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image419.png)
+**正解：**
 
-**解説:**
-このソリューションは、Azure のセキュリティ態勢管理（CSPM）において、**「推奨事項（Recommendations）」**をトリガーとして自動修復を行う構成を指しています。
+**Set the LA1 trigger to:**
+- **When a Defender for Cloud Recommendation is created or triggered**
 
-1. トリガーの設定
-「セキュリティリスク（Security risks）」という言葉は、Microsoft Defender for Cloud の文脈では、通常、構成の不備や脆弱性を示す「推奨事項」を指します（脅威は「アラート」と呼ばれます）。
+**Trigger the execution of LA1 from:**
+- **Recommendations**
 
-- **When a Defender for Cloud Recommendation is created or triggered**: 推奨事項が生成されたとき、または状態が変化したときにロジックアプリを動かすための正しいトリガーです。
+**理由：**
+
+1. **トリガーの設定について：**
+    - ドキュメントには、Logic Appデザイナーで以下のDefender for Cloudトリガーがサポートされていると記載されています：
+        - "When a Microsoft Defender for Cloud recommendation is created or triggered"
+        - "When a Defender for Cloud Alert is created or triggered"
+        - "When a Defender for Cloud regulatory compliance assessment is created or triggered"
+    - 質問では「セキュリティリスクを自動的に修復する」とあります。セキュリティリスクの修復は**Recommendations（推奨事項）**に基づいて行われます
+2. **実行のトリガー場所について：**
     
-- **When a response to a Defender for Cloud alert is triggered**: これは「アラート」に対して**手動**で自動応答を実行する際のトリガーであり、今回の「自動的に修復する」という要件や推奨事項の文脈とは異なります。
+    - ドキュメントの「Manually trigger a logic app」セクションに明確に記載されています：
     
-
-2. テストの実行場所
-作成したロジックアプリが正しく動作するかテストするには、実際の推奨事項の画面から実行を試みるのが最短の手順です。
-
-- **Recommendations**: Defender for Cloud の推奨事項の一覧から、該当する項目を選択し、ロジックアプリを手動でトリガーして修復が実行されるかを確認できます。
+    > "You can also manually run logic apps when you view any security alert or recommendation. To manually run a logic app, open an alert or a recommendation, and then select **Trigger logic app**."
     
-- **Security alerts**: ここは脅威（マイニングの検出など）をテストする場所であり、サンプルアラートを生成してテストしますが、今回の「リスク修復」のテスト場所としては適しません。
-    
+    - つまり、Logic Appをテストするには：
+        - **Recommendations**（推奨事項）を開く
+        - または **Security alerts**（セキュリティアラート）を開く
+        - そこから「Trigger logic app」を選択する
+3. **なぜRecommendationsが正解か：**
+    - セキュリティリスクの「修復」は推奨事項（Recommendations）に基づいて行われます
+    - アラートは脅威の検出であり、推奨事項は設定の改善や脆弱性の修正を示します
+    - 自動修復の目的に最も適しているのはRecommendationsです
 
-試験対策のポイント
+**不正解の選択肢：**
 
-- **推奨事項（Recommendation）** ＝ リスクの修復（Remediation） / 態勢管理。
-    
-- **セキュリティアラート（Alert）** ＝ 脅威への応答（Response） / 脅威防御。 この 2 つの用語の使い分けを理解しておくと、ワークフロー自動化の問題は非常に解きやすくなります。
+- "When a response to a Defender for Cloud alert is triggered" - これはレガシートリガーで、ドキュメントでは使用しないよう推奨されています
+- "Security alerts" - アラートからもトリガーできますが、「修復」という目的にはRecommendationsの方が適切です
+- "Regulatory compliance standards" - コンプライアンス評価からもトリガーできますが、一般的なセキュリティリスクの修復にはRecommendationsが適切です
 
 質問#40 トピック2
 
@@ -188,19 +184,15 @@ Windows VMでDefender for Cloudのアラート生成攻撃をシミュレート�
 この手順は、Microsoft が提供する「アラートの検証（シミュレーション）」の公式ドキュメントに基づいた標準的な検証フローです。
 
 1. 強化されたセキュリティ機能の有効化
-
 Microsoft Defender for Cloud の無料版（基本機能）では、高度な脅威検出機能が提供されません。サーバーの脅威を検出するには、**Microsoft Defender for Servers（強化されたセキュリティ機能）** をサブスクリプション レベルで有効にする必要があります。
 
 2. 検証用ファイルの配置と名前変更
-
 Defender for Cloud には、特定のファイル名を検知するとテスト用のアラートを生成する仕組みがあります。任意の実行ファイル（calc.exe など）を VM にコピーし、ファイル名を **`ASC_AlertTest_662jfi039N.exe`** に変更します。この文字列は Microsoft がシミュレーション用に予約している固有の ID です。
 
 3. 実行と引数の指定
-
 ファイル名を変更しただけではアラートがトリガーされない場合があります。コマンド プロンプトを開き、作成したファイルを実行します。その際、適当な引数（例：`ASC_AlertTest_662jfi039N.exe -arg`）を指定して実行することで、不審なプロセスの実行として Defender が検知し、セキュリティ アラートがトリガーされます。
 
 補足
-
 - **メールのしきい値設定**: 「アラート通知」を受信するための設定であり、アラートそのものを「トリガー」させるための手順ではないため、今回の回答には含めません。
     
 - **ファイル名の重要性**: `AlertTest.exe` などの一般的な名前では、この特定のテスト ロジックは動作しません。

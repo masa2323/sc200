@@ -91,9 +91,7 @@ Policyの割り当ては、Policiesの図に示されているように構成さ
 
 質問19 トピック2
 
-Azure Security Center を使用しています。Security  
-Center でセキュリティアラートを受信しました。Security  
-Center でアラートを解決するための推奨事項を確認する必要があります。  
+Azure Security Center を使用しています。Security Center でセキュリティアラートを受信しました。Security Center でアラートを解決するための推奨事項を確認する必要があります。  
 どうすればよいでしょうか？  
 
 - A. 「セキュリティ アラート」からアラートを選択し、「アクションを実行」を選択して、「将来の攻撃を防ぐ」セクションを展開します。
@@ -128,7 +126,6 @@ Azure Security Center には、テスト用に使用されている 10 台の仮
 
 質問#21 トピック2
 
-ホットスポット -  
 アプリケーション開発中に複数のAzure FunctionsアプリからアクセスされるAzure Storageアカウントがあります。  
 このストレージアカウントのAzure Defenderアラートを非表示にする必要があります。  
 抑制ルールでは、どのエンティティタイプとフィールドを使用すべきでしょうか？回答するには、回答エリアで適切なオプションを選択してください。  
@@ -136,21 +133,29 @@ Azure Security Center には、テスト用に使用されている 10 台の仮
 ホットエリア：  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0007600001.jpg)  
 
-**正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0007700001.jpg) 参照:  
+**正解：**
+- **Entity type: Azure Resource**
+- **Field: Resource Id**
 
-**解説:**
-Azure Storageアカウントに対するアラートを抑制するための設定です。
+**理由：**
 
-1. **Entities (エンティティ)**: ルールの適用範囲を指定します。特定のストレージアカウントを対象とするため、**「Azure Storage account」** を選択します。
-2. **Field (フィールド)**: エンティティを特定するための識別子です。**「ResourceId」** （またはResource IDの一部）を指定して、特定のストレージアカウントを一意に識別し、ルールを適用します。
+1. **Azure Resource**を選択する理由：
+    - Azure Storageアカウントは「Azure Resource」として分類されます
+    - IP address、Host、User accountではなく、Azure上のリソースそのものを対象とするため
+2. **Resource Id**を選択する理由：
+    - Azure内の各リソースは一意のResource IDで識別されます
+    - 特定のStorageアカウントを識別するには、Resource IDが最も正確です
+    - Resource IDの形式: `/subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.Storage/storageAccounts/{storage-account-name}`
+    - Nameだけでは同じ名前が複数のサブスクリプションに存在する可能性があり、一意性が保証されません
 
-<https://techcommunity.microsoft.com/t5/azure-security-center/suppression-rules-for-azure-security-center-alerts-are-now/ba-p/1404920>
+この組み合わせにより、特定のAzure Storageアカウントに対するDefenderアラートを正確に抑制できます。
 
 質問#22 トピック2
 
 Azureサブスクリプションを作成します。  
 そのサブスクリプションでAzure Defenderを有効にします。  
-オンプレミスのコンピューターを保護するには、Azure Defenderを使用する必要があります。オンプレミスのコンピューターでは、どのような対策を講じるべきでしょうか？  
+オンプレミスのコンピューターを保護するには、Azure Defenderを使用する必要があります。
+オンプレミスのコンピューターでは、どのような対策を講じるべきでしょうか？  
 
 - A. Log Analytics エージェントをインストールします。
 - B. Dependency Agent をインストールします。
@@ -167,8 +172,7 @@ Log Analyticsエージェント（A）を直接インストールする方法も
 質問#23 トピック2
 
 セキュリティ管理者は、ストレージアカウントへのマルウェアのアップロードやブルートフォース攻撃の成功の可能性といったアクティビティについて、Azure Defender からメールアラートを受け取ります。  
-マルウェア対策アクションの失敗や疑わしいネットワークアクティビティといったアクティビティについては、メールアラートは受け取りません。アラートは  
-Azure Security Center に表示されます。  
+マルウェア対策アクションの失敗や疑わしいネットワークアクティビティといったアクティビティについては、メールアラートは受け取りません。アラートは Azure Security Center に表示されます。  
 セキュリティ管理者がすべてのアクティビティについてメールアラートを受信できるようにする必要があります。Security Center の設定では、どのような構成を行う必要がありますか？  
 
 - A. 電子メール通知の重大度レベル
