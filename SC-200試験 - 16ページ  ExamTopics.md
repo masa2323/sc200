@@ -18,8 +18,7 @@ Azure Security Center によって生成されたセキュリティアラート�
 
 質問#25 トピック3
 
-Azure Sentinel を使用しています。Azure  
-Storage アカウントキーが列挙されるたびに、ほぼリアルタイムでアラートを受信する必要があります。  
+Azure Sentinel を使用しています。Azure Storage アカウントキーが列挙されるたびに、ほぼリアルタイムでアラートを受信する必要があります。  
 実行すべき 2 つのアクションはどれですか？ 正解はそれぞれ解答の一部です。  
 注: 正解は 1 点です。  
 
@@ -42,12 +41,11 @@ Storageアカウントキーの列挙をほぼリアルタイムで検出しア�
 
 Azure Sentinel をデプロイします。Azure 上の Microsoft Teams と Linux 仮想マシンを監視するには、Azure Sentinel にコネクタを実装する必要があります。ソリューションは管理作業を最小限に抑える必要があります。  
 各ワークロードにはどの種類のデータコネクタを使用すべきでしょうか？回答するには、回答エリアで適切なオプションを選択してください。  
-注: 正解は 1 点です。  
+注: 正解は 1 点です。
 ホットエリア:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0013000001.jpg)  
 
-**正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0013100001.jpg) 参照:  
-<https://docs.microsoft.com/en-us/azure/sentinel/connect-office-365> <https://docs.microsoft.com/en-us/azure/sentinel/connect-syslog>
+**正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0013100001.jpg)
 
 **解説:**
 各ワークロードに適したデータコネクタの選択です。
@@ -107,15 +105,12 @@ Azure Sentinel 分析ルールを使用して、Amazon Web Services (AWS) ログ
 各ステップがなぜこの順番になるのか、理由を説明します。
 
 - **ステップ 1: Add the Amazon Web Services connector**
-    
     - 分析を行う前に、まずソースとなる AWS のログ（CloudTrail など）を Microsoft Sentinel に取り込む必要があります。そのため、最初に専用の**データコネクタを追加**します。
         
 - **ステップ 2: From Analytics in Azure Sentinel, create a custom analytics rule that uses a scheduled query**
-    
     - 「特定の条件を検索する」という要件を満たすためには、KQL（Kusto Query Language）を使用して自由に条件を記述できる**スケジュール済みクエリ ルール**を選択する必要があります。
         
 - **ステップ 3: Set the alert logic**
-    
     - カスタム分析ルールの作成ウィザードの中で、実際にどのようなクエリを実行し、どの程度の頻度でチェックするかという**アラートのロジックを設定**します。
         
 ---

@@ -17,14 +17,13 @@ Azure ADのアラート（Identity Protectionなど）がSentinelに取り込ま
 
 質問#45 トピック3
 
-Microsoft Sentinelワークスペースをご利用の場合、  
-2つ以上のアラートまたはアクティビティで構成される高度な多段階攻撃を検出するために使用するルールを特定する必要があります。このソリューションは、管理作業を最小限に抑える必要があります。  
+Microsoft Sentinelワークスペースをご利用の場合、  2つ以上のアラートまたはアクティビティで構成される高度な多段階攻撃を検出するために使用するルールを特定する必要があります。このソリューションは、管理作業を最小限に抑える必要があります。  
 どのタイプのルールをクエリすればよいでしょうか？  
 
-- A. 融合
-- B. マイクロソフトセキュリティ
-- C. ML行動分析
-- D. 予定
+- A. Fusion
+- B. Microsoft Security
+- C. ML Behavior Analytics
+- D. Scheduled
 
 **正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/18/#)  
 
@@ -41,7 +40,7 @@ Microsoft Sentinel を使用する Azure サブスクリプションがあり、
 
 - A. Log Analytics データコレクター API
 - B. REST API統合
-- C. 共通エバートフォーマット（CEF）コネクタ
+- C. 共通イベントフォーマット（CEF）コネクタ
 - D. Syslogコネクタ
 
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/18/#)  
@@ -58,31 +57,54 @@ Microsoft Defender for Cloud の強化されたセキュリティ機能が有効
 ホットエリア:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0015200001.png)  
 
-**正解:** ![](https://img.examtopics.com/sc-200/image426.png)
+### 解答の根拠
 
-**解説:**
-Defender for CloudのログをSyslogサーバーにストリーミングする構成です。
+ドキュメントによると、Microsoft Defender for CloudのログをSyslogサーバーにストリーミングするには:
+1. **Exports logs to an (エクスポート先):**
+    - Azure Event Hubを使用する必要があります
+    - Syslogサーバーへの直接エクスポートはサポートされていないため、Azure Event Hub経由でストリーミングします
+2. **Configure streaming by (ストリーミングの設定方法):**
+    - **100個のサブスクリプション**があり、**管理作業を最小限に抑える**必要があるため、Azure Policyを使用して一括設定するのが最適です
+    - ドキュメントには「テナントレベルでアラートをストリーミングするには、このAzure Policyを使用し、スコープをルート管理グループに設定する」と明記されています
+    - Azure Policy「Deploy export to an event hub for Microsoft Defender for Cloud alerts and recommendations」を**ルート管理グループ(root management group)に割り当てる**ことで、すべてのサブスクリプションに自動的に適用されます
 
-1. **Azure Event Hubs**: 「連続エクスポート (Continuous Export)」機能を使用して、Defender for Cloudのアラートや推奨事項をAzure Event Hubにストリーミングします。これがSyslogなど外部への出口となります。
-2. **Azure Policy**: Microsoft Defender for Cloud データのイベント ハブへのエクスポートをデプロイする
-※正解画像の選択肢が不明瞭ですが、**「Continuous export」**を設定し、ターゲットとして**「Event Hub」**を選択する構成が最小労力の鍵です。
+**解答:**
+
+| 項目                      | 選択肢                                                                  |
+| ----------------------- | -------------------------------------------------------------------- |
+| Exports logs to an:     | **Azure event hub**                                                  |
+| Configure streaming by: | **Creating an Azure Policy assignment at the root management group** |
+
+この構成により:
+
+- Azure Event Hubにログをエクスポート
+- Event HubからAzure Functionなどを使ってSyslogサーバーに転送
+- ルート管理グループレベルでAzure Policyを設定することで、100個すべてのサブスクリプションに自動適用され、管理作業が最小限になります
 
 質問#48 トピック3
 
 100台のLinux仮想マシンを含むAzureサブスクリプションがあります。  
-仮想マシンからイベントログを収集するには、Microsoft Sentinelを構成する必要があります。3  
-つのアクションのうち、どのアクションを順番に実行する必要がありますか？ 回答するには、アクションリストから適切なアクションを回答エリアに移動し、正しい順序に並べ替えてください。  
+仮想マシンからイベントログを収集するには、Microsoft Sentinelを構成する必要があります。
+3 つのアクションのうち、どのアクションを順番に実行する必要がありますか？ 回答するには、アクションリストから適切なアクションを回答エリアに移動し、正しい順序に並べ替えてください。  
 選択して配置してください。  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0015300001.jpg)  
 
-**正解:** ![](https://img.examtopics.com/sc-200/image427.png)
+### 解答の根拠
+Microsoft Sentinelを使用してLinux仮想マシンからログを収集するための標準的な手順:
 
-**解説:**
-Linux VMからイベントログを収集する手順です（AMA/Legacy Agentのどちらか）。
+1. **まず、Microsoft SentinelをLog Analyticsワークスペースに追加する**
+    - Microsoft Sentinelを有効化するには、Log Analyticsワークスペースに接続する必要があります
+2. **次に、Syslogコネクタをワークスペースに追加する**
+    - データコネクタを設定して、Syslogデータの収集を有効にします
+    - これにより、どのデータを収集するかを定義します
+3. **最後に、Linux仮想マシンにLog Analytics agentをインストールする**
+    - エージェントをインストールすることで、実際にログの収集が開始されます
+    - エージェントがSyslogデータをワークスペースに送信します
 
-1. **Install the MMA/AMA agent**: Linux VMにエージェント（Log AnalyticsエージェントまたはAzure Monitorエージェント）をインストールします。
-2. **Configure the Syslog data connector**: Sentinel（またはLog Analyticsワークスペース）の設定で、収集するSyslogファシリティと重要度レベル（Severity）を構成します。
-3. **（該当なし）**: 手順としてはエージェント導入と収集設定の2ステップが主ですが、3つ選ぶ必要がある場合、「ワークスペースIDとキーの取得」などが含まれる可能性があります。
+**正しい順序:**
+1. **Add Microsoft Sentinel to a workspace.**
+2. **Add a Syslog connector to the workspace.**
+3. **Install the Log Analytics agent for Linux on the virtual machines.**
 
 質問#49 トピック3
 
@@ -117,19 +139,32 @@ Microsoft Sentinel ワークスペースがあります。
 - C. 3 行目で、!contains 演算子を !has 演算子に置き換えます。
 - D. 4 行目で、TimeGenerated 述語を削除します。
 
-**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/18/#)  
+KQL関数(パーサー)では、以下の制限があります:
 
-**解説:**
-既存のクエリ（Query1）を元にParser（関数）を作成する際、修正すべき点です。
-**「2行目を削除します」**: 画像のコードを参照すると、2行目はおそらく具体的な値をフィルタリングしている箇所（例: `| where HostName == "SpecificHost"`）や、テスト用の制限などと考えられます。汎用的なParserとして機能させるには、特定のテスト条件を削除し、引数を受け取れるようにするか、あるいは純粋なデータ整形ロジックのみにする必要があります。
-※一般論として、Parser（Function）にする際、特定の値をハードコードしている行は削除またはパラメータ化します。
+- **`sort`や`order`演算子は、関数の戻り値として使用できません**
+- 関数本体の最後の式はそのまま返されるため、`sort`を含めることはできません
+
+したがって、Query1をパーサーとして使用するには、**5行目の`sort`演算子を削除する必要があります**。
+
+**解答: A. 5行目を削除します。**
+
+### 理由:
+
+1. **KQL関数(パーサー)では`sort`演算子を使用できない**
+    - KQL関数の本体では、結果を返す最後の式に`sort`や`order`演算子を含めることができません
+    - これはKQL関数の制限事項です
+2. **パーサーは呼び出し元でソートすべき**
+    - パーサー(関数)は正規化されたデータを返し、ソートは呼び出し元のクエリで行うべきです
+    - これにより、パーサーの再利用性が向上します
+3. **その他の選択肢が正しくない理由:**
+    - **B**: 2行目(`where TimeGenerated > ago(7h)`)は時間フィルタで、パーサーでは問題ありません
+    - **C**: 3行目の`!contains`演算子は正常に機能します
+    - **D**: 4行目の`TimeGenerated`は`project`句で必要なフィールドです
 
 質問#51 トピック3
 
 Microsoft Sentinel を使用する Azure サブスクリプションをお持ちです。  
-  
 サインイン情報を時系列で視覚化するカスタムレポートを作成する必要があります。  
-  
 まず何を作成すればよいでしょうか？
 
 - A. 狩猟に関する質問
@@ -190,13 +225,46 @@ Microsoft 365 E5 サブスクリプションがあり、User1 と User2 とい�
   
 ![](https://img.examtopics.com/sc-200/image137.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image428.png)
+1. **AuditLogsテーブル**から「Add user」操作を取得
+2. 作成されたユーザーの情報を抽出
+3. **AzureActivityテーブル**と結合して「Create role assignment」操作を検索
+4. **結合条件**: 同じユーザー(user)が「ユーザーを作成」AND「ロール割り当てを作成」の両方を実行した場合のみマッチ
 
-**解説:**
-AuditLogsに対するHuntingクエリの結果判定です。
-クエリは `AuditLogs | where OperationName == "Add member to role" ...` と `... "Add user"` のような操作を対象にしています。
+**重要なポイント:**
 
-1. いいえ - クエリは、ロールの割り当てを含むユーザー作成イベントを検索することを目的としていますが、これは一致しません。
-2. いいえ - クエリの最初の部分には一致しますが、2 番目の部分には一致しません。
-3. はい - 新しいユーザーが作成され、クエリの両方の部分に一致するセキュリティ オペレーター ロールが割り当てられます。
-※このHuntingクエリは `TargetResources` 内の `modifiedProperties` を解析しようとしていますが、通常 `Add member to role` イベントでは、対象ユーザーやロール情報は `TargetResources` 直下や特定のプロパティにあります。クエリが正しくターゲットを特定できているかどうかがポイントです。
+- このクエリは、**同一人物**が「ユーザー作成」と「ロール割り当て」の両方を行った場合のみ結果を返します
+- `on user`での結合により、作成されたユーザー名ではなく、**操作を実行したユーザー**でマッチングします
+
+**各アクションの分析:**
+
+1. **User1がUser2にグローバル管理者ロールを割り当て**
+    - 操作者: User1
+    - User1はロール割り当てのみ実行(ユーザー作成なし)
+    - **マッチしない**
+2. **User1がUser3を作成してライセンス割り当て**
+    - 操作者: User1
+    - User1はユーザー作成のみ(ロール割り当てなし)
+    - **マッチしない**
+3. **User2がUser4を作成してセキュリティ閲覧者ロールを割り当て**
+    - 操作者: User2
+    - User2が「User4を作成」AND「ロール割り当てを作成」
+    - 両方の操作をUser2が実行
+    - **マッチする** ✓
+4. **User2がUser5を作成してセキュリティオペレーターロールを割り当て**
+    - 操作者: User2
+    - User2が「User5を作成」AND「ロール割り当てを作成」
+    - 両方の操作をUser2が実行
+    - **マッチする** ✓
+
+解答:**
+
+|ステートメント|Yes|No|
+|---|---|---|
+|The query will identify the role assignment of User2.||○|
+|The query will identify the creation of User3.||○|
+|The query will identify the creation of User5.|○||
+
+**正しい理由:**
+1. **User2のロール割り当て - NO**: User1がUser2にロールを割り当てたが、このクエリはUser2が**受けた**ロール割り当てではなく、User2が**実行した**ロール割り当てを検出する
+2. **User3の作成 - NO**: User1がUser3を作成したが、User1はロール割り当ても行っていない(User2へのロール割り当ては別の時系列)ため、結合条件を満たさない
+3. **User5の作成 - YES**: User2がUser5を作成し、同時にロールも割り当てたため、結合条件を満たす

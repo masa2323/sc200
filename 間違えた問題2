@@ -278,3 +278,152 @@ Microsoft Defender for Cloud を使用する Azure サブスクリプション�
 GitHubリポジトリをDefender for Cloudに統合する最初のステップです。
 **「環境を追加します (Add environment)」**: Defender for Cloudの「環境設定 (Environment settings)」ブレードから、「環境を追加 (Add environment)」を選択し、「GitHub」を選んで接続ウィザードを開始します。これにより、GitHub組織またはアカウントとの接続（コネクタ）を作成します。
 
+質問#55 トピック2
+
+Microsoft Defender for Cloud を使用する Azure サブスクリプションをお持ちです。  
+  
+新しい Microsoft Secure Score アクションが生成されたときに、会社の IT 部門に Microsoft Teams メッセージを送信するワークフローを作成する必要があります。  
+  
+どの 3 つのアクションを順番に実行する必要がありますか？ 回答するには、アクションリストから適切なアクションを回答領域に移動し、正しい順序に並べ替えてください。  
+  
+![](https://img.examtopics.com/sc-200/image223.png)
+
+**正しい順序は以下の3つのアクション:**
+
+1. **Create an Azure logic app that includes the Defender for Cloud recommendation trigger.** (Defender for Cloud 推奨事項トリガーを含む Azure ロジック アプリを作成する)
+2. **Configure workflow automation.** (ワークフロー自動化を構成する)
+3. **Configure a trigger condition.** (トリガー条件を構成する)
+
+**解説:**
+
+- まず、Defender for Cloud の推奨事項トリガーを持つ Logic App を作成します
+- 次に、Defender for Cloud のワークフロー自動化機能を使用して、この Logic App を実行するように構成します
+- 最後に、特定の条件(例: 特定の推奨事項や重要度)でトリガーされるように条件を設定します
+
+質問#58 トピック2
+
+Sub1 という Azure サブスクリプションと AzDO1 という Azure DevOps 組織があります。AzDO1 には Defender for Cloud が使用されており、Pipeline1 という YAML パイプラインを持つプロジェクトが含まれています。Pipeline1 は、発見されたオープンソースソフトウェアの脆弱性の詳細を Defender for Cloud に出力します。  
+  
+シークレットスキャンの結果を Defender for Cloud に出力するように Pipeline を構成する必要があります。Pipeline1 に何を追加すればよいでしょうか？回答するには、回答エリアで適切なオプションを選択してください。  
+  
+注: 正解は 1 ポイントです。  
+  
+![](https://img.examtopics.com/sc-200/image225.png)
+
+**解説:**
+Azure DevOps パイプラインで Microsoft Security DevOps（MSDO）タスクを使用してセキュリティスキャンを実行する場合、YAML 形式でパラメータを指定する必要があります。
+
+1. inputs:
+YAML タスクにおいて、そのタスクに渡す設定値（引数）を定義するセクションの名前は **`inputs:`** です。これにより、タスクがどのように動作するかを制御します。
+
+2. categories: 'secrets'
+Microsoft Security DevOps 拡張機能のタスク（`MicrosoftSecurityDevOps@1` など）では、**`categories`** という入力パラメータを使用して、実行するスキャンの種類を指定します。
+
+- **'secrets'**: この値を指定することで、コード内のパスワードや API キーなどの機密情報の露出を検出するスキャン（CredScan など）が有効になり、その結果が Defender for Cloud に送信されるようになります。
+    
+- 他にも `IaC`（インフラ構成のスキャン）や `artifacts` などのカテゴリを指定することが可能です。
+    
+---
+この設定を Pipeline1 に追加することで、ビルドプロセス中にシークレットが自動的に検出され、Defender for Cloud の **DevOps Security** ダッシュボードで一元管理できるようになります。
+
+質問#59 トピック2
+
+sub1 という名前の Azure サブスクリプションを作成します。sub1 内に、workspace1 という名前の Log Analytics ワークスペースを作成します。Microsoft Defender for Cloud を有効にし、workspace1 を使用するように Defender for Cloud を構成します。workspace1 にレポートを送信する Azure 仮想マシンからセキュリティ イベント ログを収集する必要があります。  
+  
+どうすればよいでしょうか。
+
+- A. Defender for Cloud から、Microsoft Defender for Servers プランの設定を変更します。
+- B. サブ1でプロバイダーを登録します。
+- C. Defender for Cloud からワークフロー自動化を作成します。
+- D. ワークスペース1 でワークブックを作成します。
+
+**正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/13/#)  
+
+**解説:**
+特定のLog Analyticsワークスペース（workspace1）にレポートするAzure VMからセキュリティイベントログを収集する方法です。
+**「Defender for Cloudから、Microsoft Defender for Serversプランの設定を変更します」**: Defender for Serversプランをワークスペースレベルで有効にするか、サブスクリプションレベルの設定で対象ワークスペースへの自動プロビジョニングとデータ収集設定（Common/Allなど）を構成することで、イベントログの収集が開始されます。
+
+質問3 トピック3
+
+Azure Sentinel をデプロイしています。  
+不審な資格情報アクセスアクティビティをすべてクエリする必要があります。  
+どの 3 つのアクションを順番に実行する必要がありますか？ 回答するには、アクションリストから適切なアクションを回答領域に移動し、正しい順序に並べ替えてください。  
+選択して配置します。  
+![](https://www.examtopics.com/assets/media/exam-media/04261/0011100001.png)  
+
+**解説:**
+1. Hunting ページの選択
+
+まず、脅威ハンティングを行うための専用ページである **[Hunting（捜索）]** を選択します。ここには、特定の攻撃手法を検知するための定義済みクエリが多数用意されています。
+
+2. 戦術（Tactics）によるフィルタリング
+
+「資格情報アクセス（Credential Access）」は MITRE ATT&CK フレームワークにおける特定の**戦術（Tactic）**にあたります。
+
+- **Filter by tactics** を使用して、「Credential Access」を選択することで、数百あるクエリの中から、資格情報の窃取に関連するものだけに絞り込むことができます。
+    
+3. Run All Queries の実行
+
+フィルタリングによって対象を絞り込んだ状態で **[Run All Queries（すべてのクエリを実行）]** を選択します。
+
+- これにより、現在リストに表示されている（＝資格情報アクセスに関連する）すべてのハンティングクエリが一括で実行され、異常なアクティビティがないかを確認できます。
+
+質問4 トピック3
+
+Azure Active Directory (Azure AD) ユーザーをブロックするために使用する既存の Azure ロジック アプリがあります。このロジック アプリは手動でトリガーされます。Azure  
+Sentinel をデプロイします。  
+この既存のロジック アプリを Azure Sentinel のプレイブックとして使用する必要があります。  
+まず何をすべきでしょうか？  
+
+- A. 新しいスケジュールされたクエリ ルール。
+- B. Azure Sentinel にデータ コネクタを追加します。
+- C. Azure Sentinel でカスタム脅威インテリジェンス コネクタを構成します。
+- D. ロジック アプリでトリガーを変更します。
+
+**正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
+
+**解説:**
+既存の汎用的なLogic AppをSentinelプレイブックとして使用するための最初のステップです。
+**「ロジック アプリでトリガーを変更します」**: Sentinelプレイブックとして動作させるには、Logic Appの開始トリガーを「Microsoft Sentinel incident」または「Microsoft Sentinel alert」に変更する必要があります。HTTPトリガーなどの通常のトリガーのままでは、Sentinelの自動化ルールや手動実行から呼び出すことができません。
+
+質問9 トピック3
+
+Azure Sentinel ワークスペースをお持ちです。Azure ポータルでプレイブックを手動でテストする必要があります。Azure Sentinel のどこからテストを実行できますか？  
+
+- A. プレイブック
+- B. 分析
+- C. 脅威情報
+- D. 事件
+
+**正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/14/#)  
+
+**解説:**
+Sentinelプレイブックを手動でテスト・実行する場所です。
+**「インシデント (Incidents)」**: インシデントの調査画面（詳細ページ）やアラートビューから、特定のインシデント/アラートに対して「プレイブックの実行 (Run guidebook)」を選択し、手動でトリガーして動作確認を行うことができます。これが最も一般的なテスト方法です。
+
+質問#52 トピック3
+
+Microsoft Sentinelワークスペースを使用しています。  
+  
+あるアカウントへのサインイン失敗に関するアラートが複数回発生しています。  
+  
+これらのアラートは誤検知であることが判明しました。  
+  
+このアカウントに対して、今後サインイン失敗アラートが生成されないようにする必要があります。このソリューションは、以下の要件を満たす必要があります。  
+  
+• 他のアカウントに対してもサインイン失敗アラートが生成されるようにする。  
+• 管理作業を最小限に抑える。  
+  
+どうすればよいでしょうか？
+
+- A. 分析ルールを変更します。
+- B. ウォッチリストを作成します。
+- C. エンティティ動作にアクティビティ テンプレートを追加します。
+- D. 自動化ルールを作成します。
+
+**正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/18/#)  
+
+**解説:**
+特定のアカウントに対する誤検知アラート（サインイン失敗）を停止し、他のアカウントは監視を継続する、かつ管理負荷を低くする方法です。
+**「分析ルールを変更します」**: KQLクエリに特定のアカウントを除外する条件（例: `and UserPrincipalName != "user@example.com"`）を追加するのが最も確実で処理負荷も低い方法です。
+※Automation rule（D）でもクローズは可能ですが、アラート自体は生成されてしまうため「生成されないようにする」という要件には分析ルールの修正が適しています。頻繁な変更がある場合はWatchlistの使用も検討されますが、選択肢の中ではAが基本です。

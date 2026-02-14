@@ -1,22 +1,3 @@
-質問#34 トピック3
-
-注: この質問は、同じシナリオを提示する一連の質問の一部です。一連の質問にはそれぞれ、定められた目標を達成できる可能性のある独自の解決策が含まれています。質問セットによっては、複数の正解が存在する場合もあれば、正解が存在しない場合もあります。  
-このセクションの質問に回答した後は、その質問に戻ることはできません。そのため、これらの質問はレビュー画面に表示されません。Azure Sentinel を構成しています。  
-悪意のある IP アドレスからの Azure 仮想マシンへのサインインが検出された場合、Azure Sentinel でインシデントを作成する必要があります。  
-解決策: クエリからライブストリームを作成します。  
-これは目標を達成していますか?  
-
-- A. はい
-- B. いいえ
-
-**正解:** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/17/#)  
-参考:  
-<https://docs.microsoft.com/en-us/azure/sentinel/connect-azure-security-center>
-
-**解説:**
-悪意のあるIPからのサインインを検出し、**インシデントを作成する**ことが目標です。
-**「クエリからライブストリームを作成します」**: ライブストリームはリアルタイムの監視ツールであり、アラートやインシデントを自動生成する機能ではありません。したがって、目標は達成されません。インシデントを作成するには「スケジュールされたクエリールール」を作成する必要があります。
-
 質問#35 トピック3
 
 ワークブック用のクエリを作成する必要があります。クエリは以下の要件を満たす必要があります。
@@ -32,7 +13,6 @@
 
 **解説:**
 このクエリの目的は「各インシデントの**最新のログ**を取得する」ことです。
-
 - **summarize**: データを特定の列（この場合は `IncidentNumber`）でグループ化するために使用します。
     
 - **arg_max(LastModifiedTime, *)**: これは `summarize` 演算子の中で使用される集計関数です。指定した列（`LastModifiedTime`）が**最大値（最新）**である行全体を取得します。
@@ -42,9 +22,7 @@
 なぜ他の選択肢ではないのか？
 
 - **project**: 列の選択や名前変更を行うものですが、グループ化や最新行の抽出はできません。
-    
 - **sort**: 並べ替えを行うだけで、重複するインシデント番号から最新の1つに絞り込むことはできません。
-    
 - **top / limit**: 単純に上位の行を取得するだけで、各インシデント番号ごとの最新行を特定するロジックには不向きです。
 
 質問#36 トピック3
@@ -57,18 +35,25 @@ SW1  で重複したイベントが発生しないようにする必要があり
 選択して配置：  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0014000001.jpg)  
 
-**正解:** ![](https://img.examtopics.com/sc-200/image425.png)
+ドキュメントによると、重複イベントを防止するための2つの方法があります:
+1. **Syslog設定からCEFメッセージを送信するファシリティを削除する** (ソースマシン側で設定)
+2. **Log Analytics AgentでSyslog同期を無効にする** (より直接的な方法)
 
-**解説:**
-この構成では、**CEF1** が「ログフォワーダー（コレクター）」として機能しています。重複を避けるために CEF1 で以下の制御が必要になります。
+設定内容を整理すると:
+- **Server2** はSyslogログをCEF1に送信
+- **Server1** はCEFログをCEF1に送信
+- **CEF1** はログをSW1(Azure Sentinel)に転送
 
-1. Syslog構成からのファシリティ削除
+重複を防ぐためには:
+1. **Syslog設定から、CEFメッセージを送信するファシリティを削除** → **Server1**で実行
+2. **Log Analytics AgentでSyslog同期を無効にする** → **CEF1**で実行(Log Analytics AgentはCEF1に配置されているため)
 
-**CEF1** 上の Syslog デーモン（rsyslog または syslog-ng）は、受信したメッセージをローカルの Log Analytics エージェントに渡します。もし CEF メッセージとして送信されているファシリティが Syslog としても収集対象になっていると、同じログが **CommonSecurityLog** テーブルと **Syslog** テーブルの両方に書き込まれ、重複が発生します。そのため、**CEF1** の Syslog 設定から CEF 用のファシリティを除外する必要があります。
+**解答:**
 
-2. Syslog 同期の無効化
-
-Azure Sentinel (SW1) のポータル設定で Syslog 収集が有効になっている場合、エージェントはその設定を自動的に同期してローカルログを収集しようとします。**CEF1** において、標準的な Syslog 収集プロセスと CEF 専用の転送プロセスが競合しないよう、**CEF1** 上のエージェントで Syslog 同期を無効化（または設定の除外）することが推奨されます。
+| アクション                                                                        | リソース        |
+| ---------------------------------------------------------------------------- | ----------- |
+| From the Syslog configuration, remove the facilities that send CEF messages. | **Server1** |
+| From the Log Analytics agent, disable Syslog synchronization.                | **CEF1**    |
 
 質問#37 トピック3
 
@@ -98,10 +83,10 @@ Microsoft Sentinel を使用する Azure サブスクリプションを所有し
 ビジュアルを作成するための Python ベースの Jupyter Notebook を作成する必要があります。ビジュアルにはクエリの結果が表示され、ダッシュボードにピン留めされます。このソリューションは開発の労力を最小限に抑える必要があります。  
 ビジュアルを作成するには何を使用すればよいでしょうか？  
 
-- A. 陰謀的な
-- B. テンソルフロー
-- C. ムスティッピー
-- D. matplotlib
+- A. plotly
+- B. TensorFlow
+- C. msticpy
+- D. matplotlib
 
 **正解：** C [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/17/#)  
 
@@ -123,28 +108,21 @@ sws1 という Microsoft Sentinel ワークスペースがあります。
 
 **解説:**
 1. **最上部のドロップダウン:**
-    
     - **`AzureActivity`**
         
     - **理由:** Azure リソース（ストレージアカウントなど）に対する「キーの一覧表示」などのコントロールプレーン操作は、`AzureActivity` テーブルに記録されます。`SecurityEvent` は Windows ログ用、`BehaviorAnalytics` は UEBA 用であるため、ここでは不適切です。
         
 2. **`evaluate` の後のドロップダウン:**
-    
     - **`autocluster()`**
         
     - **理由:** `evaluate autocluster()` 演算子は、データ内の複数の属性にわたる共通のパターン（クラスター）を自動的に抽出するために使用されます。この文脈では、ユーザーの通常のアクティビティパターン（この場合は期待される IP アドレスなど）を特定し、その後の `where CallerIpAddress != ExpectedIpAddress` で異常値をフィルタリングするために一般的に用いられる手法です。`bin()` は数値のグループ化、`count()` は単純な集計であるため、`evaluate` 句の直後に置く関数としては `autocluster()` が最適です。
-        
 ---
 ### 最終的なクエリの動作解説
 
 このクエリを完成させると、以下のロジックで動作します：
-
 1. **データの抽出:** `AzureActivity` からストレージキーの取得に成功したログを取得します。
-    
 2. **ベースラインの作成:** `inner join` 内のサブクエリで、`autocluster()` を使用してユーザー（Caller）ごとの通常の接続元 IP アドレスを特定します。
-    
 3. **異常の特定:** 普段とは異なる IP アドレスからキーが一覧表示されたケースを抽出します。
-    
 4. **複数アカウントの判定:** 最後の `summarize` 句で `dcount(ResourceId)`（リソース ID の一意のカウント）を計算しています。この後、もし `| where ResourceIdCount > 1` と続ければ、要件にある「単一のアカウントを除外する」が完全に達成されます。
 
 質問#40 トピック3
@@ -160,9 +138,7 @@ Azure ポータルで順番に実行する必要がある 3 つのアクショ�
 ### **回答領域（正解の順序）**
 
 1. **From the details pane of the incident, select Investigate.**
-    
 2. **From the Investigation blade, select the entity that represents VM1.**
-    
 3. **From the Investigation blade, select Timeline.**
     
 ---
@@ -197,8 +173,8 @@ Microsoft Sentinel ワークスペースに以下のインシデントが発生�
 質問#42 トピック3
 
 Microsoft Defender for Cloud を使用する Azure サブスクリプションが 2 つあります。  
-ルート管理グループ レベルで、特定の Defender for Cloud セキュリティアラートを抑制する必要があります。このソリューションでは、管理作業を最小限に抑える必要があります。Azure  
-ポータルで何をすればよいでしょうか？  
+ルート管理グループ レベルで、特定の Defender for Cloud セキュリティアラートを抑制する必要があります。このソリューションでは、管理作業を最小限に抑える必要があります。
+Azure ポータルで何をすればよいでしょうか？  
 
 - A. Azure Policy 割り当てを作成します。
 - B. Defender for Cloud のワークロード保護設定を変更します。

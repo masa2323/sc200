@@ -8,32 +8,15 @@ Microsoft Defender for Cloud を使用する Azure サブスクリプション�
   
 ![](https://img.examtopics.com/sc-200/image223.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image422.png)
+**正しい順序は以下の3つのアクション:**
+1. **Create an Azure logic app that includes the Defender for Cloud recommendation trigger.** (Defender for Cloud 推奨事項トリガーを含む Azure ロジック アプリを作成する)
+2. **Configure workflow automation.** (ワークフロー自動化を構成する)
+3. **Configure a trigger condition.** (トリガー条件を構成する)
 
 **解説:**
-1. 推奨事項トリガーを含む Azure Logic Apps の作成
-
-まず、アクションの実体となる **Azure Logic Apps** を作成します。
-
-- Microsoft Secure Score は推奨事項の実装によって算出されるため、**「Defender for Cloud recommendation trigger」**（推奨事項トリガー）を使用するロジックアプリを選択する必要があります。
-    
-- このロジックアプリ内で、IT 部門に Microsoft Teams メッセージを送信するコネクタ（アクション）を追加します。
-    
-
-2. トリガー条件の構成 (Configure a trigger condition)
-
-すべての推奨事項に対して通知を送るとノイズが多くなるため、特定の条件（重要度が「高」のものや、特定のコンプライアンスに関わるものなど）に基づいてワークフローが起動するように**トリガー条件**を設定します。
-
-3. ワークフロー オートメーションの構成 (Configure workflow automation)
-
-最後に、Microsoft Defender for Cloud のポータル上で**「ワークフロー オートメーション（Workflow automation）」**を設定します。
-
-- ここで、作成した Logic App と Defender for Cloud を紐付けます。
-    
-- どのサブスクリプションやリソースグループを監視対象にするかを決定し、実際に自動化を有効化する最終ステップとなります。
-    
----
-この手順により、新しい推奨事項（Secure Score アクション）が提示された際に、自動的に Teams へ通知が飛ぶ仕組みが完成します。
+- まず、Defender for Cloud の推奨事項トリガーを持つ Logic App を作成します
+- 次に、Defender for Cloud のワークフロー自動化機能を使用して、この Logic App を実行するように構成します
+- 最後に、特定の条件(例: 特定の推奨事項や重要度)でトリガーされるように条件を設定します
 
 質問#56 トピック2
 
@@ -94,17 +77,13 @@ Sub1 という Azure サブスクリプションと AzDO1 という Azure DevOps
   
 ![](https://img.examtopics.com/sc-200/image225.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image226.png)
-
 **解説:**
 Azure DevOps パイプラインで Microsoft Security DevOps（MSDO）タスクを使用してセキュリティスキャンを実行する場合、YAML 形式でパラメータを指定する必要があります。
 
 1. inputs:
-
 YAML タスクにおいて、そのタスクに渡す設定値（引数）を定義するセクションの名前は **`inputs:`** です。これにより、タスクがどのように動作するかを制御します。
 
 2. categories: 'secrets'
-
 Microsoft Security DevOps 拡張機能のタスク（`MicrosoftSecurityDevOps@1` など）では、**`categories`** という入力パラメータを使用して、実行するスキャンの種類を指定します。
 
 - **'secrets'**: この値を指定することで、コード内のパスワードや API キーなどの機密情報の露出を検出するスキャン（CredScan など）が有効になり、その結果が Defender for Cloud に送信されるようになります。
@@ -185,7 +164,6 @@ Azure Sentinel から、以下の図に示すように、重大度の高いイ�
 調査グラフ内で仮想マシン（vm1）などのエンティティにマウスを合わせると、そのリソースに関する**「インサイト（Insights）」**の概要が表示されます。
 
 - **the running processes:** 図中のアラート名が「New processes ob...（検出された新しいプロセス）」となっていることから、このインシデントはプロセスの実行に関連しています。センチネルのホスト・インサイトでは、対象マシンで実行されているプロセスの数やリストを確認できるため、この選択肢が最適です。
-    
 - 他の選択肢（NSG ルールや 5 件のログなど）は、ホバー時のクイック表示ではなく、詳細プロパティや別途クエリを実行して確認する情報です。
     
 
@@ -194,11 +172,8 @@ Azure Sentinel から、以下の図に示すように、重大度の高いイ�
 右側のツールバーにある各ボタンの役割は以下の通りです。
 
 - **Timeline（タイムライン）:** インシデントに関連するアラート、ブックマーク、エンティティの動きを**時系列（Chronological order）**で表示します。インシデントに関連する個々の「アイテム（出来事）」を追跡するために使用します。
-    
 - **Entities:** インシデントに関与しているエンティティ（ユーザー、IP、ホストなど）の一覧を表示します。
-    
 - **Info:** インシデントの重大度、ステータス、所有者などの基本情報を表示します。
-    
 - **Insights:** 選択したエンティティに対して定義済みの分析クエリを実行し、異常な活動がないかを確認します。
 
 質問3 トピック3
@@ -208,8 +183,6 @@ Azure Sentinel をデプロイしています。
 どの 3 つのアクションを順番に実行する必要がありますか？ 回答するには、アクションリストから適切なアクションを回答領域に移動し、正しい順序に並べ替えてください。  
 選択して配置します。  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0011100001.png)  
-
-**正解：** ![](https://www.examtopics.com/assets/media/exam-media/04261/0011200001.png) 参考： https : //davemccollough.com/2020/11/28/threat-hunting-with-azure-sentinel/  
 
 **解説:**
 1. Hunting ページの選択
@@ -222,15 +195,8 @@ Azure Sentinel をデプロイしています。
 
 - **Filter by tactics** を使用して、「Credential Access」を選択することで、数百あるクエリの中から、資格情報の窃取に関連するものだけに絞り込むことができます。
     
-
 3. Run All Queries の実行
 
 フィルタリングによって対象を絞り込んだ状態で **[Run All Queries（すべてのクエリを実行）]** を選択します。
 
 - これにより、現在リストに表示されている（＝資格情報アクセスに関連する）すべてのハンティングクエリが一括で実行され、異常なアクティビティがないかを確認できます。
-    
----
-## 補足
-
-Adatum 社のケーススタディにある「HuntingQuery1 が自動的に実行されるようにする」という要件は、このハンティングページ内でのカスタムクエリの動作設定に関連するものですが、今回の「特定の戦術に沿ってすべてをクエリする」という手順においては、上記の標準的なフローが最適解となります。
-
