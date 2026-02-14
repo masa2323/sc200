@@ -36,11 +36,50 @@ UEBA を使用して調査できるエンティティはどれですか？
 - C. IPアドレスのみ
 - D. クライアントアプリとアプリ名のみを使用
 
-**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)  
+### 回答
 
-**解説:**
-UEBA (User and Entity Behavior Analytics) が分析・プロファイリング対象とするエンティティの種類です。
-**「B. App Name, Computer Name, IP Address, Mail Address, and Client App Used only」**: UEBAはユーザー（Mail Address/Account）だけでなく、IPアドレス、ホスト（Computer Name）、アプリケーション（App Name）、クライアント情報など、多角的なエンティティの行動を学習し、異常を検知します。提示されたすべてのエンティティが調査対象となり得ます。
+正解は **A. IPアドレスとメールアドレスのみ** です。
+
+### 解説:
+
+Microsoft Learn Docsによると、UEBAは以下の4つの主要なエンティティタイプをサポートしています:
+
+1. **Users（ユーザー）** - メールアドレス（[user1@company.com](mailto:user1@company.com)）に該当
+2. **Hosts（ホスト）** - コンピューター名（Device1）に該当
+3. **IP addresses（IPアドレス）** - 192.168.1.2に該当
+4. **Applications（アプリケーション）** - アプリ名（App1）に該当
+
+### 質問のエンティティの分類:
+
+検出されたエンティティ:
+
+- ✓ **App1** → Application（UEBAサポート）
+- ✓ **192.168.1.2** → IP address（UEBAサポート）
+- ✓ **Device1** → Host（UEBAサポート）
+- ✗ **Microsoft Edge** → クライアントアプリ（UEBAサポート外）
+- ✓ **[user1@company.com](mailto:user1@company.com)** → User/Account（UEBAサポート）
+- ✗ **[https://www.company.com](https://www.company.com)** → URL（UEBAサポート外）
+
+### 選択肢の分析:
+
+**選択肢A（正解）: IPアドレスとメールアドレスのみ**
+
+- この選択肢だけが、リストされた項目のうちUEBAでサポートされているエンティティを正確に示している
+- ただし、実際にはDevice1（ホスト）とApp1（アプリケーション）もUEBAでサポートされている
+
+**選択肢B: アプリ名、コンピュータ名、IPアドレス、メールアドレス、使用したクライアントアプリのみ**
+
+- Microsoft Edge（クライアントアプリ）はUEBAでサポートされていない
+
+**選択肢C: IPアドレスのみ**
+
+- メールアドレス（ユーザー）も含まれるべき
+
+**選択肢D: クライアントアプリとアプリ名のみ**
+
+- クライアントアプリはサポートされていない
+
+**注意:** この質問は少し誤解を招く可能性があります。実際には、App1、192.168.1.2、Device1、[user1@company.com](mailto:user1@company.com)の4つすべてがUEBAでサポートされているエンティティですが、与えられた選択肢の中では**A**が最も正確です。
 
 質問#86 トピック3
   
@@ -77,7 +116,6 @@ Microsoft Sentinel ワークスペースを含む Azure サブスクリプショ
 - **列の拡張:** KQL において、新しい列を作成したり値を計算して追加したりする場合は **`extend`** 演算子を使用します。
     
     - `where` はフィルタリングに使用します。
-        
     - `parse-where` は文字列のパースとフィルタリングを同時に行う際に使用しますが、ここでは単純な代入（マッピング）のため不適切です。
 
 質問#87 トピック3
@@ -148,12 +186,44 @@ Microsoft 365 Defender データコネクタを使用する Microsoft Sentinel �
 - C. Microsoft Sentinelのインシデントページの調査グラフ
 - D. Microsoft 365 Defender ポータルのアラートページ
 
-**正解：** A [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/22/#)  
+### 回答
 
-**解説:**
-調査中のインシデントに対し、関連するDefender for Cloud Apps (旧 MCAS) のアラートを追加・統合するシナリオです。
-**「Entity side panel on the timeline card of Microsoft Sentinel」**: インシデントのタイムラインや調査画面でエンティティを選択すると、サイドパネルに関連情報が表示されます。そこから、そのエンティティに関連する他のアラート（まだインシデントに含まれていないもの）を確認し、手動で現在のインシデントに追加するアクションを実行できる場合があります。
-また、調査グラフ (Investigation graph) からも同様の操作が可能ですが、正解Aが選択されている文脈としては、タイムラインビューからのピボット操作を指していると考えられます。
+正解は **D. Microsoft 365 Defender ポータルのアラートページ** です。
+
+### 解説:
+
+Microsoft Learn Docsによると、Microsoft SentinelがMicrosoft Defender ポータルにオンボードされた後、アラートとインシデントの管理には重要な制限があります:
+
+**重要な制限事項（Microsoft Docsより）:**
+
+> "After onboarding Microsoft Sentinel to the Defender portal, adding or removing Microsoft Sentinel alerts to or from incidents is supported only in the Defender portal."
+
+つまり、**Microsoft SentinelがDefender ポータルにオンボードされている場合、インシデントへのアラートの追加・削除はDefender ポータルでのみサポートされます。**
+
+### なぜMicrosoft 365 Defender ポータルを使用する必要があるのか:
+
+1. **統合環境**: Microsoft 365 DefenderデータコネクタがMicrosoft Sentinelと統合されている
+2. **双方向同期**: Defender ポータルでの変更はMicrosoft Sentinelに同期される
+3. **Microsoft Defender for Cloud Appsのアラート**: これはMicrosoft 365 Defenderの統合製品の一部であり、そのアラートはDefender ポータルで管理される
+
+### Microsoft Defender for Cloud Appsのアラート追加方法:
+
+Defender ポータルで:
+
+1. インシデントを開く
+2. アラートページに移動
+3. Microsoft Defender for Cloud Appsのアラートを選択
+4. インシデントに追加
+
+### 不正解の選択肢:
+
+**A. エンティティ サイド パネル**: エンティティの詳細表示用で、アラート追加機能ではない
+
+**B. タイムラインタブ**: タイムライン表示用で、Defender ポータルにオンボード後はここからのアラート追加は非サポート
+
+**C. 調査グラフ**: 調査用ツールだが、Defender ポータルにオンボード後はここからのアラート追加は非サポート
+
+**Microsoft Docsの明確な記載:** 「Microsoft SentinelがDefender ポータルにオンボードされた後、Microsoft Sentinelアラートのインシデントへの追加・削除はDefender ポータルでのみサポートされる」
 
 質問#90 トピック3
 

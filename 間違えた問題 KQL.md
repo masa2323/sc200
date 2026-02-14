@@ -433,3 +433,293 @@ KQL関数(パーサー)では、以下の制限があります:
     - **B**: 2行目(`where TimeGenerated > ago(7h)`)は時間フィルタで、パーサーでは問題ありません
     - **C**: 3行目の`!contains`演算子は正常に機能します
     - **D**: 4行目の`TimeGenerated`は`project`句で必要なフィールドです
+
+質問#54 トピック3
+  
+次のKQLクエリがあります。  
+  
+![](https://img.examtopics.com/sc-200/image139.png)  
+  
+以下の各文について、正しい場合は「はい」を選択してください。そうでない場合は「いいえ」を選択してください。  
+  
+注：正しい選択は1点です。  
+  
+![](https://img.examtopics.com/sc-200/image140.png)
+
+**正解:** ![](https://img.examtopics.com/sc-200/image429.png)
+
+**解説:**
+
+1. The `UserName` field is set as the account entity. (**はい**)
+クエリの最終行に `AccountCustomEntity = UserName` という記述があります。これは、Microsoft Sentinel の分析ルールにおいて、`UserName` フィールドの値を「アカウント」エンティティとしてマッピングしていることを示しています。
+
+2. The watchlist cannot be updated after it is created. (**いいえ**)
+Microsoft Sentinel のウォッチリスト（このクエリでは `_GetWatchlist('Bad_IPs')` で呼び出されているもの）は、作成後も内容を更新、削除、または新しいデータの追加が可能です。クエリ内で呼び出されているからといって、そのデータが固定（イミュータブル）されるわけではありません。
+
+3. The `IPList` variable is set as the IP address entity. (**いいえ**)
+`IPList` は、クエリの冒頭で `let IPList = _GetWatchlist('Bad_IPs');` と定義されており、ウォッチリスト内の**IPアドレスのリスト全体**を保持する変数です。 一方で、IPアドレスエンティティとしてマッピングされているのは、クエリ末尾の `IPCustomEntity = case(...)` の部分であり、そこでは個別の `SourceIP` または `DestinationIP` が代入されています。`IPList` 変数そのものがエンティティとして設定されているわけではありません。
+
+質問#55 トピック3
+  
+Microsoft Sentinelワークスペースがあります。Parser1  というカスタムAdvanced Security Information Model (ASIM)パーサーを開発し、Schema1というスキーマを生成します。Schema1 を検証する必要があります。  
+  
+コマンドをどのように完了すればよいですか？回答するには、回答エリアから適切なオプションを選択してください。  
+  
+注：正解は1つにつき1ポイントです。  
+  
+![](https://img.examtopics.com/sc-200/image142.png)
+
+## 回答
+
+ASIMスキーマを検証するには、以下のコマンドを使用します：
+
+```kusto
+Parser1 | getschema | invoke ASimSchemaTester('Schema1')
+```
+
+**回答エリアの選択:**
+
+- 最初のドロップダウン: **getschema**
+- 2番目のドロップダウン: **invoke**
+
+### 解説
+
+このコマンドの動作：
+
+1. **Parser1** - カスタムASIMパーサーを実行
+2. **| getschema** - パーサーの出力スキーマを取得
+3. **| invoke ASimSchemaTester('Schema1')** - Schema1に対してスキーマ検証を実行
+
+ASimSchemaTesterは、以下をチェックします：
+
+- 必須フィールドの存在
+- フィールドの型の正確性
+- 必須エイリアスの存在
+- 推奨フィールドとオプションフィールドの状態
+
+検証結果により、エラー（必須フィールドの欠落や型の不一致など）や警告（推奨フィールドの欠落など）が表示され、パーサーの修正に役立ちます。
+
+質問#56 トピック3
+  
+ユーザーおよびエンティティ行動分析 (UEBA) が有効になっている Microsoft Sentinel ワークスペースがあります。Server1  というサーバー上で実行された、セキュリティ上重要なユーザー操作に関連するすべてのログエントリを特定する必要があります。ソリューションは以下の要件を満たす必要があります。  
+  
+• IT 部門のメンバーではないユーザーによる、セキュリティ上重要な操作のみを含める。  
+• 誤検知の数を最小限に抑える。  
+  
+クエリをどのように完了すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
+
+注: 正しい選択ごとに 1 ポイントが加算されます。  
+  
+![](https://img.examtopics.com/sc-200/image144.png)
+
+### 回答
+
+クエリを完成させるには、以下のように選択します：
+
+**最初のドロップダウン（join kind）:**
+
+- **| join kind=inner (**
+
+**2番目のドロップダウン（テーブル）:**
+
+- **IdentityInfo**
+
+### 完成したクエリ
+
+kusto
+
+```kusto
+SecurityEvent
+| where EventID in ("4624","4672")
+| where Computer == "SERVER1"
+| join kind=inner (
+    IdentityInfo
+    | summarize arg_max(TimeGenerated, *) by AccountObjectId) on $left.SubjectUserSid == $right.AccountSID
+| where Department != "IT"
+```
+
+### 解説
+
+1. **join kind=inner** - 内部結合を使用して、SecurityEventとIdentityInfoの両方に存在するレコードのみを取得（誤検知を最小限に抑える）
+2. **IdentityInfo** - UEBAが有効な場合に使用可能なテーブルで、ユーザーのプロファイル情報（部署、グループメンバーシップなど）を含む
+3. *_summarize arg_max(TimeGenerated, _)__ - 各ユーザーの最新の情報を取得
+4. **on $left.SubjectUserSid == $right.AccountSID** - SecurityEventのSubjectUserSidとIdentityInfoのAccountSIDで結合
+5. **where Department != "IT"** - IT部門ではないユーザーのみをフィルタリング
+
+このクエリにより、Server1でセキュリティ上重要な操作（EventID 4624: ログオン、4672: 特権でのログオン）を実行したIT部門以外のユーザーを特定できます。
+
+質問#65 トピック3
+
+Workspace1 という Microsoft Sentinel ワークスペースがあります。Workspace1 を構成して DNS イベントを収集し、DNS スキーマ用の Advanced Security Information Model (ASIM) 統合パーサーを展開します。ASIM DNS スキーマに対してクエリを実行し、過去 24 時間以内に送信元 IP アドレス別に 15 分間隔で集計された、応答コードが「NXDOMAIN」であるすべての DNS イベントを一覧表示する必要があります。このソリューションでは、クエリのパフォーマンスを最大化する必要があります。  
+  
+クエリをどのように完了すればよいでしょうか？回答するには、回答領域で適切なオプションを選択してください。  
+  
+注: 正解は 1 点です。  
+  
+![](https://img.examtopics.com/sc-200/image163.png)
+
+### 回答
+
+クエリを以下のように完成させてください:
+
+**最初のドロップダウン（パーサー名）:**
+
+- **_Im_Dns**
+
+**2番目のドロップダウン（クエリ構文）:**
+
+- **(starttime=ago(1d),responsecodename='NXDOMAIN')**
+
+### 完成したクエリ
+
+```kusto
+_Im_Dns(starttime=ago(1d),responsecodename='NXDOMAIN')
+| summarize count() by SrcIpAddr, bin(TimeGenerated,15m)
+```
+
+### 解説
+
+#### 1. **`_Im_Dns`を使用する理由:**
+
+- **組み込みの統合パーサー**: すべてのDNSソースを正規化された形式で統合
+- **パフォーマンス**: `imDns`はワークスペースデプロイ版で、開発用途向け
+- **推奨事項**: Microsoft Docsでは「ASIMコンテンツを開発する際は組み込みパーサーの使用を推奨」と明記
+
+**不正解の選択肢:**
+
+- `Dns`: 生のテーブル名で、正規化されていない
+- `imDns`: ワークスペースデプロイ版のパーサー（開発/カスタマイズ用）
+
+#### 2. **フィルタリングパラメータを使用する理由:**
+
+**パフォーマンスの最大化:**
+
+Microsoft Learn Docsには、**まったく同じ例**が記載されています:
+
+```kusto
+// フィルタリングパラメータあり（推奨）
+_Im_Dns(starttime=ago(1d), responsecodename='NXDOMAIN')
+  | summarize count() by SrcIpAddr, bin(TimeGenerated,15m)
+
+// フィルタリングパラメータなし（非推奨）
+_Im_Dns
+  | where TimeGenerated > ago(1d)
+  | where ResponseCodeName =~ "NXDOMAIN"
+  | summarize count() by SrcIpAddr, bin(TimeGenerated,15m)
+```
+
+**フィルタリングパラメータの利点:**
+
+- **パース前にフィルタリング**: データ量を削減してからパース
+- **クエリ最適化**: パーサー内部で効率的な事前フィルタリング
+- **パフォーマンス向上**: whereを後から使うより大幅に高速
+
+**不正解の選択肢:**
+
+- `where`句を使う方法: パース後のフィルタリングのためパフォーマンスが低下
+
+質問#77 トピック3
+
+sws1 という Microsoft Sentinel ワークスペースがあります。  
+  
+ユーザーが異常に多くの Azure AD ユーザーアカウントを作成したことを検出するクエリを作成する必要があります。  
+  
+クエリはどのように完成させるべきでしょうか？回答するには、回答エリアで適切なオプションを選択してください。  
+  
+注: 正解は 1 点です。  
+  
+![](https://img.examtopics.com/sc-200/image197.png)
+
+**正解:** ![](https://img.examtopics.com/sc-200/image431.png)
+
+**解説:**
+このクエリの目的は、「異常な行動」と「具体的なアクション（ユーザー作成）」を紐づけることです。
+
+- **BehaviorAnalytics (上段):** このテーブルは Microsoft Sentinel の **UEBA (User and Entity Behavior Analytics)** 機能によって生成されます。`ActivityInsights` という列を保持しており、ユーザーの行動が通常と異なるかどうかのインサイト（例：過去と比較して作成数が多いなど）が含まれています。そのため、最初のフィルター条件に適合します。
+
+- **AuditLogs (下段):** Azure AD（現在の Microsoft Entra ID）におけるユーザーの追加、削除、変更などのアクティビティは **AuditLogs** テーブルに記録されます。`ActionType == "Add user"` という条件や、後の工程で `mv-expand TargetResources`（操作対象のリソース情報の展開）を行うため、詳細な監査ログを持つこのテーブルを `join` する必要があります。
+
+質問#87 トピック3
+  
+Microsoft Sentinel ワークスペースがあります。  
+  
+カスタムブックのレポートビジュアルを構成する必要があります。ソリューションは以下の要件を満たす必要があります。  
+• AppDisplayName のカウントと使用状況の傾向が含まれている必要があります。  
+• TrendList 列がスパークラインビジュアルで使用可能である必要があります。
+
+KQL クエリをどのように完了すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
+  
+注: 正解は 1 点です。  
+  
+![](https://img.examtopics.com/sc-200/image211.png)
+
+**正解:** ![](https://img.examtopics.com/sc-200/image212.png)
+
+**解説:**
+要件である「カウント」と「使用状況の傾向（トレンド）」を一つのテーブルにまとめ、スパークラインで表示するためには以下の処理が必要です。
+
+1. なぜ `join` なのか？
+
+- **データの統合:** クエリの前半部分で `summarize count()` により各アプリの合計サインイン数を算出しています。
+
+- **結合の必要性:** 後半部分で生成するトレンドリスト（時間経過による変化）と、前半の合計カウントを `AppDisplayName` をキーにして結合する必要があります。KQL で異なる集計結果を結合するには **`join`** 演算子を使用します。
+
+1. なぜ `make-series` なのか？
+
+- **トレンドの生成:** 要件にある「TrendList 列がスパークラインビジュアルで使用可能であること」を満たすには、時間軸に沿った数値の配列を作成する必要があります。
+
+- **時系列データの作成:** **`make-series`** は、指定した時間範囲（`range`）と間隔（`4h`）に基づいて、欠損値を補完しながら数値の動向を配列として生成します。この配列形式こそが、Azure ブックのスパークライン表示に不可欠なデータ形式です。
+
+  - `make_bag()` はプロパティバッグ（JSON）の作成、`mv-expand` は配列の展開、`render` はグラフ描画に使用するため、ここでは不適切です。
+
+質問3 トピック4
+  
+デフォルトのデータ保持期間が30日間であるMicrosoft Sentinelワークスペースがあります。このワークスペースには、次の表に示すように2つのカスタムテーブルが含まれています。  
+  
+![](https://img.examtopics.com/sc-200/image258.png)  
+  
+各テーブルには、過去365日間、1日あたり2件のレコードが取り込まれました。  
+  
+分析ルールで使用するKQLステートメントを、次の表に示すように作成します。  
+  
+![](https://img.examtopics.com/sc-200/image259.png)  
+  
+以下の各ステートメントについて、該当する場合は「はい」を選択してください。それ以外の場合は「いいえ」を選択してください。  
+  
+注：正しい選択は1つにつき1ポイントです。  
+  
+![](https://img.examtopics.com/sc-200/image260.png)
+
+**解説:**
+この問題のポイントは、Microsoft Sentinel（Log Analytics）における**テーブルプラン（Basic vs Analytics）**と**保持期間（インタラクティブ保持 vs 合計保持）**の仕様の違いにあります。
+
+#### **前提条件の整理**
+
+- **データ量:** 1日あたり2件のレコード（過去365日間）。
+- **ワークスペースのデフォルト保持期間:** 30日間。
+
+---
+
+1. Query1 について: はい**
+
+- **現状:** `Table1` は **Basic** プランです。
+
+- **制限:** 1. **保持期間:** Basic ログのインタラクティブ保持（クエリ可能な期間）は **8日間** に固定されており、変更できません。15日分のデータ（30件）をクエリすることは不可能です。 2. **KQLの制限:** Basic ログは `summarize` オペレーターを**サポートしていません**。そのため、このクエリ自体がエラーになります。
+
+- **結論:** 30件の結果（15日分）を得るには、プランを **Analytics** に変更して `summarize` を実行可能にし、かつ保持期間を15日以上に確保する必要があります。
+
+1. Query2 について: いいえ**
+
+- **現状:** `Table2` は **Analytics** プランで、合計保持期間は **365日** です。インタラクティブ保持は「Default」（30日）に設定されています。
+
+- **課題:** `ago(120)` で120日分のデータ（240件）を取得しようとしていますが、通常のKQLクエリは**インタラクティブ保持期間内**のデータしか参照できません。
+
+- **結論:** 240件を取得するために必要なのは「合計保持期間の変更」ではなく、**「インタラクティブ保持期間」を120日に増やすこと**です。現在の合計保持期間は既に365日あるため、120日に「変更（短縮）」する必要はありません。
+
+1. Query3 について: いいえ**
+
+- **現状:** `Table1` は **Basic** プランです。
+
+- **制限:** 前述の通り、Basic ログのクエリ可能な期間は **8日間** 固定です。
+
+- **結論:** 「合計保持期間」を45日に設定したとしても、それはアーカイブ（長期保存）としての設定であり、通常のクエリ（KQL）で 45日分（90行）の結果を直接出すことはできません。これを実現するにはプランを **Analytics** に変更する必要があります。

@@ -10,8 +10,6 @@ sws1 という Microsoft Sentinel ワークスペースがあります。
   
 ![](https://img.examtopics.com/sc-200/image197.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image431.png)
-
 **解説:**
 このクエリの目的は、「異常な行動」と「具体的なアクション（ユーザー作成）」を紐づけることです。
 
@@ -65,12 +63,49 @@ Azure AD データコネクタを含む Microsoft Sentinel ワークスペース
   
 ![](https://img.examtopics.com/sc-200/image199.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image432.png)
+## 回答
+タスクを以下のように完成させてください:
 
-**解説:**
-- **Logs blade (ログ ブレード)** ブックマークは、クエリの実行結果から特定のレコードを保存するために使用します。**Logs** ブレードで KQL クエリを実行し、結果行を選択して [Add bookmark] をクリックすることでブックマークが作成されます。
-    
-- **Hunting blade (ハンティング ブレード)** 作成済みのブックマークを管理したり、既存のインシデントに紐付けたりするには、**Hunting** ブレード内の **Bookmarks** タブを使用します。ここで対象のブックマークを選択し、[Add to existing incident] アクションを実行することで関連付けが完了します。
+**Create a bookmark by using the:**
+- **Logs blade**
+
+**Associate a bookmark with the incident by using the:**
+- **Hunting blade**
+
+### 解説:
+
+#### 1. **Logs bladeでブックマークを作成:**
+
+Microsoft Learn Docsによると、ブックマークは以下の場所から作成できます:
+
+**Logsブレードからの作成手順:**
+
+1. **Hunting** > **Queries**からハンティングクエリを実行
+2. **View query results**を選択してLogsペインを開く
+3. ログクエリ結果リストから興味深い情報を含む行を選択
+4. **Add bookmark**を選択
+5. ブックマーク名、タグ、ノート、エンティティマッピング、MITRE ATT&CKマッピングを追加
+6. **Create**を選択してブックマークをコミット
+
+**または、インシデント調査中:**
+
+- インシデント詳細ページの**Logs**パネルからクエリを実行
+- 結果を選択して**Add bookmark**でブックマークを作成
+
+#### 2. **Hunting bladeでブックマークをインシデントに関連付け:**
+
+**Huntingブレードからの関連付け手順:**
+1. **Threat management** > **Hunting**に移動
+2. **Bookmarks**タブを選択
+3. インシデントに追加したいブックマークを選択
+4. コマンドバーから**Incident actions**を選択
+5. **Create new incident**または**Add to existing incident**を選択
+6. 新規インシデントの場合: インシデント詳細を更新して**Create**を選択
+7. 既存インシデントの場合: インシデントを選択して**Add**を選択
+
+**不正解の選択肢:**
+- **Incident blade**: ブックマークの作成はできない（ブックマークの表示と管理のみ）
+- **Logs blade for association**: Logsブレードからは"Add bookmark to the current incident"で直接追加できるが、これは調査中の特定のインシデントのみ。既存の複数のブックマークを管理してインシデントに関連付けるのはHuntingブレード
 
 質問#81 トピック3
   
@@ -112,13 +147,11 @@ Microsoft Sentinel を使用する Azure サブスクリプションがあり、
 UEBA を有効化し、Azure AD（Microsoft Entra ID）のデータを同期・分析の対象として構成するには、以下の権限セットが必要です。
 
 1. **Azure AD role: Security administrator (セキュリティ管理者)**
-    
     - **理由:** UEBA を有効にする際、Azure AD からユーザーデータを同期するためのディレクトリレベルのアクセス許可が必要です。**Global administrator** でも可能ですが、最小権限の原則に基づくと **Security administrator** が最適です。
         
     - **比較:** `Security operator` は表示と対応のみが可能で、構成の変更はできません。
         
 2. **Azure role: Microsoft Sentinel Contributor**
-    
     - **理由:** Microsoft Sentinel 自体の設定（UEBA の有効化ボタンの操作や分析設定の変更）を行うには、Sentinel ワークスペースに対する書き込み権限を持つ **Microsoft Sentinel Contributor** ロールが必要です。
         
     - **比較:** `Microsoft Sentinel Responder` や `Security Admin`（一般的な Azure ロール）では、Sentinel 固有の機能設定をフルに管理するには不十分な場合があります。
@@ -129,13 +162,11 @@ UEBA を有効化し、Azure AD（Microsoft Entra ID）のデータを同期・�
 UEBA を有効にすると、ユーザーの平常時の行動を学習し、以下のような異常を自動的に検知できるようになります。
 
 - **初めて使用される場所からのサインイン**
-    
 - **通常とは異なる大量のデータ削除やリソース作成**
-    
 - **横方向への移動（ラテラルムーブメント）の兆候**
 
 質問#83 トピック3
-  
+
 次のリソースを含む Azure サブスクリプションがあります。  
   
 • Windows Server を実行する VM1 という名前の仮想マシン  

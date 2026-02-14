@@ -32,12 +32,32 @@ Microsoft Sentinelワークスペースがあります。Parser1  というカ�
   
 ![](https://img.examtopics.com/sc-200/image142.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image143.png)
+## 回答
+ASIMスキーマを検証するには、以下のコマンドを使用します：
+```kusto
+Parser1 | getschema | invoke ASimSchemaTester('Schema1')
+```
 
-**解説:**
-- **getschema**: この演算子は、`Parser1` が出力するデータの「列名」と「データ型」の一覧をテーブル形式で出力します。
-- **invoke**: `getschema` で作成された「スキーマ情報テーブル」を、次の `ASimSchemaTester` 関数に引数として渡すために使用します。
-- **ASimSchemaTester('Schema1')**: この関数は、データそのものではなく、**「データの構造（getschemaの出力）」**を受け取って、それが `Schema1` の定義と一致しているかをチェックします。
+**回答エリアの選択:**
+
+- 最初のドロップダウン: **getschema**
+- 2番目のドロップダウン: **invoke**
+
+### 解説
+このコマンドの動作：
+
+1. **Parser1** - カスタムASIMパーサーを実行
+2. **| getschema** - パーサーの出力スキーマを取得
+3. **| invoke ASimSchemaTester('Schema1')** - Schema1に対してスキーマ検証を実行
+
+ASimSchemaTesterは、以下をチェックします：
+
+- 必須フィールドの存在
+- フィールドの型の正確性
+- 必須エイリアスの存在
+- 推奨フィールドとオプションフィールドの状態
+
+検証結果により、エラー（必須フィールドの欠落や型の不一致など）や警告（推奨フィールドの欠落など）が表示され、パーサーの修正に役立ちます。
 
 質問#56 トピック3
   
@@ -52,31 +72,41 @@ Microsoft Sentinelワークスペースがあります。Parser1  というカ�
   
 ![](https://img.examtopics.com/sc-200/image144.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image145.png)
+### 回答
+クエリを完成させるには、以下のように選択します：
 
-**解説:**
-1. `join kind=inner (` を選択する理由
+**最初のドロップダウン（join kind）:**
+- **| join kind=inner (**
 
-「IT部門ではないユーザー」という条件でフィルタリングを行うためには、左側のテーブル（SecurityEvent）と右側のテーブル（ユーザー情報）の両方に存在するレコードのみを抽出する必要があります。`inner` ジョインを使用することで、右側のテーブルに情報がない（マッチしない）レコードを除外でき、**誤検知の数を最小限に抑える**という要件を満たすことができます。
+**2番目のドロップダウン（テーブル）:**
+- **IdentityInfo**
 
-2. `IdentityInfo` を選択する理由
+### 完成したクエリ:
+```kusto
+SecurityEvent
+| where EventID in ("4624","4672")
+| where Computer == "SERVER1"
+| join kind=inner (
+    IdentityInfo
+    | summarize arg_max(TimeGenerated, *) by AccountObjectId) on $left.SubjectUserSid == $right.AccountSID
+| where Department != "IT"
+```
 
-「部署（Department）」などのユーザー属性情報は、UEBAが有効なワークスペースでは **`IdentityInfo`** テーブルに格納されます。
+### 解説:
 
-- **BehaviorAnalytics**: ユーザーの異常行動やスコアを格納するテーブルです。
-    
-- **SecurityEvent**: すでにメインのクエリ（左側）で使用されており、自己結合は今回の目的（属性によるフィルタ）には適しません。
-    
- 3. `summarize arg_max` の役割
+1. **join kind=inner** - 内部結合を使用して、SecurityEventとIdentityInfoの両方に存在するレコードのみを取得（誤検知を最小限に抑える）
+2. **IdentityInfo** - UEBAが有効な場合に使用可能なテーブルで、ユーザーのプロファイル情報（部署、グループメンバーシップなど）を含む
+3. *_summarize arg_max(TimeGenerated, _)__ - 各ユーザーの最新の情報を取得
+4. **on $left.SubjectUserSid == $right.AccountSID** - SecurityEventのSubjectUserSidとIdentityInfoのAccountSIDで結合
+5. **where Department != "IT"** - IT部門ではないユーザーのみをフィルタリング
 
-`IdentityInfo` テーブルには時間の経過とともに同じユーザーのデータが複数記録されます。`summarize arg_max(TimeGenerated, *) by AccountObjectId` を使用することで、各ユーザーの**最新のプロファイル情報**（最新の部署情報など）のみを取得し、正確なフィルタリングを可能にします。
+このクエリにより、Server1でセキュリティ上重要な操作（EventID 4624: ログオン、4672: 特権でのログオン）を実行したIT部門以外のユーザーを特定できます。
 
 質問#57 トピック3
   
 Microsoft Sentinelワークスペースをお持ちです。  
-  
-過去3時間に複数の国から成功したサインインを識別するKQLクエリを作成する必要があります。  
-クエリはどのように完成させるべきですか？回答するには、回答エリアで適切なオプションを選択してください。  
+過去3時間に複数の国から成功したサインインを識別するKQLクエリを作成する必要があります。
+クエリはどのように完成させるべきですか？回答するには、回答エリアで適切なオプションを選択してください。   
   
 注：正解は1つにつき1ポイントです。  
   
@@ -86,23 +116,17 @@ Microsoft Sentinelワークスペースをお持ちです。
 
 **解説:**
 1. `imAuthentication` を選択する理由
-
 「サインイン（ログオン）」に関する情報を取得するためには、ASIMの**認証スキーマ**を使用する必要があります。
 
 - **imAuthentication**: ログオン、ログアウト、パスワード変更などの認証イベントを正規化するスキーマです。
-    
 - クエリの4行目に `EventType == 'Logon'` とあることからも、認証イベントを扱うこのテーブルが適切です。
-    
 - 他の `imNetworkSession`（ネットワーク通信）や `imWebSession`（HTTPリクエスト）などは、サインインの成功/失敗を判定するスキーマではありません。
     
  2. `SrcGeoCountry` を選択する理由
-
 「複数の国から」という条件を判定するためには、接続元（ソース）の国情報をカウントする必要があります。
 
 - **SrcGeoCountry**: サインインを試みた場所（ソース）の国名を表すASIM標準フィールドです。
-    
 - 直前の行で `isnotempty(SrcGeoCountry)` とフィルタリングされていることからも、このフィールドをカウント対象にするのが論理的です。
-    
 - **DstGeoCountry** は「宛先」の国を指すため、ユーザーがどこからアクセスしたかを判定するこのケースには適しません。
     
  完成したクエリのロジック
@@ -123,17 +147,13 @@ Azureサブスクリプションを所有しています。Microsoft Sentinelワ
   
 ![](https://img.examtopics.com/sc-200/image148.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image149.png)
-
 **解説:**
 1. 取り込みコストの最小化について
 
 Microsoft Sentinelの「コミットメントティア（予約容量）」は、最低でも **1日あたり100GB** の取り込みを約束することで割引が適用される仕組みです。
 
 - 今回のケースでは、取り込み予定量が **1日あたり20GB** です。
-    
 - 100GBティアを選択すると、実際には20GBしか使っていなくても100GB分の固定料金（1日約296ドル〜）を支払うことになります。
-    
 - **Pay-As-You-Go (従量課金)** モデルであれば、実際に取り込んだ20GB分のみ（1GBあたり約4.3ドル × 20GB = 1日約86ドル）の支払いで済むため、こちらのほうが低コストになります。
     
  2. データ保持期間の最大化について
@@ -141,9 +161,7 @@ Microsoft Sentinelの「コミットメントティア（予約容量）」は�
 Microsoft Sentinelが有効なワークスペースでは、**最初の90日間** のデータ保持が追加コストなし（無料）で提供されます。
 
 - **31日間**: デフォルトのLog Analytics設定に近いですが、Sentinelの特典である90日間をフルに活用できていません。
-    
 - **90日間**: Sentinelの「無料保持期間」を最大限に活用できる設定です。
-    
 - **365日間**: 90日を超えた分（残りの275日分）に対して追加の保持コストが発生するため、要件の「追加コストをかけずに」に反します。
 
 質問#59 トピック3
@@ -161,28 +179,42 @@ sws1 という Microsoft Sentinel ワークスペースがあります。sws1 �
   
 ![](https://img.examtopics.com/sc-200/image150.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image430.png)
+## 回答
 
-**解説:**
-Logic AppのSentinelコネクタ用資格情報を、最小権限かつ管理負荷最小で構成する方法です。
+資格情報を以下のように構成してください：
 
-1. マネージド ID を選択する理由 (管理作業の最小化)
+**Configure the connector to use:**
+- **A managed identity**
 
-マネージド ID は Azure によって自動的に管理される ID であり、パスワードやシークレットの管理（作成、保存、ローテーションなど）が不要です。
+**Role to assign to the credentials:**
+- **Microsoft Sentinel Responder**
 
-- **A service principal (サービス プリンシパル)** は、シークレットの管理や有効期限の監視が必要になるため、管理作業が増加します。
-    
-- **An Azure AD user account (Azure AD ユーザー アカウント)** は、個人のパスワード管理や多要素認証 (MFA) の影響を受けるため、自動化には適しません。
-    
-	 1. Microsoft Sentinel Reader を選択する理由 (最小権限の原則)
+### 解説:
 
-今回の要件は、インシデントが発生した際に「通知」を行うことです。
+#### 1. **A managed identity（マネージド ID）を使用する理由:**
 
-- **Microsoft Sentinel Reader**: インシデントのデータを受け取り、その内容を読み取って通知を送るために必要な最小限の権限（表示権限）を持っています。
-    
-- **Microsoft Sentinel Responder**: インシデントの割り当てや状態変更、ウォッチリストの更新などが可能ですが、通知を送るだけであれば過剰な権限となります。
-    
-- **Microsoft Sentinel Automation Contributor**: 自動化ルールを管理するための権限であり、ロジックアプリがインシデント情報を読み取るための権限ではありません。
+**管理作業を最小限に抑える:**
+- マネージド IDはAzureが自動的に管理し、資格情報のローテーションや更新が不要
+- サービスプリンシパルやAzure ADユーザーアカウントと比較して、パスワード管理が不要
+- Logic Apps用にMicrosoft Entra IDに自動登録される
+
+**最小権限の原則:**
+- Logic Appのリソース自体に直接権限を付与
+- 必要な権限のみを持つ独立したIDとして動作
+
+**Microsoft Docsの推奨:** ドキュメントには「管理するIDの数を減らすためにこの方法を使用する」と明記されています。
+
+#### 2. **Microsoft Sentinel Responderロールを割り当てる理由:**
+
+**必要な権限:**
+- インシデントの読み取り（トリガーの使用）✓
+- インシデントの更新（通知のための書き込みアクション）✓
+- IT管理システムへの通知送信のための十分な権限
+
+**最小権限の原則:**
+- **Microsoft Sentinel Reader**: 読み取り専用で不十分（インシデント更新不可）
+- **Microsoft Sentinel Responder**: インシデント管理に必要な権限のみ（最小権限）
+- **Microsoft Sentinel Contributor**: 過剰な権限（ソリューションのインストール、リソース作成など不要な権限を含む）
 
 質問#60 トピック3
 

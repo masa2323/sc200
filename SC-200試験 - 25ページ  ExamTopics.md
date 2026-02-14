@@ -1,10 +1,8 @@
 質問6 トピック4
 
-次の表に示すリソースがあります。Microsoft  
-  
+次の表に示すリソースがあります。
+Microsoft Defender for Cloud を使用する Azure サブスクリプションがあります。VM1 と Server1 を保護するには、Defender for Cloud を使用する必要があります。ソリューションは、以下の要件を満たす必要があります。
 ![](https://img.examtopics.com/sc-200/image265.png)  
-  
-Defender for Cloud を使用する Azure サブスクリプションがあります。VM1 と Server1 を保護するには、Defender for Cloud を使用する必要があります。ソリューションは、以下の要件を満たす必要があります。  
   
 • Advanced Threat Protection と脆弱性評価をサポートする。  
 • 各 SQL Server 2022 インスタンスを SQL 仮想マシンとして登録する。  
@@ -16,28 +14,70 @@ Defender for Cloud を使用する Azure サブスクリプションがありま
   
 ![](https://img.examtopics.com/sc-200/image266.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image267.png)
+### 回答
 
-**解説:**
-この問題のポイントは、**SQL Server 2022** の新機能と、管理の手間を最小限に抑えつつ「SQL 仮想マシン」として登録するという要件にあります。
+各サーバーに展開すべきものは以下の通りです:
 
-1. SQL 仮想マシンとしての登録と保護
+**VM1（Azure仮想マシン上のSQL Server）:**
+- **An Azure virtual machine extension**
 
-- **VM1 (Azure VM):** Azure 上の SQL Server を「SQL 仮想マシン」として登録し、脆弱性評価や Advanced Threat Protection を有効にするには、**SQL IaaS Agent 拡張機能**（SQL IaaS Agent extension）をインストールします。これは「Azure 仮想マシン拡張機能」の一種です。
-    
-- **Server1 (Azure Arc 対応サーバー):** Azure Arc にオンボード済みのオンプレミスサーバー上の SQL Server 2022 を管理・保護するには、**SQL Server 用 Azure 拡張機能**（Azure extension for SQL Server）を使用します。これも Azure Arc を通じてデプロイされる「Azure 仮想マシン拡張機能」です。
-    
-2. 「最小限の手間」とエージェントの選択
+**Server1（オンプレミスサーバー - Azure Arcにオンボード済み）:**
+- **The Azure Monitor Agent and an Azure virtual machine extension**
 
-- 以前のバージョンでは Log Analytics エージェントが必要でしたが、SQL Server 2022 以降、および最新の Microsoft Defender for SQL では、**拡張機能のみ**で登録、脆弱性評価、および Advanced Threat Protection の主要機能をサポートできるようになっています。
-    
-- **Azure Monitor Agent (AMA)** や **Log Analytics エージェント** を追加で導入・管理することは、今回の要件である「実装と管理の手間を最小限に抑える」に反するため、拡張機能のみを選択するのが正解となります。
+### 解説:
 
-3. 補足
+#### VM1（Azure VM上のSQL Server）の場合:
 
-- **Advanced Threat Protection:** 拡張機能を通じて、SQL インジェクションや異常なアクセスなどの脅威を検知します。
-    
-- **脆弱性評価:** データベースのセキュリティ設定をスキャンし、推奨される修正策を提示します。これらも拡張機能によって構成可能です。は、VM1/Server1ともに「Defender for Servers Plan 2」を指していると考えられます。
+**必要なもの:**
+
+- **Azure仮想マシン拡張機能のみ**
+
+**理由:**
+
+1. VM1は既にAzure仮想マシンなので、Azure Monitor Agentは不要
+2. Defender for SQLに必要な拡張機能:
+    - **Defender for SQL (IaaS)** 拡張機能
+    - **SQL IaaS Extension**（SQL仮想マシンとして登録するため）
+3. これらの拡張機能により:
+    - Advanced Threat Protection
+    - 脆弱性評価
+    - SQL Serverインスタンスの自動登録
+
+#### Server1（オンプレミス - Azure Arc対応）の場合:
+
+**必要なもの:**
+
+- **Azure Monitor Agent（AMA）** AND **Azure仮想マシン拡張機能**
+
+**理由:**
+
+Microsoft Learn Docsによると:
+
+> "Some of the services provided by SQL Server enabled by Azure Arc, such as Microsoft Defender for Cloud and best practices assessment, require the **Azure Monitoring agent (AMA) extension** to be installed and connected to an Azure Log Analytics workspace for data collection and reporting."
+
+1. **Azure Monitor Agent（AMA）が必要:**
+    - Defender for SQLのポスチャー評価にはAMAが必須
+    - セキュリティ関連の構成とイベントログの収集
+    - Log Analyticsワークスペースへのデータ送信
+2. **Azure仮想マシン拡張機能も必要:**
+    - **Defender for SQL (Arc)** 拡張機能
+    - **Azure Extension for SQL Server**（Azure Arc用）
+    - Advanced Threat Protection機能の提供
+    - SQL Serverインスタンスの登録
+
+### 要件の満たし方:
+
+✓ **Advanced Threat Protectionと脆弱性評価**: 両方の拡張機能で提供 ✓ **SQL仮想マシンとしての登録**: SQL IaaS Extension（VM1）とAzure Extension for SQL Server（Server1）で対応 ✓ **実装と管理の手間を最小限**: 自動プロビジョニング機能により簡素化
+
+### 不正解の選択肢:
+
+- **Log Analytics agent**: 非推奨（2024年8月に廃止）、Azure Monitor Agentに置き換えられた
+- VM1にAzure Monitor Agent: Azure VMには不要（拡張機能のみで十分）
+
+したがって、正解は:
+
+- **VM1**: Azure virtual machine extension
+- **Server1**: Azure Monitor Agent AND Azure virtual machine extension
 
 質問7 トピック4
 
@@ -118,13 +158,11 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 #### User1: Microsoft Purview Audit の検索と構成の確認
 
 - **Audit Reader (監査閲覧者):** この役割グループのメンバーは、Microsoft Purview ポータルで監査ログの検索と表示を行うことができます。また、監査ログの保持ポリシーなどの構成を確認（表示）することも可能です。
-    
 - **最小権限の原則:** `Security Reader` や `Global Reader` も情報の参照は可能ですが、監査サービスに特化した `Audit Reader` を使用するのが最も権限を限定できるため適切です。
     
 #### User2: Microsoft Exchange Online メールボックスの検索
 
-- **Data Investigator (データ調査員):** この役割グループは、組織内のコンテンツ（メールボックス、SharePoint、OneDrive など）を検索し、コンテンツのプレビューやエクスポートを行う権限を持っています。eDiscovery（電子証拠開示）やコンテンツ検索を実行するために必要な役割が含まれています。
-    
+- **Data Investigator (データ調査員):** この役割グループは、組織内のコンテンツ（メールボックス、SharePoint、OneDrive など）を検索し、コンテンツのプレビューやエクスポートを行う権限を持っています。eDiscovery（電子証拠開示）やコンテンツ検索を実行するために必要な役割が含まれています。    
 - **他のオプションとの比較:**
     
     - `Communication Compliance Investigators`: ポリシーによってフラグが立てられた通信のレビューに限定されます。
@@ -211,22 +249,64 @@ ARMテンプレートを使用してDefender for Cloudのワークフロー自�
 - A. はい
 - B. いいえ
 
-**正解：** B [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/25/#)  
+### 回答
 
-**解説:**
-Excelでの監査ログ（AuditData列のJSON）解析に関する問題です。
-ExcelのPower Query（データの取得と変換）機能でJSONを解析しようとして列生成に失敗する場合、単純に列にフィルターをかけても、元のJSON構造の複雑さが解決しない限り問題は解決しません。特に「JSONプロパティの数を減らすフィルター」という操作は、インポート前のCSVに対して行うのは困難です。正解の **B (いいえ)** は、この手順だけでは解決しない、またはより適切なJSON変換機能（Power QueryのJSON解析機能の正しい使用）が必要であることを示唆しています。
+正解は **B. いいえ** です。
+
+### 解説:
+Microsoft Learn Docsには、この問題について非常に具体的な情報が記載されています:
+
+**重要な制限事項（Microsoft Docsより）:**
+
+> "The JSON properties displayed... are based on the properties found in the **AuditData** column from the **first 1,000 rows** in the .csv file. If different JSON properties exist in records **after the first 1,000 rows**, these properties (and a corresponding column) **don't appear** when you split the **AuditData** column into multiple columns."
+
+### 問題の原因:
+
+1. **ExcelのPower Query Editorの制限**:
+    - 最初の1,000行のデータのみを使用してJSONプロパティを検出
+    - 1,000行以降に存在する異なるJSONプロパティは列として生成されない
+2. **File1.csvは10,000行**:
+    - 1,000行以降（1,001行目から10,000行目）に存在するJSONプロパティは検出されない
+    - フィルターを適用して行数を減らしても、この根本的な問題は解決しない
+
+### なぜ提案された解決策が機能しないのか:
+
+**提案された解決策:** 「既存の列にフィルターを適用してJSONプロパティの数を減らす」
+
+**問題点:**
+- ✗ フィルターを適用しても、Power Query Editorは依然として最初の1,000行のみを見る
+- ✗ 1,001行目以降にしか存在しないJSONプロパティは、行数を減らしても検出されない
+- ✗ 問題は「JSONプロパティの数」ではなく、「どの1,000行を検査するか」にある
+
+### 正しい解決策:
+
+Microsoft Docsが推奨する回避策:
+
+1. **監査ログ検索を再実行**:
+    - 検索条件を絞り込んで返されるレコード数を減らす
+    - 1,000行未満にすることですべてのプロパティを確実に検出
+2. **Operationsでフィルター**:
+    - ステップ5（JSONトランスフォーム前）で**Operations列**でフィルターして行数を減らす
+    - これにより最初の1,000行内にすべての必要なJSONプロパティが含まれるようにする
+3. **複数の検索に分割**:
+    - 日付範囲を分割して複数回検索する
+    - 各検索結果が1,000行未満になるようにする
+
+### Microsoft Docsの推奨:
+
+> "To help prevent this issue, consider **rerunning the audit log search** and **narrow the search criteria** so that fewer records return. Another workaround is to **filter items in the Operations column to reduce the number of rows** (before you perform step 5) before transforming the JSON object in the AuditData column."
+
+したがって、提案された解決策は要件を満たしません。正解は **B. いいえ** です。
 
 質問15 トピック4
 
 Microsoft 365 E5 サブスクリプションがあり、User1 と User2 という 2 人のユーザーが Microsoft Copilot for Security を使用しています。Copilot for Security ポータルから、User1 がセッションを開始し、以下のプロンプトを作成します。  
   
-• プロンプト 1: Entra プラグインへのアクセスを提供します  。
+• プロンプト 1: Entra プラグインへのアクセスを提供します。
 • プロンプト 2: Intune プラグインへのアクセスを提供します。  
-• プロンプト 3: Entra プラグインへのアクセスを提供します  
-  
-。User1 は User2 とセッションを共有します。User2 は Microsoft Intune にアクセスできません。  
-  
+• プロンプト 3: Entra プラグインへのアクセスを提供します。
+
+User1 は User2 とセッションを共有します。User2 は Microsoft Intune にアクセスできません。   
 共有セッション中、User2 はどのプロンプトの結果を表示できますか？
 
 - A. プロンプト1のみ

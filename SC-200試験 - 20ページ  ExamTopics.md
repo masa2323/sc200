@@ -1,8 +1,6 @@
 質問#64 トピック3
 
-Microsoft Sentinel ワークスペースを含む Azure サブスクリプションをお持ちです。Microsoft  
-  
-Sentinel アラートに応じて自動的に実行されるプレイブックを作成する必要があります。  
+Microsoft Sentinel ワークスペースを含む Azure サブスクリプションをお持ちです。Microsoft Sentinel アラートに応じて自動的に実行されるプレイブックを作成する必要があります。  
   
 まず何を作成すればよいでしょうか？
 
@@ -27,15 +25,57 @@ Workspace1 という Microsoft Sentinel ワークスペースがあります。W
   
 ![](https://img.examtopics.com/sc-200/image163.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image164.png)
+### 回答
 
-**解説:**
-ASIM DNSスキーマ（`_Im_Dns`）に対するKQLクエリです。
+クエリを以下のように完成させてください:
 
-1. **_Im_Dns**: ASIMのDNS用統合パーサー（正規化されたビュー）を使用します。
-2. **where DnsResponseCodeName**: 応答コード名でフィルタリングします（`NXDOMAIN`など）。
-3. **summarize count() by SrcIpAddr, bin(TimeGenerated, 15m)**: 送信元IPアドレスごと、および15分間隔（bin）で件数を集計します。
-※パフォーマンス最大化のため、ネイティブテーブルではなくASIMビューを使う際は、フィルタリングを早めに行う（TimeGeneratedなど）のが鉄則ですが、選択肢の構成上、基本的なKQL構文を問うています。
+**最初のドロップダウン（パーサー名）:**
+- **_Im_Dns**
+
+**2番目のドロップダウン（クエリ構文）:**
+- **(starttime=ago(1d),responsecodename='NXDOMAIN')**
+
+### 完成したクエリ:
+```kusto
+_Im_Dns(starttime=ago(1d),responsecodename='NXDOMAIN')
+| summarize count() by SrcIpAddr, bin(TimeGenerated,15m)
+```
+
+### 解説:
+
+#### 1. **`_Im_Dns`を使用する理由:**
+- **組み込みの統合パーサー**: すべてのDNSソースを正規化された形式で統合
+- **パフォーマンス**: `imDns`はワークスペースデプロイ版で、開発用途向け
+- **推奨事項**: Microsoft Docsでは「ASIMコンテンツを開発する際は組み込みパーサーの使用を推奨」と明記
+
+**不正解の選択肢:**
+- `Dns`: 生のテーブル名で、正規化されていない
+- `imDns`: ワークスペースデプロイ版のパーサー（開発/カスタマイズ用）
+
+#### 2. **フィルタリングパラメータを使用する理由:**
+**パフォーマンスの最大化:**
+
+Microsoft Learn Docsには、**まったく同じ例**が記載されています:
+
+```kusto
+// フィルタリングパラメータあり（推奨）
+_Im_Dns(starttime=ago(1d), responsecodename='NXDOMAIN')
+  | summarize count() by SrcIpAddr, bin(TimeGenerated,15m)
+
+// フィルタリングパラメータなし（非推奨）
+_Im_Dns
+  | where TimeGenerated > ago(1d)
+  | where ResponseCodeName =~ "NXDOMAIN"
+  | summarize count() by SrcIpAddr, bin(TimeGenerated,15m)
+```
+
+**フィルタリングパラメータの利点:**
+- **パース前にフィルタリング**: データ量を削減してからパース
+- **クエリ最適化**: パーサー内部で効率的な事前フィルタリング
+- **パフォーマンス向上**: whereを後から使うより大幅に高速
+
+**不正解の選択肢:**
+- `where`句を使う方法: パース後のフィルタリングのためパフォーマンスが低下
 
 質問#66 トピック3
 
@@ -49,21 +89,17 @@ ASIM DNSスキーマ（`_Im_Dns`）に対するKQLクエリです。
   
 ![](https://img.examtopics.com/sc-200/image165.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image166.png)
-
 **解説:**
 1. Azure Connected Machine agent (Azure Arc) を使用する理由
 
 現在の Azure におけるログ収集の標準は **Azure Monitor Agent (AMA)** です。オンプレミスのサーバーに AMA をインストールして Azure サービスと連携させるためには、まずそのサーバーを **Azure Arc** 対応サーバーとして登録する必要があります。 そのために必要なのが **Azure Connected Machine agent** です。
 
 - **Log Analytics agent:** いわゆるレガシーエージェント（MMA）であり、現在は AMA への移行が推奨されています。
-    
 - **Microsoft Dependency agent:** VM Insights などでプロセス間の依存関係を可視化するためのもので、ログ収集の基盤ではありません。
     
 2. Data connectors page を使用する理由
 
 Microsoft Sentinel でカスタムログ（テキスト形式など）を取り込む設定を行うには、Sentinel ポータルの **「データ コネクタ (Data connectors)」** ページから設定を開始します。
-
 ここで「Custom Text Log via AMA」などのコネクタを選択し、**データ収集ルール (DCR)** を作成・構成することで、どのサーバーからどのパスのファイルを収集するかを定義します。
 
 質問#67 トピック3
@@ -132,7 +168,5 @@ Microsoft Sentinel インシデントは次の図のように生成されます�
 インシデント対応中に行われた操作や分析結果、メモなどのアクティビティ履歴を確認・記録するには **「Comments」** タブを使用します。調査の進捗やチーム内での共有事項がここにリストとして蓄積されます。
 
 - **Alerts:** インシデントに含まれる個々のアラートの一覧を表示します。
-    
 - **Bookmarks:** 調査中に特定のログを「証拠」として保存したものを表示します。
-    
 - **Status:** これはタブではなく、インシデントの状態（New, Active, Closed）を示す属性です。
