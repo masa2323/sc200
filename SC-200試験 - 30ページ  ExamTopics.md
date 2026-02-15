@@ -14,12 +14,6 @@ ID1とID2は、ID3と同じファイルを参照しています。
   
 ![](https://img.examtopics.com/sc-200/image318.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image319.png)
-
-Microsoft Defender for Endpointのインジケーター動作について、Microsoft Learn MCP を使って正確な情報を確認します。
-
-まず、関連するドキュメントを検索します。この情報から、3つの質問に回答します。
-
 ## 分析
 
 提供された情報から、以下のルールが適用されます:
@@ -103,7 +97,6 @@ Microsoft Sentinelで監査ログを調査するためのテーブル選択で�
 1. **Download a conditional access policy using PowerShell**:
    条件付きアクセスポリシーの表示やダウンロード（読み取り操作）は **AuditLogs** に記録されますが、PowerShellコマンドの実行履歴という観点なら **MicrosoftGraphActivityLogs** も候補です。しかし、条件付きアクセス自体の操作ログ（Core Directory Service）は **`AuditLogs`** テーブルに格納されます。アクティビティタイプは `Core Directory` です。
    *ただし*、PowerShellで実行したという事実（APIコール）は **`MicrosoftGraphActivityLogs`** に記録されます。質問が「APIアクティビティを調査」と言っているので、Graph Activity Logsを見るべきですが、選択肢にそれがなく、図の構成（AuditLogs, AzureActivity, SigninLogsしかない場合）なら **AuditLogs** です。
-   ※正解画像では **AuditLogs** を選択しているようです。条件付きアクセスポリシーの変更・アクセスはディレクトリ監査の一部です。
 2. **Update a conditional access policy using Microsoft Entra admin center**:
    ポリシーの更新（書き込み）は明確に **`AuditLogs`** テーブルに「Update conditional access policy」として記録されます。
    したがって、両方とも **AuditLogs** です。AzureActivityはAzureリソース（ARM）操作、SigninLogsはサインイン記録です。
@@ -118,9 +111,9 @@ Rule1 という Microsoft Defender XDR 検出ルールがあり、その構成�
 • スコープ:DevGroup1  
 • ファイルハッシュ:File1.exe  
 • アクション  
-o デバイス:調査パッケージを収集  
-o ユーザー:侵害済みとしてマーク  
-o ファイル:ブロック  
+- デバイス:調査パッケージを収集  
+- ユーザー:侵害済みとしてマーク  
+- ファイル:ブロック  
   
 各ユーザーがデバイス上で File1.exe を実行しようとします。  
   
@@ -144,7 +137,6 @@ o ファイル:ブロック
 - **判定:** **いいえ**
     
 - **理由:** User2 がサインインしている Device2 は DevGroup1 に属しているため、ルールのアクション「ユーザー：侵害済みとしてマーク（Mark as compromised）」が実行されます。
-    
 - **詳細:** Microsoft Entra ID 保護（Entra ID Protection）の仕様では、ユーザーを「侵害済みとしてマーク」した場合、そのユーザーのリスクレベルは自動的に「**高 (High)**」に設定されます。「中 (Medium)」ではないため、この文は正しくありません。
     
 ### 3. Device1 からの調査パッケージの収集について
@@ -152,7 +144,6 @@ o ファイル:ブロック
 - **判定:** **はい**
     
 - **理由:** User1 がサインインしている Device1 は **DevGroup1** に属しており、ルールのスコープ内です。
-    
 - **詳細:** Rule1 のアクションとして「デバイス：調査パッケージを収集（Collect investigation package）」が構成されているため、条件に一致する File1.exe が実行されると、Device1 から調査パッケージが正しく収集されます。
 
 質問#21 トピック5
@@ -194,23 +185,18 @@ Windows 11 および Linux CentOS デバイスを含む Microsoft 365 E5 サブ�
   
 ![](https://img.examtopics.com/sc-200/image378.png)
 
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image379.png)
-
 **解説:**
 ### 1. File type (ファイルの種類) について
 
 - **LNK** が推奨されます。
     
 - デセプションルールにおける **LNK（ショートカットファイル）** は、攻撃者がそのファイルをクリックしたりプロパティを確認したりした際に、自動的にデコイ（偽のサーバーやリソース）へと誘導するよう設計されています。
-    
 - 攻撃者が「機密情報へのショートカット」と誤認してアクセスする可能性が高いため、おとりとして非常に有効です。
     
 ### 2. Planting path (配置パス) について
 
 - **{HOME}** を指定します。
-    
 - Microsoft Defender XDR のデセプション設定では、変数の **`{HOME}`** を使用することで、対象となる Windows デバイスのユーザープロファイル（例: `C:\Users\Username`）や、Linux デバイスのホームディレクトリ（例: `/home/username`）にルアーを自動的に配置できます。
-    
 - これにより、環境内の複数のユーザーや異なる OS（Windows/Linux）に対して、攻撃者の目に留まりやすい場所に一括でおとりを設置することが可能になります。
 
 質問#23 トピック5
@@ -264,8 +250,6 @@ Custom1 の作成にはどのような設定が必要ですか？また、Policy
   
 ![](https://img.examtopics.com/sc-200/image380.png)
 
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image381.png)
-
 **解説:**
 ## 回答エリア (Answer Area)
 
@@ -279,17 +263,13 @@ Custom1 の作成にはどのような設定が必要ですか？また、Policy
 ### 1. 「Use」について（Custom1 の作成場所）
 
 - **機能の所在:** 条件付きアプリアクセス制御（Conditional Access App Control）は、**Microsoft Defender for Cloud Apps** の機能です。
-    
 - **管理ポータル:** 現在、Microsoft Defender for Cloud Apps のポリシー作成や管理は、統合された **Microsoft Defender portal**（https://www.google.com/search?q=security.microsoft.com）で行います。
-    
 - **作成手順:** Defender ポータル内で「クラウド アプリ」＞「ポリシー」＞「ポリシー管理」から、条件付きアプリアクセス制御用のカスタムポリシー（Custom1）を作成します。
     
 ### 2. 「Settings」について（Policy1 での構成）
 
 - **連携の仕組み:** 条件付きアクセスポリシー（Policy1）で特定のアプリへのアクセスを制御し、そのトラフィックを Defender for Cloud Apps にリダイレクトする必要があります。
-    
 - **設定箇所:** 条件付きアクセスポリシーの「アクセス制御」セクションにある **「セッション (Session)」** コントロールを使用します。
-    
 - **具体的な構成:** 「セッション」内で **「条件付きアプリアクセス制御を使う」** を選択し、そこで「カスタム ポリシーを使用する」などの設定を行うことで、事前に作成した Custom1 と Policy1 を紐付けることができます。
 
 質問#26 トピック5
@@ -308,12 +288,9 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
   
 ![](https://img.examtopics.com/sc-200/image382.png)
 
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image383.png)
-
 ## 回答エリア (Answer Area)
 
 - **File types:** **EXE, XLSX, and PDF**
-    
 - **The home directory of:** **The planted cached user**
     
 ---
@@ -324,7 +301,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 Microsoft Defender XDR のデセプションルールでは、攻撃者が興味を持ちそうな「おとり」として複数のファイル形式をサポートしています。
 
 - **サポートされている形式:** 代表的なものとして **EXE**（実行ファイル）、**XLSX**（Excel スプレッドシート）、**PDF**（ドキュメント）などが含まれます。
-    
 - 選択肢の中で、これら主要な3つの形式をすべて含む **「EXE, XLSX, and PDF」** が最も包括的かつ正しい設定です。これらを組み合わせることで、より自然なユーザー環境を装うことができます。
     
 ### 2. 配置場所（Planting path）について
@@ -332,7 +308,6 @@ Microsoft Defender XDR のデセプションルールでは、攻撃者が興味
 `Planting path` を `{HOME}` に設定した場合、ファイルがどのユーザーのディレクトリに配置されるかが重要です。
 
 - **デコイアカウントの役割:** デセプションルールが適用されると、デバイス上には「デコイ（おとり）」となる偽のユーザーアカウントが生成またはキャッシュされます。これを **Planted cached user** と呼びます。
-    
 - **配置の意図:** 実ユーザーの業務を妨げず、かつ攻撃者が横展開（ラテラルムーブメント）を試みた際に見つけやすい場所に配置するため、おとりファイルはこの **Planted cached user（植え付けられたキャッシュユーザー）** のホームディレクトリに配置されます。
 
 質問#27 トピック5

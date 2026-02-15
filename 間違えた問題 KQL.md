@@ -723,3 +723,252 @@ KQL クエリをどのように完了すればよいですか？回答するに�
 - **制限:** 前述の通り、Basic ログのクエリ可能な期間は **8日間** 固定です。
 
 - **結論:** 「合計保持期間」を45日に設定したとしても、それはアーカイブ（長期保存）としての設定であり、通常のクエリ（KQL）で 45日分（90行）の結果を直接出すことはできません。これを実現するにはプランを **Analytics** に変更する必要があります。
+
+質問#40トピック4
+
+Linux を実行するオンプレミス サーバーが 200 台あります。Workspace1 という Microsoft Sentinel ワークスペースがあります。Azure Monitor の Log Ingestion API を使用して、これらのサーバーから Common Event Format (CEF) 形式の Syslog イベントを収集し、Workspace1 に取り込む予定です。API 要求を使用して、イベントのデータ収集ルール (DCR) を構成する必要があります。  
+  
+この API 要求をどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
+  
+注: 正解は 1 点です。  
+  
+![](https://img.examtopics.com/sc-200/image476.png)
+
+### 回答
+
+- **streams:** `Microsoft-CommonSecurityLog`
+- **Property:** `facilityNames: [`
+
+---
+
+### 解説
+
+1. streams (ストリーム) の選択
+
+Azure Monitor で **CEF (Common Event Format)** ログを取り込む際、リンク先となるシステムテーブルは **`CommonSecurityLog`** です。
+
+- **Microsoft-CommonSecurityLog:** これが正解です。DCR の定義において、CEF 形式のログを標準の `CommonSecurityLog` テーブルにルーティングするための予約済みストリーム名です。
+- **Microsoft-Syslog:** これは標準の Syslog 形式（RFC3164/5424）を取り込む際に使用されるため、CEF の場合は適しません。
+- **SecurityEvent:** これは Windows のセキュリティイベントログ用です。
+
+1. Property (プロパティ) の選択
+
+JSON の構造と、後続のデータ（`"cron"`, `"daemon"`）から判断します。
+
+- **facilityNames: [:** これが正解です。Syslog 設定において、収集対象とするファシリティ（`cron`, `daemon`, `auth` など）をリスト形式で指定するためのプロパティです。
+- **outputStream: [:** これは DCR 内の `destinations` セクションに関連するものであり、`dataSources` 内の `syslog` 構成の中で個別のファシリティを指定するために使うプロパティではありません。
+- **type: [:** ここでは適切なプロパティではありません。
+
+---
+
+#### DCR 構成のポイント
+
+この構成により、200 台の Linux サーバーから送られる CEF ログのうち、指定したファシリティ（cron, daemon）かつ、指定したログレベル（Error, Critical, Alert, Emergency）に合致するものだけが Microsoft Sentinel (Workspace1) の `CommonSecurityLog` テーブルへ取り込まれるようになります。
+
+質問#42トピック4
+
+複数の Microsoft Sentinel ワークスペースを含む複数の Azure サブスクリプションがあります。AzureActivity テーブルへの参照を含む Microsoft Sentinel ブックを作成しています。  
+  
+次のアクションを実行する KQL クエリを作成する必要があります。  
+  
+• 各ワークスペースに AzureActivity テーブルが存在するかどうかを確認します。  
+• テーブルが存在する場合は、isMissing 列が 0 に設定された単一の行を返します。
+• テーブルが存在しない場合は、isMissing 列が 1 に設定された単一の行を返します。  
+  
+クエリをどのように完了する必要がありますか？回答するには、回答領域で適切なオプションを選択してください。  
+  
+注: 正しい選択ごとに 1 ポイントが付与されます。  
+  
+![](https://img.examtopics.com/sc-200/image478.png)
+
+## 回答
+
+- **1つ目の選択肢:** `datatable`
+- **2つ目の選択肢:** `isfuzzy=true`
+
+---
+
+## 解説
+
+このクエリの目的は、ワークスペース内に `AzureActivity` テーブルが存在するかどうかでフラグ（`isMissing`）を切り替えることです。
+
+1. `datatable` の選択
+
+`let mTable =` の直後に続く構文 `(isMissing:int) [1]` は、メモリ内に一時的な静的テーブルを作成する **`datatable`** 演算子の標準的な書き方です。
+
+- **datatable:** スキーマ（列名と型）を定義し、値を直接入力してテーブルを作成します。ここでは `isMissing` 列に `1` が入った1行のテーブルを作成しています。
+- **extend / makelist:** これらは既存のデータセットに対して列を追加したりリストを作成したりする演算子であるため、この構文の開始点としては不適切です。
+
+1. `isfuzzy=true` の選択
+
+`union` 演算子における **`isfuzzy=true`** は、結合対象のテーブル（この場合は `AzureActivity`）が**存在しない場合にエラーを出さず、そのテーブルを無視して処理を続行させる**ための非常に重要なパラメータです。
+
+- **なぜこれか:** `AzureActivity` テーブルが存在しないワークスペースでこのクエリを実行すると、通常は「テーブルが見つからない」というエラーで停止してしまいます。`isfuzzy=true` を指定することで、テーブルがない場合は空の結果として扱い、エラーを回避して `mTable`（isMissing=1）側の結果を出力できるようになります。
+- **kind=outer / withsource:** これらは結合の方法やソースの特定を指定するものですが、テーブル自体の「欠落」によるエラーを防ぐ機能はありません。
+
+---
+
+### クエリの動作ロジック
+
+1. まず、`isMissing` が `1` の `mTable` を作成します。
+
+2. 次に、実際の `AzureActivity` テーブルを確認し、存在すれば `isMissing` を `0` に変換した行を生成します。
+
+3. `union isfuzzy=true` で両者を結合します。
+
+4. テーブルが存在すれば `0` と `1` の行が混ざりますが、`top 1`（ソート順によりますが、このロジックでは存在確認が優先されます）により、最終的なステータスを判定します。
+
+質問#45トピック4
+
+50 個のサブスクリプションが含まれる Azure 環境があり、その中には Sub1 というサブスクリプションもあります。Sub1 には、他のサブスクリプションからログを収集する Workspace1 という Microsoft Sentinel ワークスペースが含まれています。Workspace1 には WB1 というブックが含まれています。WB1 に、Item1 というパラメーター項目を追加します。Item1 に、Parameter1 というパラメーターを追加します。  
+  
+次の要件を満たすように、Parameter1 のドロップダウン メニューを構成する必要があります。  
+  
+• ユーザーがクエリを実行するサブスクリプションを 1 つ以上選択できるようにします。  
+• すべてのサブスクリプションをクエリするための単一のオプションをユーザーに提供します。  
+  
+ソリューションでは、WB1 にデータを入力するための時間を最小限に抑える必要があります。ソリューションでは、管理の労力を最小限に抑える必要があります。  
+  
+どうすればよいでしょうか。回答するには、回答領域で適切なオプションを選択してください。  
+  
+注: 正しい選択ごとに 1 ポイントが付与されます。  
+  
+![](https://img.examtopics.com/sc-200/image484.png)
+
+## 回答
+
+- **Set Parameter type for Parameter1 to (Parameter1 の型):** `Subscription picker`
+- **To enable users to query all the subscriptions (すべてのサブスクリプションをクエリ可能にする):** `Select Allow multiple selections.`
+
+---
+
+## 解説
+
+この構成は、管理コストを抑えつつ、ユーザーが複数のサブスクリプションを柔軟に選択できるようにするための標準的な手法です。
+
+1. Subscription picker (サブスクリプション ピッカー) の選択
+
+- **管理の手間の最小化:** `Drop down` を選択すると、Azure Resource Graph クエリなどを記述してサブスクリプション一覧を取得する必要があります。一方、`Subscription picker` は Microsoft Sentinel（Azure Monitor Workbooks）に組み込まれた専用の型であり、クエリを書く必要が一切ないため、管理の手間が最小限になります。
+
+- **データ読み込み時間の最小化:** 外部クエリを実行してリストを生成する `Drop down` よりも、ネイティブなピッカーである `Subscription picker` の方が高速に動作します。
+
+1. Select Allow multiple selections. (複数選択を許可する) の選択
+
+- **「1つ以上」の要件:** ユーザーが複数のサブスクリプションを選択できるようにするためには、この設定を有効にする必要があります。
+
+- **「単一のオプションで全クエリ」の要件:** `Subscription picker` の設定で `Allow multiple selections` を有効にすると、その詳細設定の中に **「Include All（すべてを含む）」** というチェックボックスが表示されます。これをオンにすることで、ドロップダウン内に「All」という単一の選択肢が追加され、要件を満たすことができます。
+
+質問11 トピック5
+  
+Windows Server を実行するオンプレミス サーバーがあります。SW1 という Microsoft Sentinel ワークスペースがあります。SW1 は、Azure Monitor エージェント データ コネクタを使用してサーバーから Windows セキュリティ ログ エントリを収集するように構成されています。  
+  
+収集するイベントの範囲をイベント 4624 と 4625 のみに制限する予定です。  
+  
+コネクタに適用されたフィルターの構文を検証するには、PowerShell スクリプトを使用する必要があります。  
+
+スクリプトをどのように完成させる必要がありますか？回答するには、回答領域で適切なオプションを選択してください。  
+  
+注: 正解は 1 点です。  
+  
+![](https://img.examtopics.com/sc-200/image273.png)
+
+### 正解
+
+powershell
+
+```powershell
+$events = '*[System[(EventID=4624 or EventID=4625)]]'
+Get-WinEvent -LogName 'Security' $events -FilterXPath
+```
+
+### 各空欄の正しい選択肢
+
+1. **最初の空欄（$eventsの値）**:
+    - `'*[System[(EventID=4624 or EventID=4625)]]'`
+2. **第二の空欄（Get-WinEventのパラメータ）**:
+    - `-FilterXPath`
+
+### 根拠（公式ドキュメントより）
+
+#### 1. XPath構文について
+
+公式ドキュメント "[Collect Windows events from virtual machine with Azure Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor/vm/data-collection-windows-events)" より：
+
+> **XPath entries are written in the form `LogName!XPathQuery`**
+>
+> 例: `Security!*[System[EventID=1035]]`
+
+ただし、**PowerShellの`Get-WinEvent`コマンドレットでは、LogNameは`-LogName`パラメータで別途指定**するため、XPath部分のみを指定します。
+
+#### 2. 複数のイベントIDをフィルターする構文
+
+同ドキュメントのサンプルより：
+
+|説明|XPath|
+|---|---|
+|System events with Event ID = 4648のみ|`System!*[System[EventID=4648]]`|
+|Success and failure Security events **except** for Event ID 4624|`Security!*[System[(band(Keywords,13510798882111488)) and (EventID != 4624)]]`|
+
+また、"[Use the data ingestion benefit](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit)" より、**複数のイベントIDを含める場合の正しい構文**:
+
+xpath
+
+```xpath
+*[System[(EventID=4624 or EventID=4625 or EventID=4688)]]
+```
+
+#### 3. Get-WinEventコマンドレットの使い方
+
+公式ドキュメント "[Connect Microsoft Sentinel to other Microsoft services with a Windows agent-based data connector](https://learn.microsoft.com/en-us/azure/sentinel/connect-services-windows-based)" より：
+
+> To test the validity of an XPath query, use the PowerShell cmdlet **Get-WinEvent** with the _**-FilterXPath**_ parameter. For example:
+>
+> powershell
+>
+> ```powershell
+> $XPath = '*[System[EventID=1035]]'
+> Get-WinEvent -LogName 'Application' -FilterXPath $XPath
+> ```
+
+### 正しいスクリプト構文
+
+powershell
+
+```powershell
+$events = '*[System[(EventID=4624 or EventID=4625)]]'
+Get-WinEvent -LogName 'Security' -FilterXPath $events
+```
+
+**重要なポイント**:
+
+- XPath式はSystem要素内で複数のEventIDを`or`で結合
+- `Get-WinEvent`では`-FilterXPath`パラメータを使用
+- `-LogName 'Security'`でSecurityログを指定
+- Azure Monitor AgentのDCRで使用する際は、`Security!`プレフィックスが必要になりますが、PowerShellでローカルテストする際は不要です
+
+この構文により、イベント4624（成功したログオン）と4625（失敗したログオン）のみが返されます。
+
+質問#21 トピック5
+
+Microsoft 365 E5 サブスクリプションをお持ちです。  
+  
+以下の KQL クエリがあります。  
+  
+![](https://img.examtopics.com/sc-200/image377.png)  
+  
+このクエリを使用して、オンボードデバイスを分離できる Microsoft Defender XDR カスタム検出ルールを作成する必要があります。  
+  
+クエリをどのように変更すればよいでしょうか？
+
+- A. プロジェクト オペレーターに AccountUpn 列と Timestamp 列を追加します。
+- B. 個別の演算子を追加します。
+- C. 集計演算子を追加します。
+- D. プロジェクト オペレーターに DeviceId 列と Timestamp 列を追加します。
+
+**正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/30/#)  
+
+**解説:**
+カスタム検出ルールでデバイスに対するレスポンスアクション（Isolate deviceなど）を実行できるようにするための要件です。
+**「Add the DeviceId and Timestamp columns to the project operator」**:
+カスタム検出ルールが特定のアクション（デバイス分離、ウイルススキャン、調査パッケージ収集など）をエンティティに対して実行するためには、クエリの結果セットに、そのエンティティを識別する識別子（**DeviceId**）と、イベントの時間（**Timestamp**）が含まれている必要があります。これらがマッピングされていないと、システムはどのデバイスに対していつのアクションを実行すればよいかわかりません。
+ユーザー（Account）に対するアクションならAccountUpnなどが必要です。

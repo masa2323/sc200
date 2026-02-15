@@ -1,11 +1,9 @@
 質問#26 トピック4
 
-次の表に示すユーザーを含むMicrosoft 365 E5サブスクリプションをご利用の場合、  
+次の表に示すユーザーを含むMicrosoft 365 E5サブスクリプションをご利用の場合、Microsoft Entra Internet Accessを構成します。Microsoft Entra Internet Accessを管理できるのはどのユーザーですか？
   
 ![](https://img.examtopics.com/sc-200/image364.png)  
   
-Microsoft Entra Internet Accessを構成します。Microsoft Entra Internet Accessを管理できるのはどのユーザーですか？
-
 - A. ユーザー1のみ
 - B. ユーザー2のみ
 - C. ユーザー3のみ
