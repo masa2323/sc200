@@ -65,6 +65,7 @@ Tenant1 と Tenant2 という 2 つの Microsoft Entra テナントがありま�
 contoso.com という Microsoft Entra テナントにリンクされた Microsoft 365 E5 サブスクリプションがあります。contoso.com のロールの変更を識別するために、Microsoft Graph アクティビティ ログをクエリする必要があります。KQL クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
+![[Pasted image 20260218005544.png]]
 
 **Correct Answer:** ![](https://img.examtopics.com/sc-200/image465.png)
 
@@ -97,6 +98,7 @@ File1.exe、File2.zip、File3.ps1 という 3 つの不審なファイルを特�
 詳細分析をサポートしているデバイスと、詳細分析に提出できるファイルはどれですか？ 回答するには、回答エリアで適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
+![[Pasted image 20260218005648.png]]
 ### **サポートされるデバイス**
 
 公式ドキュメントによると、詳細分析（Deep Analysis）機能は以下のデバイスからファイルを収集できます：
@@ -185,12 +187,7 @@ Advanced Huntingクエリ: `DeviceTvmSoftwareInventory | summarize ...`
 
 質問#45 トピック6
 
-ドラッグ アンド ドロップ  
-\-  
-  
-Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションがあります。Microsoft  
-  
-Security Copilot を使用する Azure サブスクリプションがあります。Security Copilot で、インシデント ID に関する次の情報を収集するカスタム プロンプトブックを作成する必要があります。  
+Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションがあります。Microsoft Security Copilot を使用する Azure サブスクリプションがあります。Security Copilot で、インシデント ID に関する次の情報を収集するカスタム プロンプトブックを作成する必要があります。  
   
 • インシデントの概要  
 • 特定された脅威アクターに関する脅威インテリジェンス  
@@ -204,11 +201,8 @@ Security Copilot を使用する Azure サブスクリプションがありま�
 ## 回答エリア (Answer Area)
 
 1. **From the Security Copilot standalone portal, create a session.**
-    
 2. **Enter the four prompts and gather the required information about a sample incident.**
-    
 3. **Select the prompts to include in the promptbook.**
-    
 4. **Create the promptbook.**
     
 ---
@@ -233,19 +227,15 @@ Security Copilot を使用する Azure サブスクリプションがありま�
 選択したプロンプトを元に、名前や説明を付けて**プロンプトブックとして保存（Create）**します。これで、次回以降はインシデントIDを入力するだけで、定義した4つのステップが自動的に実行されるようになります。
 
 質問#46 トピック6
-
-ドラッグ＆ドロップ  
-\-  
   
 Device1 という名前の Windows 11 デバイスを含む Microsoft 365 E5 サブスクリプションがあります。Device1 は Microsoft Defender XDR にオンボードされています。  
   
 次の操作を実行します。  
   
 • Script1.ps1 という名前の PowerShell スクリプトを作成します。  
-• Microsoft Defender XDR ポータルから、Device1 へのライブ応答セッションを確立します。Device1  
-  
-で Script1.ps1 を実行できることを確認する必要があります。  
-  
+• Microsoft Defender XDR ポータルから、Device1 へのライブ応答セッションを確立します。
+
+Device1 で Script1.ps1 を実行できることを確認する必要があります。    
 どの 3 つの操作を順番に実行する必要がありますか？ 回答するには、適切な操作をアクションの一覧から回答領域に移動し、正しい順序で並べ替えてください。  
   
 ![](https://img.examtopics.com/sc-200/image470.png)
@@ -271,9 +261,7 @@ Device1 という名前の Windows 11 デバイスを含む Microsoft 365 E5 サ
 
 質問#47 トピック6
 
-Microsoft 365 サブスクリプションを所有しています。このサブスクリプションには、Microsoft Defender for Endpoint にオンボードされている Windows 11 デバイスが 500 台含まれています。Linux  
-  
-を実行するデバイスも 500 台あります。  
+Microsoft 365 サブスクリプションを所有しています。このサブスクリプションには、Microsoft Defender for Endpoint にオンボードされている Windows 11 デバイスが 500 台含まれています。Linux を実行するデバイスも 500 台あります。  
   
 ユーザーは Microsoft Entra の資格情報を使用して、Windows デバイスと Linux デバイスにサインインします。  
   

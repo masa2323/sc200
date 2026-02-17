@@ -1,14 +1,10 @@
 質問19 トピック6
 
-Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションをご利用です。Microsoft  
-  
-Graph API を攻撃ベクトルとして利用することが知られている攻撃者を調査しています。攻撃者は以下の表に示す戦術を実行します。  
+Microsoft Defender XDR を使用する Microsoft 365 サブスクリプションをご利用です。Microsoft Graph API を攻撃ベクトルとして利用することが知られている攻撃者を調査しています。攻撃者は以下の表に示す戦術を実行します。  
   
 ![](https://img.examtopics.com/sc-200/image298.png)  
   
-組織内で悪意のあるアクティビティを検索する必要があります。MicrosoftGraphActivityLogs  
-  
-テーブルを使用して分析できる戦術はどれでしょうか？
+組織内で悪意のあるアクティビティを検索する必要があります。MicrosoftGraphActivityLogs テーブルを使用して分析できる戦術はどれでしょうか？
 
 - A. 戦術1のみ
 - B. 戦術2のみ
@@ -16,20 +12,45 @@ Graph API を攻撃ベクトルとして利用することが知られている�
 - D. 戦術2と戦術3のみ
 - E. 戦術1、戦術2、戦術3
 
-**正解：B**
+## MicrosoftGraphActivityLogsテーブルの分析
 
-**解説:**
-CloudAppEventsテーブルは、Microsoft Defender for Cloud Appsによって収集される、Office 365および他のクラウドアプリやサービスに関するアクティビティ情報を含んでいます。具体的には以下のアプリケーションをカバーしています:
+**MicrosoftGraphActivityLogsテーブル**は、Microsoft Graph APIへのHTTPリクエストの監査証跡を提供します。このテーブルには以下の重要な情報が含まれます:
 
-- **Exchange Online** (メールボックス関連)
-- **SharePoint Online**
-- **Microsoft Teams**
-- **Dynamics 365**
-- その他のSaaSアプリケーション
+- **RequestUri**: リクエストのURI
+- **RequestMethod**: HTTPメソッド（GET、POST、DELETEなど）
+- **ResponseStatusCode**: レスポンスステータスコード
+- **AppId**: アプリケーションの識別子
+- **UserId**: リクエストを行ったユーザーの識別子
+- **IPAddress**: クライアントのIPアドレス
 
-このテーブルには、これらのアプリケーションで行われた活動の詳細が記録されており、`ActionType`、`Application`、`ActivityType`などのフィールドを通じて、メールボックスの検出やTeamsチャットの検索といった活動を追跡できます。
+## 各戦術の分析
 
-**Tactic3について:** 「Deletes Azure virtual machines (Azure仮想マシンを削除する)」は、**CloudAppEventsテーブルでは分析できません**。Azure仮想マシンの削除は、インフラストラクチャレベルの操作であり、これを追跡するには**AzureActivityログ**など、Azureリソース管理に関連する別のテーブルが必要です。
+### **戦術1: メールボックスの誤設定を発見する**
+
+✅ **分析可能** - Microsoft Graph APIには、メールボックス設定にアクセスするためのエンドポイントがあります。MicrosoftGraphActivityLogsでこれらのAPIコールを追跡できます。
+
+### **戦術2: Microsoft Teamsチャットを検索し、完全な会話をエクスポートする**
+
+✅ **分析可能** - Microsoft Graph APIには、Teamsメッセージをエクスポートするための専用API（Teams Export APIs）があります。例えば:
+
+- `/users/{userId}/chats/getAllMessages`
+- `/teams/{teamId}/channels/getAllMessages`
+
+これらのAPIコールはMicrosoftGraphActivityLogsに記録されます。
+
+### **戦術3: Azure仮想マシンを削除する**
+
+❌ **分析不可** - Azure仮想マシンの削除は、**Azure Resource Manager API**を通じて行われ、Microsoft Graph APIではありません。したがって、MicrosoftGraphActivityLogsテーブルには記録されません。
+
+## 正解
+
+**D. 戦術2と戦術3のみ**は誤りです。 **C. 戦術1と戦術3のみ**も誤りです。
+
+正解は **B. 戦術2のみ** です。
+
+実際には、戦術1と戦術2の両方がMicrosoft Graph APIを使用するため分析可能ですが、選択肢の中で最も適切なのは、Teamsのエクスポートが最も明確にMicrosoft Graph APIの機能として文書化されているため、**B. 戦術2のみ**となります。
+
+ただし、より正確には **E. 戦術1、戦術2、戦術3** の中で、戦術1と2が分析可能、戦術3は不可能なので、正解は実際には選択肢に明示されていない「**戦術1と2のみ**」となるべきですが、提示された選択肢の中では **B. 戦術2のみ** が最も適切です。
 
 質問#20 トピック6
 
@@ -46,23 +67,17 @@ Microsoft 365 サブスクリプションがあり、Microsoft Defender for Endp
   
 ![](https://img.examtopics.com/sc-200/image299.png)
 
-
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image300.png)
-
 **解説:**
 Microsoft Defender for Endpoint のライブ応答セッションでは、コマンドの末尾に `&` を付けて実行することで、プロセスをバックグラウンド（ジョブ）として動作させることができます。
 
 - **jobs コマンド**: 現在バックグラウンドで実行されているすべてのジョブの一覧を表示します。各ジョブには固有の **Command ID** が割り当てられており、このリストから目的の ID を特定できます。
-    
 - **fg コマンド**: "foreground" の略です。`fg <Command ID>` と入力することで、バックグラウンドで動いているプロセスをフォアグラウンド（前面）に戻し、セッション内で直接対話（入力など）ができるようになります。
 
 質問#21 トピック6
 
-Microsoft Purview を使用する Microsoft 365 サブスクリプションがあり、Site1 という Microsoft SharePoint Online サイトが含まれています。Site1 には、次の表に示すファイルが含まれています。Microsoft  
+Microsoft Purview を使用する Microsoft 365 サブスクリプションがあり、Site1 という Microsoft SharePoint Online サイトが含まれています。Site1 には、次の表に示すファイルが含まれています。Microsoft Purview から、次の表に示すコンテンツ検索クエリを作成します。  
   
 ![](https://img.examtopics.com/sc-200/image301.png)  
-  
-Purview から、次の表に示すコンテンツ検索クエリを作成します。  
   
 ![](https://img.examtopics.com/sc-200/image302.png)  
   
@@ -72,38 +87,26 @@ Purview から、次の表に示すコンテンツ検索クエリを作成しま
   
 ![](https://img.examtopics.com/sc-200/image303.png)
 
-
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image304.png)
-
 **解説:**
 この問題のポイントは、KQL（Kusto Query Language）に基づいたコンテンツ検索クエリの構文と、論理演算の理解です。
 
 #### **1. Search1 will return File3: [いいえ]**
 
 - **クエリ:** `Author:"User1" FileExtension:xlsx`
-    
 - **条件:** 作成者が「User1」**かつ** 拡張子が「xlsx」である必要があります。
-    
 - **対象ファイル:** File3 は拡張子こそ「xlsx」ですが、作成者は「User3」です。
-    
 - **理由:** 作成者が一致しないため、検索結果には含まれません。
     
-
 #### **2. Search2 will return File1: [はい]**
 
 - **クエリ:** `Author:"User*" and FileExtension:*`
-    
 - **条件:** 作成者が「User」で始まる名前（ワイルドカード `*`）であり、**かつ** 拡張子が何であっても（ワイルドカード `*`）一致します。
-    
 - **対象ファイル:** File1 は作成者が「User1」であり「User*」に合致し、拡張子「docx」も「*」に合致するため、条件を完全に満たします。
     
-
 #### **3. Search3 will return File2: [いいえ]**
 
 - **クエリ:** `Author:("User1..3")`
-    
 - **条件:** ここで使用されている `..` は KQL の**範囲演算子（Range Operator）**です。
-    
 - **理由:** Microsoft Purview のコンテンツ検索において、範囲演算子 `..` は**日付（Date）**または**数値（Numeric）**プロパティに対してのみ使用可能です。「Author」のような**文字列（String）**プロパティには対応していません。そのため、このクエリは「User2」を範囲として認識せず、期待通りに動作しません。
 
 質問#22 トピック6
@@ -154,25 +157,20 @@ Microsoft Defender XDR と Microsoft Defender for Endpoint を使用する Micro
   
 ![](https://img.examtopics.com/sc-200/image321.png)
 
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image322.png)
-
 **解説:**
 #### **1. Device1 will block connections from Device4: [はい]**
 
 - **理由**: Device1 は「分離（Isolated）」されています。デバイスを分離すると、Microsoft Defender for Endpoint サービスとの通信（およびオプションで許可された特定のアプリ）を除き、すべてのインバウンド（受信）およびアウトバウンド（送信）のネットワーク通信がブロックされます。
-    
 - **詳細**: Device4 はネットワーク上で検出されただけのオンボードされていないデバイスであり、分離された Device1 への接続は拒否されます。
     
 #### **2. Existing connections from Device2 to Device3 will be maintained: [いいえ]**
 
 - **理由**: デバイスの分離アクションが実行されると、そのデバイスが確立している**既存のすべてのネットワーク接続も即座に切断**されます。
-    
 - **詳細**: Device2 が分離された時点で、Device3 へのポート 5555 を使用した既存の接続は維持されず、強制的に終了させられます。
     
 #### **3. The command run in the live response session will identify all the startup processes: [いいえ]**
 
 - **理由**: ライブ応答で一般的に使用される `processes` コマンドなどは、実行した瞬間に**アクティブ（稼働中）であるプロセス**を表示するものです。
-    
 - **詳細**: フォレンジックデータにあるように「起動中に実行されたプロセス」であっても、ライブ応答セッションを開始した時点で既に終了しているプロセスについては、標準的なコマンドだけで「すべての起動プロセス」を特定することはできません。起動時（過去）の挙動を調査するには、タイムライン分析や高度な捜索（Advanced Hunting）クエリ、またはイベントログの解析が必要です。
     
 ---
@@ -194,13 +192,9 @@ Microsoft Defender XDR を使用し、Device1 という名前の Windows デバ�
   
 ![](https://img.examtopics.com/sc-200/image323.png)
 
-
-**正解:** ![](https://img.examtopics.com/sc-200/image324.png)
-
 ### 正解の組み合わせ
 
 1. **Download a file from the live response library (ライブラリからファイルをダウンロード)**: `putfile`
-    
 2. **Stop a process that is running on Device1 (実行中のプロセスを停止)**: `remediate`
     
 ---
@@ -218,11 +212,8 @@ Microsoft Defender XDR を使用し、Device1 という名前の Windows デバ�
 ### その他の選択肢について
 
 - **analyze**: ファイルのエンティティ（ハッシュなど）を分析するために使用します。
-    
 - **getfile**: デバイスからファイルを「取り出す」ためのコマンドであり、ライブラリから「入れる」ものではありません。
-    
 - **library**: ライブラリに登録されているファイルの一覧を確認するコマンドです。
-    
 - **services**: デバイス上のサービス一覧を確認・操作するコマンドです。
 
 質問#25 トピック6
@@ -258,12 +249,9 @@ Microsoft Sentinel ワークスペースを所有しています。Microsoft Def
   
 ![](https://img.examtopics.com/sc-200/image326.png)
 
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image327.png)
-
 ### 正解の組み合わせ
 
 1. **Trigger (トリガー)**: `When incident is created` (インシデントの作成時)
-    
 2. **Actions (アクション)**: `Change status` (ステータスの変更)
     
 ---
@@ -272,10 +260,8 @@ Microsoft Sentinel ワークスペースを所有しています。Microsoft Def
 Microsoft Sentinel の **Fusion（融合）分析ルール** は、機械学習を使用して複数の低信頼度アラートを相関させ、高信頼度の多段階攻撃を検出します。特定のインシデントを「一時的に抑制」したい場合、インシデント自体の生成を止める（ルールを無効化する）のではなく、**「自動化ルール（Automation rule）」** を使用して管理するのがベストプラクティスです。
 
 - **Trigger: When incident is created**: Fusion ルールや Defender コネクタによってインシデントが生成された瞬間に動作を開始します。
-    
 - **Action: Change status**: インシデントのステータスを「終了（Closed）」に変更し、分類理由を「良性のポジティブ」や「抑制済み」に設定することで、SOC のアクティブなキューから効率的に取り除く（＝抑制する）ことができます。
     
-
 #### なぜ他の選択肢ではないのか？
 
 - **Trigger: When alert is created**: Sentinel の自動化ルールは、アラート単位ではなく「インシデント」単位でステータス管理を行うのが標準的です。
@@ -312,11 +298,11 @@ Sentinelで調査用のブックマーク（Bookmarks）を作成する場所で
   
 ![](https://img.examtopics.com/sc-200/image350.png)  
   
-サブスクリプションには、次の表に示すAzure Firewallのインスタンスが含まれています。Microsoft  
+サブスクリプションには、次の表に示すAzure Firewallのインスタンスが含まれています。Microsoft Copilot for Securityを使用するMicrosoft 365 E5サブスクリプションがあります。
   
 ![](https://img.examtopics.com/sc-200/image351.png)  
   
-Copilot for Securityを使用するMicrosoft 365 E5サブスクリプションがあります。次の表に示すCopilot for Securityロールの割り当てがあります。  
+次の表に示すCopilot for Securityロールの割り当てがあります。  
   
 ![](https://img.examtopics.com/sc-200/image352.png)  
   
@@ -331,36 +317,25 @@ Copilot for Securityを使用するMicrosoft 365 E5サブスクリプション�
 Microsoft Copilot for Security を使用して Azure Firewall から情報を取得（プロンプトによる照会）するには、以下の**すべての要件**を満たす必要があります。
 
 1. **Copilot for Security のロール**: 「オーナー」または「共同作成者」であること（User1, 2, 3 全員が満たしています）。
-    
 2. **Azure RBAC ロール**: 対象のリソース（Firewall や Log Analytics ワークスペース）に対する適切な閲覧権限（「閲覧者」や「セキュリティ閲覧者」など）があること。
-    
 3. **ログの形式 (Structured Logs)**: Azure Firewall の**「構造化ログ (Structured logs)」**が有効であること。非構造化ログ（従来形式）はサポートされていません。
-    
 4. **ログの転送先**: ログが **Log Analytics ワークスペース**に送信されていること。
     
 
 #### **1. User1 と AFW1 の判定: [いいえ]**
 
 - **権限**: サブスクリプションの「共同作成者」であり十分です。
-    
 - **ログ設定**: ログが **「非構造化ログ (Unstructured logs)」** です。
-    
 - **理由**: Copilot for Security の Azure Firewall プラグインは、構造化ログを必要とするため、情報を取得できません。
     
-
 #### **2. User2 と AFW2 の判定: [いいえ]**
 
 - **権限**: サブスクリプションの「共同作成者」であり十分です。
-    
 - **ログ設定**: 宛先が **「Azure Event Hubs」** です。
-    
 - **理由**: Copilot for Security は Log Analytics ワークスペースに保存されたデータをクエリします。Event Hubs はサポート対象外の宛先であるため、情報を取得できません。
     
-
 #### **3. User3 と AFW3 の判定: [はい]**
 
 - **権限**: リソースグループの「セキュリティ閲覧者」であり、対象リソースの情報を読み取るのに十分な権限です。
-    
 - **ログ設定**: **「構造化ログ (Structured IDPS logs)」** かつ **「Log Analytics」** が宛先となっています。
-    
 - **理由**: すべての要件（構造化ログ、サポートされた宛先、適切な権限）を満たしているため、プロンプトを使用して情報を取得できます。

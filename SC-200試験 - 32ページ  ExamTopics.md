@@ -32,19 +32,14 @@ Microsoft Defender for Endpoint Plan 2 を使用する Microsoft 365 サブス�
   
 ![](https://img.examtopics.com/sc-200/image282.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image442.png)
-
 **解説:**
 - **putfile コマンド**: ライブ応答ライブラリに保存されているファイルを、対象のデバイス（Device1）にダウンロード（コピー）するために使用するコマンドです。
-    
 - **& 演算子**: コマンドの末尾に `&` を付けることで、そのタスクを**バックグラウンド**で実行させることができます。今回の要件である「250 MB という比較的大きなファイルをバックグラウンドでダウンロードする」という条件を満たすために必須の記号です。
 
 ### 他の選択肢について
 
 - **collect**: フォレンジック目的でデバイスからファイルを収集するためのコマンドです。
-    
 - **getfile**: デバイスからファイルをダウンロードして分析するために使用します（今回の目的とは逆方向です）。
-    
 - **library**: ライブラリ内のファイル一覧を表示するコマンドです。
 
 質問11 トピック6
@@ -135,14 +130,11 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
   
 ![](https://img.examtopics.com/sc-200/image294.png)
 
-
-**正解:** ![](https://img.examtopics.com/sc-200/image295.png)
-
 **解説:**
 調査パッケージに含まれるフォレンジックデータの場所です。
 
 1. **Is an attacker currently remotely accessed to Device1?**: **「Network connection」**（netstatの結果など）。現在アクティブなリモート接続を確認するには、ネットワーク接続ログを見ます。
-2. **When was File1.exe first executed?**: **「Prefetch folder」**（.pfファイル）。プリフェッチファイルを確認することで、実行ファイルの初回実行日時や実行回数を確認できます。（Q7と同じ内容）
+2. **When was File1.exe first executed?**: **「Prefetch files」**（.pfファイル）。プリフェッチファイルを確認することで、実行ファイルの初回実行日時や実行回数を確認できます。（Q7と同じ内容）
 
 質問15 トピック6
 
@@ -173,11 +165,8 @@ Microsoft 365 サブスクリプションをご利用で、Microsoft Defender fo
 ### 他の選択肢について
 
 - **MsMpEng.exe**: Microsoft Defender のマルウェア対策サービス本体（スキャンエンジン）であり、直接コマンドラインから操作するツールではありません。
-    
 - **Start-MpRollback**: マルウェア対策の定義ファイルを以前のバージョンにロールバックするためのコマンドです。
-    
 - **-RemoveDefinitions**: インストールされている定義ファイルを削除するためのオプションです。
-    
 - **-ResetPlatform**: マルウェア対策プラットフォームの設定をデフォルトにリセットするために使用します。
 
 質問16 トピック6
@@ -233,6 +222,12 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
   
 インシデントの影響を受けるすべてのエンティティを特定する必要があります。Microsoft  Defender ポータルのどのタブを使用すればよいですか？
 
+- A. 調査
+- B. 資産
+- C. 証拠と応答
+- D. アラート
+
+**正解:**
 Microsoft Defender XDRでインシデントの影響を受けるすべてのエンティティを特定するには、**B. 資産(Assets)**タブを使用します。
 
 **理由:**

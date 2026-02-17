@@ -972,3 +972,30 @@ Microsoft 365 E5 サブスクリプションをお持ちです。
 **「Add the DeviceId and Timestamp columns to the project operator」**:
 カスタム検出ルールが特定のアクション（デバイス分離、ウイルススキャン、調査パッケージ収集など）をエンティティに対して実行するためには、クエリの結果セットに、そのエンティティを識別する識別子（**DeviceId**）と、イベントの時間（**Timestamp**）が含まれている必要があります。これらがマッピングされていないと、システムはどのデバイスに対していつのアクションを実行すればよいかわかりません。
 ユーザー（Account）に対するアクションならAccountUpnなどが必要です。
+
+質問#36 トピック6
+  
+contoso.com という Microsoft Entra テナントにリンクされた Azure サブスクリプション Sub1 があります。Sub1 には、Workspace1 という Log Analytics ワークスペースが含まれています。contoso.com からのすべてのログは Workspace1 にストリーミングされます。Microsoft 365 E5 サブスクリプションがあります。Workspace1 に対して、以下のクエリを実行する必要があります。  
+  
+• contoso.com の Microsoft Graph サービスへの HTTP 要求  
+• 証明書またはシークレットを使用するサードパーティ アプリのサインイン アクティビティ  
+  
+KQL クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
+  
+注: 正しい選択ごとに 1 ポイントが付与されます。  
+  
+![](https://img.examtopics.com/sc-200/image395.png)
+
+### 正解の組み合わせ
+
+1. **上のドロップダウン (Table):** `AADServicePrincipalSignInLogs`
+2. **下のドロップダウン (Join Key):** `CorrelationId`
+
+このクエリは、Microsoft Graph API へのリクエストとその実行主体（アプリケーション）の認証イベントを紐付けるためのものです。
+
+- **AADServicePrincipalSignInLogs:** 要件である「証明書またはシークレットを使用するサードパーティ アプリのサインイン アクティビティ」を調査するために使用するテーブルです。サービス プリンシパル（アプリの ID）による認証イベントがここに記録されます。
+
+  - `SigninLogs` は主にユーザーのインタラクティブなサインインを記録します。
+  - `AADNonInteractiveUserSignInLogs` はユーザーの非インタラクティブな（バックグラウンドでの）サインインを記録します。
+
+- **CorrelationId:** `MicrosoftGraphActivityLogs` テーブルの `SignInActivityId` フィールドは、サインイン ログ側の **`CorrelationId`** と一致するように設計されています。 これを結合キーとして使用することで、特定の Graph 操作がどの認証セッションに基づいて行われたかを特定できます。

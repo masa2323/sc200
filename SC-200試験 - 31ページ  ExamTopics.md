@@ -55,9 +55,6 @@ Microsoft 365 サブスクリプションを所有しています。サブスク
   
 ![](https://img.examtopics.com/sc-200/image446.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image447.png)
-
-**解説:**
 ## 回答領域 (Answer Area)
 
 |**順序**|**アクション**|
@@ -86,7 +83,6 @@ Microsoft 365 サブスクリプションを所有しています。サブスク
 最後に、実際に偽のキャッシュされた資格情報を配布する設定を行います。
 
 - **Basic lure（基本的なルアー）** を作成する際、上記で作成したデバイスグループをターゲットに指定します。
-    
 - このルアー設定の中で、攻撃者が使用した際にアラートを発生させるための偽の資格情報（ハニートークン）が自動的または手動で構成され、対象デバイスにランダムに配布されます。
 
 ## トピック6 - 質問セット6
@@ -100,8 +96,6 @@ Microsoft Exchange Online を使用する Microsoft 365 E5 サブスクリプシ
 どの 3 つのコマンドレットを順番に実行すればよいでしょうか？ 回答するには、コマンドレットのリストから適切なコマンドレットを回答エリアに移動し、正しい順序に並べ替えてください。  
   
 ![](https://img.examtopics.com/sc-200/image250.png)
-
-**正解:** ![](https://img.examtopics.com/sc-200/image251.png)
 
 **解説:**
 Exchange Online PowerShellを使用して、ユーザーが報告したフィッシングメールを調査・抽出する手順です。
@@ -124,12 +118,9 @@ WS1 という Microsoft Sentinel ワークスペースを含む Azure サブス�
   
 ![](https://img.examtopics.com/sc-200/image252.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image440.png)
-
 ## 回答エリア (Answer Area)
 
 - **Document the actions by configuring:** **Tasks**
-    
 - **Build the list of actions by selecting:** **Automated response**
     
 ---
@@ -140,7 +131,6 @@ WS1 という Microsoft Sentinel ワークスペースを含む Azure サブス�
 Microsoft Sentinel の **「インシデント タスク (Incident Tasks)」** は、アナリストが調査中に実行すべき手順をリスト化して表示するための専用機能です。
 
 - **Comments** や **Tags** は情報の付加には役立ちますが、手順の進捗管理や「アクションのリスト」としての構造化には向いていません。
-    
 - **Tasks** を使用することで、個々のアクションが完了したかどうかをチェックボックス形式で追跡できるようになります。
     
 ### 2. Build the list of actions by selecting: Automated response
@@ -148,9 +138,7 @@ Microsoft Sentinel の **「インシデント タスク (Incident Tasks)」** �
 インシデントの種類に応じて自動的にタスクを追加するには、**「自動応答 (Automated response)」**（オートメーション ルール）を構成します。
 
 - **オートメーション ルール** のアクションとして **「Add task (タスクの追加)」** を選択できます。
-    
 - 特定の分析ルール（インシデントの種類）をトリガー条件に設定することで、インシデントが生成された瞬間に、あらかじめ定義したカスタムアクションリストを自動的にインシデントへ紐付けることが可能です。
-    
 - これにより、手動で毎回リストを作成する手間が省け、管理作業を最小限に抑えることができます。
 
 質問3 トピック6
@@ -191,7 +179,7 @@ User1 がRule1、Rule2、Rule3、Rule4に一致するアクションを実行し
 - A. 1
 - B. 2
 - C. 3
-- D.4 ​
+- D. 4 ​
 
 **正解：** D [🗳️](https://www.examtopics.com/exams/microsoft/sc-200/view/31/#)  
 
@@ -227,12 +215,11 @@ User1がRule1, Rule2, Rule3, Rule4に一致するアクションを実行した�
 - C. 以前デバイス 1 にサインインしたすべてのアカウントのパスワードをリセットします。
 - D. User1 を無効にし、Device1 を隔離します。
 - E. User1 を無効にし、Device1 を隔離し、以前に Device1 にサインインしたすべてのアカウントのパスワードをリセットします。
-## 回答: **C. 以前デバイス 1 にサインインしたすべてのアカウントのパスワードをリセットします。**
+### 回答: **C以前デバイス 1 にサインインしたすべてのアカウントのパスワードをリセットします。**
 
 ### 理由:
 
 **Pass-the-Ticket攻撃の特性:**
-
 - 攻撃者がKerberos チケットを盗み、別のコンピューターで再利用する横展開攻撃
 - 盗まれたチケットは、そのチケットの有効期限が切れるまで使用可能
 - **パスワードをリセットすると、攻撃者が新しいKerberosチケットを作成できなくなる**
@@ -255,15 +242,12 @@ Workspace1 という Log Analytics ワークスペースを含む Azure サブ�
 ### 1. テーブルの選択 (MicrosoftGraphActivityLogs)
 
 - **理由:** クエリの後半にある `RequestId`、`RequestMethod`、`ResponseStatusCode` といった列は、**MicrosoftGraphActivityLogs** テーブルに固有のものです。
-    
 - **AzureActivity** はAzureリソース（VMやネットワーク等）の管理操作を記録しますが、APIリクエストのメソッドやステータスコードをこの形式で持つのはGraphログです。
-    
 - **UserRiskEvents** はリスクそのものの詳細を記録するテーブルであり、リソースへのアクセスログは含みません。
     
 ### 2. リソースパスの抽出 ((parse_url(RequestUri).Path))
 
 - **理由:** `RequestUri` 列には、`https://graph.microsoft.com/v1.0/users/...` のような完全なURLが含まれています。
-    
 - **関数の役割:** `parse_url()` 関数を使用することで、URLからパス部分（例: `/v1.0/users`）のみを抽出できます。その後の `replace_string` や `replace_regex` オペレーターは、このパスからバージョン情報やスラッシュの重複を取り除き、クリーンな **resourcePath** を作成するために使用されています。
 
 質問7 トピック6
@@ -282,9 +266,6 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
 注: 正しい選択はそれぞれ 1 ポイントです。  
   
 ![](https://img.examtopics.com/sc-200/image278.png)
-
-
-**正解:** ![](https://img.examtopics.com/sc-200/image279.png)
 
 **解説:**
 ライブ応答セッションでは、特定のコマンドを使用してデバイス上で直接操作を行うことができます。
@@ -316,8 +297,6 @@ Microsoft Defender for Endpoint を使用する Microsoft 365 E5 サブスクリ
 注: 正解は 1 点です。  
   
 ![](https://img.examtopics.com/sc-200/image280.png)
-
-**正解:** ![](https://img.examtopics.com/sc-200/image281.png)
 
 **解説:**
 ### 1. イメージ ファイル パスの特定 (Entities)

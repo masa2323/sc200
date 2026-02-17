@@ -82,8 +82,6 @@ Microsoft Copilot for Security でカスタムプロンプトブックを作成�
   
 ![](https://img.examtopics.com/sc-200/image385.png)
 
-**正解:間違っている！** ![](https://img.examtopics.com/sc-200/image386.png)
-
 **解説:**
 Microsoft Sentinel の分析ルール（Rule1）から Logic App（LApp1）を自動的に実行（トリガー）させるためには、Sentinel のサービス identity に対して、対象のプレイブックを実行するための適切な権限を与える必要があります。
 
@@ -92,9 +90,7 @@ Microsoft Sentinel の分析ルール（Rule1）から Logic App（LApp1）を�
 - **RG2 スコープの選択理由:** LApp1 はリソースグループ **RG2** に配置されています。Sentinel がプレイブックを呼び出す際、通常はプレイブックが格納されているリソースグループ全体に対して「Playbook Operator」権限を付与することが Microsoft の標準的な構成手順です。これにより、Sentinel はそのグループ内のプレイブックを正しく認識し、実行できるようになります。
     
     - `Sub1` (サブスクリプション) では広すぎます。
-        
     - `RG1` は Sentinel ワークスペース自体の場所であり、実行対象の LApp1 は含まれていません。
-        
     - 特定の `LApp1` 単体に付与することも技術的には可能ですが、Sentinel の UI 上でプレイブックを一覧から選択・管理するためには、リソースグループ単位（RG2）で権限を付与するのが一般的かつ推奨される「最小限の管理作業」を伴う構成です。
 
 質問#34 トピック6
@@ -106,11 +102,8 @@ Microsoft Defender for Endpoint にオンボードされている、オンプレ
 ### 正解のアクション順序
 
 1. **Navigate to the device page for Device1.** (Device1 のデバイス ページに移動する)
-    
 2. **Collect an investigation package.** (調査パッケージを収集する)
-    
 3. **From the Action center, invoke an action.** (アクション センターから、アクションを呼び出す)
-    
 4. **Extract the contents of the ZIP file.** (ZIP ファイルの内容を展開する)
     
 ---
@@ -151,29 +144,20 @@ Copilot for Securityのキャパシティは、次の表に示すように構成
 #### **1. User1 can add an additional capacity to Capacity1: [はい]**
 
 - **Azure 権限**: User1 は **Sub1** の **「所有者 (Owner)」** です。
-    
 - **リソースの場所**: **Capacity1** は Sub1 配下の **RG1** にあります。
-    
 - **理由**: Copilot for Security のキャパシティ（SCU）を管理（追加・増減）するには、その Azure リソースに対する「所有者」または「共同作成者」の権限が必要です。User1 はサブスクリプション レベルでこの権限を持っているため、Capacity1 を管理できます。
     
-
 #### **2. User2 can view the capacity usage information of Capacity2: [はい]**
 
 - **Azure 権限**: User2 は **Sub2** の **「閲覧者 (Reader)」** です。
-    
 - **リソースの場所**: **Capacity2** は Sub2 配下の **RG3** にあります。
-    
 - **理由**: Azure の「閲覧者」権限があれば、リソースの構成やメトリック（使用状況の情報）を表示することができます。User2 は Sub2 全体の閲覧権限を持っているため、その中にある Capacity2 の情報も確認可能です。
     
-
 #### **3. User3 can configure additional plugins in Capacity2: [いいえ]**
 
 - **Azure 権限**: User3 は **RG2** の **「所有者 (Owner)」** です。
-    
 - **リソースの場所**: **Capacity2** は **RG3** にあります。
-    
 - **理由**: User3 が持つ Azure の権限は RG2 に限定されており、**RG3 にある Capacity2 に対しては権限がありません**。
-    
 - **製品仕様の補足**: User3 は「グローバル管理者」であるため、Copilot for Security のアプリ内では「Copilot オーナー」としてプラグインを構成する権限を（理論上は）持っていますが、この設問の文脈（特定のキャパシティリソースのスコープ）や、Azure RBAC の境界（RG2 vs RG3）を問う形式では、権限の不一致により **「いいえ」** と判定されるのが一般的です。また、プラグインはテナント全体で構成するものであり、特定の「キャパシティの中」で個別に構成するものではないため、文言的にも不適切です。
 
 質問#36 トピック6
@@ -192,7 +176,6 @@ KQL クエリをどのように完了すればよいですか？回答するに�
 ### 正解の組み合わせ
 
 1. **上のドロップダウン (Table):** `AADServicePrincipalSignInLogs`
-    
 2. **下のドロップダウン (Join Key):** `CorrelationId`
 
 このクエリは、Microsoft Graph API へのリクエストとその実行主体（アプリケーション）の認証イベントを紐付けるためのものです。
@@ -200,20 +183,18 @@ KQL クエリをどのように完了すればよいですか？回答するに�
 - **AADServicePrincipalSignInLogs:** 要件である「証明書またはシークレットを使用するサードパーティ アプリのサインイン アクティビティ」を調査するために使用するテーブルです。サービス プリンシパル（アプリの ID）による認証イベントがここに記録されます。
     
     - `SigninLogs` は主にユーザーのインタラクティブなサインインを記録します。
-        
     - `AADNonInteractiveUserSignInLogs` はユーザーの非インタラクティブな（バックグラウンドでの）サインインを記録します。
         
 - **CorrelationId:** `MicrosoftGraphActivityLogs` テーブルの `SignInActivityId` フィールドは、サインイン ログ側の **`CorrelationId`** と一致するように設計されています。 これを結合キーとして使用することで、特定の Graph 操作がどの認証セッションに基づいて行われたかを特定できます。
 
 質問#37 トピック6
   
-Microsoft 365 E5 サブスクリプションがあり、Site1 という Microsoft SharePoint Online サイトが含まれています。Site1  
-  
-で、次の表に示す不審なファイルを特定します。Microsoft  
+Microsoft 365 E5 サブスクリプションがあり、Site1 という Microsoft SharePoint Online サイトが含まれています。
+Site1 で、次の表に示す不審なファイルを特定します。
   
 ![](https://img.examtopics.com/sc-200/image397.png)  
   
-Purview で、次の表に示すコンテンツ検索を作成します。  
+Microsoft Purview で、次の表に示すコンテンツ検索を作成します。  
   
 ![](https://img.examtopics.com/sc-200/image398.png)  
   
@@ -230,7 +211,6 @@ Purview で、次の表に示すコンテンツ検索を作成します。
 - **条件判定**:
     
     - `FileName=File1.docx`: 対象のファイル名と完全に一致します。
-        
     - `-ItemClass=IPM.Document`: ここでの `-` は「否定（NOT）」を意味します。`IPM.Document` は通常、Exchange（Outlook）のメッセージクラスであり、SharePoint 上のドキュメントにはこの属性は付与されません。
         
 - **結論**: ファイル名が一致し、かつ排除条件（メールアイテムではないこと）にも合致するため、File1.docx は検索結果に表示されます。
@@ -242,7 +222,6 @@ Purview で、次の表に示すコンテンツ検索を作成します。
 - **条件判定**:
     
     - `author=User2@contoso.com`: 作成者は一致します（大文字小文字は区別されません）。
-        
     - `filetype=doc`: **ここがポイントです。** * **結論**: Microsoft Purview や SharePoint の検索において、`filetype` プロパティは拡張子と厳密に照合されます。`.doc`（旧形式）と `.docx`（現在の形式）は**異なるファイルタイプ**として扱われるため、拡張子が `.docx` である File2.docx はこのクエリではヒットしません。
         
 #### **3. Search3 will return File3.docx: [いいえ]**
@@ -252,7 +231,6 @@ Purview で、次の表に示すコンテンツ検索を作成します。
 - **条件判定**:
     
     - `author=User3@contoso.com`: 作成者は一致します。
-        
     - `contenttype:item document`: SharePoint における標準的なドキュメントのコンテンツタイプ（ContentType）は、単一の単語で **「Document」** です。
         
 - **結論**: 「item document」という名称のコンテンツタイプは標準では存在せず、クエリがこの特定のフレーズを検索している場合、標準の「Document」属性を持つ File3.docx は一致しないと判定されます。
