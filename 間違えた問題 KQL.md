@@ -999,3 +999,250 @@ KQL クエリをどのように完了すればよいですか？回答するに�
   - `AADNonInteractiveUserSignInLogs` はユーザーの非インタラクティブな（バックグラウンドでの）サインインを記録します。
 
 - **CorrelationId:** `MicrosoftGraphActivityLogs` テーブルの `SignInActivityId` フィールドは、サインイン ログ側の **`CorrelationId`** と一致するように設計されています。 これを結合キーとして使用することで、特定の Graph 操作がどの認証セッションに基づいて行われたかを特定できます。
+
+質問7 トピック7
+  
+Microsoft Sentinel ワークスペースがあります。Microsoft SharePoint Online および OneDrive サイトからのデータを視覚化する予定です。  
+  
+このビジュアル用の KQL クエリを作成する必要があります。ソリューションは以下の要件を満たす必要があります。  
+  
+• すべてのワークロードを単一の操作として選択する。  
+• Operations と Users という 2 つのパラメーターを含める。  
+• 結果から、サイト URL の空値を除外する。  
+  
+クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
+  
+注: 正解は 1 点です。  
+  
+![](https://img.examtopics.com/sc-200/image288.png)
+
+## 正解
+
+### **1番目のドロップダウン（OfficeActivity テーブルのフィルタ）**
+
+選択肢：
+
+- `| where Operation in ((Operations))`
+- `| where Operation in ((Operations))`
+- `| where ("{Operations}"=="AH" or {Operations})`
+- `| where "{Operations:label}" = = "AH" or Operation in ((Operations))`
+
+**正解：`| where Operation in ((Operations))`**
+
+**理由：**
+
+- `((Operations))`はダッシュボードパラメータの構文です
+- これにより、Operationsパラメータで選択された値でフィルタリングされます
+- 「OperationsとUsersという2つのパラメーターを含める」という要件を満たします
+
+### **2番目のドロップダウン（固定フィルタ - 灰色表示）**
+
+```
+| where OfficeWorkload in ('OneDrive', 'SharePoint')
+```
+
+これは固定されており、変更できません。SharePointとOneDriveのワークロードを選択します。
+
+### **3番目のドロップダウン（Site_Url のフィルタ）**
+
+選択肢：
+
+- `| project Site_Url`
+- `| where Operation != ""`
+- `| where SiteUrl != ""`
+- `| where SiteUrl =~ ""`
+
+**正解：`| where SiteUrl != ""`**
+
+**理由：**
+
+- `!= ""`は空文字列でないことを確認します
+- 「結果から、サイトURLの空値を除外する」という要件を満たします
+- 画像では`SiteUrl`（アンダースコアなし）の選択肢が表示されているようです
+
+質問9 トピック7
+  
+Microsoft Sentinel ワークスペースに、Workbook1 というカスタム ワークブックが含まれています。Workbook1 に、ログオン イベント ID が 4624 および 4634 のアカウントのログオン回数を表示するビジュアルを作成する必要があります。  
+  
+クエリをどのように完成させるべきでしょうか？回答するには、回答領域で適切なオプションを選択してください。  
+  
+注: 正解は 1 点です。  
+  
+![](https://img.examtopics.com/sc-200/image307.png)
+
+## 正解
+
+### **1番目のドロップダウン（結合演算子）**
+
+選択肢：
+
+- `join`
+- `project`
+- `summarize`
+- `union`
+
+**正解：`join`**
+
+**理由：**
+
+- 2つの異なるSecurityEventクエリ（EventID 4624とEventID 4634）の結果を結合する必要があります
+- `join`演算子は、共通のキー（この場合はAccount）に基づいて2つのテーブルの行を結合します
+- これにより、各アカウントのログオン数とログオフ数を同じ行に表示できます
+
+### **2番目のドロップダウン（結合の種類）**
+
+選択肢：
+
+- `full`
+- `inner`
+- `left`
+- `right`
+
+**正解：`full`**
+
+**理由：**
+
+- **Full outer join**を使用すると、両方のテーブルのすべてのアカウントが結果に含まれます
+- ログオンだけがあってログオフがないアカウント、またはその逆のケースも表示されます
+- これにより、すべてのアカウントのログオンとログオフのアクティビティを完全に把握できます
+
+**他の選択肢が不適切な理由：**
+
+- `inner`：両方のイベント（4624と4634）が存在するアカウントのみを表示（データが欠ける可能性がある）
+- `left`：EventID 4624のアカウントのみを保持
+- `right`：EventID 4634のアカウントのみを保持
+
+質問18 トピック7
+  
+Azureサブスクリプションをお持ちです。Microsoft Sentinelワークブックには、以下のテキストパラメータが含まれています。  
+  
+• text1  
+• grouptime1  
+  
+セキュリティアラートの数を表示する必要があります。この数は、text1パラメータに基づいてフィルタリングし、grouptime1パラメータでグループ化する必要があります。KOL クエリをどのように入力すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
+  
+注：正解は1つにつき1ポイントです。  
+  
+![](https://img.examtopics.com/sc-200/image331.png)
+
+## 正解
+
+### **1番目のドロップダウン（where AlertName ==）**
+
+選択肢：
+
+- `{text1}`
+- `<text1>`
+- `"{text1}"`
+- `<text1>`
+
+**正解：`"{text1}"`**
+
+**理由：**
+
+- ワークブックパラメータを参照する場合、波括弧 `{}` を使用します
+- AlertNameは文字列フィールドなので、比較には引用符が必要です
+- 正しい構文：`where AlertName == "{text1}"`
+- これにより、text1パラメータの値がAlertNameフィールドと比較されます
+
+### **2番目のドロップダウン（summarize count() by bin(StartTime,）**
+
+選択肢：
+
+- `{grouptime1}`
+- `<grouptime1>`
+- `"{grouptime1}"`
+- `<grouptime1>`
+
+**正解：`{grouptime1}`**
+
+**理由：**
+
+- `bin()` 関数の時間間隔パラメータは時間値（例：1h, 1d）を期待します
+- 時間値は引用符なしで渡されます
+- 正しい構文：`bin(StartTime, {grouptime1})`
+- `{grouptime1}` は `1h`（1時間）、`1d`（1日）などの時間値に展開されます
+
+質問#25 トピック7
+
+Microsoft 365 サブスクリプションをお持ちです。  
+  
+以下の KQL クエリがあります。  
+  
+![](https://img.examtopics.com/sc-200/image339.png)  
+  
+このクエリを使用して Microsoft Defender XDR カスタム検出ルールを作成できることを確認する必要があります。  
+  
+クエリに何を追加すればよいでしょうか？
+
+- A. | 集計 (タイムスタンプ、レポート ID) = arg\_max (タイムスタンプ、レポート ID)、デバイス ID による count()
+- B. | 集計 (ReportId) = make\_set(ReportId)、デバイスIDによるcount()
+- C. | 集計 (Timestamp, DeviceName)=arg\_min(Timestamp, DeviceName)、DeviceId による count()
+- D. | 集計 (タイムスタンプ) = 範囲 (タイムスタンプ)、デバイス ID による count()
+
+正解は **A. | summarize (Timestamp, ReportId) = arg_max(Timestamp, ReportId) by DeviceId** です。 ※選択肢 A の日本語訳が少し不自然ですが、技術的には `arg_max` を使用して必要な列を抽出する構成を指しています。
+
+---
+
+### 正解の理由
+
+Microsoft Defender XDR でカスタム検出ルールを作成する場合、クエリ結果には以下の列が含まれていることが**必須要件**となります。
+
+- **Timestamp:** イベントが発生した時刻を特定するため。
+- **DeviceId:** どのアクション（隔離や分離など）をどのデバイスに対して実行するかを定義するため。
+- **ReportId:** インシデントの証拠として特定のイベントを一意に識別するため。
+
+`arg_max(Timestamp, ReportId) by DeviceId` を使用することで、各デバイスにおける最新のイベント時刻とレポート ID を抽出しつつ、カスタム検出ルールの要件を満たす形式にデータをまとめることができます。
+
+---
+
+### 他の選択肢が適さない理由
+
+- **B, C, D:** これらはいずれも `count()` や `make_set`、`range` などを使用してデータを集計・変形していますが、カスタム検出ルールに必要な「一意の ReportId とそれに関連付けられた Timestamp」を正しく、かつ最新の状態で維持して抽出する形式としては不適切です。特に `arg_min` (C) は最も古いイベントを返してしまうため、最新の脅威を検知するルールには向きません。
+
+### 💡 試験対策のポイント
+
+カスタム検出ルールの問題では、**「DeviceId と ReportId が結果に含まれているか」**が最大のチェックポイントです。これらがないと、システムは「見つけた脅威に対して、具体的にどのデバイスの、どのイベントを処理すればいいのか」がわからず、ルールとして保存できません。
+
+質問#46トピック 7
+  
+Microsoft Defender XDRを使用するMicrosoft 365サブスクリプションがあります。Microsoft Graphアクティビティログを使用して、サブスクリプション内の不審なアクティビティを調査する予定です。  
+  
+サブスクリプションからリソースを削除する要求を検索し、要求を開始したユーザーを特定する必要があります。KQL クエリをどのように完了すればよいですか？回答するには、回答領域で適切なオプションを選択してください。  
+  
+注：正しい選択ごとに1ポイントが加算されます
+![[Pasted image 20260210003923.png]]
+
+## 正解の組み合わせ
+
+1. **上部のドロップダウン**: `matches`
+2. **下部のドロップダウン**: `RequestUri`
+
+---
+
+## 解説
+
+### 1. `matches` 演算子の選択
+
+右側に `regex`（正規表現）キーワードが続いているのが大きなヒントです。
+
+- KQL において正規表現によるパターンマッチングを行うには、**`matches regex`** 演算子を使用します。
+- `contains` や `has` は単純な文字列検索やトークン検索用であり、正規表現をサポートしていません。
+- この行では、特定のユーザー ID 形式（GUID 形式）に一致する `RequestUri` をフィルタリングしています。
+
+### 2. `RequestUri` の選択
+
+`project` 句は、最終的に出力したい列（カラム）を指定するステップです。
+
+- **上部の処理を確認**: クエリの冒頭で `where RequestUri ...` とフィルタリングを行い、さらに `extend DeletedUserID = ...split(RequestUri, "/")...` として `RequestUri` から情報を抽出しています。
+- **整合性の確認**: `AccountName` や `DistinguishedName` はこのクエリの元テーブル（MicrosoftGraphActivityLogs）にはデフォルトで存在しない、あるいは `join` 先のデータに含まれるものですが、調査の文脈上「どの URI に対してリクエストが行われたか」を示す **`RequestUri`** を含めるのが標準的です。
+
+---
+
+### SC-200 試験に向けた補足メモ
+
+この問題のように、**MicrosoftGraphActivityLogs** を使った調査では以下のポイントがよく問われます：
+
+- **HTTP メソッド**: `DELETE` はリソース削除、`POST` は作成、`PATCH` は更新を意味します。
+- **正規表現の活用**: ユーザーやグループのオブジェクト ID を特定するために GUID パターンをマッチングさせることが多いです。
+- **外部データの結合**: `join kind=leftouter (IdentityInfo ...)` を使うことで、ログに含まれる ID から具体的な「ユーザー名（DisplayName）」や「UPN」を紐付けて特定しています。

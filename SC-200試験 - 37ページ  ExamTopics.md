@@ -1,10 +1,6 @@
 質問11 トピック7
 
-RG1 というリソースグループを含む Azure サブスクリプションがあります。RG1 には Microsoft Sentinel ワークスペースが含まれています。このサブスクリプションは、User1 というユーザーを含む Microsoft Entra テナントにリンクされています。User1  
-  
-が Microsoft Sentinel ブックテンプレートをデプロイおよびカスタマイズできるようにする必要があります。このソリューションは、最小権限の原則に従う必要があります。RG1  
-  
-において、User1 にどのロールを割り当てるべきでしょうか？
+RG1 というリソースグループを含む Azure サブスクリプションがあります。RG1 には Microsoft Sentinel ワークスペースが含まれています。このサブスクリプションは、User1 というユーザーを含む Microsoft Entra テナントにリンクされています。User1 が Microsoft Sentinel ブックテンプレートをデプロイおよびカスタマイズできるようにする必要があります。このソリューションは、最小権限の原則に従う必要があります。RG1 において、User1 にどのロールを割り当てるべきでしょうか？
 
 - A. Microsoft Sentinel 貢献者
 - B. ワ​​ークブック寄稿者
@@ -96,8 +92,6 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
   
 ![](https://img.examtopics.com/sc-200/image309.png)
 
-**Correct Answer:** ![](https://img.examtopics.com/sc-200/image310.png)
-
 ## 解説
 
 このクエリの目的は、過去24時間以内に5回を超える「AntivirusDetection」が発生した **DeviceId** を特定し、その集計結果の中に **ReportId** などの詳細情報を含めることです。
@@ -107,7 +101,6 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
 `summarize` 句の中で `arg_max(Timestamp, *)` のように使用すると、指定した列（ここでは `Timestamp`）が最大（最新）であるレコードから、他の列の値を取得できます。
 
 - **ReportId:** カスタム検出ルールを作成する際、`summarize` 句の結果には **ReportId** 列が含まれている必要があります。これは、検出されたイベントを特定し、アラートに関連付けるためにシステムが必要とする識別子だからです。
-    
 - 選択肢にある `InitiatingProcessAccountObjectId` や `TimeGenerated` も列として存在しますが、検出ルールの整合性と一意性を保つために `ReportId` を選択するのが標準的なプラクティスです。
     
 ### 2. クエリの構造
@@ -125,11 +118,8 @@ DeviceEvents
 このクエリは以下の処理を行っています：
 
 1. `DeviceEvents` テーブルから過去1日のデータを抽出。
-    
 2. ウイルス検出イベント（AntivirusDetection）に絞り込み。
-    
 3. `DeviceId` ごとにグループ化し、出現回数をカウント。同時に `arg_max` を使って、そのデバイスにおける最新の `Timestamp` とそれに対応する `ReportId` を取得。
-    
 4. カウントが5件を超えるデバイスのみを抽出。
 
 質問13 トピック7
@@ -159,9 +149,7 @@ Microsoft 365 サブスクリプションがあり、User1 というユーザー
   
 • User1 が Device1 にサインインします。  
 • Microsoft Defender XDR の自動攻撃阻止機能が Device1 への攻撃に対応し、User1 を阻止します。  
-• User1 が Device2 への接続を試みます。User1  
-  
-が Device2 に接続しようとしたときに、Device2 はどのプロトコルをブロックしますか？
+• User1 が Device2 への接続を試みます。User1 が Device2 に接続しようとしたときに、Device2 はどのプロトコルをブロックしますか？
 
 - A. RDPのみ
 - B. RPCのみ
@@ -183,9 +171,7 @@ Defender XDRの「Automatic Attack Disruption（自動攻撃阻止）」機能�
 
 WS1 という Microsoft Sentinel ワークスペースを含む Azure サブスクリプションがあります。WS1 には Azure アクティビティ コネクタと Microsoft Entra ID コネクタが構成されています。  
   
-アラートが最も多く発生しているアカウントと、各アラートに対応するインシデント情報を調査する必要があります。このソリューションは、管理作業を最小限に抑える必要があります。WS1  
-  
-でまず何をすべきでしょうか？
+アラートが最も多く発生しているアカウントと、各アラートに対応するインシデント情報を調査する必要があります。このソリューションは、管理作業を最小限に抑える必要があります。WS1 でまず何をすべきでしょうか？
 
 - A. ユーザーおよびエンティティの行動分析 (UEBA) を使用して異常を検出します。
 - B. ユーザーおよびエンティティ行動分析 (UEBA) を有効にします。
@@ -196,9 +182,7 @@ WS1 という Microsoft Sentinel ワークスペースを含む Azure サブス�
 Microsoft Sentinel の **UEBA (User and Entity Behavior Analytics)** を有効にすることで、個別のログ調査を手動で行う手間を大幅に削減し、エンティティ（ユーザーやホスト）中心の視点で分析が可能になります。
 
 - **アカウントとインシデントの紐付け:** UEBA を有効にすると、ユーザーに関連付けられたアラート、インシデント、および異常な動作が自動的に集計され、特定のユーザー（エンティティ）の「エンティティ ページ」で一元的に確認できるようになります。
-    
 - **管理作業の最小化:** 自分で複雑な KQL クエリを書いてアカウントごとのアラート数を集計・可視化する代わりに、UEBA が提供する組み込みの分析機能と視覚的なプロファイルを活用できます。
-    
 - **前提条件の充足:** 既に Azure アクティビティ コネクタと Microsoft Entra ID コネクタが構成されているため、UEBA が分析対象とする主要なデータ ソースは整っています。
     
 
@@ -238,9 +222,7 @@ Formatフィールドに指定する値。
 
 Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションをお持ちです。  
   
-インシデントを調査しており、  
-  
-実行されたインシデントタスクを確認する必要があります。  
+インシデントを調査しており、実行されたインシデントタスクを確認する必要があります。  
   
 インシデントページでは何が利用できますか？
 
@@ -273,9 +255,7 @@ Azureサブスクリプションをお持ちです。Microsoft Sentinelワーク
 • text1  
 • grouptime1  
   
-セキュリティアラートの数を表示する必要があります。この数は、text1パラメータに基づいてフィルタリングし、grouptime1パラメータでグループ化する必要があります。KOL  
-  
-クエリをどのように入力すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
+セキュリティアラートの数を表示する必要があります。この数は、text1パラメータに基づいてフィルタリングし、grouptime1パラメータでグループ化する必要があります。KOL クエリをどのように入力すればよいですか？回答するには、回答エリアで適切なオプションを選択してください。  
   
 注：正解は1つにつき1ポイントです。  
   
@@ -331,8 +311,6 @@ Device1 という Windows デバイスを含む Microsoft 365 サブスクリプ
   
 ![](https://img.examtopics.com/sc-200/image333.png)
 
-**Correct Answer:** ![](https://img.examtopics.com/sc-200/image334.png)
-
 **解説:**
 Live Responseで実行時間の長いスクリプトをバックグラウンドで実行し、セッションをブロックしないようにする方法。
 
@@ -345,20 +323,18 @@ Live Responseで実行時間の長いスクリプトをバックグラウンド�
 
 質問#20 トピック7
 
-HOTSPOT  
-\-  
-  
 Microsoft Exchange Online を使用する Microsoft 365 E5 サブスクリプションをご利用です。  
   
-次の表に示す不審なメールを特定しました。Microsoft  
+次の表に示す不審なメールを特定しました。
   
 ![](https://img.examtopics.com/sc-200/image335.png)  
-  
-Purview で、次の表に示すコンテンツ検索を作成します。以下  
+
+Microsoft Purview で、次の表に示すコンテンツ検索を作成します。
   
 ![](https://img.examtopics.com/sc-200/image336.png)  
   
-の各項目について、該当する場合は「はい」を選択してください。そうでない場合は「いいえ」を選択してください。  
+以下の各項目について、該当する場合は「はい」を選択してください。
+そうでない場合は「いいえ」を選択してください。  
   
 注: 正解は 1 点です。  
   
@@ -367,26 +343,18 @@ Purview で、次の表に示すコンテンツ検索を作成します。以下
 #### 1. Search1 will include Email1: **はい**
 
 - **Email1の条件:** 送信者 `prizes@contoso.com`、添付ファイル `File1.docx`。
-    
 - **Search1のクエリ:** `(filetype=docx)` かつ `(senderauthor=prizes@contoso.com)`。
-    
 - **理由:** クエリの条件（docx形式の添付ファイル、特定の送信者）がEmail1の情報と完全に一致します。
     
-
 #### 2. Search2 will include Email2: **いいえ**
 
 - **Email2の条件:** 送信者 `hrhr@contoso.com`、件名 `Update your benefits in the Contoso HR portal`。
-    
 - **Search2のクエリ:** `(-subjecttitle=benefits)` かつ `(from=hrhr@contoso.com)`。
-    
 - **理由:** クエリ内の `-` 記号は「除外（NOT）」を意味します。つまり、このクエリは「件名に **benefits を含まない**」メールを探します。Email2の件名には `benefits` が含まれているため、この検索結果からは除外されます。
     
-
 #### 3. Search3 will include Email3: **はい**
 
 - **Email3の条件:** 送信者 `benefits@contoso.com`、件名 `You have WON a free gold coin`。
-    
 - **Search3のクエリ:** `(subjecttitle=won)` かつ `(from=benefits@contoso.com)`。
-    
 - **理由:** 件名に `won` が含まれており、送信者も一致するため、Email3は検索結果に含まれます。
 

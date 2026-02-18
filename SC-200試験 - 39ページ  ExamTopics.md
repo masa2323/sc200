@@ -21,9 +21,7 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
 このソリューションの核となるのは「**カスタム検出ルール (Custom detection rule)**」ですが、Microsoft Defender XDR ポータルのワークフロー上、それを設定するためには**まずクエリを作成して実行する**必要があります。
 
 1. **ロジックの定義:** メンバーシップの変更（例：`DeviceEvents` テーブルの `LocalGroupMemberAdded` アクションなど）を特定するための KQL クエリを記述します。
-    
 2. **ルールの作成:** クエリを実行し、結果が表示された状態で初めて「**検出ルールの作成 (Create detection rule)**」ボタンがアクティブになります。
-    
 3. **スケジュールの設定:** ルールの作成画面の中で、要件にある「1時間ごと」のチェック頻度や「インシデントの作成」などのアクションを設定します。
     
 つまり、クエリ（B）がなければ、ルール（D）を作成・構成すること自体ができないため、「まず（First）」作成すべきものはクエリとなります。
@@ -32,9 +30,7 @@ Microsoft Defender XDR を使用する Microsoft 365 サブスクリプション
 ### 他の選択肢が最適ではない理由
 
 - **A. デバイスグループ:** デバイスを論理的にグループ化（タグ付けや権限管理用）するものですが、メンバーシップの監視やインシデント作成のロジックとは直接関係ありません。
-    
 - **C. アラート調整ルール (Alert tuning rules):** 既存のアラートを抑制したり、誤検知を減らしたりするための設定です。新しい検知ロジックを作成するものではありません。
-    
 - **D. 検出ルール:** 最終的なソリューションそのものですが、前述の通り、これを作成するための「入力データ」として高度なハンティングクエリを先に用意する必要があります。
 
 質問#32 トピック7
@@ -47,15 +43,12 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
   
 ![](https://img.examtopics.com/sc-200/image448.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image449.png)
-
 **解説:**
 #### 1. `union` を選択する理由
 
 今回の目的は、2 つの異なるソース（デバイスのログとドメインコントローラーのログ）から得られた**行を組み合わせて 1 つの結果セットにする**ことです。
 
 - **`union`:** 複数のテーブルから行を統合するために使用されます。今回のクエリ構造のように、一方のテーブルの結果と、括弧 `( )` 内で定義されたもう一方のテーブルの結果を連結するのに最適です。
-    
 - **`join`:** 共通のキー（ユーザー名や ID など）に基づいて、2 つのテーブルの「列」を横に結合するために使用されます。今回は「サインイン試行を一覧表示する」ことが目的であり、列を増やすことではないため不適切です。
     
 #### 2. `IdentityLogonEvents` を選択する理由
@@ -63,9 +56,7 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 要件にある「AD DS ドメインコントローラーに記録されたサインイン試行」を特定するには、Microsoft Defender for Identity がキャプチャする認証イベントを保持しているテーブルが必要です。
 
 - **`IdentityLogonEvents`:** オンプレミスの Active Directory（ドメインコントローラー経由）および Microsoft Entra ID で行われた認証アクティビティを記録します。
-    
 - **`IdentityInfo`:** ユーザーのプロファイル情報（部署、役職など）を保持するテーブルであり、個々のサインインイベントは記録されません。
-    
 - **`IdentityQueryEvents`:** Active Directory に対して行われた LDAP クエリなどの「探索」アクティビティを記録するもので、サインイン試行の特定には向きません。
     
 ---
@@ -90,7 +81,6 @@ Workspace1 という Microsoft Sentinel ワークスペースがあります。W
 **正解:**### 回答領域
 
 - **最初のドロップダウン:** **`| make-series`**
-    
 - **2 番目のドロップダウン:** **`default=0 on TimeGenerated step 1d`**
     
 ---
@@ -101,7 +91,6 @@ Workspace1 という Microsoft Sentinel ワークスペースがあります。W
 今回の要件は「各日のサインイン失敗回数」をタイムチャートで表示することです。
 
 - **`make-series`:** 指定した期間（今回は 7 日間）の時系列データを生成します。最大の特徴は、**データが存在しない期間に対しても、指定したデフォルト値（0など）を補完して連続した系列を作成できる**点です。
-    
 - **`summarize`:** データを集計しますが、特定の日に失敗が 1 件もなかった場合、その日の行自体が生成されません。その結果、タイムチャートに「穴」が開いてしまい、要件である「各日の回数を含める」を正確に満たせなくなります。
     
 #### 2. `default=0 on TimeGenerated step 1d` を選択する理由
@@ -109,9 +98,7 @@ Workspace1 という Microsoft Sentinel ワークスペースがあります。W
 `make-series` 演算子を使用する場合の標準的な構文です。
 
 - **`default=0`:** ログが存在しない時間帯のカウントを 0 として扱います。
-    
 - **`on TimeGenerated`:** どの列を時間軸として使用するかを指定します。
-    
 - **`step 1d`:** グラフの粒度（ビン）を 1 日単位に設定します。
     
 ---
@@ -121,9 +108,7 @@ SC-200 の試験で **「タイムチャート (timechart)」** や **「デー�
 
 質問#34 トピック7
   
-Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあります。Azure  
-  
-サブスクリプションには、Workspace1 という Log Analytics ワークスペースが含まれています。  
+Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションがあります。Azure サブスクリプションには、Workspace1 という Log Analytics ワークスペースが含まれています。  
   
 すべてのログを Workspace1 に転送しています。  
   
@@ -135,7 +120,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 ### 回答領域
 
 - **最初のドロップダウン (テーブル名):** **`MicrosoftGraphActivityLogs`**
-    
 - **2 番目のドロップダウン (RequestMethod):** **`GET`**
     
 ---
@@ -146,9 +130,7 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 今回の要件は、Microsoft Entra（旧 Azure AD）グループへの「変更要求」を特定することです。
 
 - **`MicrosoftGraphActivityLogs`**: Microsoft Graph API に対して行われたすべての HTTP リクエストの詳細（URI、メソッド、実行したアプリ、ユーザー、サービスプリンシパルなど）を記録するテーブルです。クエリ内の `RequestUri` や `RequestMethod` といった列は、このテーブルの標準的なスキーマです。
-    
 - `EnrichedMicrosoft365AuditLogs` は主に監査イベントの結果を扱いますが、API レベルの生の要求（Request）を詳細に追跡するには Graph アクティビティログが適しています。
-    
 - `SecurityEvent` は Windows のイベントログを扱うため、Entra ID の API 操作の特定には使用しません。
     
 #### 2. `GET` を選択する理由
@@ -156,7 +138,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 要件にある「グループの**変更**」を特定するには、参照のみの操作を除外する必要があります。
 
 - **`GET`**: データの取得（読み取り）に使用されるメソッドです。これを除外（`!=`）することで、`POST`（作成）、`PUT` / `PATCH`（更新）、`DELETE`（削除）といった、リソースに対して**何らかの変更を加える操作**だけを抽出できます。
-    
 - `POST` や `PUT` を除外してしまうと、肝心の変更操作そのものが結果から消えてしまうため不適切です。
     
 ---
@@ -165,9 +146,7 @@ Microsoft Sentinel や Defender XDR において、**Microsoft Graph アクテ�
 
 質問#35 トピック7
 
-Microsoft Defender XDR、Microsoft Purview、Exchange Online を利用する Microsoft 365 サブスクリプションをご利用です。Contoso 社というパートナー企業から、  
-  
-過去 1 か月間に受信した PDF 添付ファイルを含むすべてのメールを確認する必要があります。管理作業を最小限に抑えるソリューションが必要です。  
+Microsoft Defender XDR、Microsoft Purview、Exchange Online を利用する Microsoft 365 サブスクリプションをご利用です。Contoso 社というパートナー企業から、過去 1 か月間に受信した PDF 添付ファイルを含むすべてのメールを確認する必要があります。管理作業を最小限に抑えるソリューションが必要です。  
   
 どのようなソリューションを使用すべきでしょうか？
 
@@ -262,14 +241,12 @@ Defender for Endpointの設定で、「Automated Investigation（自動調査）
 
 質問#39 トピック7
   
-Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションをご利用です。KQL  
-  
-で以下の要件を満たすハンティングクエリを作成する必要があります。  
+Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプションをご利用です。KQL で以下の要件を満たすハンティングクエリを作成する必要があります。  
   
 • 過去 12 時間以内に File1.pdf という添付ファイルを含むメールを受信し、その添付ファイルを開いたデバイスを特定します。  
-• クエリの実行に必要なリソースを最小限に抑えます  
-  
-。クエリはどのように完成させるべきですか？回答するには、回答エリアで適切なオプションを選択してください。  
+• クエリの実行に必要なリソースを最小限に抑えます。
+
+クエリはどのように完成させるべきですか？回答するには、回答エリアで適切なオプションを選択してください。  
   
 注: 正解は 1 点です。  
   
@@ -277,7 +254,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 ### 回答領域
 
 1. **最初のドロップダウン (join kind):** **`innerunique`**
-    
 2. **2 番目のドロップダウン (join key):** **`SHA256`**
     
 ---
@@ -288,7 +264,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 要件にある「**クエリの実行に必要なリソースを最小限に抑える**」を満たすために最適な結合の種類です。
 
 - **パフォーマンスの最適化:** KQL において `innerunique` は結合操作のデフォルトであり、左側のテーブル（`EmailAttachmentInfo`）のキーを重複排除してから結合します。これにより、メモリ消費と処理時間を削減できるため、リソースを最小限に抑えることができます。
-    
 - **要件の充足:** 今回の目的は「デバイスを特定する」ことであり、1 つの悪意のあるファイルに対してデバイスごとの一致が確認できればよいため、重複排除を行う `innerunique` が効率的です。
     
 #### 2. `SHA256` を選択する理由
@@ -300,7 +275,6 @@ Microsoft Defender XDR を使用する Microsoft 365 E5 サブスクリプショ
 - **他の列が不適切な理由:**
     
     - `FilePath`: メール添付時のテンポラリパスと、デバイスで保存・展開されたパスは通常異なるため、結合には向きません。
-        
     - `FileOriginUrl`: メールからのダウンロード時に必ずしも一貫して記録されるわけではなく、相関キーとしては不十分です。
         
 ---
@@ -342,55 +316,44 @@ Microsoft Sentinel ワークスペースがあります。KQL クエリがあり
 ### **Data source（データソース）の選択肢**
 
 #### ❌ **Azure Data Explorer**
-
 - 独立したデータ分析サービス
 - Microsoft SentinelのSecurityIncidentテーブルには使用しない
 
 #### ❌ **Azure Resource Graph**
-
 - Azureリソースのメタデータをクエリするサービス
 - セキュリティインシデントデータには使用しない
 
 #### ❌ **Azure Resource Manager**
-
 - Azureリソースのデプロイと管理のサービス
 - ログデータのクエリには使用しない
 
 #### ✅ **Logs (Analytics)**
-
 - Log Analyticsワークスペースのログデータにアクセス
 - SecurityIncidentテーブルはLog Analyticsにある
 - KQLクエリを実行するための正しいデータソース
 
 #### ❌ **Logs (Basic)**
-
 - Basic Logsは低コストのログ取り込み層
 - SecurityIncidentテーブルは通常のAnalytics層にある
 
 ### **Resource type（リソースの種類）の選択肢**
-
 #### ❌ **Application Insights**
-
 - アプリケーションパフォーマンス監視サービス
 - Microsoft Sentinelインシデントには使用しない
 
 #### ✅ **Log Analytics**
-
 - Microsoft SentinelはLog Analyticsワークスペース上に構築される
 - SecurityIncidentテーブルはLog Analyticsワークスペースに格納される
 - KQLクエリはLog Analyticsで実行される
 
 #### ❌ **Microsoft Sentinel**
-
 - これはリソースタイプの選択肢として表示されるが、実際のワークブックでは「Log Analytics」を選択する
 - Microsoft SentinelはLog Analyticsの上位レイヤー
 
 #### ❌ **Security Alert**
-
 - これはテーブル名であり、リソースタイプではない
 
 #### ❌ **Workspace**
-
 - 一般的な用語だが、正しいリソースタイプは「Log Analytics」
 
 ## SecurityIncidentテーブルとLog Analyticsの関係
