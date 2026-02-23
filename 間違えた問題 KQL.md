@@ -7,9 +7,6 @@ Microsoft 365 E5 サブスクリプションをご利用です。Microsoft 365 D
 ホットエリア:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0001800001.png)  
 
-**正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0001900001.png) 参照:  
-<https://docs.microsoft.com/en-us/microsoft-365/security/mtp/advanced-hunting-query-emails-devices?view=o365-worldwide>
-
 **解説:**
 このクエリは、「メールのデータ」と「デバイス上のファイル操作データ」という 2 つの異なるドメインを結合して調査する、クロスドメインクエリの典型的な構成です。
 
@@ -84,6 +81,7 @@ Microsoft Defender 365 を使用する Microsoft 365 E5 サブスクリプショ
 - 構文として `| where isnotempty(AccountSid)` とすることで、「実行したユーザーの SID が記録されている（＝匿名ではない特定のユーザーによる）クエリ」に絞り込むことができます。
 
   - _contains_ や _has_ は「特定の文字列が含まれているか」を検索する**演算子**です。これらを使用する場合は `| where AccountSid contains "S-1-5-..."` のように比較対象の文字列が必要ですが、今回の構文 `| where [ ] (AccountSid)` は関数を呼び出す形式になっているため、`isnotempty` が適切です。
+
 質問#46 トピック1
 
 次のKQLクエリを含むカスタム検出ルールがあります。  
@@ -242,7 +240,6 @@ kusto
 ### 第2のドロップダウン（最終出力）
 
 **選択肢**:
-
 - `| distinct DeviceId`
 - `| distinct DeviceId, ReportId`
 - `| project Timestamp, DeviceId, ReportId` ✓
@@ -251,7 +248,6 @@ kusto
 **正解: `| project Timestamp, DeviceId, ReportId`**
 
 **理由**:
-
 - 検出ルールには、アラートの詳細情報が必要です
 - `Timestamp`: いつデバイスがアクティブだったか
 - `DeviceId`: どのデバイスか
@@ -260,8 +256,6 @@ kusto
 - 最初の `distinct DeviceId` で既に重複は排除されているため、ここでは必要な列を選択するだけです
 
 ### 完成したクエリ
-
-kusto
 
 ```kusto
 DeviceTvmSoftwareVulnerabilities
@@ -273,7 +267,6 @@ DeviceTvmSoftwareVulnerabilities
 ```
 
 このクエリは:
-
 1. ✓ 重大な脆弱性を持つデバイスを識別
 2. ✓ デバイスごとに1回だけ表示（重複排除）
 3. ✓ 過去1時間以内にアクティブだったデバイスのみ
@@ -348,6 +341,8 @@ Microsoft Learn のドキュメントによると:
 
 - **データコネクタ**: データソースをSentinelに接続するためのもの(ログの収集)
 - **スケジュールされたクエリルール**: **Analyticsルール**として作成し、検出されたイベントからアラートとインシデントを生成
+
+質問#35 トピック3
 
 Azure Security Center によって生成されたセキュリティアラートを視覚的に表示するカスタム Azure Sentinel クエリを作成する予定です。  
 棒グラフを表示するためのクエリを作成する必要があります。  
