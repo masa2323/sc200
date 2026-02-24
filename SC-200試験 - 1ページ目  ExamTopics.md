@@ -2,7 +2,6 @@
 
 質問1 トピック1
 
-ドラッグ＆ドロップ -  
 Microsoft 365 Defender を使用してインシデントを調査しています。CFOLaptop、CEOLaptop、COOLaptop という 3 つのデバイスで失敗したサインイン認証をカウントする高度なハンティングクエリを作成する必要があります。  
 クエリをどのように完成させるか？回答するには、回答エリアで適切なオプションを選択してください。  
 注: 正しい選択肢は 1 つにつき 1 ポイントです。  
@@ -129,9 +128,6 @@ Microsoft Defender の設定を変更する際、以下の 2 つのコマンド�
 選択して配置:  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0001600001.png)  
 
-**正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0001700001.png) 参照:  
-<https://docs.microsoft.com/en-us/cloud-app-security/governance-discovery>
-
 **解説:**
 Microsoft Defender for Endpointが統合されていない環境で、Cloud App Security (Defender for Cloud Apps) を使用して特定アプリ（Launchpad）をブロックする手順は以下の通りです。
 
@@ -171,8 +167,7 @@ Microsoft 365 E5 サブスクリプションをご利用です。Microsoft 365 D
 
 Microsoft 365 Defender で、次のような高度なハンティングクエリがあります。  
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0002000001.png)  
-過去 24 時間以内に、Microsoft Defender で管理されているデバイスで、何らかのプロセスによってシステムの復元が無効化された場合にアラートを受信する  
-必要があります。実行すべき 2 つのアクションはどれですか？ 正解はそれぞれ、解決策の一部を示しています。  
+過去 24 時間以内に、Microsoft Defender で管理されているデバイスで、何らかのプロセスによってシステムの復元が無効化された場合にアラートを受信する必要があります。実行すべき 2 つのアクションはどれですか？ 正解はそれぞれ、解決策の一部を示しています。  
 注: 正解はそれぞれ 1 ポイントです。  
 
 - A. 検出ルールを作成します。

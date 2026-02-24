@@ -34,14 +34,11 @@ Microsoft Defender 365 を使用する Microsoft 365 E5 サブスクリプショ
 - **DeviceLogonEvents:** Microsoft Defender for Endpoint がインストールされた**デバイス（エンドポイント）**上でのローカルログオンやネットワークログオンを記録します（すでにクエリの最初に記載されています）。
     
 - **IdentityLogonEvents:** Microsoft Defender for Identity が監視している **Active Directory ドメインコントローラー (AD DS)** 上でのログオンアクティビティを記録します。問題文の「AD DS ドメイン コントローラーに記録された」という要件を満たすには、このテーブルが必要です。
-    
     - _IdentityInfo_ はユーザーの属性情報（部署やタイトルなど）、_IdentityQueryEvents_ は LDAP クエリなどの情報を扱うため、サインイン試行の特定には適しません。
         
-
 2. 演算子の選択: `union`
 
 - **union:** 2つ以上のテーブルの結果（行）を**統合して1つのリスト**にするために使用します。今回は「デバイスのログ 100 件」と「ドメインコントローラーのログ 100 件」を合わせて表示したいため、`union` が適切です。
-    
 - **join:** 2つのテーブルを共通の列（AccountSid など）で結合し、1つの行に情報を横に並べるために使用します。今回の「ログを列挙する」という目的には適しません。
 
 質問#44 トピック1
@@ -60,18 +57,13 @@ Microsoft Defender 365 を使用する Microsoft 365 E5 サブスクリプショ
 1. テーブルの選択: `IdentityQueryEvents`
 
 - **IdentityQueryEvents:** Active Directory に対して行われた **LDAP 要求**、DNS クエリ、Samr クエリなどの「クエリ（照会）」アクティビティを記録するテーブルです。問題文にある「LDAP 要求を識別し、AD DS オブジェクトを列挙する」という目的に直接合致するのはこのテーブルです。
-    
 - _IdentityDirectoryEvents:_ グループ メンバーシップの変更やパスワード変更など、ディレクトリ オブジェクトの「変更」に関連するイベントを記録します。
-    
 - _IdentityInfo:_ ユーザーの部署、役職、グループ所属などの「属性情報（メタデータ）」を保持するテーブルであり、アクティビティのログではありません。
     
-
 2. 関数の選択: `isnotempty`
 
 - **isnotempty:** 指定された列（この場合は `AccountSid`）に値が入っている（空ではない）行のみを抽出します。
-    
 - 構文として `| where isnotempty(AccountSid)` とすることで、「実行したユーザーの SID が記録されている（＝匿名ではない特定のユーザーによる）クエリ」に絞り込むことができます。
-    
     - _contains_ や _has_ は「特定の文字列が含まれているか」を検索する**演算子**です。これらを使用する場合は `| where AccountSid contains "S-1-5-..."` のように比較対象の文字列が必要ですが、今回の構文 `| where [ ] (AccountSid)` は関数を呼び出す形式になっているため、`isnotempty` が適切です。
 
 質問#45 トピック1

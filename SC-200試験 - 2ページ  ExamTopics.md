@@ -64,16 +64,13 @@ Microsoft Defender for Office 365 に「安全な添付ファイル」ポリシ�
 `MaliciousEmails` という変数にメールの情報を格納しています。
 
 - **理由**: フィルタ条件として `MalwareFilterVerdict == "Malware"`（マルウェア検知結果）が指定されています。この列は、メールの配信やフィルタリング結果を記録する **`EmailEvents`** テーブルに含まれます。
-    
 - 補足: `EmailAttachmentInfo` は添付ファイルの詳細、`IdentityLogonEvents` はサインイン情報なので、メール自体のフィルタリング結果を追うには適しません。
     
-
 2. サインイン情報の結合: `IdentityLogonEvents`
 
 `join` 句の中で、メール受信者のその後の行動を確認するためのテーブルを指定します。
 
 - **理由**: 後続の `project` 行で `LogonTime` や `DeviceName` を取得しようとしていることから、デバイスへのサインイン（ログオン）履歴を保持する **`IdentityLogonEvents`** が正解となります。
-    
 
 3. 直近レコードの抽出: `top 20`
 
@@ -82,9 +79,7 @@ Microsoft Defender for Office 365 に「安全な添付ファイル」ポリシ�
 - **理由**: 要件は「直近（most recent）20 件」です。
     
     - **`top 20`**: 指定した列（`LogonTime desc`）で並べ替えた上で上位 20 件を取得するため、「直近の 20 件」を正確に返します。
-        
     - `take 20`: 並べ替えに関係なく任意の 20 件を返すため、今回の要件には適しません。
-        
     - `select 20`: KQL にはこの用途の演算子は存在しません。
 
 質問15 トピック1
@@ -149,7 +144,6 @@ Microsoft Defender を使用する Microsoft 365 E5 サブスクリプション�
 メールのデータ（左側）とデバイスのファイルイベント（右側）を紐付けるための「共通の鍵」を指定します。
 
 - **`EmailAttachmentInfo`**: メールの添付ファイルが持つハッシュ値を保持。
-    
 - **`DeviceFileEvents`**: デバイス上で作成・修正されたファイルのハッシュ値を保持。 問題文の要件通り、これらを一致させるために **`SHA256`** を指定します。
 
 質問18 トピック1
