@@ -10,8 +10,6 @@ Microsoft Purview を使用する Microsoft 365 E5 サブスクリプション�
   
 ![](https://img.examtopics.com/sc-200/image192.png)
 
-**正解:** ![](https://img.examtopics.com/sc-200/image414.png)
-
 **解説:**
 この問題のポイントは、**「共有されたファイルがどこに保存されているか」**と**「どのアクティビティが記録されるか」**を正しく判断することです。
 

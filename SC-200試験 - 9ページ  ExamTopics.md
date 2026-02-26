@@ -46,8 +46,6 @@ Policyの割り当ては、Policiesの図に示されているように構成さ
 
 ![](https://www.examtopics.com/assets/media/exam-media/04261/0007200001.png)  
 
-**正解:** ![](https://www.examtopics.com/assets/media/exam-media/04261/0007200002.png) 
-
 **解説:**
 ご提示いただいた画像の情報に基づき、各ステートメントの正誤を以下に回答します。
 
